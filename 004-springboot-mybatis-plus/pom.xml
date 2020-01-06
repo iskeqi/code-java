@@ -7,6 +7,10 @@
     <groupId>com.keqi</groupId>
     <artifactId>springboot-mybatis-plus</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
+    <modules>
+        <module>springboot-mybatisplus-mysql</module>
+    </modules>
 
 </project>

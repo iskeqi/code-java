@@ -1,13 +1,13 @@
-package com.keqi.springbootmph2;
+package com.keqi.springbootmybatisplusmysql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootMpH2Application {
+public class SpringbootMybatisplusMysqlApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootMpH2Application.class, args);
+		SpringApplication.run(SpringbootMybatisplusMysqlApplication.class, args);
 	}
 
 }
