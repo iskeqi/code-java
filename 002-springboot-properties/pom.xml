@@ -7,6 +7,7 @@
     <groupId>com.keqi</groupId>
     <artifactId>springboot-properties</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>springboot-profile</module>

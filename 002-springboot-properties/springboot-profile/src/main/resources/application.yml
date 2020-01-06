@@ -1,0 +1,10 @@
+# \u914D\u7F6E\u539F\u5219\uFF1A\u5404\u4E2A\u73AF\u5883\u4E2D\u90FD\u76F8\u540C\u7684\u914D\u7F6E\u5C31\u914D\u7F6E\u5728\u8FD9\u91CC\uFF0C\u6BD4\u5982port\uFF0Ccontent-path\u7B49
+
+server:
+  port: 8789
+  servlet:
+    context-path: /springboot-profile
+
+spring:
+  profiles:
+    active: dev

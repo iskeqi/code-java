@@ -10,4 +10,5 @@ public class SpringbootProfileApplication {
 		SpringApplication.run(SpringbootProfileApplication.class, args);
 	}
 
+
 }
