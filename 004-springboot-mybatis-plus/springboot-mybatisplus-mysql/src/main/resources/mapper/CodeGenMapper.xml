@@ -14,7 +14,7 @@
     </resultMap>
 
     <select id="selectByUsername" resultMap="CodeGenMap">
-        select *
+        select id, username, age, weight, create_time, update_time, create_by, update_by
         from t_code_gen
         where username = #{username}
     </select>

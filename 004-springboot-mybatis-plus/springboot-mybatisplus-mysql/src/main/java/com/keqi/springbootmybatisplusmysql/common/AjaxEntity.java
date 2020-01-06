@@ -57,7 +57,7 @@ public class AjaxEntity {
 	 *
 	 * @return ajaxEntity
 	 */
-	public static AjaxEntity list(int total, List<?> records) {
+	public static AjaxEntity list(long total, List<?> records) {
 		Map<String, Object> retMap = new HashMap<>();
 		retMap.put("total", total);
 		retMap.put("records", records);
