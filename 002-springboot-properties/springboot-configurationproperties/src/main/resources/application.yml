@@ -1,0 +1,28 @@
+# \u6700\u5E38\u89C1\u7684key-value\u7684\u5C5E\u6027\u914D\u7F6E\u65B9\u5F0F(\u5B57\u7B26\u4E32\u3001\u6570\u7EC4\u3001\u5E03\u5C14\u7C7B\u578B)
+customer:
+  username: keqi
+  password: 123456
+  enable: true
+
+# \u6570\u7EC4\u7684\u4E24\u79CD\u914D\u7F6E\u65B9\u5F0F
+pets:
+  - cat
+  - dog
+  - pig
+
+language: [english, chinese, japanese]
+
+# Map\u7684\u4E24\u79CD\u914D\u7F6E\u65B9\u5F0F
+
+friends:
+  lastNmae: zhangsan
+  age: 20
+
+fri: {lastName: zhagnsan, age: 20}
+
+# \u968F\u673A\u6570\u7684\u4F7F\u7528
+flag: ${random.int}
+uuid: ${random.uuid}
+
+
+

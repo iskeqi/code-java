@@ -8,5 +8,13 @@
     <artifactId>springboot-properties</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>springboot-profile</module>
+        <module>springboot-propertysource-yml</module>
+        <module>springboot-propertysource</module>
+        <module>springboot-configurationproperties</module>
+        <module>springboot-environment</module>
+        <module>springboot-value</module>
+    </modules>
 
 </project>

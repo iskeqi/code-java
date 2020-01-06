@@ -1,0 +1,4 @@
+config2:
+  customer:
+    username: keqi_config
+    password: 123456_config
