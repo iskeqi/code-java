@@ -16,3 +16,7 @@ mybatis-plus:
   # spring boot集成mybatis的方式打印sql
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  file:
+    name: log/springboot-mybatisplus-mysql.log
