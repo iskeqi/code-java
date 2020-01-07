@@ -9,11 +9,10 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-
 mybatis-plus:
   # 指定mapper.xml文件所在位置
   mapper-locations: classpath:/mapper/**/*Mapper.xml
-  # spring boot集成mybatis的方式打印sql
+  # mybatis打印sql(配合MyBatis Log Plugin可以在控制台查看格式化并且填充了占位符的SQL语句)
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
