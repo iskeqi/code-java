@@ -9,9 +9,9 @@ import com.keqi.springbootmybatisplusmysql.domain.CodeGenVO;
 import com.keqi.springbootmybatisplusmysql.mapper.CodeGenMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,17 +25,23 @@ public class CodeGenController {
 
 	/**
 	 * 增加
+	 *
 	 * @param codeGenDO codeGenDO
 	 * @return ajaxEntity
 	 */
 	@PostMapping("/add")
 	public AjaxEntity addCodeGen(CodeGenDO codeGenDO) {
-		codeGenMapper.insert(codeGenDO);
+		codeGenMapper.insert(
+				codeGenDO
+						.setCreateTime(LocalDateTime.now())
+						.setUpdateTime(LocalDateTime.now())
+		);
 		return AjaxEntity.success();
 	}
 
 	/**
 	 * 批量删除
+	 *
 	 * @param ids ids
 	 * @return ajaxEntity
 	 */
@@ -48,6 +54,7 @@ public class CodeGenController {
 
 	/**
 	 * 修改
+	 *
 	 * @param codeGenDO codeGenDO
 	 * @return ajaxEntity
 	 */
@@ -59,6 +66,7 @@ public class CodeGenController {
 
 	/**
 	 * 查询单个
+	 *
 	 * @param id id
 	 * @return ajaxEntity
 	 */
@@ -66,22 +74,24 @@ public class CodeGenController {
 	public AjaxEntity getCodeGen(@PathVariable Long id) {
 		CodeGenDO codeGenDO = codeGenMapper.selectById(id);
 		CodeGenVO codeGenVO = new CodeGenVO();
-		BeanUtil.copyProperties(codeGenDO,codeGenVO);
+		BeanUtil.copyProperties(codeGenDO, codeGenVO);
 		return AjaxEntity.success(codeGenVO);
 	}
 
 	/**
 	 * 查询列表
+	 *
 	 * @param codeGenVO codeGenVO
-	 * @param current 页数
-	 * @param size 大小
+	 * @param current   页数
+	 * @param size      大小
 	 * @return list
 	 */
 	@PostMapping("/list")
 	public AjaxEntity listCodeGen(CodeGenVO codeGenVO, long current, long size) {
 
 		LambdaQueryWrapper<CodeGenDO> lambdaQueryWrapper = new LambdaQueryWrapper<CodeGenDO>()
-				.ge(CodeGenDO::getAge, codeGenVO.getAge());
+				.ge(CodeGenDO::getAge, codeGenVO.getAge())
+				.orderByDesc(CodeGenDO::getUpdateTime);
 
 		Page<CodeGenDO> codeGenDOPage = codeGenMapper.selectPage(new Page<>(current, size), lambdaQueryWrapper);
 
