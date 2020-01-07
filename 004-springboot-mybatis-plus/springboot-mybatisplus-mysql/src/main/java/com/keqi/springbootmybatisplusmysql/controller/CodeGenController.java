@@ -36,7 +36,7 @@ public class CodeGenController {
 						.setCreateTime(LocalDateTime.now())
 						.setUpdateTime(LocalDateTime.now())
 		);
-		return AjaxEntity.success();
+		return AjaxEntity.success("id", codeGenDO.getId());
 	}
 
 	/**

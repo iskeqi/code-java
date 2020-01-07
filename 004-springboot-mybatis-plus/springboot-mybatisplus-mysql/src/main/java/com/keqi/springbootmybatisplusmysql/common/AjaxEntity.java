@@ -53,6 +53,18 @@ public class AjaxEntity {
 	}
 
 	/**
+	 * 只有一个返回值，但是又不想封装成对象来用
+	 *
+	 * @return ajaxEntity
+	 */
+	public static AjaxEntity success(String key, Object value) {
+		Map<String, Object> ret = new HashMap<>();
+		ret.put(key, value);
+		return AjaxEntity.builder().status(successCode)
+				.msg(successMsg).body(ret).build();
+	}
+
+	/**
 	 * 返回列表
 	 *
 	 * @return ajaxEntity
