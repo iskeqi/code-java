@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @TableName(value = "t_code_gen")
 public class CodeGenDO {
 
+	// 设置主键策略为数据库ID自增
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
