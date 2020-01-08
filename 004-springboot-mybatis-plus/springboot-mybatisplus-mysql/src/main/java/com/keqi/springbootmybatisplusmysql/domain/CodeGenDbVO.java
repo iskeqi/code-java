@@ -2,10 +2,11 @@ package com.keqi.springbootmybatisplusmysql.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data
-public class CodeGenVO {
+public class CodeGenDbVO {
 
 	private Long id;
 

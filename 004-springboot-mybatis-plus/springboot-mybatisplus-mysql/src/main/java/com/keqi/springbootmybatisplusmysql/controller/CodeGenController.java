@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,11 +30,7 @@ public class CodeGenController {
 	 */
 	@PostMapping("/add")
 	public AjaxEntity addCodeGen(CodeGenDO codeGenDO) {
-		codeGenMapper.insert(
-				codeGenDO
-						.setCreateTime(LocalDateTime.now())
-						.setUpdateTime(LocalDateTime.now())
-		);
+		codeGenMapper.insert(codeGenDO);
 		return AjaxEntity.success("id", codeGenDO.getId());
 	}
 
