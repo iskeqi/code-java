@@ -28,7 +28,7 @@ public class CodeGenController {
 	 * @param codeGenDO codeGenDO
 	 * @return ajaxEntity
 	 */
-	@PostMapping("/add")
+	@PostMapping("/save")
 	public AjaxEntity addCodeGen(CodeGenDO codeGenDO) {
 		codeGenMapper.insert(codeGenDO);
 		return AjaxEntity.success("id", codeGenDO.getId());
@@ -40,7 +40,7 @@ public class CodeGenController {
 	 * @param ids ids
 	 * @return ajaxEntity
 	 */
-	@PostMapping("/delete")
+	@PostMapping("/remove")
 	@Transactional
 	public AjaxEntity deleteCodeGen(@RequestBody Integer[] ids) {
 		codeGenMapper.deleteBatchIds(Arrays.asList(ids));
