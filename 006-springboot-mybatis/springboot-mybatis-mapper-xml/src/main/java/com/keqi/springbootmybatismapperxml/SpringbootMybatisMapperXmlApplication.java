@@ -1,17 +1,17 @@
-package com.keqi.springbootmybatis;
+package com.keqi.springbootmybatismapperxml;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@SpringBootApplication
 @MapperScan("com.keqi.**.mapper")
 @EnableTransactionManagement // 其实这个注解不写也可以
-@SpringBootApplication
-public class SpringbootMybatisApplication {
+public class SpringbootMybatisMapperXmlApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootMybatisApplication.class, args);
+		SpringApplication.run(SpringbootMybatisMapperXmlApplication.class, args);
 	}
 
 }

@@ -11,6 +11,7 @@
 
     <modules>
         <module>springboot-mybatis-transaction</module>
+        <module>springboot-mybatis-mapper-xml</module>
     </modules>
 
 </project>
