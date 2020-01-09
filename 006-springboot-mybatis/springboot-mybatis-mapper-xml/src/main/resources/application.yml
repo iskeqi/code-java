@@ -15,4 +15,4 @@ mybatis:
 
 logging:
   file:
-    name: logs/springboot-mybatis-mysql.log
+    name: logs/springboot-mybatis-mapper-xml.log

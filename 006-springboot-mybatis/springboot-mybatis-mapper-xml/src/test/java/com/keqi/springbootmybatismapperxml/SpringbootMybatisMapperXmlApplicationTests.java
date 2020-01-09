@@ -38,5 +38,11 @@ class SpringbootMybatisMapperXmlApplicationTests {
 		System.out.println(user);
 	}
 
+	@Test
+	void selectUserByUsername() {
+		User user = userMapper.selectUserByUsername("keqi");
+		System.out.println(user);
+	}
+
 }
 

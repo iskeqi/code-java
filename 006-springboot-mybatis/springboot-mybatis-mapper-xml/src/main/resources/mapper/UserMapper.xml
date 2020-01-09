@@ -4,6 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.keqi.springbootmybatismapperxml.mapper.UserMapper">
 
+    <resultMap id="UserMap" type="com.keqi.springbootmybatismapperxml.domain.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+    </resultMap>
+
+
+    <!--
+        <sql/>标签中定义的sql代码段能够被重用，其它语句中可以通过<include/>标签引入，这个功能还是很有用的，可以避免
+        重复些一样的SQL片段，比如把一个表中的所有字段都定义在这里面，其它地方只需要引入即可，非常的省事。但是也不要滥用！
+    -->
+    <sql id="userColumns">
+        username,id
+    </sql>
+
+    <!--=======================测试增删改方法的使用=========================================//-->
 
     <!--
         <insert/> 标签一共有11个属性，但是需要掌握的也就是下面这三个属性，其他的就当做不存在就行
@@ -45,32 +60,30 @@
     </update>
 
 
+    <!--=======================测试基本查询方法的使用==================================-->
 
     <!--
         <select/> 标签一共有15个属性，但是需要掌握的也就是下面这两个属性，其他的就当做不存在就行
             id : 这个用来和mapper接口中的方法名关联，这样两者就能够关联起来了
 
-            resultMap：
+            resultMap：这个结果集映射是Mybatis最强大的特性，如果你对其理解透彻，很多复杂映射的场景都能够迎刃而解。这个会单独进行演示
 
-            resultType:
+            resultType: sql查询出来的数据直接封装到指定类型的对象中(不建议使用此字段，原因如下：
+                1、表中的字段名和实体类属性命名方式不同，一般都无法直接映射，否则就需要在sql中给查询出来的字段取别名
+                2、sql中的字段直接映射进实体类，耦合过重，且无法利用到resultMap提供的高级功能，阿里编码规范也明确指出禁用resultType
+            )
             parameterType: 指定参数的类型(不需要指定，让mybatis根据方法中的参数类型自动去判断即可，不需要画蛇添足)
     -->
     <select id="selectUserById" resultType="com.keqi.springbootmybatismapperxml.domain.User">
         select id,username from t_user where id = #{id}
     </select>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    <!--
+        <resultMap/>标签的基本使用
+    -->
+    <select id="selectUserByUsername" resultMap="UserMap">
+        select id,username from t_user where username = #{username}
+    </select>
 
 
 </mapper>
