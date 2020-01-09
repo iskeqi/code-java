@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.springbootmybatismapperxml.mapper.UserMapper">
+
+
+    <!--
+        <insert/> 标签一共有11个属性，但是需要掌握的也就是下面这三个属性，其他的就当做不存在就行
+            id : 这个用来和mapper接口中的方法名关联，这样两者就能够关联起来了
+            useGeneratedKeys：指定MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部自动生成的主键
+            keyProperty：获取到自动生成的主键后，应该设置到方法参数的那个字段中
+
+            parameterType: 指定参数的类型(不需要指定，让mybatis根据方法中的参数类型自动去判断即可，不需要画蛇添足)
+    -->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" >
+        insert into t_user(username) value (#{username})
+    </insert>
+
+    <!--
+        <delete/> 标签一共有8个属性，需要掌握的只有一个，其他的就当做不存在就行
+
+        id : 这个用来和mapper接口中的方法名关联，这样两者就能够关联起来了
+
+        parameterType: 指定参数的类型(不需要指定，让mybatis根据方法中的参数类型自动去判断即可，不需要画蛇添足)
+    -->
+    <delete id="deleteUserById">
+        delete from t_user where id = #{id}
+    </delete>
+
+
+
+    <!--
+        <update/> 标签一共有11个属性，但是需要掌握的也就是下面这一个属性，其他的就当做不存在就行
+
+        id : 这个用来和mapper接口中的方法名关联，这样两者就能够关联起来了
+
+        parameterType: 指定参数的类型(不需要指定，让mybatis根据方法中的参数类型自动去判断即可，不需要画蛇添足)
+
+        <update/>标签中虽然有 useGeneratedKeys & keyProperty 这两个属性，但是实在不明白有什么用，当它不存在就行
+        唯一的用处应该是在根据指定字段删除了某一条记录的时候，返回这个记录的id，这点作用吧。太偏门了，当它不存在
+    -->
+    <update id="updateUserById">
+        update t_user set username = #{username} where id = #{id}
+    </update>
+
+
+
+    <!--
+        <insert/> 标签一共有15个属性，但是需要掌握的也就是下面这两个属性，其他的就当做不存在就行
+            id : 这个用来和mapper接口中的方法名关联，这样两者就能够关联起来了
+
+            resultMap：
+
+            resultType:
+            parameterType: 指定参数的类型(不需要指定，让mybatis根据方法中的参数类型自动去判断即可，不需要画蛇添足)
+    -->
+    <select id="selectUserById" resultType="com.keqi.springbootmybatismapperxml.domain.User">
+        select id,username from t_user where id = #{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
