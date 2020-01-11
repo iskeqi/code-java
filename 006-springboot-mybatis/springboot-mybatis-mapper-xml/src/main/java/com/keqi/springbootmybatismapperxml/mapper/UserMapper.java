@@ -74,7 +74,7 @@ public interface UserMapper {
 
 	int dynamicTrim(@Param("id") Long id, @Param("username") String username);
 
-	//=======================5、<resultMap>标签的使用==================================//
+	//=======================5、<resultMap>标签的使用===============================//
 
 
 
