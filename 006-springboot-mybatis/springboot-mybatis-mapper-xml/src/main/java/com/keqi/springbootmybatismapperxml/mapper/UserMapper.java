@@ -2,9 +2,7 @@ package com.keqi.springbootmybatismapperxml.mapper;
 
 import com.keqi.springbootmybatismapperxml.domain.User;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Set;
 
@@ -42,18 +40,42 @@ public interface UserMapper {
 	// 多个参数必须使用@Param注解指定参数的别名，否则mybatis无法解析
 	User multiEntityParam(@Param("user1") User user1, @Param("user2") User user2);
 
-	// 批量增加记录(使用List类型的参数)
-	int listParam(List<User> userList);
+	// 批量增加记录(使用List类型的参数且不使用@Param注解)
+	int listParam1(List<User> userList);
 
-	// 批量增加记录(使用Set类型的参数)
-	int setParam(Set<User> userSet);
+	// 批量增加记录(使用List类型的参数且使用@Param注解)
+	int listParam2(@Param("userList") List<User> userList);
+
+	// 批量增加记录(使用Set类型的参数且不使用@Param注解)
+	int setParam1(Set<User> userSet);
+
+	// 批量增加记录(使用Set类型的参数且使用@Param注解)
+	int setParam2(@Param("userSet") Set<User> userSet);
 
 	// 批量增加记录(使用Array类型的参数)
-	int arrayParam(User[] users);
+	int arrayParam1(User[] users);
 
-	//===========================================================================//
+	// 批量增加记录(使用Array类型的参数)
+	int arrayParam2(@Param("users") User[] users);
+
+	// 总结：对于这几种集合类型的数据，直接使用@Param注解指定一下别名即可，不需要记住那么多，哈哈
 
 
-	//===========================================================================//
+	//======================4、动态SQL的使用=======================================//
+	List<User> dynamicIf(String sortOrder);
+
+	List<User> dynamicChoose(String sortOrder);
+
+	int dynamicForeach(List<User> userList);
+
+	User dynamicWhere(@Param("id") Long id, @Param("username") String username);
+
+	int dynamicSet(@Param("id") Long id, @Param("username") String username);
+
+	int dynamicTrim(@Param("id") Long id, @Param("username") String username);
+
+	//=======================5、<resultMap>标签的使用==================================//
+
+
 
 }

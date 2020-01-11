@@ -18,7 +18,7 @@
         username,id
     </sql>
 
-    <!--=======================测试增删改方法的使用=========================================//-->
+    <!--=======================1、测试增删改方法的使用=========================================//-->
 
     <!--
         <insert/> 标签一共有11个属性，但是需要掌握的也就是下面这三个属性，其他的就当做不存在就行
@@ -59,8 +59,7 @@
         update t_user set username = #{username} where id = #{id}
     </update>
 
-
-    <!--=======================测试基本查询方法的使用==================================-->
+    <!--=======================2、测试基本查询方法的使用==================================-->
 
     <!--
         <select/> 标签一共有15个属性，但是需要掌握的也就是下面这两个属性，其他的就当做不存在就行
@@ -85,5 +84,241 @@
         select id,username from t_user where username = #{username}
     </select>
 
+    <!--=======================3、测试方法参数的映射===========================================-->
+
+    <!--
+        方法中只有单个参数时，直接使用#{}的语法指定参数名即可
+        即便名称不同也没有影响,但是不建议这么做
+    -->
+    <select id="singleMethodParam" resultMap="UserMap">
+        select id,username from t_user where username = #{usee}
+    </select>
+
+
+    <!--
+        如果方法中是一个实体类对象时，直接使用#{}的语法指定要使用实体类中的哪个属性即可
+        此时指定的名称必须和实体类中对应的属性名相同
+    -->
+    <select id="singleEntityParam" resultMap="UserMap">
+        select id,username from t_user where username = #{username}
+    </select>
+
+    <!--
+        如果方法中有多个参数，就必须要使用@Param注解指定别名,然后再在xml中使用
+    -->
+    <select id="multiMethodParam" resultMap="UserMap">
+        select id,username from t_user where username = #{username} and id = #{id}
+    </select>
+
+    <!--
+        如果方法中有多个实体类的参数，需要使用@Param注解指定别名，且需要通过"别名.属性名"的方式去使用
+    -->
+    <select id="multiEntityParam" resultMap="UserMap">
+        select id,username from t_user where id = #{user1.id} and username = #{user2.username}
+    </select>
+
+
+
+    <!--
+        对于方法参数中是一个List类型的时候，<foreach/>标签中的collection属性值得问题：
+            1、未使用@Param注解修饰的时候，必须设置为list或者collection
+            2、使用了@Param注解修饰的时候，就设置为该注解中指定的值即可
+
+        这里为什么不加上useGeneratedKeys和keyColumn两个注解呢？因为这种批量增加记录的方式，是不支持自动设置主键的
+    -->
+    <insert id="listParam1">
+        insert into t_user(username) 
+        values 
+        <foreach collection="collection" item="user" separator=",">
+            (#{user.username})
+        </foreach>
+    </insert>
+
+    <!--
+        对于方法参数中是一个List类型的时候，<foreach/>标签中的collection属性值得问题：
+            1、未使用@Param注解修饰的时候，必须设置为list或者collection
+            2、使用了@Param注解修饰的时候，就设置为该注解中指定的值即可
+
+        这里为什么不加上useGeneratedKeys和keyColumn两个注解呢？因为这种批量增加记录的方式，是不支持自动设置主键的
+    -->
+    <insert id="listParam2">
+        insert into t_user(username)
+        values
+        <foreach collection="userList" item="user" separator=",">
+            (#{user.username})
+        </foreach>
+    </insert>
+
+    <!--
+        对于方法参数中是一个Set类型的时候，<foreach/>标签中的collection属性值得问题：
+            1、未使用@Param注解修饰的时候，必须设置为collection
+            2、使用了@Param注解修饰的时候，就设置为该注解中指定的值即可
+
+        这里为什么不加上useGeneratedKeys和keyColumn两个注解呢？因为这种批量增加记录的方式，是不支持自动设置主键的
+    -->
+    <insert id="setParam1">
+        insert into t_user(username)
+        values
+        <foreach collection="collection" item="user" separator=",">
+            (#{user.username})
+        </foreach>
+    </insert>
+
+    <!--
+        对于方法参数中是一个Set类型的时候，<foreach/>标签中的collection属性值得问题：
+            1、未使用@Param注解修饰的时候，必须设置为collection
+            2、使用了@Param注解修饰的时候，就设置为该注解中指定的值即可
+
+        这里为什么不加上useGeneratedKeys和keyColumn两个注解呢？因为这种批量增加记录的方式，是不支持自动设置主键的
+    -->
+    <insert id="setParam2">
+        insert into t_user(username)
+        values
+        <foreach collection="userSet" item="user" separator=",">
+            (#{user.username})
+        </foreach>
+    </insert>
+
+    <!--
+        对于方法参数中是一个Array类型的时候，<foreach/>标签中的collection属性值得问题：
+            1、未使用@Param注解修饰的时候，必须设置为collection或者array
+            2、使用了@Param注解修饰的时候，就设置为该注解中指定的值即可
+
+        这里为什么不加上useGeneratedKeys和keyColumn两个注解呢？因为这种批量增加记录的方式，是不支持自动设置主键的
+    -->
+    <insert id="arrayParam1">
+        insert into t_user(username)
+        values
+        <foreach collection="array" item="user" separator=",">
+            (#{user.username})
+        </foreach>
+    </insert>
+
+    <!--
+        对于方法参数中是一个Set类型的时候，<foreach/>标签中的collection属性值得问题：
+            1、未使用@Param注解修饰的时候，必须设置为collection或者array
+            2、使用了@Param注解修饰的时候，就设置为该注解中指定的值即可
+
+        这里为什么不加上useGeneratedKeys和keyColumn两个注解呢？因为这种批量增加记录的方式，是不支持自动设置主键的
+    -->
+    <insert id="arrayParam2">
+        insert into t_user(username)
+        values
+        <foreach collection="users" item="user" separator=",">
+            (#{user.username})
+        </foreach>
+    </insert>
+
+
+    <!--======================4、动态SQL的使用=======================================-->
+
+    <!--
+        <if/> 标签中只有一个test属性，通过OGNL表达式进行真假判断。凡是需要进行if判断的地方都可以使用此标签！！！
+    -->
+    <select id="dynamicIf" resultMap="UserMap">
+        select id, username from t_user order by id
+        <if test="sortOrder == null">
+            asc
+        </if>
+        ${sortOrder}
+    </select>
+
+    <!--
+        <choose/> 标签内部包含了<when/>和<otherwise/>两个标签，实际上就是一个if else的逻辑。任何标签内部都可以使用此标签！
+    -->
+    <select id="dynamicChoose" resultMap="UserMap">
+        select id, username from t_user order by id
+        <choose>
+            <when test="sortOrder == null">
+                desc
+            </when>
+            <otherwise>
+                ${sortOrder}
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <!--
+        <foreach/>标签内部一共有6个属性，需要掌握的有5个。通常都是在需要进行批量操作的时候用到，比如批量删除、新增等场景
+
+            collection: 指定集合的名称，如果使用了@Param注解，就用注解中指定的别名，如果没有就直接将值设置为collection
+            item: 给集合中的元素取一个别名，通过"item.属性名"的方式取出集合中元素的值
+            open: 在循环开始的时候的值，可选的
+            close：在循环结束的时候的值，可选的
+            separator：在每一次遍历结束之后的分隔符，可选的
+
+
+            index ：不需要掌握
+    -->
+    <insert id="dynamicForeach">
+        insert into t_user(username)
+        values
+        <foreach collection="collection" item="user" separator=",">
+            (#{user.username})
+        </foreach>
+    </insert>
+
+    <!--
+        <where/>标签内部没有属性，他的作用是生成"where"关键字，并且去除第一个多余的and或者or关键字
+
+        需要注意的点是：
+            1、如果<where/>标签中没有任何内容，那么where关键字也不会出现
+            2、<where/>标签只能够去除这段动态SQL最前面的and 或者 or 关键字
+    -->
+    <select id="dynamicWhere" resultMap="UserMap">
+        select id,username from t_user
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+        </where>
+    </select>
+
+    <!--
+        <set/>标签内部没有属性，它的作用是生成"set"关键字，并且去除整段SQL中最后的一个","
+
+        需要注意的是：
+            1、如果<set/>标签中没有任何内容，那么set关键字也不会出现
+            2、<set/>标签只能够去除这段动态SQL最后面的符号","
+    -->
+    <update id="dynamicSet">
+        update t_user
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--
+        <trim/>标签内部有4个属性，都需要掌握。它的作用在它包含的整段SQL片段中去除/增加首尾的指定内容
+
+            prefix ：在整体的字符串前面加上一个前缀
+            prefixOverrides ：在整体的字符串前面减去指定内容
+            suffix : 在在整体的字符串后面加上指定内容
+            suffixOverrides ： 在整体的字符串后面减去指定的内容
+
+         <set/><where/>标签其实就是<trim/>标签的一个变种而已
+    -->
+    <update id="dynamicTrim">
+        update t_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
 
 </mapper>
