@@ -1,11 +1,14 @@
 package com.keqi.hutool.core;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 测试cn.hutool.core.date.DateUtil类的常用方法
@@ -48,4 +51,15 @@ public class DateUtilTest {
 		LocalDate/LocalDateTime类都有一个共同的接口TemporalAccessor，所有java8时间API转date类，直接使用
 		DateUtil类的public static DateTime date(TemporalAccessor temporalAccessor)方法即可
 	 */
+
+	@Test
+	public void rangeToList() {
+		Date startDate = DateUtil.parseDate("2019-12-08");
+		Date endDate = DateUtil.parseDate("2020-01-12");
+		// 直接返回的是一个[2019-12-08,2020-01-12]之间的List对象，这就是之前一直都需要用到的方法呀
+		List<DateTime> dateTimes = DateUtil.rangeToList(startDate, endDate, DateField.DAY_OF_MONTH);
+		dateTimes.forEach(System.out::println);
+	}
+
+
 }
