@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 测试
+ * 测试cn.hutool.core.date.DateUtil类的常用方法
  */
 public class DateUtilTest {
 
