@@ -33,6 +33,14 @@ public class DateUtilTest {
 		LocalDateTime localDateTime = DateUtil.toLocalDateTime(date);
 	}
 
+	@Test
+	public void DateToLocalDate() {
+		// Date -> LocalDate
+		Date date = new Date();
+		LocalDateTime localDateTime = DateUtil.toLocalDateTime(date);
+		LocalDate localDate = localDateTime.toLocalDate();
+	}
+
 	/*
 		总结：平时项目中直接使用java8的API就行了，但是遇到复杂的时间操作的时候，还是需要用DateUtil工具类，
 		这个DateUtil类是完全兼容java8新的API的哦
