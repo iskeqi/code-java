@@ -62,16 +62,23 @@ public interface UserMapper {
 
 
 	//======================4、动态SQL的使用=======================================//
+
+	// <if/>标签
 	List<User> dynamicIf(String sortOrder);
 
+	// <choose/>标签
 	List<User> dynamicChoose(String sortOrder);
 
+	// <foreach/>标签
 	int dynamicForeach(List<User> userList);
 
+	// <where/>标签
 	User dynamicWhere(@Param("id") Long id, @Param("username") String username);
 
+	// <set/>标签
 	int dynamicSet(@Param("id") Long id, @Param("username") String username);
 
+	// <trim/>标签
 	int dynamicTrim(@Param("id") Long id, @Param("username") String username);
 
 	//=======================5、<resultMap>标签的使用===============================//
