@@ -1,0 +1,15 @@
+management:
+  endpoint:
+    health:
+      # 显示所有健康状态
+      show-details: always
+    shutdown:
+      # 默认情况下，除shutdown以外的所有端点均已启用。
+      # 要配置单个端点的启用，请使用management.endpoint.<id>.enabled属性。
+      # 以下示例启用shutdown端点
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        # 如果要看到所有支持的状态查询，需要配置
+        include: '*'
