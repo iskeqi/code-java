@@ -1,10 +1,10 @@
 package com.keqi.hutool.core;
 
 import cn.hutool.core.date.DateUtil;
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -13,24 +13,31 @@ import java.util.Date;
 public class DateUtilTest {
 
 	@Test
-	public void nowTest() {
-		// 当前时间
-		Date date = DateUtil.date();
-		Assert.assertNotNull(date);
-		// 当前时间
-		Date date2 = DateUtil.date(Calendar.getInstance());
-		Assert.assertNotNull(date2);
-		// 当前时间
-		Date date3 = DateUtil.date(System.currentTimeMillis());
-		Assert.assertNotNull(date3);
-
-		// 当前日期字符串，格式：yyyy-MM-dd HH:mm:ss
-		String now = DateUtil.now();
-		Assert.assertNotNull(now);
-		// 当前日期字符串，格式：yyyy-MM-dd
-		String today = DateUtil.today();
-		Assert.assertNotNull(today);
+	public void LocalDateTimeToDate() {
+		// LocalDateTime -> Date
+		LocalDateTime now = LocalDateTime.now();
+		Date date = DateUtil.date(now).toJdkDate();
 	}
 
+	@Test
+	public void LocalDateToDate() {
+		// LocalDate -> Date
+		LocalDate now = LocalDate.now();
+		Date date = DateUtil.date(now).toJdkDate();
+	}
 
+	@Test
+	public void DateToLocalDateTime() {
+		// Date -> LocalDateTime
+		Date date = new Date();
+		LocalDateTime localDateTime = DateUtil.toLocalDateTime(date);
+	}
+
+	/*
+		总结：平时项目中直接使用java8的API就行了，但是遇到复杂的时间操作的时候，还是需要用DateUtil工具类，
+		这个DateUtil类是完全兼容java8新的API的哦
+
+		LocalDate/LocalDateTime类都有一个共同的接口TemporalAccessor，所有java8时间API转date类，直接使用
+		DateUtil类的public static DateTime date(TemporalAccessor temporalAccessor)方法即可
+	 */
 }
