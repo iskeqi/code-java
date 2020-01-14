@@ -36,7 +36,7 @@ public class BeanUtilTest {
 	@Test
 	public void getProperty() {
 		Map<String, Object> map = new HashMap<>();
-		map.put("username","keqi");
+		map.put("username", "keqi");
 
 		List<Role> roles = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
@@ -54,8 +54,8 @@ public class BeanUtilTest {
 		map.put("info", roles);
 
 		// 深层次对象的属性获取(无论层次结构有多深，都只需要一行代码，就能够完成)
-		Object property = BeanUtil.getProperty(map, "info[0].premissList[3].premissName");
-		String premissName = Convert.convert(String.class, property);
+		String premissName = Convert.convert(String.class,
+				BeanUtil.getProperty(map, "info[0].premissList[3].premissName"));
 		System.out.println(premissName);
 	}
 }
