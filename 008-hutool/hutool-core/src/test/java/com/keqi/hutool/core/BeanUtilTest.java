@@ -54,7 +54,7 @@ public class BeanUtilTest {
 		map.put("info", roles);
 
 		// 深层次对象的属性获取(无论层次结构有多深，都只需要一行代码，就能够完成)
-		Object property = BeanUtil.getProperty(map, "info[2].premissList[2].premissName");
+		Object property = BeanUtil.getProperty(map, "info[0].premissList[3].premissName");
 		String premissName = Convert.convert(String.class, property);
 		System.out.println(premissName);
 	}
