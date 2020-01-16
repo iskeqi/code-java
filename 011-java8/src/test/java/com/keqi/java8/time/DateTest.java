@@ -228,8 +228,6 @@ public class DateTest {
 	/**
 	 * 计算两个时间的间隔
 	 *
-	 * @param before 比较早的那个时间
-	 * @param after 比较晚的那个时间
 	 * @return 返回格式示例："1 天 9 小时 32 分钟" (如果某个单位为零，就会去掉这个单位，比如天为零时，就是 "9 小时 32 分钟" )
 	 */
 	@Test
