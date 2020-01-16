@@ -9,5 +9,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>springboot-rabbitmq-alternate</module>
+        <module>springboot-rabbitmq-basic</module>
+        <module>springboot-rabbitmq-dlx</module>
+        <module>springboot-rabbitmq-priority</module>
+        <module>springboot-rabbitmq-ttl</module>
+    </modules>
 
 </project>
