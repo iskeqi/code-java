@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keqi.springbootknife4j.mapper.CodeGenMapper">
+
+    <resultMap id="CodeGenMap" type="com.keqi.springbootknife4j.domain.CodeGenDO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="age" property="age"/>
+        <result column="weight" property="weight"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_by" property="updateBy"/>
+    </resultMap>
+
+    <!--使用了IDEA中的Database连接了指定的数据库之后，mapper.xml文件中的字段就不会报红色了，而且还有智能提示-->
+    <select id="selectByUsername" resultMap="CodeGenMap">
+        select id, username, age, weight, create_time, update_time, create_by, update_by
+        from t_code_gen
+        where username = #{username}
+    </select>
+
+
+</mapper>
