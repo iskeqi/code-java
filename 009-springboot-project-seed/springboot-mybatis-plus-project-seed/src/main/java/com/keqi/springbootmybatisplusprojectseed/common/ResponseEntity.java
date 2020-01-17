@@ -5,16 +5,15 @@ import lombok.Data;
 
 /**
  * 响应实体类
- * @param <T> body泛型
  */
 @Data
 @Builder
-public class ResponseEntity<T> {
+public class ResponseEntity {
 
 	private int status;
 
 	private String msg;
 
-	private T body;
+	private Object body;
 
 }
