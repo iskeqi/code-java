@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.keqi.springbootmybatisplusmysql.**.mapper")
+@MapperScan("com.keqi.springbootknife4j.**.mapper")
 public class MybatisPlusConfig {
 
 	@Bean

@@ -7,6 +7,7 @@ import com.keqi.springbootknife4j.common.AjaxEntity;
 import com.keqi.springbootknife4j.domain.CodeGenDO;
 import com.keqi.springbootknife4j.domain.CodeGenVO;
 import com.keqi.springbootknife4j.mapper.CodeGenMapper;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +23,9 @@ public class CodeGenController {
 
 	private final CodeGenMapper codeGenMapper;
 
-	/**
-	 * 增加
-	 *
-	 * @param codeGenDO codeGenDO
-	 * @return ajaxEntity
-	 */
-	@PostMapping("/save")
+
+	@ApiOperation(value = "增加代码生成")
+	@PostMapping(value = "/save", consumes = "x-www-form-urlencoded", produces = "application/json")
 	public AjaxEntity addCodeGen(CodeGenDO codeGenDO) {
 		codeGenMapper.insert(codeGenDO);
 		return AjaxEntity.success("id", codeGenDO.getId());
