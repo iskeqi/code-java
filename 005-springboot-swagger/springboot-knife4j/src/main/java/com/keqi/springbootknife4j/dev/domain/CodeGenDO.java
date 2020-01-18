@@ -1,4 +1,4 @@
-package com.keqi.springbootknife4j.domain;
+package com.keqi.springbootknife4j.dev.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;

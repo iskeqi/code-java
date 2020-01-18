@@ -20,9 +20,3 @@ logging:
   file:
     name: logs/springboot-mybatisplus-mysql.log
 
-swagger:
-  title: SpringBoot整合knife4j
-  description: SpringBoot整合knife4j
-  version: 1.0
-  terms-of-service-url: http://www.keqi.cn/
-  base-package: com.keqi.springbootknife4j
