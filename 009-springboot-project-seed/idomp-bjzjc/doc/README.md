@@ -2,7 +2,7 @@
 
 #### 介绍
 
-智能调度运维平台-北京中建材项目
+智能调度运维平台(Intelligent dispatching operation and maintenance platform)-北京中建材项目
 
 #### 软件架构
 ```
