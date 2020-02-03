@@ -32,6 +32,7 @@
         <module>idomp-iom</module>
         <module>idomp-ia</module>
         <module>idomp-sc</module>
+        <!--<module>idomp-core</module>-->
     </modules>
 
     <dependencies>
