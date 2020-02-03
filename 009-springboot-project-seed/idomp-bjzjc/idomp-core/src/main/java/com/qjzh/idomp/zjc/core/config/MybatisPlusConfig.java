@@ -1,4 +1,4 @@
-package com.qjzh.idomp.zjc.config;
+package com.qjzh.idomp.zjc.core.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * MyBatis Plus 分页配置
+ * @author keqi
+ */
 @Configuration
 @EnableTransactionManagement
 @MapperScan("com.qjzh.idomp.zjc.**.mapper")

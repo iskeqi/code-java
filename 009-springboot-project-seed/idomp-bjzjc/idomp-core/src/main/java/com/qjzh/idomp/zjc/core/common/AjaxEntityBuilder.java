@@ -93,4 +93,14 @@ public class AjaxEntityBuilder {
 		return AjaxEntity.builder().msg(failureMsg).status(failureCode)
 				.build();
 	}
+
+	/**
+	 * 操作失败
+	 *
+	 * @return ajaxEntity
+	 */
+	public static AjaxEntity failure(String msg) {
+		return AjaxEntity.builder().msg(msg).status(failureCode)
+				.build();
+	}
 }

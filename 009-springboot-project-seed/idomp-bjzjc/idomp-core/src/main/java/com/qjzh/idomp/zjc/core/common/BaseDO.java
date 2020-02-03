@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 
 /**
  * 基础DO实体类(其他实体DO类需要继承此类)
+ *
+ * @author keqi
  */
 @Data
 @Accessors(chain = true)
