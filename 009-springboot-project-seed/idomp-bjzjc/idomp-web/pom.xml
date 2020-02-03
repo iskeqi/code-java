@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>idomp-bjzjc</artifactId>
+        <groupId>com.qjzh</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.qjzh.idomp.zjc</groupId>
+    <artifactId>idomp-web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>idomp-web</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <!--全景态势监测(Panoramic Situation Monitoring)模块-->
+        <dependency>
+            <groupId>com.qjzh</groupId>
+            <artifactId>idomp-psm</artifactId>
+        </dependency>
+        <!--监测指标(Monitoring indicators)模块-->
+        <dependency>
+            <groupId>com.qjzh</groupId>
+            <artifactId>idomp-mi</artifactId>
+        </dependency>
+        <!--智能运维(Intelligent operation and maintenance)模块-->
+        <dependency>
+            <groupId>com.qjzh</groupId>
+            <artifactId>idomp-iom</artifactId>
+        </dependency>
+        <!--智能分析(Intelligent analysis)模块-->
+        <dependency>
+            <groupId>com.qjzh</groupId>
+            <artifactId>idomp-ia</artifactId>
+        </dependency>
+        <!--系统配置(System Configuration)模块-->
+        <dependency>
+            <groupId>com.qjzh</groupId>
+            <artifactId>idomp-sc</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
