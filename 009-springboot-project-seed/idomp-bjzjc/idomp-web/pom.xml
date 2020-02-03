@@ -16,35 +16,36 @@
     <name>idomp-web</name>
     <description>Demo project for Spring Boot</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <!--全景态势监测(Panoramic Situation Monitoring)模块-->
         <dependency>
             <groupId>com.qjzh</groupId>
             <artifactId>idomp-psm</artifactId>
+            <version>${idomp-bjzjc.version}</version>
         </dependency>
         <!--监测指标(Monitoring indicators)模块-->
         <dependency>
             <groupId>com.qjzh</groupId>
             <artifactId>idomp-mi</artifactId>
+            <version>${idomp-bjzjc.version}</version>
         </dependency>
         <!--智能运维(Intelligent operation and maintenance)模块-->
         <dependency>
             <groupId>com.qjzh</groupId>
             <artifactId>idomp-iom</artifactId>
+            <version>${idomp-bjzjc.version}</version>
         </dependency>
         <!--智能分析(Intelligent analysis)模块-->
         <dependency>
             <groupId>com.qjzh</groupId>
             <artifactId>idomp-ia</artifactId>
+            <version>${idomp-bjzjc.version}</version>
         </dependency>
         <!--系统配置(System Configuration)模块-->
         <dependency>
             <groupId>com.qjzh</groupId>
             <artifactId>idomp-sc</artifactId>
+            <version>${idomp-bjzjc.version}</version>
         </dependency>
     </dependencies>
 
