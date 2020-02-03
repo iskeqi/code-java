@@ -8,6 +8,7 @@
 ```
 |--idomp-bjzjc
 |   └──doc          【说明文档】
+|   └──idomp-core   【项目核心(core)模块】
 |   └──idomp-psm    【全景态势监测(Panoramic Situation Monitoring)模块】
 |   └──idomp-mi     【监测指标(Monitoring indicators)模块】
 |   └──idomp-iom    【智能运维(Intelligent operation and maintenance)模块】
