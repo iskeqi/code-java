@@ -1,4 +1,4 @@
-package com.qjzh.idomp.zjc.common;
+package com.qjzh.idomp.zjc.core.common;
 
 import org.springframework.http.HttpStatus;
 
