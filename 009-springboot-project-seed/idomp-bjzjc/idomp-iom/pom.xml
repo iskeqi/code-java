@@ -11,5 +11,12 @@
 
     <artifactId>idomp-iom</artifactId>
 
-
+    <dependencies>
+        <!--项目核心(core)模块-->
+        <dependency>
+            <groupId>com.qjzh</groupId>
+            <artifactId>idomp-core</artifactId>
+            <version>${idomp-bjzjc.version}</version>
+        </dependency>
+    </dependencies>
 </project>
