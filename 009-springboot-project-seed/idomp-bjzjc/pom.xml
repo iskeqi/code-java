@@ -67,6 +67,22 @@
             <optional>true</optional>
         </dependency>
 
+        <!--导入spring-boot-data-redis依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--
+		如果整合redis时采用了lettuce为客户端且添加了连接池配置(SpringBoot2.0默认配置)，
+		就必须要手动加上这个依赖包(因为官方没有加上这个依赖)
+		-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+
         <!--spring-boot-starter-web依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
