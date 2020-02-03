@@ -14,6 +14,8 @@
     <properties>
         <idomp-bjzjc.version>1.0-SNAPSHOT</idomp-bjzjc.version>
         <java.version>1.8</java.version>
+        <!--重写一个占位符，用于maven多环境动态启用-->
+        <resource.delimiter>#</resource.delimiter>
     </properties>
 
     <parent>
