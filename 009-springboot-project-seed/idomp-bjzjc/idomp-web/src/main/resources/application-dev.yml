@@ -5,7 +5,6 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   # Redis DataSource Config(Redis连接池使用默认配置即可)
   redis:
     url: redis://user:123456@47.102.124.165:6379
@@ -16,4 +15,7 @@ spring:
         max-wait: -1ms
         max-idle: 8
 
-
+mybatis-plus:
+  # mybatis打印sql(配合MyBatis Log Plugin插件可以在控制台查看格式化并且填充了占位符的SQL语句)
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
