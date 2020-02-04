@@ -1,0 +1,10 @@
+spring:
+# Redis DataSource Config(Redis连接池使用默认配置即可)
+  redis:
+    url: redis://user:123456@47.102.124.165:6379
+    lettuce:
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-wait: -1ms
+        max-idle: 8
