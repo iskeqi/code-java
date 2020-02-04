@@ -1,0 +1,9 @@
+server:
+  port: 9092
+
+# 直接指定日志文件名的方式其实更好，还可以把它限定在指定的log目录下
+# windows工程中，log目录就是直接和project的pom.xml文件所在目录同级
+# linux 工程中，log目录就是直接和xxx.jar包所在目录同级
+logging:
+  file:
+    name: log/springboot-task.log
