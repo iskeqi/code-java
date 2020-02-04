@@ -9,5 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-
+    <modules>
+        <module>springboot-task</module>
+    </modules>
 </project>
