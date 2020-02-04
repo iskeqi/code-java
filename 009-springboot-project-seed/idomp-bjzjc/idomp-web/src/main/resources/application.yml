@@ -4,9 +4,6 @@ server:
 mybatis-plus:
   # 指定mapper.xml文件所在位置
   mapper-locations: classpath*:/mapper/**/*Mapper.xml
-  # mybatis打印sql(配合MyBatis Log Plugin插件可以在控制台查看格式化并且填充了占位符的SQL语句)
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 直接使用SpirngBoot默认日志配置即可
 logging:
