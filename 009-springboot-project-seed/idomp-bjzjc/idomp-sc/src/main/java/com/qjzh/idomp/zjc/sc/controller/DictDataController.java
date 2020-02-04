@@ -39,12 +39,14 @@ public class DictDataController {
 	@GetMapping("/dict-type")
 	public AjaxEntity<DictDataVO> pageDictData(String dictType) {
 
+		// 1、查询指定dictType对应的字典数据列表
 		LambdaQueryWrapper<DictDataDO> lambdaQueryWrapper = new LambdaQueryWrapper<DictDataDO>()
 				.eq(DictDataDO::getDictType, dictType)
 				.eq(DictDataDO::getStatus, 0)
 				.orderByAsc(DictDataDO::getDictSort);
 		List<DictDataDO> list = iDictDataService.list(lambdaQueryWrapper);
 
+		// 2、组装返回VO对象
 		List<DictDataVO> ret = new ArrayList<>();
 		list.forEach(
 				x -> {
