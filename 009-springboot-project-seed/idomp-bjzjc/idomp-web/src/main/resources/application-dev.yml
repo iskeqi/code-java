@@ -5,6 +5,15 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 15000
+      idle-timeout: 30000
+      max-lifetime: 900000
+      maximum-pool-size: 15
+      minimum-idle: 5
+      pool-name: DatebookHikariCP
   # Redis DataSource Config(Redis连接池使用默认配置即可)
   redis:
     url: redis://user:123456@47.102.124.165:6379
