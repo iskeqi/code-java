@@ -58,6 +58,6 @@ idomp-web模块用于web相关代码编写，启动类就在这个包下。比�
 ## todo
 
 - SpringTask 定时任务配置
-- 
+- 项目分jar包进行配置
 
 
