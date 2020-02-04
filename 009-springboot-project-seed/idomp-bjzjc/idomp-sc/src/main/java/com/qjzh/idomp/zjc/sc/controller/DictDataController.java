@@ -41,6 +41,7 @@ public class DictDataController {
 
 		LambdaQueryWrapper<DictDataDO> lambdaQueryWrapper = new LambdaQueryWrapper<DictDataDO>()
 				.eq(DictDataDO::getDictType, dictType)
+				.eq(DictDataDO::getStatus, 0)
 				.orderByAsc(DictDataDO::getDictSort);
 		List<DictDataDO> list = iDictDataService.list(lambdaQueryWrapper);
 
