@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>testupload</title>
+</head>
+<body>
+
+<form action="http://localhost:8768/uploadAndDownload/addLabelClass" method="post"
+      enctype="multipart/form-data">
+
+    <input type="text" name="name"/><br/>
+    <input type="file" name="uploadFile"/><br/>
+    <input type="submit" value="submit">
+</form>
+===
+<form action="http://localhost:8768/uploadAndDownload/upload" method="post"
+      enctype="multipart/form-data">
+
+    <input type="text" name="name"/><br/>
+    <input type="file" name="uploadFile"/><br/>
+    <input type="submit" value="submit">
+</form>
+</body>
+</html>

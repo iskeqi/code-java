@@ -1,0 +1,28 @@
+server:
+  port: 8769
+
+# 前面不加斜杠，表示当前目录
+# windows下就是和pom.xml同级，打包后在linux中就是和jar包同级
+logging:
+  file:
+    name: logs/springboot-upload.log
+
+# 配置静态资源访问路径，外部可以直接访问静态资源，就实现了下载的功能：
+# 比如http://localhost:8768/7EE4F901-C9AC-4cee-AB7B-FBD0EE1786B7.png
+# 实际上只需要把端口号后面的后缀返回给前端，它就能够访问这里的静态资源了
+#spring.resources.static-locations=file:D:/KEQI/code/keqi-code-demo-study/springboot-upload-download/target/uploadFile/, classpath:/static/, classpath:/public/, classpath:/resources/, classpath:/META-INF/resources
+
+# 程序启动后，再动态改变这个值？？？没有这个机制，根本就没有。。。
+# 必须在程序中通过代码动态决定这个路径
+
+# 指定文件存储路径(不同系统路径不同)
+grace:
+  linux:
+    upload:
+      path: /home/keqi/myApp/springboot-upload-download/springboot-upload-download-8766/
+  windows:
+    upload:
+      path: D:/grace/upload/
+  macos:
+    upload:
+      path: /Users/GXZ/Documents/grace/upload/
