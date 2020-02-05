@@ -48,7 +48,7 @@ public class UploadAndDownloadFileController {
 	}
 
 	/**
-	 * 下载示例(如果文件下载需要权限控制，在必须要)
+	 * 下载示例(如果文件下载需要权限控制，则必须通过这种方式，不然没有地方可以进行权限控制啊)
 	 *
 	 * @param request
 	 * @param response
