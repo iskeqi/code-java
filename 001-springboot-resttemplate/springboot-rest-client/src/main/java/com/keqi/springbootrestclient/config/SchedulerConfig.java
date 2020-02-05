@@ -8,7 +8,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 /**
- * Spring Task 定时任务线程池配置
+ * Spring Task  定时任务线程池配置
  */
 @Configuration
 @EnableScheduling
