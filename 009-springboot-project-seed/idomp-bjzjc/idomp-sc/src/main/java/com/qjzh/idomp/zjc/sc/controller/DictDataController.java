@@ -36,7 +36,7 @@ public class DictDataController {
 	 * @param dictType dictType
 	 * @return list
 	 */
-	@GetMapping("/dict-type")
+	@GetMapping("/get/dict-type")
 	public AjaxEntity<DictDataVO> pageDictData(String dictType) {
 
 		// 1、查询指定dictType对应的字典数据列表

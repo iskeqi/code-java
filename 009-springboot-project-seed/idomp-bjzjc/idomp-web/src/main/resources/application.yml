@@ -1,6 +1,5 @@
 server:
   port: 9102
-
 mybatis-plus:
   # 指定mapper.xml文件所在位置
   mapper-locations: classpath*:/mapper/**/*Mapper.xml
