@@ -9,7 +9,7 @@ import com.qjzh.idomp.zjc.sc.domain.DictDataDO;
 import com.qjzh.idomp.zjc.sc.domain.DictDataVO;
 import com.qjzh.idomp.zjc.sc.service.IDictDataService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +36,7 @@ public class DictDataController {
 	 * @param dictType dictType
 	 * @return list
 	 */
-	@GetMapping("/get/dict-type")
+	@PostMapping("/get/dict-type")
 	public AjaxEntity<DictDataVO> pageDictData(String dictType) {
 
 		// 1、查询指定dictType对应的字典数据列表
