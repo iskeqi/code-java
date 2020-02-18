@@ -1,0 +1,26 @@
+server:
+  port: 8333
+
+# DataSource Config
+spring:
+  datasource:
+    #url: jdbc:mysql://47.102.124.165:3306/mybatis_puls?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:p6spy:mysql://47.102.124.165:3306/mybatis_puls?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+    # 使用了p6spy后，url 需要更改一下
+    username: root
+    password: 123456
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    # 使用了p6spy后，驱动也需要更改一下
+
+mybatis-plus:
+  # 指定mapper.xml文件所在位置
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  # mybatis打印sql(配合MyBatis Log Plugin插件可以在控制台查看格式化并且填充了占位符的SQL语句)
+  #configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 使用了p6sy性能分析插件后，就不需要加上这个配置了哦
+
+logging:
+  file:
+    name: logs/springboot-mybatisplus-mysql-p6spy.log

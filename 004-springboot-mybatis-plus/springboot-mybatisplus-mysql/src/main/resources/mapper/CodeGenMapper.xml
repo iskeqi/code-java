@@ -13,6 +13,7 @@
         <result column="update_by" property="updateBy"/>
     </resultMap>
 
+
     <!--使用了IDEA中的Database连接了指定的数据库之后，mapper.xml文件中的字段就不会报红色了，而且还有智能提示-->
     <select id="selectByUsername" resultMap="CodeGenMap">
         select id, username, age, weight, create_time, update_time, create_by, update_by

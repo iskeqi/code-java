@@ -11,6 +11,7 @@
 
     <modules>
         <module>springboot-mybatisplus-mysql</module>
+        <module>springboot-mybatisplus-mysql-p6spy</module>
     </modules>
 
 </project>
