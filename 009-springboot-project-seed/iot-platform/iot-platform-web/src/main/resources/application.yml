@@ -7,7 +7,7 @@ mybatis-plus:
 # 直接使用SpirngBoot默认日志配置即可
 logging:
   file:
-    name: logs/keqi-iot-platform.log
+    name: logs/iot-platform.log
 
 # 指定多环境配置文件(maven动态切换)
 spring:
