@@ -30,8 +30,4 @@ public class BaseDO {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
 
-	private String createBy;
-
-	private String updateBy;
-
 }
