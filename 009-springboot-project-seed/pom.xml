@@ -12,7 +12,7 @@
     <modules>
         <module>springboot-mybatis-plus-project-seed</module>
         <module>idomp-bjzjc</module>
-        <module>keqi-iot-platform</module>
+        <module>iot-platform</module>
     </modules>
 
 </project>

@@ -1,7 +1,7 @@
 spring:
   # MySQL DataSource Config
   datasource:
-    url: jdbc:mysql://localhost:3306/idomp-bjzjc-dev?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/iot-platform-prod?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
