@@ -1,0 +1,15 @@
+server:
+  port: 9102
+mybatis-plus:
+  # 指定mapper.xml文件所在位置
+  mapper-locations: classpath*:/mapper/**/*Mapper.xml
+
+# 直接使用SpirngBoot默认日志配置即可
+logging:
+  file:
+    name: logs/keqi-iot-platform.log
+
+# 指定多环境配置文件(maven动态切换)
+spring:
+  profiles:
+    active: #spring.profiles.active#

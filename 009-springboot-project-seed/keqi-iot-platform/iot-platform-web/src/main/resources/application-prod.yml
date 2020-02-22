@@ -1,0 +1,25 @@
+spring:
+  # MySQL DataSource Config
+  datasource:
+    url: jdbc:mysql://localhost:3306/idomp-bjzjc-dev?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 15000
+      idle-timeout: 30000
+      max-lifetime: 900000
+      maximum-pool-size: 15
+      minimum-idle: 5
+      pool-name: DatebookHikariCP
+  # Redis DataSource Config(Redis连接池使用默认配置即可)
+  redis:
+    url: redis://user:123456@localhost:6379
+    lettuce:
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-wait: -1ms
+        max-idle: 8
