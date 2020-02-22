@@ -1,4 +1,4 @@
-package com.keqi.iotplatformweb;
+package com.keqi.iotplatform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
