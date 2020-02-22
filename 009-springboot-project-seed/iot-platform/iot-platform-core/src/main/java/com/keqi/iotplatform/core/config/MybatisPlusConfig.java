@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.keqi.iotplatformweb**.mapper")
+@MapperScan("com.keqi.iotplatform.**.mapper")
 public class MybatisPlusConfig {
 
 	@Bean
