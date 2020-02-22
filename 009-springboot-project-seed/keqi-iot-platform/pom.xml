@@ -35,9 +35,8 @@
     </modules>
 
     <dependencies>
-
         <!--
-        只要导入这个以来，然后把数据库连接URL、驱动改成p6spy对应的值，再加上一个spy.properties文件
+        只要导入这个依赖，然后把数据库连接URL、驱动改成p6spy对应的值，再加上一个spy.properties文件
         就能够直接在控制台中打印SQL的执行时间和一个填充了占位符的SQL语句了，开发、测试环境下可以采用此配置
         -->
         <dependency>
