@@ -11,6 +11,7 @@
 
     <modules>
         <module>springboot-redis-pubsub</module>
+        <module>springboot-redis-lettuce</module>
     </modules>
 
 </project>
