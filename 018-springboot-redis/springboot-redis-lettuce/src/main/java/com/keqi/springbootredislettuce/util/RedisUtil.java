@@ -30,13 +30,11 @@ public class RedisUtil {
      * @param key key
      * @param time time 必须大约0，如果小于等于0 ，则相当于直接删除这个key
      * @param timeUnit 时间单位(天/小时/分钟/秒/毫秒/微秒/纳秒)
-     * @return r
      */
-    public Boolean expire(String key, long time, TimeUnit timeUnit) {
+    public void expire(String key, long time, TimeUnit timeUnit) {
         if (time > 0) {
-            return stringRedisTemplate.expire(key, time, timeUnit);
+            stringRedisTemplate.expire(key, time, timeUnit);
         }
-        return false;
     }
 
     /**
