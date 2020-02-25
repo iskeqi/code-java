@@ -10,4 +10,6 @@ public class SpringbootRedisLettuceApplication {
         SpringApplication.run(SpringbootRedisLettuceApplication.class, args);
     }
 
+
+
 }
