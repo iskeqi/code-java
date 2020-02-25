@@ -14,7 +14,7 @@ class SpringbootRedisLettuceApplicationTests {
     private RedisUtil redisUtil;
 
     @Test
-    void contextLoads() {
+    void expire() {
         redisUtil.expire("runoobkey", -1, TimeUnit.DAYS);
     }
 
