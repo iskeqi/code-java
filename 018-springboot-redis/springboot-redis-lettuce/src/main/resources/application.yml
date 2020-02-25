@@ -1,3 +1,9 @@
 spring:
   redis:
     url: redis://user:123456@47.102.124.165:6379
+    lettuce: # 如果不加上这个配置，就相当于没有给Redis指定连接池，所以必须要加上以下配置参数哦
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-wait: -1ms
+        max-idle: 8

@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Redis 工具类
  *
- * 序列化对象到Redis中时全部在该工具类外部转成JSON，再存储进Redis
- * 如果需要该工具类中没有的方法，一律遵循这种编码方式自行补充
+ * 1) 序列化对象到Redis时全部在该工具类外部转成JSON，再存储进Redis
+ * 2) 如果需要该工具类中没有的方法，一律遵循这种编码方式自行补充
  *
  * @author keqi
  */
@@ -45,7 +45,7 @@ public class RedisUtil {
      * @param timeUnit 时间单位(天/小时/分钟/秒/毫秒/微秒/纳秒)
      * @return r
      */
-    public long getExpire(String key, TimeUnit timeUnit) {
+    public Long getExpire(String key, TimeUnit timeUnit) {
         return stringRedisTemplate.getExpire(key, timeUnit);
     }
 
@@ -54,7 +54,7 @@ public class RedisUtil {
      * @param key 键
      * @return true 存在 false不存在
      */
-    public boolean hasKey(String key) {
+    public Boolean hasKey(String key) {
         return stringRedisTemplate.hasKey(key);
     }
 
@@ -79,7 +79,7 @@ public class RedisUtil {
      * @param key key
      * @return r
      */
-    public Object get(String key) {
+    public String get(String key) {
         return key == null ? null : stringRedisTemplate.opsForValue().get(key);
     }
 
