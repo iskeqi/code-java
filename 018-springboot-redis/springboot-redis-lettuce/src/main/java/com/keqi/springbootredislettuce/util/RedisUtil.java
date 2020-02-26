@@ -84,6 +84,17 @@ public class RedisUtil {
     }
 
     /**
+     * 获取 string 类型的 key 对应的值
+     * @param key key
+     * @param clazz 泛型返回对象
+     * @return r
+     */
+    public <T> T get(String key, Class<T> clazz) {
+        String jsonStr = stringRedisTemplate.opsForValue().get(key);
+        return jsonStr == null ? null : JSON.parseObject(jsonStr, clazz);
+    }
+
+    /**
      * 设置 string 类型的value (无过期时间限制)
      * @param key key
      * @param value value
