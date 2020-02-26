@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
@@ -16,6 +17,12 @@ class SpringbootRedisLettuceApplicationTests {
     @Test
     void expire() {
         redisUtil.expire("runoobkey", -1, TimeUnit.DAYS);
+    }
+
+    @Test
+    void set() {
+        Properties properties = System.getProperties();
+        redisUtil.set("properties", properties);
     }
 
 }
