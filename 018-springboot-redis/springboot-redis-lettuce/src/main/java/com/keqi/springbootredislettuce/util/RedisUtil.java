@@ -1,5 +1,7 @@
 package com.keqi.springbootredislettuce.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Redis 工具类
  *
- * 1) 序列化对象到Redis时全部在该工具类外部转成JSON，再存储进Redis
+ * 1) 序列化对象到Redis时尽可能全部在该工具类外部转成JSON，再存储进Redis
  * 2) 如果需要该工具类中没有的方法，一律遵循这种编码方式自行补充
  *
  * @author keqi
@@ -91,6 +93,16 @@ public class RedisUtil {
     }
 
     /**
+     * 设置 string 类型的value (无过期时间限制)
+     * @param key key
+     * @param value value 对象（直接把对象序列化成JSON再存储进Redis中）
+     */
+    public void set(String key, Object value) {
+        String jsonStr = JSON.toJSONString(value, SerializerFeature.WriteMapNullValue);
+        stringRedisTemplate.opsForValue().set(key, jsonStr);
+    }
+
+    /**
      * 设置 string 类型的value (指定期时间限制)
      * @param key key
      * @param value value
@@ -99,6 +111,18 @@ public class RedisUtil {
      */
     public void set(String key, String value, long timeout, TimeUnit unit) {
         stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
+    }
+
+    /**
+     * 设置 string 类型的value (指定期时间限制)
+     * @param key key
+     * @param value value 对象（直接把对象序列化成JSON再存储进Redis中）
+     * @param timeout timeout 必须大约0，如果小于等于0 ，则相当于没有设置过期时间
+     * @param unit unit 时间单位(天/小时/分钟/秒/毫秒/微秒/纳秒)
+     */
+    public void set(String key, Object value, long timeout, TimeUnit unit) {
+        String jsonStr = JSON.toJSONString(value, SerializerFeature.WriteMapNullValue);
+        stringRedisTemplate.opsForValue().set(key, jsonStr, timeout, unit);
     }
 
     // =============================hash类型的操作============================ //
