@@ -25,4 +25,10 @@ class SpringbootRedisLettuceApplicationTests {
         redisUtil.set("properties", properties);
     }
 
+    @Test
+    void get() {
+        Properties properties = redisUtil.get("properties", Properties.class);
+        System.out.println(properties);
+    }
+
 }
