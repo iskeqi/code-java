@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -13,6 +14,8 @@ import java.util.concurrent.TimeUnit;
  *
  * 1) 序列化对象到Redis时尽可能全部在该工具类外部转成JSON，再存储进Redis
  * 2) 如果需要该工具类中没有的方法，一律遵循这种编码方式自行补充
+ *
+ * (越总结越觉得没有意义，直接使用StringRedisTemplate的方法操作就行了，封装干嘛？换来换去还是一行代码。。。)
  *
  * @author keqi
  */
@@ -138,5 +141,33 @@ public class RedisUtil {
 
     // =============================hash类型的操作============================ //
 
+
+    /**
+     * 获取hash类型的指定key和item的值
+     * @param key key
+     * @param item item
+     * @return r
+     */
+    public String hget(String key, String item) {
+        return (String) stringRedisTemplate.opsForHash().get(key, item);
+    }
+
+    /**
+     * 获取hash类型的指定key的所有值
+     * @param key key
+     * @return r hash 结构的 map
+     */
+    public Map<Object, Object> entries(String key) {
+        return stringRedisTemplate.opsForHash().entries(key);
+    }
+
+    /**
+     * hash 结构的值设置
+     * @param key key
+     * @param map map
+     */
+    public void putAll(String key, Map<String, String> map) {
+        stringRedisTemplate.opsForHash().putAll(key, map);
+    }
 
 }
