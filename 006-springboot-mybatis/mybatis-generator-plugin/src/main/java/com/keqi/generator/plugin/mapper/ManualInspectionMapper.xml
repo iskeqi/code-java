@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keqi.generator.plugin.mapper.ManualInspectionMapper" >
+  <resultMap id="BaseResultMap" type="com.keqi.generator.plugin.domain.ManualInspection" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PLAN_NAME" property="planName" jdbcType="VARCHAR" />
+    <result column="PLAN_CONTENT" property="planContent" jdbcType="VARCHAR" />
+    <result column="PERIOD_TYPE" property="periodType" jdbcType="CHAR" />
+    <result column="PEOPLE_TYPE" property="peopleType" jdbcType="CHAR" />
+    <result column="RUN_PERIOD" property="runPeriod" jdbcType="INTEGER" />
+    <result column="RUN_PERIOD_UNIT" property="runPeriodUnit" jdbcType="CHAR" />
+    <result column="RUN_PERIOD_DATE" property="runPeriodDate" jdbcType="TINYINT" />
+    <result column="RUN_PERIOD_START" property="runPeriodStart" jdbcType="TIMESTAMP" />
+    <result column="ACTIVE" property="active" jdbcType="CHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PLAN_NAME, PLAN_CONTENT, PERIOD_TYPE, PEOPLE_TYPE, RUN_PERIOD, RUN_PERIOD_UNIT, 
+    RUN_PERIOD_DATE, RUN_PERIOD_START, ACTIVE, CREATE_USER, CREATE_TIME, UPDATE_USER, 
+    UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_MANUAL_INSPECTION
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_MANUAL_INSPECTION
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.keqi.generator.plugin.domain.ManualInspection" >
+    insert into T_MANUAL_INSPECTION (ID, PLAN_NAME, PLAN_CONTENT, 
+      PERIOD_TYPE, PEOPLE_TYPE, RUN_PERIOD, 
+      RUN_PERIOD_UNIT, RUN_PERIOD_DATE, RUN_PERIOD_START, 
+      ACTIVE, CREATE_USER, CREATE_TIME, 
+      UPDATE_USER, UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{planName,jdbcType=VARCHAR}, #{planContent,jdbcType=VARCHAR}, 
+      #{periodType,jdbcType=CHAR}, #{peopleType,jdbcType=CHAR}, #{runPeriod,jdbcType=INTEGER}, 
+      #{runPeriodUnit,jdbcType=CHAR}, #{runPeriodDate,jdbcType=TINYINT}, #{runPeriodStart,jdbcType=TIMESTAMP}, 
+      #{active,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.keqi.generator.plugin.domain.ManualInspection" >
+    insert into T_MANUAL_INSPECTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="planName != null" >
+        PLAN_NAME,
+      </if>
+      <if test="planContent != null" >
+        PLAN_CONTENT,
+      </if>
+      <if test="periodType != null" >
+        PERIOD_TYPE,
+      </if>
+      <if test="peopleType != null" >
+        PEOPLE_TYPE,
+      </if>
+      <if test="runPeriod != null" >
+        RUN_PERIOD,
+      </if>
+      <if test="runPeriodUnit != null" >
+        RUN_PERIOD_UNIT,
+      </if>
+      <if test="runPeriodDate != null" >
+        RUN_PERIOD_DATE,
+      </if>
+      <if test="runPeriodStart != null" >
+        RUN_PERIOD_START,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planName != null" >
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="planContent != null" >
+        #{planContent,jdbcType=VARCHAR},
+      </if>
+      <if test="periodType != null" >
+        #{periodType,jdbcType=CHAR},
+      </if>
+      <if test="peopleType != null" >
+        #{peopleType,jdbcType=CHAR},
+      </if>
+      <if test="runPeriod != null" >
+        #{runPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="runPeriodUnit != null" >
+        #{runPeriodUnit,jdbcType=CHAR},
+      </if>
+      <if test="runPeriodDate != null" >
+        #{runPeriodDate,jdbcType=TINYINT},
+      </if>
+      <if test="runPeriodStart != null" >
+        #{runPeriodStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.keqi.generator.plugin.domain.ManualInspection" >
+    update T_MANUAL_INSPECTION
+    <set >
+      <if test="planName != null" >
+        PLAN_NAME = #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="planContent != null" >
+        PLAN_CONTENT = #{planContent,jdbcType=VARCHAR},
+      </if>
+      <if test="periodType != null" >
+        PERIOD_TYPE = #{periodType,jdbcType=CHAR},
+      </if>
+      <if test="peopleType != null" >
+        PEOPLE_TYPE = #{peopleType,jdbcType=CHAR},
+      </if>
+      <if test="runPeriod != null" >
+        RUN_PERIOD = #{runPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="runPeriodUnit != null" >
+        RUN_PERIOD_UNIT = #{runPeriodUnit,jdbcType=CHAR},
+      </if>
+      <if test="runPeriodDate != null" >
+        RUN_PERIOD_DATE = #{runPeriodDate,jdbcType=TINYINT},
+      </if>
+      <if test="runPeriodStart != null" >
+        RUN_PERIOD_START = #{runPeriodStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.keqi.generator.plugin.domain.ManualInspection" >
+    update T_MANUAL_INSPECTION
+    set PLAN_NAME = #{planName,jdbcType=VARCHAR},
+      PLAN_CONTENT = #{planContent,jdbcType=VARCHAR},
+      PERIOD_TYPE = #{periodType,jdbcType=CHAR},
+      PEOPLE_TYPE = #{peopleType,jdbcType=CHAR},
+      RUN_PERIOD = #{runPeriod,jdbcType=INTEGER},
+      RUN_PERIOD_UNIT = #{runPeriodUnit,jdbcType=CHAR},
+      RUN_PERIOD_DATE = #{runPeriodDate,jdbcType=TINYINT},
+      RUN_PERIOD_START = #{runPeriodStart,jdbcType=TIMESTAMP},
+      ACTIVE = #{active,jdbcType=CHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -3,24 +3,31 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <properties resource="test-jdbc.properties"/>
+
     <!-- 数据库驱动 -->
     <classPathEntry location="C:\Users\keqi\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar" />
+
     <context id="DB2Tables" targetRuntime="MyBatis3">
+
         <commentGenerator>
             <property name="suppressDate" value="true" />
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
+
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="${jdbc.driver}"
-                        connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://47.102.124.165:3306/mybatis_puls"
+                        userId="root"
+                        password="123456">
         </jdbcConnection>
+
         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和
             NUMERIC 类型解析为java.math.BigDecimal -->
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
+
         <!-- 生成模型的包名和位置 -->
         <javaModelGenerator targetPackage="com.keqi.generator.plugin.domain"
                             targetProject="src/main/java">
@@ -29,16 +36,19 @@
             <!-- 从数据库返回的值被清理前后的空格 -->
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
+
         <!-- 生成映射文件的包名和位置XML文件 -->
         <sqlMapGenerator targetPackage="com.keqi.generator.plugin.mapper"
                          targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
-        <!-- 生成DAO的包名和位置 -->
+
+        <!-- 生成Mapper的包名和位置 -->
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="com.keqi.generator.plugin.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
+
         <!-- 要生成哪些表 -->
         <!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
         <!--book_info数据库表明-->                  <!--别名Book_Info  pojo（实体类明）-->
@@ -49,9 +59,14 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
-        <!--<table tableName="classno" domainObjectName="ClassNo"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
+        <table tableName="T_MANUAL_INSPECTION"
+               domainObjectName="ManualInspection"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+
+
     </context>
 </generatorConfiguration>
