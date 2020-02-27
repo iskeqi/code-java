@@ -1,0 +1,28 @@
+server:
+  port: 8333
+
+# DataSource Config
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          username: root
+          password: 123456
+          url: jdbc:mysql://47.102.124.165:3306/dynamic-master?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          # 加上这个属性，就相当于有了连接池了哦
+          hikari:
+            max-pool-size: 100
+
+
+mybatis-plus:
+  # 指定mapper.xml文件所在位置
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  # mybatis打印sql(配合MyBatis Log Plugin插件可以在控制台查看格式化并且填充了占位符的SQL语句)
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  file:
+    name: logs/springboot-mp-dynamic.log
