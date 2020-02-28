@@ -13,3 +13,13 @@ logging:
 spring:
   profiles:
     active: #spring.profiles.active#
+
+# 动态数据源基础配置信息
+iot:
+  dynamic:
+   datasource:
+     url: jdbc:mysql://47.102.124.165:3306/?
+     urlParam: ?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+     username: root
+     password: 123456
+     driverClassName: com.mysql.cj.jdbc.Driver

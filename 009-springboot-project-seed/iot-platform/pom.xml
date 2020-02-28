@@ -35,16 +35,6 @@
     </modules>
 
     <dependencies>
-        <!--
-        只要导入这个依赖，然后把数据库连接URL、驱动改成p6spy对应的值，再加上一个spy.properties文件
-        就能够直接在控制台中打印SQL的执行时间和一个填充了占位符的SQL语句了，开发、测试环境下可以采用此配置
-        -->
-        <dependency>
-            <groupId>p6spy</groupId>
-            <artifactId>p6spy</artifactId>
-            <version>3.8.7</version>
-        </dependency>
-
         <!--lombok依赖-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -79,6 +69,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!--dynamic-datasource-spring-boot-starter依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
         <!--导入spring-boot-data-redis依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -100,19 +97,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!--spring-boot-starter-test依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
         <!--spring-boot-aop依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -124,6 +108,19 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.62</version>
+        </dependency>
+
+        <!--spring-boot-starter-test依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

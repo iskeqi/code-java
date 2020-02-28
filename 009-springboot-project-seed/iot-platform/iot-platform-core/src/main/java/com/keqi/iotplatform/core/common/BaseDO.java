@@ -30,4 +30,12 @@ public class BaseDO {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
 
+	/*// insert时会填充此字段
+	@TableField(fill = FieldFill.INSERT)
+	private String createUser;
+
+	// insert和update时都会填充字段
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private String updateUser;*/
+
 }
