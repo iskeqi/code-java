@@ -3,8 +3,10 @@ package com.qjzh.idomp.zjc.sc.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.qjzh.idomp.zjc.core.Auth;
 import com.qjzh.idomp.zjc.core.common.AjaxEntity;
 import com.qjzh.idomp.zjc.core.common.AjaxEntityBuilder;
+import com.qjzh.idomp.zjc.core.common.LoginUserBO;
 import com.qjzh.idomp.zjc.sc.domain.DictDataDO;
 import com.qjzh.idomp.zjc.sc.domain.DictDataVO;
 import com.qjzh.idomp.zjc.sc.service.IDictDataService;
@@ -37,7 +39,7 @@ public class DictDataController {
 	 * @return list
 	 */
 	@PostMapping("/get/dict-type")
-	public AjaxEntity<DictDataVO> pageDictData(String dictType) {
+	public AjaxEntity pageDictData(String dictType) {
 
 		// 1、查询指定dictType对应的字典数据列表
 		LambdaQueryWrapper<DictDataDO> lambdaQueryWrapper = new LambdaQueryWrapper<DictDataDO>()
@@ -45,7 +47,10 @@ public class DictDataController {
 				.eq(DictDataDO::getStatus, 0)
 				.orderByAsc(DictDataDO::getDictSort);
 		List<DictDataDO> list = iDictDataService.list(lambdaQueryWrapper);
-
+		String loginName = Auth.getLoginName();
+		System.out.println(loginName);
+		LoginUserBO loginUserBO = Auth.getLoginUserBO();
+		System.out.println(loginUserBO);
 		// 2、组装返回VO对象
 		List<DictDataVO> ret = new ArrayList<>();
 		list.forEach(

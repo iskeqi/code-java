@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * 全局异常处理器
@@ -19,7 +18,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = Throwable.class)
 	@ResponseBody
-	public AjaxEntity<Map<String, Object>> jsonErrorHandler(HttpServletRequest req, Throwable exception) throws Exception {
+	public AjaxEntity jsonErrorHandler(HttpServletRequest req, Throwable exception) throws Exception {
 		// 打印异常栈信息
 		exception.printStackTrace();
 

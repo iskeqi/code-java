@@ -62,14 +62,14 @@ public class AjaxEntityBuilder {
 	 *
 	 * @return ajaxEntity
 	 */
-	public static AjaxPageEntity list(Long total, List<?> records) {
+	public static AjaxPageEntity list(Long total, List<Object> list) {
 		AjaxPageEntity ajaxPageEntity = new AjaxPageEntity();
 		ajaxPageEntity.setMsg(successMsg);
 		ajaxPageEntity.setStatus(successCode);
 
 		AjaxPageEntity.PageEntity obj = ajaxPageEntity.new PageEntity();
 		obj.setTotal(total);
-		obj.setRecords(records);
+		obj.setList(list);
 		ajaxPageEntity.setBody(obj);
 		return ajaxPageEntity;
 	}

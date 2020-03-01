@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AjaxEntity<T> {
+public class AjaxEntity {
 
 	private Integer status;
 
 	private String msg;
 
-	private T body;
+	private Object body;
 }

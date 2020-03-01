@@ -14,21 +14,21 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AjaxPageEntity<T> {
+public class AjaxPageEntity {
 
 	private Integer status;
 
 	private String msg;
 
-	private PageEntity<T> body;
+	private PageEntity body;
 
 	@Data
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public class PageEntity<T> {
+	public class PageEntity {
 
 		private Long total;
 
-		private List<T> records;
+		private List<Object> list;
 	}
 }
