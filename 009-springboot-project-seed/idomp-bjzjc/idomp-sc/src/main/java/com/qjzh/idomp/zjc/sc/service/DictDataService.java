@@ -1,5 +1,7 @@
 package com.qjzh.idomp.zjc.sc.service;
 
+import com.qjzh.idomp.zjc.core.common.BaseService;
+import com.qjzh.idomp.zjc.sc.domain.DictData;
 import com.qjzh.idomp.zjc.sc.domain.DictDataVO;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  * @author keqi
  * @since 2020-02-03
  */
-public interface DictDataService {
+public interface DictDataService extends BaseService<DictData> {
 
     /**
      * 查询指定dictType对应的字典数据列表
