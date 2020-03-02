@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qjzh.idomp.zjc.sc.mapper.DictDataMapper" >
+
+  <resultMap id="BaseResultMap" type="com.qjzh.idomp.zjc.sc.domain.DictData" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="DICT_TYPE" property="dictType" jdbcType="VARCHAR" />
+    <result column="DICT_LABEL" property="dictLabel" jdbcType="VARCHAR" />
+    <result column="DICT_VALUE" property="dictValue" jdbcType="VARCHAR" />
+    <result column="DICT_SORT" property="dictSort" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CSS_CLASS" property="cssClass" jdbcType="VARCHAR" />
+    <result column="LIST_CLASS" property="listClass" jdbcType="VARCHAR" />
+    <result column="ACTIVE_FLAG" property="activeFlag" jdbcType="CHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, DICT_TYPE, DICT_LABEL, DICT_VALUE, DICT_SORT, REMARK, CSS_CLASS, LIST_CLASS, 
+    ACTIVE_FLAG, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME
+  </sql>
+
+  <!--查询指定dictType对应的字典数据列表-->
+  <select id="listByDictType" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM T_SC_DICT_DATA
+    WHERE DICT_TYPE = #{dictType}
+    AND ACTIVE_FLAG = 'Y'
+    ORDER BY DICT_SORT ASC
+  </select>
+
+</mapper>

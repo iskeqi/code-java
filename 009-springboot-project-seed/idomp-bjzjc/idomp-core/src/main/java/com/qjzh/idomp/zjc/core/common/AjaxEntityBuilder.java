@@ -13,94 +13,111 @@ import java.util.Map;
  */
 public class AjaxEntityBuilder {
 
-	private static final int successCode = HttpStatus.OK.value();
-	private static final String successMsg = HttpStatus.OK.getReasonPhrase();
+    /*OK(200, "OK")*/
+    private static final int successCode = HttpStatus.OK.value();
+    private static final String successMsg = HttpStatus.OK.getReasonPhrase();
 
-	private static final int failureCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
-	private static final String failureMsg = HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
+    /*INTERNAL_SERVER_ERROR(500, "Internal Server Error")*/
+    private static final int failureCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+    private static final String failureMsg = HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
 
-	private static final int noAuthCode = HttpStatus.UNAUTHORIZED.value();
-	private static final String noAuthMsg = HttpStatus.UNAUTHORIZED.getReasonPhrase();
+    /*UNAUTHORIZED(401, "Unauthorized")*/
+    private static final int noAuthCode = HttpStatus.UNAUTHORIZED.value();
+    private static final String noAuthMsg = HttpStatus.UNAUTHORIZED.getReasonPhrase();
 
 
-	/**
-	 * 单个对象
-	 *
-	 * @param body body
-	 * @return ajaxEntity
-	 */
-	public static AjaxEntity success(Object body) {
-		return AjaxEntity.builder().status(successCode)
-				.msg(successMsg)
-				.body(body).build();
-	}
+    /**
+     * 单个对象
+     *
+     * @param body body
+     * @return ajaxEntity
+     */
+    public static AjaxEntity success(Object body) {
+        AjaxEntity ajaxEntity = new AjaxEntity();
+        ajaxEntity.setStatus(successCode);
+        ajaxEntity.setMsg(successMsg);
+        ajaxEntity.setBody(body);
+        return ajaxEntity;
+    }
 
-	/**
-	 * 没有返回值
-	 *
-	 * @return ajaxEntity
-	 */
-	public static AjaxEntity success() {
-		return AjaxEntity.builder().status(successCode)
-				.msg(successMsg).build();
-	}
+    /**
+     * 没有返回值
+     *
+     * @return ajaxEntity
+     */
+    public static AjaxEntity success() {
+        AjaxEntity ajaxEntity = new AjaxEntity();
+        ajaxEntity.setStatus(successCode);
+        ajaxEntity.setMsg(successMsg);
+        return ajaxEntity;
+    }
 
-	/**
-	 * 只有一个返回值，但是又不想封装成对象来用
-	 *
-	 * @return ajaxEntity
-	 */
-	public static AjaxEntity success(String key, Object value) {
-		Map<String, Object> ret = new HashMap<>();
-		ret.put(key, value);
-		return AjaxEntity.builder().status(successCode)
-				.msg(successMsg).body(ret).build();
-	}
+    /**
+     * 只有一个返回值，但是又不想封装成对象来用
+     *
+     * @return ajaxEntity
+     */
+    public static AjaxEntity success(String key, Object value) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put(key, value);
 
-	/**
-	 * 返回列表
-	 *
-	 * @return ajaxEntity
-	 */
-	public static AjaxPageEntity list(Long total, List<Object> list) {
-		AjaxPageEntity ajaxPageEntity = new AjaxPageEntity();
-		ajaxPageEntity.setMsg(successMsg);
-		ajaxPageEntity.setStatus(successCode);
+        AjaxEntity ajaxEntity = new AjaxEntity();
+        ajaxEntity.setStatus(successCode);
+        ajaxEntity.setMsg(successMsg);
+        ajaxEntity.setBody(ret);
+        return ajaxEntity;
+    }
 
-		AjaxPageEntity.PageEntity obj = ajaxPageEntity.new PageEntity();
-		obj.setTotal(total);
-		obj.setList(list);
-		ajaxPageEntity.setBody(obj);
-		return ajaxPageEntity;
-	}
+    /**
+     * 返回列表
+     *
+     * @return ajaxEntity
+     */
+    public static AjaxPageEntity list(Long total, List<Object> list) {
+        AjaxPageEntity ajaxPageEntity = new AjaxPageEntity();
+        ajaxPageEntity.setMsg(successMsg);
+        ajaxPageEntity.setStatus(successCode);
 
-	/**
-	 * 未登录
-	 *
-	 * @return ajaxEntity
-	 */
-	public static AjaxEntity noAuth() {
-		return AjaxEntity.builder().status(noAuthCode)
-				.msg(noAuthMsg).build();
-	}
+        AjaxPageEntity.PageEntity obj = new AjaxPageEntity.PageEntity();
+        obj.setTotal(total);
+        obj.setList(list);
+        ajaxPageEntity.setBody(obj);
+        return ajaxPageEntity;
+    }
 
-	/**
-	 * 操作失败
-	 *
-	 * @return ajaxEntity
-	 */
-	public static AjaxEntity failure() {
-		return AjaxEntity.builder().msg(failureMsg).status(failureCode)
-				.build();
-	}
+    /**
+     * 未登录
+     *
+     * @return ajaxEntity
+     */
+    public static AjaxEntity noAuth() {
+        AjaxEntity ajaxEntity = new AjaxEntity();
+        ajaxEntity.setStatus(noAuthCode);
+        ajaxEntity.setMsg(noAuthMsg);
+        return ajaxEntity;
+    }
 
-	/**
-	 * 操作失败
-	 *
-	 * @return ajaxEntity
-	 */
-	public static AjaxEntity failure(String msg) {
-		return AjaxEntity.builder().msg(msg).status(failureCode)
-				.build();
-	}
+    /**
+     * 操作失败
+     *
+     * @return ajaxEntity
+     */
+    public static AjaxEntity failure() {
+        AjaxEntity ajaxEntity = new AjaxEntity();
+        ajaxEntity.setStatus(failureCode);
+        ajaxEntity.setMsg(failureMsg);
+        return ajaxEntity;
+    }
+
+    /**
+     * 操作失败
+     *
+     * @return ajaxEntity
+     */
+    public static AjaxEntity failure(String msg) {
+        AjaxEntity ajaxEntity = new AjaxEntity();
+        ajaxEntity.setStatus(failureCode);
+        ajaxEntity.setMsg(msg);
+        return ajaxEntity;
+    }
 }

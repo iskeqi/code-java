@@ -1,12 +1,16 @@
 package com.qjzh.idomp.zjc.sc.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.qjzh.idomp.zjc.sc.domain.DictDataDO;
+import cn.hutool.core.bean.BeanUtil;
+import com.qjzh.idomp.zjc.sc.domain.DictData;
+import com.qjzh.idomp.zjc.sc.domain.DictDataVO;
 import com.qjzh.idomp.zjc.sc.mapper.DictDataMapper;
-import com.qjzh.idomp.zjc.sc.service.IDictDataService;
+import com.qjzh.idomp.zjc.sc.service.DictDataService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -19,8 +23,30 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO> implements IDictDataService {
+public class DictDataServiceImpl implements DictDataService {
 
-	private final DictDataMapper dictDataMapper;
+    private final DictDataMapper dictDataMapper;
 
+    /**
+     * 查询指定dictType对应的字典数据列表
+     *
+     * @param dictType dictType
+     * @return r
+     */
+    @Override
+    public List<DictDataVO> listByDictType(String dictType) {
+
+        // 1、查询指定dictType对应的字典数据列表
+        List<DictData> dictDataList = dictDataMapper.listByDictType(dictType);
+
+        // 2、组装返回VO对象
+        List<DictDataVO> dictDataVOList = new ArrayList<>();
+        for (DictData dictData : dictDataList) {
+            DictDataVO dictDataVO = new DictDataVO();
+            BeanUtil.copyProperties(dictData, dictDataVO);
+            dictDataVOList.add(dictDataVO);
+        }
+
+        return dictDataVOList;
+    }
 }

@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
     <!-- 数据库驱动(这里无法使用相对路径) -->
-    <classPathEntry location="C:\Users\keqi\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar" />
+    <classPathEntry location="C:\Users\keqi\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar" />
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
 
@@ -16,7 +16,7 @@
         </commentGenerator>
 
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                         connectionURL="jdbc:mysql://47.102.124.165:3306/mybatis_puls"
                         userId="root"
                         password="123456">
@@ -29,7 +29,7 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="com.keqi.generator.plugin.domain"
+        <javaModelGenerator targetPackage="com.qjzh.idomp.zjc.sc.domain"
                             targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="true" />
@@ -38,14 +38,14 @@
         </javaModelGenerator>
 
         <!-- 生成映射文件的包名和位置XML文件 -->
-        <sqlMapGenerator targetPackage="com.keqi.generator.plugin.mapper"
+        <sqlMapGenerator targetPackage="com.qjzh.idomp.zjc.sc.mapper"
                          targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
         <!-- 生成Mapper的包名和位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.keqi.generator.plugin.mapper" targetProject="src/main/java">
+                             targetPackage="com.qjzh.idomp.zjc.sc.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 

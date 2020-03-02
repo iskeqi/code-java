@@ -1,22 +1,13 @@
 package com.qjzh.idomp.zjc.sc.controller;
 
 
-import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.qjzh.idomp.zjc.core.Auth;
 import com.qjzh.idomp.zjc.core.common.AjaxEntity;
 import com.qjzh.idomp.zjc.core.common.AjaxEntityBuilder;
-import com.qjzh.idomp.zjc.core.common.LoginUserBO;
-import com.qjzh.idomp.zjc.sc.domain.DictDataDO;
-import com.qjzh.idomp.zjc.sc.domain.DictDataVO;
-import com.qjzh.idomp.zjc.sc.service.IDictDataService;
+import com.qjzh.idomp.zjc.sc.service.DictDataService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
@@ -31,36 +22,15 @@ import java.util.List;
 @AllArgsConstructor
 public class DictDataController {
 
-	private final IDictDataService iDictDataService;
+	private final DictDataService dictDataService;
 
 	/**
-	 * 根据dictType得值返回对应的字典数据列表
+	 * 根据dictType返回对应的字典数据列表
 	 * @param dictType dictType
 	 * @return list
 	 */
-	@PostMapping("/get/dict-type")
+	@GetMapping("/get/dict-type")
 	public AjaxEntity pageDictData(String dictType) {
-
-		// 1、查询指定dictType对应的字典数据列表
-		LambdaQueryWrapper<DictDataDO> lambdaQueryWrapper = new LambdaQueryWrapper<DictDataDO>()
-				.eq(DictDataDO::getDictType, dictType)
-				.eq(DictDataDO::getStatus, 0)
-				.orderByAsc(DictDataDO::getDictSort);
-		List<DictDataDO> list = iDictDataService.list(lambdaQueryWrapper);
-		String loginName = Auth.getLoginName();
-		System.out.println(loginName);
-		LoginUserBO loginUserBO = Auth.getLoginUserBO();
-		System.out.println(loginUserBO);
-		// 2、组装返回VO对象
-		List<DictDataVO> ret = new ArrayList<>();
-		list.forEach(
-				x -> {
-					DictDataVO c = new DictDataVO();
-					BeanUtil.copyProperties(x, c);
-					ret.add(c);
-				}
-		);
-
-		return AjaxEntityBuilder.success(ret);
+		return AjaxEntityBuilder.success(this.dictDataService.listByDictType(dictType));
 	}
 }

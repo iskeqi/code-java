@@ -16,9 +16,15 @@ public class Auth {
 	 * @return r
 	 */
 	public static String getLoginName() {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-		LoginUserBO loginUserBO = (LoginUserBO) request.getAttribute("loginUser");
-		return loginUserBO.getLoginName();
+		return getLoginUserBO().getLoginName();
+	}
+
+	/**
+	 * 获取当前线程操作用户姓名
+	 * @return r
+	 */
+	public static String getName() {
+		return getLoginUserBO().getName();
 	}
 
 	/**
@@ -27,7 +33,7 @@ public class Auth {
 	 */
 	public static LoginUserBO getLoginUserBO() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-		return  (LoginUserBO) request.getAttribute("loginUser");
+		return  (LoginUserBO) request.getAttribute(CommonConstants.LOGIN_USER);
 	}
 
 

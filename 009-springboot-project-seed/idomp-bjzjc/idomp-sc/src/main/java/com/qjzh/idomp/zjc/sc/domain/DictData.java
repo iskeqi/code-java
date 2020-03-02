@@ -1,31 +1,26 @@
 package com.qjzh.idomp.zjc.sc.domain;
 
+import com.qjzh.idomp.zjc.core.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-/**
- * <p>
- * 字典数据表
- * </p>
- *
- * @author keqi
- * @since 2020-02-03
- */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DictDataVO implements Serializable {
+public class DictData extends BaseEntity {
 
-    private static final long serialVersionUID = -1766015948376837558L;
+    private static final long serialVersionUID = 5081153680325410596L;
 
-    private Long id;
+    private String dictType;
 
     private String dictLabel;
 
     private String dictValue;
+
+    private Integer dictSort;
 
     private String remark;
 
@@ -33,5 +28,4 @@ public class DictDataVO implements Serializable {
 
     private String listClass;
 
-    private Integer dictSort;
 }

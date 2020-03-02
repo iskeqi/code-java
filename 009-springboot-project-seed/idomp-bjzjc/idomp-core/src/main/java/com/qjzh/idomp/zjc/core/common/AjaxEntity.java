@@ -1,24 +1,48 @@
 package com.qjzh.idomp.zjc.core.common;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * 响应实体类
  *
  * @author keqi
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class AjaxEntity {
 
-	private Integer status;
+    public AjaxEntity() {
+    }
 
-	private String msg;
+    public AjaxEntity(Integer status, String msg, Object body) {
+        this.status = status;
+        this.msg = msg;
+        this.body = body;
+    }
 
-	private Object body;
+    private Integer status;
+
+    private String msg;
+
+    private Object body;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public Object getBody() {
+        return body;
+    }
+
+    public void setBody(Object body) {
+        this.body = body;
+    }
 }

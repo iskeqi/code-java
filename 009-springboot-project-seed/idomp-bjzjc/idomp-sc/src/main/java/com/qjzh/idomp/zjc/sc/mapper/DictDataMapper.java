@@ -1,16 +1,15 @@
 package com.qjzh.idomp.zjc.sc.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.qjzh.idomp.zjc.sc.domain.DictDataDO;
+import com.qjzh.idomp.zjc.sc.domain.DictData;
 
-/**
- * <p>
- * 字典数据表 Mapper 接口
- * </p>
- *
- * @author keqi
- * @since 2020-02-03
- */
-public interface DictDataMapper extends BaseMapper<DictDataDO> {
+import java.util.List;
 
+public interface DictDataMapper {
+
+    /**
+     * 查询指定dictType对应的字典数据列表
+     * @param dictType dictType
+     * @return r
+     */
+    List<DictData> listByDictType(String dictType);
 }
