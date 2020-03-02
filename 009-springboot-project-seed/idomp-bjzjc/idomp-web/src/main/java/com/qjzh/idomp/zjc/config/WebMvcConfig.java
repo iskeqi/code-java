@@ -25,8 +25,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		// 注册一个安全拦截器，拦截除"/auth/authentication"之外的所有请求
-		registry.addInterceptor(securityInterceptor).addPathPatterns("/**").excludePathPatterns("/auth/authentication");
+		// 注册一个安全拦截器，拦截所有请求
+		registry.addInterceptor(securityInterceptor).addPathPatterns("/**");
 	}
 }
 

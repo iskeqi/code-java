@@ -3,9 +3,9 @@ package com.qjzh.idomp.zjc.core.common;
 import java.util.List;
 
 /**
- * 基础Service
+ * 基础Service接口
  *
- * 改接口中的方法作用仅仅是规范命名，不强制要求实现
+ * 该接口中的方法作用仅仅是规范命名，不强制要求实现(规范命名的同时，给予充分自由)
  *
  * @author keqi
  */

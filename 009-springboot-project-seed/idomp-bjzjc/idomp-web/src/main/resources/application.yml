@@ -7,7 +7,7 @@ logging:
   file:
     name: logs/idomp-bjzjc.log
 
-# 指定多环境配置文件(maven动态切换)#spring.profiles.active#
+# 指定多环境配置文件
 spring:
   profiles:
     active: dev

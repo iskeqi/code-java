@@ -1,13 +1,10 @@
 package com.qjzh.idomp.zjc.core.common;
 
-import lombok.Data;
-
 /**
  * 登录用户信息实体类
  *
  * @author keqi
  */
-@Data
 public class LoginUserBO {
 
 	// 登录名
@@ -16,4 +13,22 @@ public class LoginUserBO {
 	// 姓名
 	private String name;
 
+	public LoginUserBO() {
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

@@ -27,8 +27,8 @@ public class GlobalExceptionHandler {
 			return AjaxEntityBuilder.failure(exception.getMessage());
 		}
 
-		// 非自定义异常则统一显示"系统内部错误"字样
-		return AjaxEntityBuilder.failure("系统内部错误");
+		// 非自定义异常则统一显示"Internal Server Error"字样
+		return AjaxEntityBuilder.failure();
 	}
 
 }
