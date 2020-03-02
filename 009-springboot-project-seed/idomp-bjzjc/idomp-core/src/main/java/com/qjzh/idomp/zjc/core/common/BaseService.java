@@ -51,6 +51,15 @@ public interface BaseService<T> {
     }
 
     /**
+     * 查询记录总数
+     * @param entity entity
+     * @return r
+     */
+    default Long count(T entity){
+        return null;
+    }
+
+    /**
      * 查询记录列表
      * @param entity entity
      * @return r
