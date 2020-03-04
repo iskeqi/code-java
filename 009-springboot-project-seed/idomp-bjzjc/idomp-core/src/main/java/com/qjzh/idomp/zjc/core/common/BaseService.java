@@ -15,38 +15,38 @@ public interface BaseService<T> {
      * 插入一条记录
      * @param entity entity
      */
-    default void insert(T entity){}
+    default void insert(T entity) {}
 
     /**
      * 批量插入多条记录
      * @param entity entity
      */
-    default void insertBatch(T entity){}
+    default void insertBatch(T entity) {}
 
     /**
      * 删除一条记录
      * @param entity entity
      */
-    default void deleteById(T entity){}
+    default void deleteById(T entity) {}
 
     /**
      * 批量删除多条记录
      * @param entity entity
      */
-    default void deleteByIds(T entity){}
+    default void deleteByIds(T entity) {}
 
     /**
      * 修改记录
      * @param entity entity
      */
-    default void updateById(T entity){}
+    default void updateById(T entity) {}
 
     /**
      * 查询单个记录
      * @param entity entity
      * @return r
      */
-    default T getById(T entity){
+    default T getById(T entity) {
         return null;
     }
 
@@ -55,7 +55,7 @@ public interface BaseService<T> {
      * @param entity entity
      * @return r
      */
-    default Long count(T entity){
+    default Long count(T entity) {
         return null;
     }
 
@@ -64,7 +64,7 @@ public interface BaseService<T> {
      * @param entity entity
      * @return r
      */
-    default List<T> list(T entity){
+    default List<?> list(T entity) {
         return null;
     }
 
