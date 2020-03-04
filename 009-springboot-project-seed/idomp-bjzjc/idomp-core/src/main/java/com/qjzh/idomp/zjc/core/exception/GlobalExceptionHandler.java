@@ -1,4 +1,4 @@
-package com.qjzh.idomp.zjc.exception;
+package com.qjzh.idomp.zjc.core.exception;
 
 import com.qjzh.idomp.zjc.core.common.AjaxEntity;
 import com.qjzh.idomp.zjc.core.common.AjaxEntityBuilder;

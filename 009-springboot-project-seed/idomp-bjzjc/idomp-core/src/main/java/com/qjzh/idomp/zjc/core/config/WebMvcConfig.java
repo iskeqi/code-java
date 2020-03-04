@@ -1,4 +1,4 @@
-package com.qjzh.idomp.zjc.config;
+package com.qjzh.idomp.zjc.core.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;

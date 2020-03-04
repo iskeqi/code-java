@@ -1,4 +1,4 @@
-package com.qjzh.idomp.zjc.interceptor;
+package com.qjzh.idomp.zjc.core.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.qjzh.idomp.zjc.core.CommonConstants;
