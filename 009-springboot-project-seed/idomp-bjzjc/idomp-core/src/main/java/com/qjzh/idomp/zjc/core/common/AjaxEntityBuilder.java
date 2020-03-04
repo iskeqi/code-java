@@ -2,6 +2,7 @@ package com.qjzh.idomp.zjc.core.common;
 
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,20 @@ public class AjaxEntityBuilder {
         ajaxEntity.setStatus(successCode);
         ajaxEntity.setMsg(successMsg);
         ajaxEntity.setBody(body);
+        return ajaxEntity;
+    }
+
+    /**
+     * 单个数组对象
+     *
+     * @param list list
+     * @return ajaxEntity
+     */
+    public static AjaxEntity successList(List<?> list) {
+        AjaxEntity ajaxEntity = new AjaxEntity();
+        ajaxEntity.setStatus(successCode);
+        ajaxEntity.setMsg(successMsg);
+        ajaxEntity.setBody(list == null ? new ArrayList() : list);
         return ajaxEntity;
     }
 
