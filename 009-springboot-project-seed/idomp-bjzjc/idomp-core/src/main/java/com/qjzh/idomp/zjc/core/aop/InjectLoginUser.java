@@ -27,7 +27,7 @@ public class InjectLoginUser {
 
 	@Before("injectUser()")
 	public void doBefore (JoinPoint joinPoint) {
-		// 1、获取方法的参数
+		// 1、获取方法的参数(第一个参数、第二个参数都可以)
 		Object[] args = joinPoint.getArgs();
 
 		// 2、如果该方法无参数或者第一个参数不属于BaseEntity或者Map的子类，则直接结束
