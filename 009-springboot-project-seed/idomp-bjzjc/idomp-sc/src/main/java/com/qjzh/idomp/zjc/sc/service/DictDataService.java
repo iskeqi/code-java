@@ -22,4 +22,16 @@ public interface DictDataService extends BaseService<DictData> {
      * @return r
      */
     List<DictDataVO> listByDictType(String dictType);
+
+	/**
+	 * 删除dictType对应的字典数据列表
+	 * @param dictType dictType
+	 */
+	void deleteByDictType(String dictType);
+
+	/**
+	 * 批量增加字典数据
+	 * @param dictDataList dictDataList
+	 */
+	void insertBatch(List<DictData> dictDataList);
 }

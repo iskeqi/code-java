@@ -18,12 +18,6 @@ public interface BaseService<T> {
     default void insert(T entity) {}
 
     /**
-     * 批量插入多条记录
-     * @param entity entity
-     */
-    default void insertBatch(T entity) {}
-
-    /**
      * 删除一条记录
      * @param entity entity
      */

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
@@ -14,6 +16,7 @@ public class DictData extends BaseEntity {
 
     private static final long serialVersionUID = 5081153680325410596L;
 
+    @NotNull
     private String dictType;
 
     private String dictLabel;
