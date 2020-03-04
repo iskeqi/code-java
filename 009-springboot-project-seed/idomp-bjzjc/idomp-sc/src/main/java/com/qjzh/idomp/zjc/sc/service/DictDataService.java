@@ -28,10 +28,4 @@ public interface DictDataService extends BaseService<DictData> {
 	 * @param dictType dictType
 	 */
 	void deleteByDictType(String dictType);
-
-	/**
-	 * 批量增加字典数据
-	 * @param dictDataList dictDataList
-	 */
-	void insertBatch(List<DictData> dictDataList);
 }

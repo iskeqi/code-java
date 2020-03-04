@@ -21,7 +21,6 @@ public interface DictDataMapper {
 	 */
 	void deleteByDictType(String dictType);
 
-
 	/**
 	 * 增加记录
 	 *
