@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 
@@ -44,7 +45,12 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public AjaxEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		e.printStackTrace();
-		return AjaxEntityBuilder.failure(e.getBindingResult().getFieldError().getDefaultMessage());
+		StringBuilder errorMsg = new StringBuilder();
+		for (ObjectError allError : e.getBindingResult().getAllErrors()) {
+			errorMsg.append(allError.getDefaultMessage()).append(",");
+		}
+		errorMsg.delete(errorMsg.length() - 1, errorMsg.length());
+		return AjaxEntityBuilder.failure(errorMsg.toString());
 	}
 
 	/**
@@ -58,11 +64,17 @@ public class GlobalExceptionHandler {
 
 	/**
 	 * ConstraintViolationException
+	 * 使用@Validated注解验证方法参数中的@RequestParam注解和@PathVariable注解对应的值，抛出的是这种异常
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
 	public AjaxEntity handleConstraintViolationException(ConstraintViolationException e) {
 		e.printStackTrace();
-		return AjaxEntityBuilder.failure(e.getMessage());
+		StringBuilder errorMsg = new StringBuilder();
+		for (ConstraintViolation<?> constraintViolation : e.getConstraintViolations()) {
+			errorMsg.append(constraintViolation.getMessage()).append(",");
+		}
+		errorMsg.delete(errorMsg.length() - 1, errorMsg.length());
+		return AjaxEntityBuilder.failure(errorMsg.toString());
 	}
 
 	/**
