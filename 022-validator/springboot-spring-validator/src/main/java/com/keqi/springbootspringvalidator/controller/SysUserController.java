@@ -1,9 +1,11 @@
-package com.keqi.springboothibernatevalidator.controller;
+package com.keqi.springbootspringvalidator.controller;
 
-import com.keqi.springboothibernatevalidator.common.AjaxEntity;
-import com.keqi.springboothibernatevalidator.common.AjaxEntityBuilder;
-import com.keqi.springboothibernatevalidator.domain.SysUserCreateBatchRequestParam;
-import com.keqi.springboothibernatevalidator.domain.SysUserCreateRequestParam;
+import com.keqi.springbootspringvalidator.common.AjaxEntity;
+import com.keqi.springbootspringvalidator.common.AjaxEntityBuilder;
+import com.keqi.springbootspringvalidator.domain.SysUserCreateBatchRequestParam;
+import com.keqi.springbootspringvalidator.domain.SysUserCreateRequestParam;
+import com.keqi.springbootspringvalidator.service.SysUserService;
+import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +17,10 @@ import javax.validation.Valid;
  */
 @RestController
 @Validated
-@RequestMapping("/2")
-public class SysUserController2 {
+@AllArgsConstructor
+public class SysUserController {
 
+	private final SysUserService sysUserService;
 
 	/**
 	 * 表单以及GET方式提交参数（这种校验方式就能够生效）
@@ -42,7 +45,7 @@ public class SysUserController2 {
 	}
 
 	/**
-	 * 表单以及GET方式提交单个参数（这种校验方式必须、必须、必须需要在控制器的类上使用@Validated注解，如果是使用@Valid注解是无效的）
+	 * 表单以及GET方式提交单个参数（这种校验方式必须、必须、必须需要在控制器的类上使用@Validated注解，即便放在方法上也无效，@Valid注解就更是了）
 	 * @param username username
 	 * @return rstman
 	 */
@@ -53,7 +56,7 @@ public class SysUserController2 {
 	}
 
 	/**
-	 * 请求体为JSON时提交参数（这种校验方式能够生效）（这个接口同时也演示了有嵌套子对象时，应该如何进行校验）
+	 * 请求体为JSON时提交参数（这种校验方式能够生效）（这个接口同时也演示了有嵌套子对象时，应该如何进行校验）(这种场景不得不使用@Valid注解)
 	 * @param sysUserCreateBatchRequestParam sysUserCreateBatchRequestParam
 	 * @return r
 	 */
@@ -61,6 +64,18 @@ public class SysUserController2 {
 	public AjaxEntity sysUserCreateJSONList2(@Valid @RequestBody SysUserCreateBatchRequestParam sysUserCreateBatchRequestParam) {
 		System.out.println("======================");
 		return AjaxEntityBuilder.success(sysUserCreateBatchRequestParam);
+	}
+
+	/**
+	 * 表单以及GET方式提交单个参数（测试Service层接口中是否能够生效）
+	 * @param username username
+	 * @return rstman
+	 */
+	@GetMapping("/sysUserCreateRequestParam2Service")
+	public AjaxEntity sysUserCreateForm2Service(String username) {
+		System.out.println("====================");
+		this.sysUserService.sysUserCreateForm2Service(username);
+		return AjaxEntityBuilder.success(username);
 	}
 
 }
