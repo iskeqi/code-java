@@ -1,6 +1,6 @@
 package com.keqi.springbootredislettuce;
 
-import com.keqi.springbootredislettuce.util.RedisUtil;
+import com.keqi.springbootredislettuce.util.RedisClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,22 +12,22 @@ import java.util.concurrent.TimeUnit;
 class SpringbootRedisLettuceApplicationTests {
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisClient redisClient;
 
     @Test
     void expire() {
-        redisUtil.expire("runoobkey", -1, TimeUnit.DAYS);
+        redisClient.expire("runoobkey", -1, TimeUnit.DAYS);
     }
 
     @Test
     void set() {
         Properties properties = System.getProperties();
-        redisUtil.set("properties", properties);
+        redisClient.set("properties", properties);
     }
 
     @Test
     void get() {
-        Properties properties = redisUtil.get("properties", Properties.class);
+        Properties properties = redisClient.get("properties", Properties.class);
         System.out.println(properties);
     }
 
