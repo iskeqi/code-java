@@ -32,4 +32,13 @@ public class EnumTest {
 		System.out.println(SampleTypeEnum.ALL.toString().equals(ALL)); // 输出为true
 	}
 
+	@Test
+	public void testUserTypeEnum() {
+		String userType = "SUPER_ADMIN";
+		// 这样做的确挺好的，确实是毫无问题了
+		if (userType.equals(UserTypeEnum.SUPER_ADMIN.name())) {
+			System.out.println(UserTypeEnum.SUPER_ADMIN.getMsg());
+		}
+	}
+
 }
