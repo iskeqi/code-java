@@ -14,7 +14,6 @@
         <module>idomp-bjzjc</module>
         <module>iot-platform</module>
         <module>dict-sample</module>
-        <module>dict-sample</module>
     </modules>
 
 </project>

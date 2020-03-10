@@ -34,9 +34,6 @@ public class BaseEntity implements Serializable {
 	/** 总数 */
 	protected int total;
 
-	/** 状态（Y-正常，N-停用）*/
-	protected String activeFlag;
-
 	/** 开始日期 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -191,13 +188,5 @@ public class BaseEntity implements Serializable {
 
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
-	}
-
-	public String getActiveFlag() {
-		return activeFlag;
-	}
-
-	public void setActiveFlag(String activeFlag) {
-		this.activeFlag = activeFlag;
 	}
 }

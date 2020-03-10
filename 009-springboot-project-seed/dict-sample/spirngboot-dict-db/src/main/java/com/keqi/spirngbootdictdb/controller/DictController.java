@@ -29,7 +29,7 @@ public class DictController {
 
 	/**
 	 * 批量新增
-	 * @return
+	 * @return r
 	 */
 	public AjaxEntity insertBatch() {
 		return AjaxEntityBuilder.success();
