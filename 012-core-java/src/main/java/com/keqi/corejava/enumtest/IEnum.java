@@ -7,5 +7,5 @@ public interface IEnum {
 	 *
 	 * @return String
 	 */
-	String getMsg();
+	String getValueName();
 }

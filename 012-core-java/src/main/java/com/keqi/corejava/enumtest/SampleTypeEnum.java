@@ -1,5 +1,8 @@
 package com.keqi.corejava.enumtest;
 
+/**
+ * 枚举也是一种类型，和枚举中的元素就是这个枚举类型的对象，这没有任何不同
+ */
 public enum SampleTypeEnum implements IEnum {
 
 	/**
@@ -18,15 +21,15 @@ public enum SampleTypeEnum implements IEnum {
 	RANDOM("随机设备");
 
 
-	private final String msg;
+	private final String valueName;
 
-	SampleTypeEnum(String msg) {
-		this.msg = msg;
+	SampleTypeEnum(String valueName) {
+		this.valueName = valueName;
 	}
 
 	@Override
-	public String getMsg() {
-		return msg;
+	public String getValueName() {
+		return valueName;
 	}
 
 	@Override
