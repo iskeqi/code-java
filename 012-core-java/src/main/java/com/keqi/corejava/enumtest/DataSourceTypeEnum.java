@@ -7,7 +7,7 @@ package com.keqi.corejava.enumtest;
  *
  * @author ruoyi
  */
-public enum DataSourceType {
+public enum DataSourceTypeEnum {
 
 	/**
 	 * 主库
