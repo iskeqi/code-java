@@ -11,14 +11,18 @@ import com.keqi.spirngbootdictdb.enums.ActiveFlagEnum;
 import com.keqi.spirngbootdictdb.enums.UserTypeEnum;
 import com.keqi.spirngbootdictdb.mapper.AccountMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 用户Controller
  */
 @RestController
 @AllArgsConstructor
+@Validated
 public class AccountController {
 
 	private final AccountMapper accountMapper;
@@ -84,5 +88,14 @@ public class AccountController {
 		accountVO.setUserTypeName(account.getUserType().getValueName());
 		accountVO.setActiveFlagName(account.getActiveFlag().getValueName());
 		return AjaxEntityBuilder.success(accountVO);
+	}
+
+	// 测试SpringMVC直接使用枚举对象来接收对应的同名的字符串
+	// 可见，直接使用枚举类来接收同名的字符串，也是支持的，这样就更加的方便啦
+	// 程序中无论是有多个参数还是只有一个参数，都使用枚举类来进行封装这是一种非常好的方式
+	// 数据库中也是用字符串来表示对应的标识符，这样从controller->service->mapper就一路畅通无阻啦
+	@GetMapping("/account/detail5")
+	public AjaxEntity detail5(@NotNull UserTypeEnum userType) {
+		return AjaxEntityBuilder.success(userType.getValueName());
 	}
 }
