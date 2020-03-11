@@ -94,6 +94,7 @@ public class AccountController {
 	// 可见，直接使用枚举类来接收同名的字符串，也是支持的，这样就更加的方便啦
 	// 程序中无论是有多个参数还是只有一个参数，都使用枚举类来进行封装这是一种非常好的方式
 	// 数据库中也是用字符串来表示对应的标识符，这样从controller->service->mapper就一路畅通无阻啦
+	// 如果不是枚举类中指定的类型，SpringMVC在做参数映射的时候是会直接报错的,所以不需要担心会有其他值出现
 	@GetMapping("/account/detail5")
 	public AjaxEntity detail5(@NotNull UserTypeEnum userType) {
 		return AjaxEntityBuilder.success(userType.getValueName());
