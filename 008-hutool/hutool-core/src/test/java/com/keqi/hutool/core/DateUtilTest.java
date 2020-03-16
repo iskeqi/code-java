@@ -61,5 +61,19 @@ public class DateUtilTest {
 		dateTimes.forEach(System.out::println);
 	}
 
+	/**
+	 * 验证日期字符串格式
+	 */
+	@Test
+	public void check() {
+		String str1 = "2019-12-12";
+		String str2 = "201-12-212";
+		DateTime dateTime = DateUtil.parseDate(str1);
+		DateTime dateTime1 = DateUtil.parseDate(str2);
+		if (dateTime1 == null) {
+			System.out.println(dateTime1);
+		}
+	}
+
 
 }
