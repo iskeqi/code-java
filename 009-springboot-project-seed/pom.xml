@@ -14,6 +14,7 @@
         <module>idomp-bjzjc</module>
         <module>iot-platform</module>
         <module>dict-sample</module>
+        <module>project-seed-first</module>
     </modules>
 
 </project>
