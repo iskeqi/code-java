@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.projectseedfirst.test.mapper.DeptMapper">
+
+    <resultMap id="BaseResultMap" type="com.keqi.projectseedfirst.test.domain.Dept">
+        <id column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="ancestors" jdbcType="VARCHAR" property="ancestors"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="leader" jdbcType="VARCHAR" property="leader"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dept_id, parent_id, ancestors, dept_name, order_num, leader, phone, email, `status`,
+        del_flag, create_by, create_time, update_by, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from sys_dept
+        where dept_id = #{deptId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_dept
+        where dept_id = #{deptId,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" keyColumn="dept_id" keyProperty="deptId"
+            parameterType="com.keqi.projectseedfirst.test.domain.Dept" useGeneratedKeys="true">
+        insert into sys_dept (
+            parent_id, ancestors, dept_name,
+            order_num, leader, phone,
+            email, `status`, del_flag, create_by,
+            create_time, update_by, update_time
+        )
+        values (
+            #{parentId,jdbcType=BIGINT}, #{ancestors,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR},
+            #{orderNum,jdbcType=INTEGER}, #{leader,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="dept_id" keyProperty="deptId"
+            parameterType="com.keqi.projectseedfirst.test.domain.Dept" useGeneratedKeys="true">
+        insert into sys_dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="ancestors != null and ancestors != ''">
+                ancestors,
+            </if>
+            <if test="deptName != null and deptName != ''">
+                dept_name,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="leader != null and leader != ''">
+                leader,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="status != null and status != ''">
+                `status`,
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                del_flag,
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="ancestors != null and ancestors != ''">
+                #{ancestors,jdbcType=VARCHAR},
+            </if>
+            <if test="deptName != null and deptName != ''">
+                #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=INTEGER},
+            </if>
+            <if test="leader != null and leader != ''">
+                #{leader,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null and email != ''">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                #{delFlag,jdbcType=CHAR},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.keqi.projectseedfirst.test.domain.Dept">
+        update sys_dept
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="ancestors != null and ancestors != ''">
+                ancestors = #{ancestors,jdbcType=VARCHAR},
+            </if>
+            <if test="deptName != null and deptName != ''">
+                dept_name = #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum,jdbcType=INTEGER},
+            </if>
+            <if test="leader != null and leader != ''">
+                leader = #{leader,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''">
+                `status` = #{status,jdbcType=CHAR},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                del_flag = #{delFlag,jdbcType=CHAR},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where dept_id = #{deptId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.keqi.projectseedfirst.test.domain.Dept">
+        update sys_dept
+        set parent_id = #{parentId,jdbcType=BIGINT},
+            ancestors = #{ancestors,jdbcType=VARCHAR},
+            dept_name = #{deptName,jdbcType=VARCHAR},
+            order_num = #{orderNum,jdbcType=INTEGER},
+            leader = #{leader,jdbcType=VARCHAR},
+            phone = #{phone,jdbcType=VARCHAR},
+            email = #{email,jdbcType=VARCHAR},
+            `status` = #{status,jdbcType=CHAR},
+            del_flag = #{delFlag,jdbcType=CHAR},
+            create_by = #{createBy,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_by = #{updateBy,jdbcType=VARCHAR},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where dept_id = #{deptId,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectAllByParentId" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from sys_dept
+        where parent_id=#{parentId,jdbcType=BIGINT}
+    </select>
+</mapper>

@@ -78,6 +78,7 @@ public class BaseEntity implements Serializable {
 	 * @return 偏移量
 	 */
 	public int getOffset(){
+		// pageSize 等于 -1 则查询所有
 		return this.getPageSize() * (this.getPageNum() - 1);
 	}
 
@@ -106,7 +107,8 @@ public class BaseEntity implements Serializable {
 	}
 
 	public int getPageNum() {
-		return pageNum;
+		// 如果小于等于0，则返回1
+		return pageNum <= 0 ? 1 : pageNum;
 	}
 
 	public void setPageNum(int pageNum) {
