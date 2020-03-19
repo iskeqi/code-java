@@ -74,6 +74,7 @@ public class StreamTest {
 
 		// 在地址前面加上部分信息，只获取地址输出
 		List<String> collect = studentList.stream().map(s -> "住址:" + s.getAddress()).collect(Collectors.toList());
+
 		collect.forEach(System.out::println);
 	}
 
