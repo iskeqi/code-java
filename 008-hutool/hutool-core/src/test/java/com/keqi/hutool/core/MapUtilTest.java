@@ -1,5 +1,6 @@
 package com.keqi.hutool.core;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.map.MapUtil;
 import org.junit.Before;
@@ -46,5 +47,13 @@ public class MapUtilTest {
 		// 总结：cn.hutool.core.convert.Convert 类在无法转换时，并不会抛出异常，而是返回一个null
 
 		System.out.println("-");
+	}
+
+	@Test
+	public void testMap() {
+		Map<String, Object> param = new HashMap<>();
+		param.put("name", "name");
+		param.remove("sn");
+		System.out.println("==");
 	}
 }
