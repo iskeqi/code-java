@@ -6,6 +6,7 @@ import cn.hutool.core.map.MapUtil;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.sound.midi.Soundbank;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,9 @@ public class MapUtilTest {
 	public void testMap() {
 		Map<String, Object> param = new HashMap<>();
 		param.put("name", "name");
-		param.remove("sn");
-		System.out.println("==");
+		param.remove("name");
+		System.out.println(param == null);
+		System.out.println(param.size());
+
 	}
 }
