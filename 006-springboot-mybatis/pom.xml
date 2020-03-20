@@ -13,6 +13,7 @@
         <module>springboot-mybatis-transaction</module>
         <module>springboot-mybatis-mapper-xml</module>
         <module>mybatis-generator-plugin</module>
+        <module>springboot-mybatis-ognl</module>
     </modules>
 
 </project>
