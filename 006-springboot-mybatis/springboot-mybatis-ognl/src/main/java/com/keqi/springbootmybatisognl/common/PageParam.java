@@ -16,7 +16,11 @@ public class PageParam {
 	protected int pageSize = 10;
 
 	/**
-	 * 计算偏移量(使用方式：LIMIT #{offset}, #{pageSize})
+	 * 计算偏移量(使用方式：
+	 *
+	 * <if test="pageSize >= 0">
+	 *    LIMIT #{offset}, #{pageSize})
+	 * </if>
 	 *
 	 * @return 偏移量
 	 */
