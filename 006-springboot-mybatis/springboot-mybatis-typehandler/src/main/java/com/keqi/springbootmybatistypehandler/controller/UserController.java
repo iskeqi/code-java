@@ -3,6 +3,7 @@ package com.keqi.springbootmybatistypehandler.controller;
 import com.keqi.springbootmybatistypehandler.common.AjaxEntity;
 import com.keqi.springbootmybatistypehandler.common.AjaxEntityBuilder;
 import com.keqi.springbootmybatistypehandler.domain.SysUser;
+import com.keqi.springbootmybatistypehandler.enumeration.GenderEnum;
 import com.keqi.springbootmybatistypehandler.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ public class UserController {
 		SysUser sysUser = new SysUser();
 		sysUser.setUserName("keqi" + id);
 		sysUser.setNickName("柯琦" + id);
+		if (id == 2) {
+			sysUser.setSex(GenderEnum.UNKNOW);
+		}
 		this.sysUserMapper.insert(sysUser);
 		return AjaxEntityBuilder.success(sysUser);
 	}
