@@ -46,7 +46,7 @@ public class AjaxEntityBuilder {
 	 * @param list list
 	 * @return ajaxEntity
 	 */
-	public static AjaxEntity successList(List<?> list) {
+	public static AjaxEntity success(List<?> list) {
 		AjaxEntity ajaxEntity = new AjaxEntity();
 		ajaxEntity.setStatus(successCode);
 		ajaxEntity.setMsg(successMsg);
@@ -72,7 +72,7 @@ public class AjaxEntityBuilder {
 	 *
 	 * @return ajaxEntity
 	 */
-	public static AjaxEntity list(long total, List<Object> list) {
+	public static AjaxEntity successList(long total, List<Object> list) {
 		AjaxEntity ajaxEntity = new AjaxEntity();
 		ajaxEntity.setMsg(successMsg);
 		ajaxEntity.setStatus(successCode);
@@ -91,7 +91,7 @@ public class AjaxEntityBuilder {
 	 * @param pageVO pageVO
 	 * @return r
 	 */
-	public static AjaxEntity list(PageVO pageVO) {
+	public static AjaxEntity successList(PageVO pageVO) {
 		AjaxEntity ajaxEntity = new AjaxEntity();
 		ajaxEntity.setMsg(successMsg);
 		ajaxEntity.setStatus(successCode);
