@@ -14,6 +14,7 @@
         <module>springboot-mybatis-mapper-xml</module>
         <module>mybatis-generator-plugin</module>
         <module>springboot-mybatis-ognl</module>
+        <module>springboot-mybatis-typehandler</module>
     </modules>
 
 </project>

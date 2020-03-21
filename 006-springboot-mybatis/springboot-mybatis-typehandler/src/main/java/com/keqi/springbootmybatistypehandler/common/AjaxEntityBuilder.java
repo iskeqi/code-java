@@ -1,4 +1,4 @@
-package com.keqi.springbootmybatisognl.common;
+package com.keqi.springbootmybatistypehandler.common;
 
 import org.springframework.http.HttpStatus;
 
