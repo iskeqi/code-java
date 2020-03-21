@@ -12,6 +12,7 @@ public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -123017340005452171L;
 
 	/** 登录用户对象 */
-	protected LoginUserBO loginUser;
+	// 实现了该接口的
+	// protected LoginUserBO loginUser;
 
 }

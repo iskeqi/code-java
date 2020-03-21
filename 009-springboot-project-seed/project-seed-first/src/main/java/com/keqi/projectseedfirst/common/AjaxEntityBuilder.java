@@ -2,7 +2,6 @@ package com.keqi.projectseedfirst.common;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class AjaxEntityBuilder {
 		AjaxEntity ajaxEntity = new AjaxEntity();
 		ajaxEntity.setStatus(successCode);
 		ajaxEntity.setMsg(successMsg);
-		ajaxEntity.setBody(list == null ? new ArrayList() : list);
+		ajaxEntity.setBody(list == null ? Collections.emptyList() : list);
 		return ajaxEntity;
 	}
 
