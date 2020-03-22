@@ -18,7 +18,7 @@ public interface SysUserMapper {
 
 	int updateByPrimaryKey(SysUser record);
 
-	int insertList(@Param("list") List<SysUser> list);
+	int batchInsert(@Param("list") List<SysUser> list);
 
 
 }
