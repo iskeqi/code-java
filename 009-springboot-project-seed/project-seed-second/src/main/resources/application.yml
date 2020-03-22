@@ -1,0 +1,13 @@
+# 任何环境下的公共配置放在这个文件中
+server:
+  port: 9102
+
+# 直接使用SpirngBoot默认日志配置即可
+logging:
+  file:
+    name: logs/project-seed-second.log
+
+# 指定多环境配置文件
+spring:
+  profiles:
+    active: dev
