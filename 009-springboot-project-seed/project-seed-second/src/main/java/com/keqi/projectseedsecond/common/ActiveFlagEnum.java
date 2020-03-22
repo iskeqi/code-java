@@ -1,6 +1,6 @@
 package com.keqi.projectseedsecond.common;
 
-public enum ActiveFlagEnum {
+public enum ActiveFlagEnum implements BaseEnumInterface{
 
 	Y("启用"),
 
