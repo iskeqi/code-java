@@ -1,5 +1,6 @@
 package com.keqi.springbootspringvalidator.domain;
 
+import com.keqi.springbootspringvalidator.validators.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,4 +43,7 @@ public class SysUserCreateRequestParam implements Serializable {
 	@NotNull(message = "性别不能为空")
 	@Range(min = 1, max = 4, message = "性别数值不正确")
 	private Integer genderNum;
+
+	@Constant(message = "verson只能为1.0", value="1.0")
+	String version;
 }

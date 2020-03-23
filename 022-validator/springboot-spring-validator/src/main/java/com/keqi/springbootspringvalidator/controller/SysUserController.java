@@ -5,12 +5,16 @@ import com.keqi.springbootspringvalidator.common.AjaxEntityBuilder;
 import com.keqi.springbootspringvalidator.domain.SysUserCreateBatchRequestParam;
 import com.keqi.springbootspringvalidator.domain.SysUserCreateRequestParam;
 import com.keqi.springbootspringvalidator.service.SysUserService;
+import com.keqi.springbootspringvalidator.util.SpringValidatorUtil;
 import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validator;
+import java.util.Set;
 
 /**
  * "@Validated"注解的使用(推荐优先使用@Validated注解，除非不得不需要使用@Valid注解时)
@@ -21,6 +25,12 @@ import javax.validation.Valid;
 public class SysUserController {
 
 	private final SysUserService sysUserService;
+
+	// 这里导入的是 javax.validation.Validator
+	private final Validator validator;
+
+	// 自己基于 javax.validation.Validator 封装的工具类
+	private final SpringValidatorUtil springValidatorUtil;
 
 	/**
 	 * 表单以及GET方式提交参数（这种校验方式就能够生效）
@@ -78,4 +88,34 @@ public class SysUserController {
 		return AjaxEntityBuilder.success(username);
 	}
 
+	/**
+	 * 手动校验的方式
+	 *
+	 * @return rstman
+	 */
+	@GetMapping("/manualValidator")
+	public AjaxEntity manualValidator() {
+		SysUserCreateRequestParam sysUserCreateRequestParam = new SysUserCreateRequestParam();
+		sysUserCreateRequestParam.setUserEmail("1209023760");
+
+		/*
+		javax.validation.Validator 类的 validate() 方法返回值是一个Set<ConstraintViolation<T>>类型的集合，对于不满足要求的参数，就会
+		生成一个ConstraintViolation对象，并把错误信息封装在它的 message 属性中。
+
+		可见，实际使用过程中，应该封装一个工具类，只需要一行代码，然后在不符合校验规则的情况下，就直接抛出异常即可。
+
+		 */
+		Set<ConstraintViolation<SysUserCreateRequestParam>> constraintViolationSet = validator.validate(sysUserCreateRequestParam);
+
+		for (ConstraintViolation<SysUserCreateRequestParam> sysUserCreateRequestParamConstraintViolation : constraintViolationSet) {
+			String message = sysUserCreateRequestParamConstraintViolation.getMessage();
+			System.out.println(message);
+		}
+
+		if (springValidatorUtil.validate(sysUserCreateRequestParam)) {
+			// 校验通过
+		}
+
+		return AjaxEntityBuilder.success();
+	}
 }
