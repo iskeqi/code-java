@@ -6,12 +6,12 @@ package com.keqi.projectseedsecond.common;
 public class PageParam {
 
 	/**
-	 * 当前页数
+	 * 当前页数（最小为-1）
 	 */
 	protected int pageNum = 1;
 
 	/**
-	 * 每页大小
+	 * 每页大小（最大为50）
 	 */
 	protected int pageSize = 10;
 
@@ -38,7 +38,7 @@ public class PageParam {
 	}
 
 	public int getPageSize() {
-		return pageSize;
+		return Math.min(pageSize, 50);
 	}
 
 	public void setPageSize(int pageSize) {
