@@ -23,20 +23,7 @@
         <module>iot-platform-inspection</module>
         <module>iot-platform-workform</module>
         <module>iot-platform-rule</module>
+        <module>iot-platform-web</module>
     </modules>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
