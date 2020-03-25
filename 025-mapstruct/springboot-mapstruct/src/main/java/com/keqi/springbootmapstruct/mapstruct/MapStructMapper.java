@@ -38,4 +38,11 @@ public interface MapStructMapper {
 	)
 	Target source2targetMutil(Source source);
 
+	// 多个对象转成一个对象
+
+	// 不新增对象，而是去修改对象
+
+	// 通过 java 表达式的方式进行转换
+
+	// 自己再接口Mapper中编写default方法手动的进行转换
 }
