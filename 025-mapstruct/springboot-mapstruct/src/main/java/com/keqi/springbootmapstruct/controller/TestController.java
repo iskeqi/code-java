@@ -1,9 +1,6 @@
 package com.keqi.springbootmapstruct.controller;
 
-import com.keqi.springbootmapstruct.domain.Order;
-import com.keqi.springbootmapstruct.domain.OrderQueryParam;
-import com.keqi.springbootmapstruct.domain.Source;
-import com.keqi.springbootmapstruct.domain.Target;
+import com.keqi.springbootmapstruct.domain.*;
 import com.keqi.springbootmapstruct.mapstruct.MapStructMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +54,72 @@ public class TestController {
 		Target target = MapStructMapper.INSTANCE.source2targetMutil(source);
 
 		System.out.println(target);
+		return "success";
+	}
+
+	@GetMapping("test4")
+	public Object test4() {
+
+		Person person = new Person();
+		person.setFirstName("first");
+		person.setDescription("perSonDescription");
+		person.setHeight(183);
+		person.setLastName("homejim");
+
+		Address address = new Address();
+		address.setDescription("addressDescription");
+		address.setHouseNo(29);
+		address.setStreet("street");
+		address.setZipCode(344);
+
+		DeliveryAddress deliveryAddress = MapStructMapper.INSTANCE.personAndAddressToDeliveryAddressDto(person, address);
+		System.out.println(deliveryAddress);
+
+		return "success";
+	}
+
+	@GetMapping("test5")
+	public Object test5() {
+
+		Address address = new Address();
+		address.setDescription("addressDescription");
+		address.setHouseNo(29);
+		address.setStreet("street");
+		address.setZipCode(344);
+
+		DeliveryAddress deliveryAddress = new DeliveryAddress();
+		MapStructMapper.INSTANCE.updateDeliveryAddressFromAddress(address, deliveryAddress);
+
+
+		System.out.println(deliveryAddress);
+		return "success";
+	}
+
+	@GetMapping("test6")
+	public Object test6() {
+
+		Source source = new Source();
+		source.setId("1");
+		source.setNumSource(12);
+		source.setTotalCount(100);
+
+		Target target = MapStructMapper.manualSourceToTarget(source);
+
+		System.out.println(target);
+		return "success";
+	}
+
+	@GetMapping("test7")
+	public Object test7() {
+
+		UserDO userDO = new UserDO();
+		userDO.setUsername("admin");
+		userDO.setUserType(UserType.SUPER_ADMIN);
+
+		UserVO userVO = MapStructMapper.INSTANCE.userDO2UserVO(userDO);
+
+		System.out.println(userVO);
+
 		return "success";
 	}
 }
