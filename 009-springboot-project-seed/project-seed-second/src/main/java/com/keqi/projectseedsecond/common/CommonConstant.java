@@ -8,4 +8,8 @@ public abstract class CommonConstant {
 	public static final String ACCESS_TOKEN = "accessToken";
 
 	public static final String LOGIN_USER = "loginUser";
+
+	public static final String CREATE = "CREATE";
+
+	public static final String UPDATE = "UPDATE";
 }

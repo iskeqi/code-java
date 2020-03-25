@@ -12,6 +12,7 @@ public enum ActiveFlagEnum implements BaseEnumInterface{
 		this.valueName = valueName;
 	}
 
+	@Override
 	public String getValueName() {
 		return valueName;
 	}
