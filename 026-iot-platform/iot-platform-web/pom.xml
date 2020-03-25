@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.keqi</groupId>
+    <artifactId>iot-platform-web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>iot-platform-web</name>
+    <description>Demo project for Spring Boot</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.keqi</groupId>
+            <artifactId>iot-platform-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.keqi</groupId>
+            <artifactId>iot-platform-asset</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.keqi</groupId>
+            <artifactId>iot-platform-inspection</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.keqi</groupId>
+            <artifactId>iot-platform-rule</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.keqi</groupId>
+            <artifactId>iot-platform-uc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.keqi</groupId>
+            <artifactId>iot-platform-workform</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
