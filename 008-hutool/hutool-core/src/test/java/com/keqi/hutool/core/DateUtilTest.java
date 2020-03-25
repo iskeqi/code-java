@@ -70,9 +70,13 @@ public class DateUtilTest {
 		String str2 = "201-12-212";
 		DateTime dateTime = DateUtil.parseDate(str1);
 		DateTime dateTime1 = DateUtil.parseDate(str2);
-		if (dateTime1 == null) {
-			System.out.println(dateTime1);
-		}
+
+		// 输出：2019-12-12 00:00:00
+		System.out.println(dateTime);
+
+		// 输出：0202-06-30 00:00:00
+		System.out.println(dateTime1);
+		// 即便不符合日期格式，也不会报错。
 	}
 
 
