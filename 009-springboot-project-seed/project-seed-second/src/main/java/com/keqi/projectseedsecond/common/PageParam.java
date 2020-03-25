@@ -6,7 +6,7 @@ package com.keqi.projectseedsecond.common;
 public class PageParam {
 
 	/**
-	 * 当前页数（最小为-1）
+	 * 当前页数（最小为1）
 	 */
 	protected int pageNum = 1;
 
