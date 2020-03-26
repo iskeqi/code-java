@@ -7,6 +7,8 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * 实际上MapStruct会检测到使用了@Mapper注解的接口，并生成对应的实现类，然后一行行的通过get/set进行属性值的替换
  *
@@ -68,4 +70,18 @@ public interface MapStructMapper {
 		return target;
 	}
 
+	// List类型的列表进行转换
+	// 属性名、类型都相同的对象转换，直接如下写一个方法即可
+	// 属性名不匹配的，就直接忽略掉了
+	List<OrderQueryParam> entityList2queryParamList(List<Order> order);
+
+
+	// 通过 java 表达式的方式进行转换(完美通过，只是写 java 表达式的时候一定要仔细，以防止不必要的错误发生)
+	// 这里直接调用了枚举类型对象的相关方法(不需要写resource属性哦)
+	// 这个在工作中用的非常频繁哦，也非常的有实际作用，要不然就直接用反射的进行对象的赋值了
+	// 以后VO的转换就这样写哦，如果更复杂的话，就可以直接在接口中写default方法，自己是手动实现
+	// @Mapping(target = "userType", expression = "java(userDO.getUserType().name())")
+	// @Mapping(target = "userTypeName", expression = "java(userDO.getUserType().getValueName())")
+	// List<UserVO> userDOList2UserVOList(List<UserDO> userDO);
+	// 这种带 Java 表达式的好像无法做列表的转换，还是手动的进行一次for循环操作吧
 }
