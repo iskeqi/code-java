@@ -1,14 +1,18 @@
 package com.keqi.iotplatform.core.interceptor;
 
 import com.keqi.iotplatform.core.Auth;
+import com.keqi.iotplatform.core.constant.CommonConstant;
 import com.keqi.iotplatform.core.domain.LoginUserBO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  * 安全拦截器(进行accessToken的鉴权等)
@@ -23,13 +27,17 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-		LoginUserBO loginUserBO = new LoginUserBO();
-		// 开发环境不进行认证
-		if ("dev".equals(profile)) {
+		String accessToken = request.getHeader(CommonConstant.ACCESS_TOKEN);
+
+		if (StringUtils.isEmpty(accessToken) && "dev".equals(profile)) {
+			// 开发环境，不走正常登陆逻辑(后期会删除掉此段代码)
+			LoginUserBO loginUserBO = new LoginUserBO();
 			loginUserBO.setLoginAccount("ZhangSan");
 			loginUserBO.setLoginAccountName("张三");
-		} else {
-			// 获取token，然后进行认证
+			Auth.setLoginUserBO(loginUserBO);
+			return true;
+		}
+		// 其他情况全部都要走正常登录逻辑
 			/*
 
 			String accessToken = request.getHeader(CommonConstant.ACCESS_TOKEN);
@@ -44,10 +52,9 @@ public class SecurityInterceptor implements HandlerInterceptor {
 			}
 
 			*/
-		}
 		// 2、鉴权成功后，将登陆用户信息放到当前线程绑定的request对象中
-		Auth.setLoginUserBO(loginUserBO);
-		return true;
+
+		return false;
 	}
 
 	@Override

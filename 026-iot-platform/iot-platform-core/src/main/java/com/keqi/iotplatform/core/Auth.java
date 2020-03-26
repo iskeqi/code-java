@@ -1,6 +1,6 @@
 package com.keqi.iotplatform.core;
 
-import com.keqi.iotplatform.core.constant.CoreCommonConstant;
+import com.keqi.iotplatform.core.constant.CommonConstant;
 import com.keqi.iotplatform.core.domain.LoginUserBO;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +45,7 @@ public class Auth {
 		if (Objects.isNull(stringObjectMap)) {
 			return null;
 		}
-		return (LoginUserBO) stringObjectMap.get(CoreCommonConstant.LOGIN_USER);
+		return (LoginUserBO) stringObjectMap.get(CommonConstant.LOGIN_USER);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Auth {
 			stringObjectMap = new HashMap<>();
 			threadLocal.set(stringObjectMap);
 		}
-		stringObjectMap.put(CoreCommonConstant.LOGIN_USER, loginUserBO);
+		stringObjectMap.put(CommonConstant.LOGIN_USER, loginUserBO);
 	}
 
 
