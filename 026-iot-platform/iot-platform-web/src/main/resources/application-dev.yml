@@ -12,3 +12,7 @@ spring:
           # 加上这个属性，就相当于有了连接池了哦
           hikari:
             max-pool-size: 100
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
