@@ -7,7 +7,7 @@ spring:
         master:
           username: root
           password: root
-          url: jdbc:mysql://47.102.124.165:3306/dynamic-master?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+          url: jdbc:mysql://47.102.124.165:3306/ry-vue?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           # 加上这个属性，就相当于有了连接池了哦
           hikari:

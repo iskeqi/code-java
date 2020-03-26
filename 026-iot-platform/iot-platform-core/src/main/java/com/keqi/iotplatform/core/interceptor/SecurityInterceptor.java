@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component("securityInterceptor")
 public class SecurityInterceptor implements HandlerInterceptor {
 
-	@Value("${spring.profiles.active}")
+	//@Value("${spring.profiles.active}")
 	private String profile;
 
 	@Override
