@@ -4,10 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 测试cn.hutool.core.bean.BeanUtil类的相关API
@@ -57,5 +54,18 @@ public class BeanUtilTest {
 		String premissName = Convert.convert(String.class,
 				BeanUtil.getProperty(map, "info[0].premissList[3].premissName"));
 		System.out.println(premissName);
+	}
+
+	@Test
+	public void test3() {
+		RegisterUserParam registerUserParam = new RegisterUserParam();
+		registerUserParam.setName("zhagnsna");
+		registerUserParam.setAge(19);
+		registerUserParam.setScore(123.5);
+
+		// 忽略掉属性为null的字段，这个在调用别人的接口时，非常的有用
+		Map<String, Object> stringObjectMap = BeanUtil.
+				beanToMap(registerUserParam, false, true);
+		System.out.println(stringObjectMap.toString());
 	}
 }
