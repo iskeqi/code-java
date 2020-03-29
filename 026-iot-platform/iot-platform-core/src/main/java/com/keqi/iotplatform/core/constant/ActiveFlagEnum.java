@@ -1,5 +1,8 @@
 package com.keqi.iotplatform.core.constant;
 
+/**
+ * 启用/禁用枚举类
+ */
 public enum ActiveFlagEnum implements BaseEnumInterface {
 
 	Y("启用"),
