@@ -6,6 +6,9 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class TestController {
 
@@ -120,6 +123,44 @@ public class TestController {
 
 		System.out.println(userVO);
 
+		return "success";
+	}
+
+	@GetMapping("test8")
+	public Object test8() {
+		List<Order> orderList = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			Order order = new Order();
+			order.setId(12345L);
+			order.setOrderSn("orderSn");
+			order.setOrderType(0);
+			order.setReceiverKeyword("keyword");
+			order.setSourceType(1);
+			order.setStatus(2);
+			orderList.add(order);
+		}
+
+		List<OrderQueryParam> orderQueryParams = MapStructMapper.INSTANCE.
+				entityList2queryParamList(orderList);
+
+		System.out.println(orderQueryParams);
+
+		return "success";
+	}
+
+	@GetMapping("test9")
+	public Object test9() {
+		List<UserDO> userDOList = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			UserDO userDO = new UserDO();
+			userDO.setUsername("admin");
+			userDO.setUserType(UserType.SUPER_ADMIN);
+			userDOList.add(userDO);
+		}
+
+		// List<UserVO> userVOList = MapStructMapper.INSTANCE.userDOList2UserVOList(userDOList);
+
+		// System.out.println(userVOList);
 		return "success";
 	}
 }

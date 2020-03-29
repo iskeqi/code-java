@@ -3,10 +3,7 @@ package com.keqi.java8.stream;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +33,8 @@ public class StreamTest {
 
 	 	1) 操作更加优雅，使用StreamAPI可能只需要一行代码，但是使用for循环可能要写很多行
 	 	2) 性能更好，当数据量很大的时候，可以很轻松的使用并行流来分开处理数据，最后再合并
+	 	3) 业务上真的用得上，比如在分页查询的时候，有些场景不适合先连接在查询，需要查询出记录后
+	 	    再去查询关联记录，这个时候就涉及到很多的列表操作
 
 	总结：
 		以后凡是遇到需要操作集合的时候，就想想能不能通过java8的StreamAPI来解决，而不要去使用for循环
@@ -66,6 +65,8 @@ public class StreamTest {
 	/**
 	 * 集合转换
 	 * 使用场景：只想取出集合中元素的某一个属性或者多个属性的组合
+	 *  分页查询时，直接使用map()方法把id组装出来，再配合 <foreach/> 就可以查询对应的关联记录
+	 *  最后再使用 stream 的分组来区分一下，非常好用的方式
 	 */
 	@Test
 	public void testMap() {
@@ -177,5 +178,23 @@ public class StreamTest {
 		if (noneMatch) {
 			System.out.println("没有叫杨洋的同学");
 		}
+	}
+
+	@Test
+	public void testGroupBy() {
+
+		// 直接在内存中按照指定的key值进行分组，这个用的也是非常的频繁哦
+		Map<Long, List<Student>> collect = studentList.stream().
+				collect(Collectors.groupingBy(Student::getId));
+
+		Set<Map.Entry<Long, List<Student>>> entries = collect.entrySet();
+		for (Map.Entry<Long, List<Student>> entry : entries) {
+			Long key = entry.getKey();
+			List<Student> value = entry.getValue();
+			System.out.println(key);
+			System.out.println(value);
+		}
+
+
 	}
 }
