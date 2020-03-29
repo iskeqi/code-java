@@ -8,6 +8,7 @@ class ConcurrentJavaBasicApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
