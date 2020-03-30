@@ -1,4 +1,4 @@
-package com.keqi.hutool.core;
+package com.keqi.hutool.core.common;
 
 import lombok.Data;
 

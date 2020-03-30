@@ -2,6 +2,10 @@ package com.keqi.hutool.core;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
+import com.keqi.hutool.core.common.Premiss;
+import com.keqi.hutool.core.common.RegisterUserParam;
+import com.keqi.hutool.core.common.Role;
+import com.keqi.hutool.core.common.User;
 import org.junit.Test;
 
 import java.util.*;

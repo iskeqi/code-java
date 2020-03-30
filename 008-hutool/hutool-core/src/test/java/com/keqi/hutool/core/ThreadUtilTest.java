@@ -21,7 +21,7 @@ public class ThreadUtilTest {
 	}
 
 	/**
-	 * 所谓延迟任务，其实就是通过 sleep() 来实现的哦，
+	 * 所谓延迟任务，其实就是通过 sleep() 来实现的哦，但是你不能自己使用sleep()，而应该使用延迟线程池中的工具
 	 */
 	@Test
 	public void test2() {
