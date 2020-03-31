@@ -52,4 +52,18 @@ public class EnumController {
 		// 序列化枚举类型
 		return AjaxEntityBuilder.success(enumParam);
 	}
+
+	@PostMapping("/enums/createJSON2")
+	public AjaxEntity createJSO2N(@RequestBody InspectionWorkStatusEnum inspectionWorkStatus,
+	                              String name) {
+		// 这种方式其实不支持
+		System.out.println(name);
+
+		System.out.println(inspectionWorkStatus);
+
+		// 序列化枚举类型
+		return AjaxEntityBuilder.success();
+	}
+
+
 }
