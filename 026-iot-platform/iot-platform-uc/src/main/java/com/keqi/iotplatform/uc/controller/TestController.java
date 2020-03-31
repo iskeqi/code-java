@@ -49,6 +49,8 @@ public class TestController {
 	public AjaxEntity test5(QueryBaseParam2 queryBaseParam2) {
 		// 这种场景必须要添加注解才行
 		// 总结：还是直接使用 application/json 是最好的
+		// 凡是多个参数时，一律使用POST application/json
+		// 除非是个别请求参数，使用get即可，表单提交即可
 		return AjaxEntityBuilder.success(queryBaseParam2);
 	}
 }
