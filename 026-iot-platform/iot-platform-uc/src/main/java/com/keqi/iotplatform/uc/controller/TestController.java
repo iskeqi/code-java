@@ -47,6 +47,8 @@ public class TestController {
 
 	@PostMapping("/test5")
 	public AjaxEntity test5(QueryBaseParam2 queryBaseParam2) {
+		// 这种场景必须要添加注解才行
+		// 总结：还是直接使用 application/json 是最好的
 		return AjaxEntityBuilder.success(queryBaseParam2);
 	}
 }

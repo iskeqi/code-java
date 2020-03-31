@@ -1,5 +1,8 @@
 package com.keqi.iotplatform.uc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -15,6 +18,8 @@ public class QueryBaseParam2 {
 	protected String searchValue;
 
 	/** 开始日期 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate beginDate;
 
 	/** 结束日期 */
