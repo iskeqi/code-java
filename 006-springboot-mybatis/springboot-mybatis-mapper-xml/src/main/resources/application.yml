@@ -1,12 +1,12 @@
 spring:
   datasource:
-    password: 123456
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.102.124.165:3306/mapper_xml?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://47.102.124.165:3306/mapper_xml?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     username: root
 
 server:
-  port: 8333
+  port: 9102
 
 mybatis:
   configuration:
