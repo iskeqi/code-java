@@ -1,5 +1,6 @@
 package com.keqi.apihu.core.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class PageVO {
 	}
 
 	public List<?> getList() {
-		return list;
+		return list == null ? new ArrayList<>() : list;
 	}
 
 	public void setList(List<?> list) {

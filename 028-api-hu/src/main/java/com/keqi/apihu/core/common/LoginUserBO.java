@@ -1,38 +1,29 @@
 package com.keqi.apihu.core.common;
 
+import lombok.*;
+import lombok.experimental.Accessors;
+
 /**
  * 登录用户信息实体类
  *
  * @author keqi
  */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
 public class LoginUserBO {
 
 	/**
 	 * 登录用户账号名
 	 */
-	private String loginAccount;
+	private String account;
 
 	/**
 	 * 登录用户姓名
 	 */
-	private String loginAccountName;
+	private String nickName;
 
-	public LoginUserBO() {
-	}
-
-	public String getLoginAccount() {
-		return loginAccount;
-	}
-
-	public void setLoginAccount(String loginAccount) {
-		this.loginAccount = loginAccount;
-	}
-
-	public String getLoginAccountName() {
-		return loginAccountName;
-	}
-
-	public void setLoginAccountName(String loginAccountName) {
-		this.loginAccountName = loginAccountName;
-	}
+	private String post;
 }
