@@ -69,6 +69,7 @@ public class WebSocketSession {
 	@OnMessage
 	public void onMessage(String message, Session session) throws Exception {
 		// 不明白为什么这里阻塞了会影响到其他连接发送消息，所以这里必须要手动开启一个新的线程来执行业务逻辑
+		// 你打了断点，当然会堵塞啊，傻逼
 
 		String sessionId = session.getId();
 		log.info("收到来自客户端"+ sessionId + "的信息:"+ message);
