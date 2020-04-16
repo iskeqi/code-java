@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
@@ -15,6 +16,7 @@ import java.util.Map;
  * 自定义一个WebSocket拦截器，用于建立连接/接收消息前进行一些通用业务操作
  */
 @Slf4j
+@Component
 public class SecurityWebSocketInterceptor extends HttpSessionHandshakeInterceptor {
 
     @Override // 拦截 Handshake 事件

@@ -9,21 +9,19 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * WebSocket 消息实体类
+ * WebSocket 请求消息实体类
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Accessors(chain = true)
-public class WebSocketMessageEntity {
+public class WebSocketMessageParam {
 
 	private String msgCode;
 
 	// 如果通过WebSocket来实现请求/应答机制，就需要这个字段和请求消息一一对应
 	private String msgId;
-
-	private Date msgTime;
 
 	private Object msgBody;
 }

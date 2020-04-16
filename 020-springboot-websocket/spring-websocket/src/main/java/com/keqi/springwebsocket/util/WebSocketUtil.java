@@ -1,10 +1,9 @@
 package com.keqi.springwebsocket.util;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.keqi.springwebsocket.message.WebSocketMessageEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.log;
-import org.slf4j.logFactory;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -43,7 +42,7 @@ public class WebSocketUtil {
     }
 
     /**
-     * 移除 Session 。
+     * 移除 Session
      *
      * @param session Session
      */
@@ -61,12 +60,11 @@ public class WebSocketUtil {
     /**
      * 广播发送消息给所有在线用户
      *
-     * @param type 消息类型
      * @param message 消息体
      */
-    public static void broadcast(String type, WebSocketMessageEntity message) {
+    public static void broadcast(WebSocketMessageEntity message) {
         // 创建消息
-        TextMessage textMessage = buildTextMessage(type, message);
+        TextMessage textMessage = buildTextMessage(message);
         // 遍历 SESSION_USER_MAP ，进行逐个发送
         for (WebSocketSession session : SESSION_USER_MAP.keySet()) {
             sendTextMessage(session, textMessage);
@@ -77,13 +75,11 @@ public class WebSocketUtil {
      * 发送消息给单个用户的 Session
      *
      * @param session Session
-     * @param type 消息类型
      * @param message 消息体
-     * @param <T> 消息类型
      */
-    public static <T extends Message> void send(WebSocketSession session, String type, T message) {
+    public static void send(WebSocketSession session, WebSocketMessageEntity message) {
         // 创建消息
-        TextMessage textMessage = buildTextMessage(type, message);
+        TextMessage textMessage = buildTextMessage(message);
         // 遍历给单个 Session ，进行逐个发送
         sendTextMessage(session, textMessage);
     }
@@ -92,12 +88,10 @@ public class WebSocketUtil {
      * 发送消息给指定用户
      *
      * @param user 指定用户
-     * @param type 消息类型
      * @param message 消息体
-     * @param <T> 消息类型
      * @return 发送是否成功你那个
      */
-    public static <T extends Message> boolean send(String user, String type, T message) {
+    public static boolean send(String user, WebSocketMessageEntity message) {
         // 获得用户对应的 Session
         WebSocketSession session = USER_SESSION_MAP.get(user);
         if (session == null) {
@@ -105,23 +99,18 @@ public class WebSocketUtil {
             return false;
         }
         // 发送消息
-        send(session, type, message);
+        send(session, message);
         return true;
     }
 
     /**
      * 构建完整的消息
      *
-     * @param type 消息类型
      * @param message 消息体
-     * @param <T> 消息类型
      * @return 消息
      */
-    private static <T extends Message> TextMessage buildTextMessage(String type, T message) {
-        JSONObject messageObject = new JSONObject();
-        messageObject.put("type", type);
-        messageObject.put("body", message);
-        return new TextMessage(messageObject.toString());
+    private static TextMessage buildTextMessage(WebSocketMessageEntity message) {
+        return new TextMessage(JSON.toJSONString(message, SerializerFeature.WriteMapNullValue));
     }
 
     /**
