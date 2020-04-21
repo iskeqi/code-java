@@ -1,136 +1,178 @@
 package com.keqi.apihu.manage.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.keqi.apihu.core.common.CommonConstant;
-import com.keqi.apihu.core.common.LoginUserBO;
 import com.keqi.apihu.core.common.PageVO;
-import com.keqi.apihu.core.exception.CustomerException;
+import com.keqi.apihu.core.exception.BusinessException;
+import com.keqi.apihu.core.util.CommonUtil;
 import com.keqi.apihu.core.util.JWTUtil;
 import com.keqi.apihu.manage.domain.AccountDO;
-import com.keqi.apihu.manage.domain.AccountPageParam;
-import com.keqi.apihu.manage.domain.AccountPageVO;
+import com.keqi.apihu.manage.domain.AccountListParam;
+import com.keqi.apihu.manage.domain.LoginVO;
+import com.keqi.apihu.manage.domain.UserTypeEnum;
 import com.keqi.apihu.manage.mapper.AccountMapper;
 import com.keqi.apihu.manage.service.AccountService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 @Service
-public class AccountServiceImpl extends ServiceImpl<AccountMapper, AccountDO> implements AccountService {
+public class AccountServiceImpl implements AccountService {
 
-	/**
-	 * 新增用户
-	 *
-	 * @param accountDO accountDO
-	 */
-	@Override
-	@Transactional
-	public void createAccount(AccountDO accountDO) {
-		LambdaQueryWrapper<AccountDO> lambdaQueryWrapper = new LambdaQueryWrapper<AccountDO>()
-				.eq(AccountDO::getAccount, accountDO.getAccount());
-		AccountDO temp = this.getOne(lambdaQueryWrapper);
-		if (temp != null) {
-			throw new CustomerException("当前用户名已存在");
-		}
-		// 两次SHA256加密
-		accountDO.setPassword(SecureUtil.sha256(SecureUtil.sha256(CommonConstant.DEFAULT_PASSWORD)));
-		this.save(accountDO);
-	}
+    @Resource
+    private AccountMapper accountMapper;
 
-	/**
-	 * 删除用户
-	 *
-	 * @param accountId accountId
-	 */
-	@Override
-	@Transactional
-	public void deleteAccount(Integer accountId) {
-		this.removeById(accountId);
-	}
+    @Override
+    public int deleteByPrimaryKey(Long id) {
+        return accountMapper.deleteByPrimaryKey(id);
+    }
 
-	/**
-	 * 修改用户
-	 *
-	 * @param accountDO accountDO
-	 */
-	@Override
-	public void updateAccount(AccountDO accountDO) {
-		if (StrUtil.isNotBlank(accountDO.getPassword())) {
-			throw new CustomerException("非法操作");
-		}
-		this.updateById(accountDO);
-	}
+    @Override
+    public int insert(AccountDO record) {
+        return accountMapper.insert(record);
+    }
 
-	/**
-	 * 查询用户列表
-	 *
-	 * @param accountPageParam accountPageParam
-	 * @return r
-	 */
-	@Override
-	public PageVO pageAccount(AccountPageParam accountPageParam) {
-		// select * from sys_account where account = 'a' or nickName = 'b' order by updateTime desc limit 1,2
-		LambdaQueryWrapper<AccountDO> lambdaQueryWrapper = new LambdaQueryWrapper<AccountDO>()
-				.eq(StrUtil.isNotBlank(accountPageParam.getAccount()),
-						AccountDO::getAccount, accountPageParam.getAccount())
-				.or()
-				.eq(StrUtil.isNotBlank(accountPageParam.getNickName()),
-						AccountDO::getNickName, accountPageParam.getNickName())
-				.orderByDesc(AccountDO::getUpdateTime);
-		Page<AccountDO> page = this.page(new Page<>(accountPageParam.getPageNum(),
-				accountPageParam.getPageSize()), lambdaQueryWrapper);
+    @Override
+    public int insertOrUpdate(AccountDO record) {
+        return accountMapper.insertOrUpdate(record);
+    }
 
-		// VO 转换
-		List<AccountPageVO> accountPageVOList = new ArrayList<>(page.getRecords().size());
-		for (AccountDO record : page.getRecords()) {
-			AccountPageVO accountPageVO = new AccountPageVO();
-			BeanUtil.copyProperties(record, accountPageVO);
-			// 其他字段()
-			accountPageVOList.add(accountPageVO);
-		}
-		PageVO pageVO = new PageVO();
-		pageVO.setTotal(page.getTotal());
-		pageVO.setList(accountPageVOList);
+    @Override
+    public int insertOrUpdateSelective(AccountDO record) {
+        return accountMapper.insertOrUpdateSelective(record);
+    }
 
-		return pageVO;
-	}
+    @Override
+    public int insertSelective(AccountDO record) {
+        return accountMapper.insertSelective(record);
+    }
 
-	/**
-	 * 登录
-	 *
-	 * @param account  account
-	 * @param password password
-	 * @return r
-	 */
-	@Override
-	public String login(String account, String password) {
-		// select * from sys_account where account = 'a'
-		LambdaQueryWrapper<AccountDO> lambdaQueryWrapper = new LambdaQueryWrapper<AccountDO>()
-				.eq(AccountDO::getAccount, account);
-		AccountDO accountDO = this.getOne(lambdaQueryWrapper);
-		if (!accountDO.getPassword().equals(SecureUtil.sha256(SecureUtil.sha256(password)))) {
-			throw new CustomerException("用户名或密码错误");
-		}
+    @Override
+    public AccountDO selectByPrimaryKey(Long id) {
+        return accountMapper.selectByPrimaryKey(id);
+    }
 
-		// token过期时间为第二天的凌晨1点钟
-		String expirationDateStr = LocalDate.now().plusDays(1L).toString() + " 01:00:00";
-		Date expirationDate = DateUtil.parse(expirationDateStr).toJdkDate();
+    @Override
+    public int updateByPrimaryKeySelective(AccountDO record) {
+        return accountMapper.updateByPrimaryKeySelective(record);
+    }
 
-		LoginUserBO loginUserBO = new LoginUserBO();
-		BeanUtil.copyProperties(accountDO, loginUserBO);
-		Map<String, Object> loginUserMap = BeanUtil.beanToMap(loginUserBO);
+    @Override
+    public int updateByPrimaryKey(AccountDO record) {
+        return accountMapper.updateByPrimaryKey(record);
+    }
 
-		return JWTUtil.generateToken(loginUserMap, expirationDate);
-	}
+    @Override
+    public int updateBatch(List<AccountDO> list) {
+        return accountMapper.updateBatch(list);
+    }
+
+    @Override
+    public int updateBatchSelective(List<AccountDO> list) {
+        return accountMapper.updateBatchSelective(list);
+    }
+
+    @Override
+    public int batchInsert(List<AccountDO> list) {
+        return accountMapper.batchInsert(list);
+    }
+
+    /**
+     * 创建用户
+     *
+     * @param accountDO accountDO
+     */
+    @Override
+    @Transactional
+    public void createAccount(AccountDO accountDO) {
+        String password = CommonUtil.encryptedPassword(accountDO.getAccount(), CommonConstant.DEFAULT_PASSWORD);
+        accountDO.setPassword(password);
+        this.accountMapper.insert(accountDO);
+    }
+
+    /**
+     * 根据用户id删除用户
+     *
+     * @param id
+     */
+    @Override
+    @Transactional
+    public void deleteAccountById(Long id) {
+        this.accountMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 根据用户ID修改用户信息
+     *
+     * @param accountDO accountDO
+     */
+    @Override
+    @Transactional
+    public void updateAccountById(AccountDO accountDO) {
+        this.accountMapper.updateByPrimaryKeySelective(accountDO);
+    }
+
+    /**
+     * 查询用户列表
+     *
+     * @param accountListParam accountListParam
+     * @return r
+     */
+    @Override
+    public PageVO listAccount(AccountListParam accountListParam) {
+
+        long total = this.accountMapper.count(accountListParam);
+        List<AccountDO> accountDOList = new ArrayList<>();
+        if (total > 0 ) {
+            accountDOList = this.accountMapper.listAccount(accountListParam);
+        }
+
+        return new PageVO(total, accountDOList);
+    }
+
+    /**
+     * 批量删除用户
+     *
+     * @param ids ids
+     */
+    @Override
+    @Transactional
+    public void deleteAccountByIds(Long[] ids) {
+        this.accountMapper.batchDelete(ids);
+    }
+
+    /**
+     * 登录
+     *
+     * @param account  account
+     * @param password password
+     * @return r
+     */
+    @Override
+    public LoginVO login(String account, String password) {
+        AccountDO accountDO = this.accountMapper.findOneByAccount(account);
+
+        if (accountDO == null ||
+                !Objects.equals(accountDO.getPassword(), CommonUtil.encryptedPassword(account, password))) {
+            throw new BusinessException("用户名或密码错误");
+        }
+
+        UserTypeEnum userTypeEnum = CommonConstant.SUPER_ADMIN.equals(account) ? UserTypeEnum.SUPER_ADMIN : UserTypeEnum.COMMON_USER;
+        accountDO.setPassword(null);
+        accountDO.setUserType(userTypeEnum);
+
+        // 过期时间设置为第二天的凌晨两点钟
+        String accessToken = JWTUtil.generateToken(BeanUtil.beanToMap(accountDO), new Date());
+
+        return LoginVO.builder().
+                accessToken(accessToken).
+                userType(userTypeEnum).
+                build();
+    }
+
 }

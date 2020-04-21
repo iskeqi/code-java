@@ -1,40 +1,50 @@
 package com.keqi.apihu.manage.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.keqi.apihu.core.common.BaseDO;
-import lombok.*;
-import lombok.experimental.Accessors;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
-@TableName(value = "sys_account")
-public class AccountDO extends BaseDO {
-    /**
-     * 用户账号
-     */
-    @TableField(value = "account")
-    private String account;
+public class AccountDO {
+	private Long id;
 
-    /**
-     * 用户名称
-     */
-    @TableField(value = "nick_name")
-    private String nickName;
+	/**
+	 * 用户账号
+	 */
+	private String account;
 
-    /**
-     * 岗位
-     */
-    @TableField(value = "post")
-    private String post;
+	/**
+	 * 用户名称
+	 */
+	private String nickName;
 
-    /**
-     * 密码
-     */
-    @TableField(value = "password")
-    private String password;
+	/**
+	 * 岗位
+	 */
+	private String post;
+
+	/**
+	 * 密码
+	 */
+	private String password;
+
+	/**
+	 * 创建时间
+	 */
+	private LocalDateTime createTime;
+
+	/**
+	 * 修改时间
+	 */
+	private LocalDateTime updateTime;
+
+	//========其他参数=============
+
+	private UserTypeEnum userType;
 }

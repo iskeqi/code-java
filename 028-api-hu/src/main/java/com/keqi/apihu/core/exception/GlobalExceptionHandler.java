@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {
 	 * @param exception ex
 	 * @return r
 	 */
-	@ExceptionHandler(value = CustomerException.class)
+	@ExceptionHandler(value = BusinessException.class)
 	public AjaxEntity jsonErrorHandler(Throwable exception) {
 		exception.printStackTrace();
 		return AjaxEntityBuilder.failure(exception.getMessage());

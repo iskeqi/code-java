@@ -14,10 +14,10 @@ public class LoginController {
 	private final AccountService accountService;
 
 	/**
-	 * 登录
+	 * 用户登录
 	 * @param account account
 	 * @param password password
-	 * @return
+	 * @return r
 	 */
 	@PostMapping("/auth/login")
 	public AjaxEntity login(String account, String password) {

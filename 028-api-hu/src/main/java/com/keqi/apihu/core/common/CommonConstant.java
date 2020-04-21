@@ -14,4 +14,6 @@ public abstract class CommonConstant {
 	public static final String UPDATE = "UPDATE";
 
 	public static final String DEFAULT_PASSWORD = "123456";
+
+	public static final String SUPER_ADMIN = "admin";
 }

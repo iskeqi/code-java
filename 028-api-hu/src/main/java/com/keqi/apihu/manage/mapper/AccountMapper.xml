@@ -1,18 +1,388 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.keqi.apihu.manage.mapper.AccountMapper">
-  <resultMap id="BaseResultMap" type="com.keqi.apihu.manage.domain.AccountDO">
-    <!--@mbg.generated-->
-    <!--@Table sys_account-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-    <result column="post" jdbcType="VARCHAR" property="post" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, account, nick_name, post, create_time, update_time
-  </sql>
+    <resultMap id="BaseResultMap" type="com.keqi.apihu.manage.domain.AccountDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_account-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="post" jdbcType="VARCHAR" property="post"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, account, nick_name, post, `password`, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_account
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.manage.domain.AccountDO"
+            useGeneratedKeys="true">
+        insert into sys_account (account, nick_name, post,
+        `password`, create_time, update_time
+        )
+        values (#{account,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{post,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR}, NOW(), NOW()
+        )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.manage.domain.AccountDO"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into sys_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">
+                account,
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name,
+            </if>
+            <if test="post != null and post != ''">
+                post,
+            </if>
+            <if test="password != null and password != ''">
+                `password`,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null and post != ''">
+                #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != ''">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.keqi.apihu.manage.domain.AccountDO">
+        update sys_account
+        <set>
+            <if test="account != null and account != ''">
+                account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null and post != ''">
+                post = #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != ''">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.keqi.apihu.manage.domain.AccountDO">
+        <!--@mbg.generated-->
+        update sys_account
+        set account = #{account,jdbcType=VARCHAR},
+        nick_name = #{nickName,jdbcType=VARCHAR},
+        post = #{post,jdbcType=VARCHAR},
+        `password` = #{password,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateBatch" parameterType="java.util.List">
+        <!--@mbg.generated-->
+        update sys_account
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="account = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.account,jdbcType=VARCHAR}
+                </foreach>
+            </trim>
+            <trim prefix="nick_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.nickName,jdbcType=VARCHAR}
+                </foreach>
+            </trim>
+            <trim prefix="post = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.post,jdbcType=VARCHAR}
+                </foreach>
+            </trim>
+            <trim prefix="`password` = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.password,jdbcType=VARCHAR}
+                </foreach>
+            </trim>
+            <trim prefix="create_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.createTime,jdbcType=TIMESTAMP}
+                </foreach>
+            </trim>
+            <trim prefix="update_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.updateTime,jdbcType=TIMESTAMP}
+                </foreach>
+            </trim>
+        </trim>
+        where id in
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <update id="updateBatchSelective" parameterType="java.util.List">
+        <!--@mbg.generated-->
+        update sys_account
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="account = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.account != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.account,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="nick_name = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.nickName != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.nickName,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="post = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.post != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.post,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="`password` = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.password != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.password,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="create_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.createTime != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.createTime,jdbcType=TIMESTAMP}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="update_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updateTime != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.updateTime,jdbcType=TIMESTAMP}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where id in
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into sys_account
+        (account, nick_name, post, `password`, create_time, update_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.account,jdbcType=VARCHAR}, #{item.nickName,jdbcType=VARCHAR}, #{item.post,jdbcType=VARCHAR},
+            #{item.password,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP},
+            #{item.updateTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+    <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.manage.domain.AccountDO"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into sys_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            account,
+            nick_name,
+            post,
+            `password`,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            #{account,jdbcType=VARCHAR},
+            #{nickName,jdbcType=VARCHAR},
+            #{post,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+        on duplicate key update
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT},
+            </if>
+            account = #{account,jdbcType=VARCHAR},
+            nick_name = #{nickName,jdbcType=VARCHAR},
+            post = #{post,jdbcType=VARCHAR},
+            `password` = #{password,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.keqi.apihu.manage.domain.AccountDO" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into sys_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="account != null">
+                account,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="post != null">
+                post,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null">
+                #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        on duplicate key update
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT},
+            </if>
+            <if test="account != null">
+                account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null">
+                post = #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="count" resultType="long">
+        select count(*)
+        from sys_account
+        <where>
+           <if test="searchName != null and searchName != ''">
+               account like #{searchValue,jdbcType=VARCHAR}
+               or
+               nick_name like #{searchValue,jdbcType=VARCHAR}
+           </if>
+        </where>
+    </select>
+
+    <select id="listAccount" resultMap="BaseResultMap">
+        select
+            id, account, nick_name, post, create_time, update_time
+        from sys_account
+        <where>
+            <if test="searchName != null and searchName != ''">
+                account like #{searchValue,jdbcType=VARCHAR}
+                or
+                nick_name like #{searchValue,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="pageSize >= 0">
+            limit #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <delete id="batchDelete">
+        delete from sys_account
+        where id in
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="findOneByAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account
+        where account=#{account,jdbcType=VARCHAR}
+    </select>
+
 </mapper>
