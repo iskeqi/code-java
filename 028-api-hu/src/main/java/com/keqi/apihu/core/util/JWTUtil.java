@@ -1,5 +1,9 @@
 package com.keqi.apihu.core.util;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.map.MapUtil;
+import com.keqi.apihu.core.common.LoginUserBO;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -25,5 +29,24 @@ public class JWTUtil {
 				.setExpiration(expirationDate)
 				.signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
+	}
+
+	/**
+	 * 解析token
+	 * @param accessToken accessToken
+	 * @return r
+	 */
+	public static LoginUserBO generateToken(String accessToken) {
+		Claims body = null;
+		try {
+			body = Jwts.parser().setSigningKey(secret)
+					.parseClaimsJws(accessToken)
+					.getBody();
+		} catch (Exception e) {
+			// 秘钥被篡改/过期等等时，解析就会抛出异常
+			return null;
+		}
+		// 换成LoginUserBo对象
+		return BeanUtil.mapToBean(body, LoginUserBO.class, true);
 	}
 }

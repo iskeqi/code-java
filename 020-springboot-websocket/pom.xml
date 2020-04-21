@@ -11,6 +11,8 @@
 
     <modules>
         <module>springboot-websocket</module>
+        <module>spring-websocket</module>
+        <module>tomcat-websocket</module>
     </modules>
 
 </project>

@@ -1,5 +1,6 @@
 package com.keqi.apihu.core.common;
 
+import com.keqi.apihu.manage.domain.UserTypeEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -25,5 +26,13 @@ public class LoginUserBO {
 	 */
 	private String nickName;
 
+	/**
+	 * 岗位
+	 */
 	private String post;
+
+	/**
+	 * 用户类型
+	 */
+	private UserTypeEnum userType;
 }

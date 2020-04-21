@@ -138,4 +138,17 @@ public class AjaxEntityBuilder {
 		ajaxEntity.setMsg(msg);
 		return ajaxEntity;
 	}
+
+	/**
+	 * 操作失败
+	 *
+	 * @return ajaxEntity
+	 */
+	public static AjaxEntity failure(Object throwable) {
+		AjaxEntity ajaxEntity = new AjaxEntity();
+		ajaxEntity.setStatus(failureCode);
+		ajaxEntity.setMsg(failureMsg);
+		ajaxEntity.setBody(throwable);
+		return ajaxEntity;
+	}
 }

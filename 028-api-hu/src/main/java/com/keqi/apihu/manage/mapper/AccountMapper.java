@@ -36,6 +36,7 @@ public interface AccountMapper {
 
 	void batchDelete(@Param("ids") Long[] ids);
 
-	AccountDO findOneByAccount(@Param("account")String account);
+	AccountDO findOneByAccount(@Param("account") String account);
 
+	void updatePasswordByAccount(@Param("account") String account, @Param("password") String password);
 }

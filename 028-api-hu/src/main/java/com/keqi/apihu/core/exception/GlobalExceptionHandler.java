@@ -3,6 +3,7 @@ package com.keqi.apihu.core.exception;
 import com.keqi.apihu.core.common.AjaxEntity;
 import com.keqi.apihu.core.common.AjaxEntityBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,6 +24,9 @@ import javax.validation.ValidationException;
 @Slf4j
 @ResponseBody
 public class GlobalExceptionHandler {
+
+	@Value("${spring.profiles.active}")
+	private String profile;
 
 	/**
 	 * 专治表单以及GET方式提交参数进行校验时的异常
@@ -91,12 +95,16 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * 这个异常必须要放在最后
+	 * 这个异常必须要放在最后，开发阶段直接把异常信心显示在页面上，更方便
+	 * todo 待补充
 	 */
 	@ExceptionHandler(Throwable.class)
-	public AjaxEntity handleException(Throwable e) {
-		e.printStackTrace();
-		return AjaxEntityBuilder.failure("系统繁忙，请稍后再试");
+	public AjaxEntity handleException(Throwable exception) {
+		exception.printStackTrace();
+		if ("prod".equals(profile)) {
+			return AjaxEntityBuilder.failure("系统繁忙，请稍后再试");
+		}
+		return AjaxEntityBuilder.failure(exception.getStackTrace());
 	}
 
 }

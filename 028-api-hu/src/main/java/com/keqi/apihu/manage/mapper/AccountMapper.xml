@@ -346,17 +346,17 @@
         select count(*)
         from sys_account
         <where>
-           <if test="searchName != null and searchName != ''">
-               account like #{searchValue,jdbcType=VARCHAR}
-               or
-               nick_name like #{searchValue,jdbcType=VARCHAR}
-           </if>
+            <if test="searchName != null and searchName != ''">
+                account like #{searchValue,jdbcType=VARCHAR}
+                or
+                nick_name like #{searchValue,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
 
     <select id="listAccount" resultMap="BaseResultMap">
         select
-            id, account, nick_name, post, create_time, update_time
+        id, account, nick_name, post, create_time, update_time
         from sys_account
         <where>
             <if test="searchName != null and searchName != ''">
@@ -384,5 +384,12 @@
         from sys_account
         where account=#{account,jdbcType=VARCHAR}
     </select>
+
+    <update id="updatePasswordByAccount">
+        update sys_account
+        set `password` = #{password,jdbcType=VARCHAR},
+        update_time = NOW()
+        where account = #{account,jdbcType=BIGINT}
+    </update>
 
 </mapper>
