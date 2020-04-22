@@ -26,6 +26,10 @@ public class Auth {
 		return getLoginUserBO() == null ? null : getLoginUserBO().getNickName();
 	}
 
+	public static Long getLoginAccountId() {
+		return getLoginUserBO() == null ? null : getLoginUserBO().getId();
+	}
+
 
 	/**
 	 * 获取当前登录用户登录信息

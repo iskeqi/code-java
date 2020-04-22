@@ -1,10 +1,8 @@
 package com.keqi.apihu.manage.controller;
-
 import com.keqi.apihu.core.common.AjaxEntity;
 import com.keqi.apihu.core.common.AjaxEntityBuilder;
-import com.keqi.apihu.core.exception.BusinessException;
 import com.keqi.apihu.manage.domain.AccountDO;
-import com.keqi.apihu.manage.domain.AccountListParam;
+import com.keqi.apihu.manage.domain.param.AccountListParam;
 import com.keqi.apihu.manage.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,4 +46,5 @@ public class AccountController {
 	public AjaxEntity list(@RequestBody AccountListParam accountListParam) {
 		return AjaxEntityBuilder.successList(accountService.listAccount(accountListParam));
 	}
+
 }

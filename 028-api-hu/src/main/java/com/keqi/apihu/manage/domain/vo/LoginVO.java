@@ -1,5 +1,6 @@
-package com.keqi.apihu.manage.domain;
+package com.keqi.apihu.manage.domain.vo;
 
+import com.keqi.apihu.manage.domain.enums.UserTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

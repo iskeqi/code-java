@@ -1,5 +1,6 @@
 package com.keqi.apihu.core.interceptor;
 
+import com.keqi.apihu.core.common.CommonConstant;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,8 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-		//
+		String accessToken = request.getHeader(CommonConstant.ACCESS_TOKEN);
+		Long projectId = Long.valueOf(request.getHeader(CommonConstant.PROJECT_ID));
 		return true;
 	}
 

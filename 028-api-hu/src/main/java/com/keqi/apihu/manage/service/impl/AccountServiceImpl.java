@@ -9,89 +9,28 @@ import com.keqi.apihu.core.exception.BusinessException;
 import com.keqi.apihu.core.util.CommonUtil;
 import com.keqi.apihu.core.util.JWTUtil;
 import com.keqi.apihu.manage.domain.AccountDO;
-import com.keqi.apihu.manage.domain.AccountListParam;
-import com.keqi.apihu.manage.domain.LoginVO;
-import com.keqi.apihu.manage.domain.UserTypeEnum;
+import com.keqi.apihu.manage.domain.param.AccountListParam;
+import com.keqi.apihu.manage.domain.vo.LoginVO;
+import com.keqi.apihu.manage.domain.enums.UserTypeEnum;
 import com.keqi.apihu.manage.mapper.AccountMapper;
 import com.keqi.apihu.manage.service.AccountService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Service
+@AllArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
-	@Resource
-	private AccountMapper accountMapper;
+	private final AccountMapper accountMapper;
 
-	@Override
-	public int deleteByPrimaryKey(Long id) {
-		return accountMapper.deleteByPrimaryKey(id);
-	}
-
-	@Override
-	public int insert(AccountDO record) {
-		return accountMapper.insert(record);
-	}
-
-	@Override
-	public int insertOrUpdate(AccountDO record) {
-		return accountMapper.insertOrUpdate(record);
-	}
-
-	@Override
-	public int insertOrUpdateSelective(AccountDO record) {
-		return accountMapper.insertOrUpdateSelective(record);
-	}
-
-	@Override
-	public int insertSelective(AccountDO record) {
-		return accountMapper.insertSelective(record);
-	}
-
-	@Override
-	public AccountDO selectByPrimaryKey(Long id) {
-		return accountMapper.selectByPrimaryKey(id);
-	}
-
-	@Override
-	public int updateByPrimaryKeySelective(AccountDO record) {
-		return accountMapper.updateByPrimaryKeySelective(record);
-	}
-
-	@Override
-	public int updateByPrimaryKey(AccountDO record) {
-		return accountMapper.updateByPrimaryKey(record);
-	}
-
-	@Override
-	public int updateBatch(List<AccountDO> list) {
-		return accountMapper.updateBatch(list);
-	}
-
-	@Override
-	public int updateBatchSelective(List<AccountDO> list) {
-		return accountMapper.updateBatchSelective(list);
-	}
-
-	@Override
-	public int batchInsert(List<AccountDO> list) {
-		return accountMapper.batchInsert(list);
-	}
-
-	/**
-	 * 创建用户
-	 *
-	 * @param accountDO accountDO
-	 */
 	@Override
 	@Transactional
 	public void createAccount(AccountDO accountDO) {
@@ -100,34 +39,18 @@ public class AccountServiceImpl implements AccountService {
 		this.accountMapper.insert(accountDO);
 	}
 
-	/**
-	 * 根据用户id删除用户
-	 *
-	 * @param id
-	 */
 	@Override
 	@Transactional
 	public void deleteAccountById(Long id) {
 		this.accountMapper.deleteByPrimaryKey(id);
 	}
 
-	/**
-	 * 根据用户ID修改用户信息
-	 *
-	 * @param accountDO accountDO
-	 */
 	@Override
 	@Transactional
 	public void updateAccountById(AccountDO accountDO) {
 		this.accountMapper.updateByPrimaryKeySelective(accountDO);
 	}
 
-	/**
-	 * 查询用户列表
-	 *
-	 * @param accountListParam accountListParam
-	 * @return r
-	 */
 	@Override
 	public PageVO listAccount(AccountListParam accountListParam) {
 
@@ -140,24 +63,12 @@ public class AccountServiceImpl implements AccountService {
 		return new PageVO(total, accountDOList);
 	}
 
-	/**
-	 * 批量删除用户
-	 *
-	 * @param ids ids
-	 */
 	@Override
 	@Transactional
 	public void deleteAccountByIds(Long[] ids) {
 		this.accountMapper.batchDelete(ids);
 	}
 
-	/**
-	 * 登录
-	 *
-	 * @param account  account
-	 * @param password password
-	 * @return r
-	 */
 	@Override
 	public LoginVO login(String account, String password) {
 		AccountDO accountDO = this.accountMapper.findOneByAccount(account);
@@ -183,17 +94,23 @@ public class AccountServiceImpl implements AccountService {
 				build();
 	}
 
-	/**
-	 * 修改密码
-	 *
-	 * @param account loginAccount
-	 * @param password password
-	 */
 	@Override
 	@Transactional
-	public void updatePassword(String account, String password) {
-		password = CommonUtil.encryptedPassword(account, password);
-		this.accountMapper.updatePasswordByAccount(account, password);
+	public void updatePassword(String account, String oldPassword, String newPassword) {
+		AccountDO accountDO = this.accountMapper.findOneByAccount(account);
+		if (accountDO == null ||
+				!Objects.equals(accountDO.getPassword(), CommonUtil.encryptedPassword(account, oldPassword))) {
+			throw new BusinessException("用户名或密码错误");
+		}
+
+		newPassword = CommonUtil.encryptedPassword(account, newPassword);
+		this.accountMapper.updatePasswordByAccount(account, newPassword);
+	}
+
+	@Override
+	public void resetPassword(String account) {
+		this.accountMapper.updatePasswordByAccount(account,
+				CommonUtil.encryptedPassword(account, CommonConstant.DEFAULT_PASSWORD));
 	}
 
 }

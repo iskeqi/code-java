@@ -1,7 +1,7 @@
 package com.keqi.apihu.manage.mapper;
 
 import com.keqi.apihu.manage.domain.AccountDO;
-import com.keqi.apihu.manage.domain.AccountListParam;
+import com.keqi.apihu.manage.domain.param.AccountListParam;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -39,4 +39,5 @@ public interface AccountMapper {
 	AccountDO findOneByAccount(@Param("account") String account);
 
 	void updatePasswordByAccount(@Param("account") String account, @Param("password") String password);
+
 }

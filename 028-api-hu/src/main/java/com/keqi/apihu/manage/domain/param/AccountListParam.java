@@ -1,4 +1,4 @@
-package com.keqi.apihu.manage.domain;
+package com.keqi.apihu.manage.domain.param;
 
 import com.keqi.apihu.core.common.QueryBaseParam;
 import lombok.*;

@@ -1,17 +1,19 @@
 package com.keqi.apihu.manage.domain;
 
+import com.keqi.apihu.manage.domain.enums.UserTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountDO {
+public class AccountDO implements Serializable {
 	private Long id;
 
 	/**
@@ -43,6 +45,8 @@ public class AccountDO {
 	 * 修改时间
 	 */
 	private LocalDateTime updateTime;
+
+	private static final long serialVersionUID = 1L;
 
 	//========其他参数=============
 

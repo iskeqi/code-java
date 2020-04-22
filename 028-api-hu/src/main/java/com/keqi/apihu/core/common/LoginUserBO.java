@@ -1,6 +1,6 @@
 package com.keqi.apihu.core.common;
 
-import com.keqi.apihu.manage.domain.UserTypeEnum;
+import com.keqi.apihu.manage.domain.enums.UserTypeEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -15,6 +15,11 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class LoginUserBO {
+
+	/**
+	 * 用户ID
+	 */
+	private Long id;
 
 	/**
 	 * 登录用户账号名

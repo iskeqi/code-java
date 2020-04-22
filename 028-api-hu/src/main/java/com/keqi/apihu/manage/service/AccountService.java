@@ -2,35 +2,10 @@ package com.keqi.apihu.manage.service;
 
 import com.keqi.apihu.core.common.PageVO;
 import com.keqi.apihu.manage.domain.AccountDO;
-import com.keqi.apihu.manage.domain.AccountListParam;
-import com.keqi.apihu.manage.domain.LoginVO;
-
-import java.util.List;
+import com.keqi.apihu.manage.domain.param.AccountListParam;
+import com.keqi.apihu.manage.domain.vo.LoginVO;
 
 public interface AccountService {
-
-
-	int deleteByPrimaryKey(Long id);
-
-	int insert(AccountDO record);
-
-	int insertOrUpdate(AccountDO record);
-
-	int insertOrUpdateSelective(AccountDO record);
-
-	int insertSelective(AccountDO record);
-
-	AccountDO selectByPrimaryKey(Long id);
-
-	int updateByPrimaryKeySelective(AccountDO record);
-
-	int updateByPrimaryKey(AccountDO record);
-
-	int updateBatch(List<AccountDO> list);
-
-	int updateBatchSelective(List<AccountDO> list);
-
-	int batchInsert(List<AccountDO> list);
 
 	/**
 	 * 创建用户
@@ -81,8 +56,15 @@ public interface AccountService {
 	 * 修改密码
 	 *
 	 * @param account account
-	 * @param password password
+	 * @param oldPassword oldPassword
+	 * @param newPassword newPassword
 	 */
-	void updatePassword(String account, String password);
+	void updatePassword(String account, String oldPassword, String newPassword);
+
+	/**
+	 * 重置密码
+	 * @param  account account
+	 */
+	void resetPassword(String account);
 
 }
