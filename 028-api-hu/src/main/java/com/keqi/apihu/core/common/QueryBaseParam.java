@@ -47,6 +47,28 @@ public class QueryBaseParam {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	protected LocalDateTime endTime;
 
+	/** 排序字段 */
+	protected String orderFiled;
+
+	/** 排序类型（升序：ASC，降序：DESC） */
+	protected OrderTypeEnum orderType;
+
+	public String getOrderFiled() {
+		return orderFiled;
+	}
+
+	public void setOrderFiled(String orderFiled) {
+		this.orderFiled = orderFiled;
+	}
+
+	public OrderTypeEnum getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(OrderTypeEnum orderType) {
+		this.orderType = orderType;
+	}
+
 	public String getSearchName() {
 		return searchName;
 	}
