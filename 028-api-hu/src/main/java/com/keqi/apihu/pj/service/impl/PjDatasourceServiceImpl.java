@@ -85,8 +85,8 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 			while (tables.next()) {
 				String tableName = tables.getString("TABLE_NAME");
 				String remarks = tables.getString("REMARKS");
-				PjDatasourceTableDO PjDatasourceTableDO = new PjDatasourceTableDO(tableName, remarks);
-				PjDatasourceTableDO.setDatasourceTableColumnDOList(new ArrayList<>());
+				PjDatasourceTableDO pjDatasourceTableDO = new PjDatasourceTableDO(tableName, remarks);
+				pjDatasourceTableDO.setDatasourceTableColumnDOList(new ArrayList<>());
 
 				ResultSet columns = metaData.getColumns(null, "%", tableName, "%");
 				// 遍历表中的所有字段
@@ -95,9 +95,9 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 					String columnComment = columns.getString("REMARKS");
 					String sqlType = columns.getString("DATA_TYPE");
 					PjDatasourceTableColumnDO pjDatasourceTableColumnDO = new PjDatasourceTableColumnDO(columnName, columnComment, sqlType);
-					PjDatasourceTableDO.getDatasourceTableColumnDOList().add(pjDatasourceTableColumnDO);
+					pjDatasourceTableDO.getDatasourceTableColumnDOList().add(pjDatasourceTableColumnDO);
 				}
-				datasourceTableDOList.add(PjDatasourceTableDO);
+				datasourceTableDOList.add(pjDatasourceTableDO);
 			}
 		} catch (ClassNotFoundException e) {
 			throw new BusinessException("对应驱动不存在");
