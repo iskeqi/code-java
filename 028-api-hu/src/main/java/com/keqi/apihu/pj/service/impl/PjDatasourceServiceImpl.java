@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.keqi.apihu.pj.mapper.PjDatasourceMapper;
 import com.keqi.apihu.pj.domain.PjDatasourceDO;
 import com.keqi.apihu.pj.service.PjDatasourceService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 	}
 
     @Override
+    @Transactional
     public void readDataSource(Long datasourceId) {
         PjDatasourceDO pjDatasourceDO = this.pjDatasourceMapper.selectByPrimaryKey(datasourceId);
         // 读取数据源中的表结构和字段信息
@@ -68,11 +70,11 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 	 */
 	private List<PjDatasourceTableDO> readAllTablesAndFields(PjDatasourceDO pjDatasourceDO) {
 		List<PjDatasourceTableDO> datasourceTableDOList = new ArrayList<>();
-
+		Connection connection = null;
 		try {
 			// 加载驱动&创建连接
 			Class.forName(pjDatasourceDO.getDriverClassName());
-			Connection connection = DriverManager.
+			connection = DriverManager.
 					getConnection(pjDatasourceDO.getUrl(), pjDatasourceDO.getUsername(), pjDatasourceDO.getPassword());
 			if (Objects.isNull(connection)) {
 				throw new BusinessException("创建连接失败");
@@ -103,8 +105,15 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 			throw new BusinessException("对应驱动不存在");
 		} catch (SQLException e) {
 			throw new BusinessException("创建连接失败");
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-
 
 		return datasourceTableDOList;
 	}
