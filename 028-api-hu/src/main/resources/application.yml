@@ -1,5 +1,6 @@
 # 各个环境的公共配置放在这里
 
+
 # 指定多环境配置文件(maven动态切换)#spring.profiles.active#
 spring:
   profiles:
@@ -15,3 +16,6 @@ mybatis:
 logging:
   file:
     name: logs/api-hu.log
+
+server:
+  port: 9090

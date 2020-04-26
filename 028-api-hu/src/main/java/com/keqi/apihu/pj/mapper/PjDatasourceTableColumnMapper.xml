@@ -114,7 +114,28 @@
         where datasource_id = #{datasourceId,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insertList" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pj_datasource_table_column(
+        id,
+        column_name,
+        column_type,
+        column_comment,
+        datasource_table_id,
+        datasource_id
+        )VALUES
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            #{element.id,jdbcType=BIGINT},
+            #{element.columnName,jdbcType=VARCHAR},
+            #{element.columnType,jdbcType=VARCHAR},
+            #{element.columnComment,jdbcType=VARCHAR},
+            #{element.datasourceTableId,jdbcType=BIGINT},
+            #{element.datasourceId,jdbcType=BIGINT}
+            )
+        </foreach>
+    </insert>
+
+    <!--<insert id="insertList" keyProperty="id" useGeneratedKeys="true">
         insert into pj_datasource_table_column (`column_name`, column_type, column_comment,
         datasource_table_id, datasource_id)
         values
@@ -122,5 +143,5 @@
             #{item.columnName,jdbcType=VARCHAR}, #{item.columnType,jdbcType=VARCHAR}, #{item.columnComment,jdbcType=VARCHAR},
             #{item.datasourceTableId,jdbcType=BIGINT}, #{item.datasourceId,jdbcType=BIGINT}
         </foreach>
-    </insert>
+    </insert>-->
 </mapper>

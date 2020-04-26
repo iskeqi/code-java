@@ -7,8 +7,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-@Builder
-@NoArgsConstructor
 public class PjDatasourceTableColumnDO implements Serializable {
     private Long id;
 
@@ -38,6 +36,9 @@ public class PjDatasourceTableColumnDO implements Serializable {
     private Long datasourceId;
 
     private static final long serialVersionUID = 1L;
+
+    public PjDatasourceTableColumnDO() {
+    }
 
     public PjDatasourceTableColumnDO(String columnName, String columnComment, String columnType) {
         this.columnName = columnName;

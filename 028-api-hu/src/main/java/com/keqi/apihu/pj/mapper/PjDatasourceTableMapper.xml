@@ -90,11 +90,28 @@
         where datasource_id = #{datasourceId,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insertList" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pj_datasource_table(
+        id,
+        datasource_id,
+        table_name,
+        table_comment
+        )VALUES
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            #{element.id,jdbcType=BIGINT},
+            #{element.datasourceId,jdbcType=BIGINT},
+            #{element.tableName,jdbcType=VARCHAR},
+            #{element.tableComment,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <!--<insert id="insertList" keyProperty="id" useGeneratedKeys="true">
         insert into pj_datasource_table (datasource_id, `table_name`, table_comment)
         values
         <foreach collection="pjDatasourceTableDOList" open="(" item="item" separator="," close=")">
             #{item.datasourceId,jdbcType=BIGINT}, #{item.tableName,jdbcType=VARCHAR}, #{item.tableComment,jdbcType=VARCHAR}
         </foreach>
-    </insert>
+    </insert>-->
 </mapper>

@@ -54,4 +54,6 @@ public class PjDatasourceTableColumnServiceImpl implements PjDatasourceTableColu
     public void insertList(List<PjDatasourceTableColumnDO> pjDatasourceTableColumnDOList) {
         this.pjDatasourceTableColumnMapper.insertList(pjDatasourceTableColumnDOList);
     }
+
+
 }
