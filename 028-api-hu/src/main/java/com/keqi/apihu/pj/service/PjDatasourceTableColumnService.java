@@ -1,6 +1,5 @@
 package com.keqi.apihu.pj.service;
 
-import com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO;
 public interface PjDatasourceTableColumnService{
 
 

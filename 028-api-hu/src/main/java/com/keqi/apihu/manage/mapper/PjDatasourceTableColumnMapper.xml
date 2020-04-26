@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.apihu.pj.mapper.PjDatasourceTableColumnMapper">
+  <resultMap id="BaseResultMap" type="com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO">
+    <!--@mbg.generated-->
+    <!--@Table pj_datasource_table_column-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="column_name" jdbcType="VARCHAR" property="columnName" />
+    <result column="column_type" jdbcType="VARCHAR" property="columnType" />
+    <result column="column_comment" jdbcType="VARCHAR" property="columnComment" />
+    <result column="datasource_table_id" jdbcType="BIGINT" property="datasourceTableId" />
+    <result column="datasource_id" jdbcType="BIGINT" property="datasourceId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `column_name`, column_type, column_comment, datasource_table_id, datasource_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pj_datasource_table_column
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from pj_datasource_table_column
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pj_datasource_table_column (`column_name`, column_type, column_comment, 
+      datasource_table_id, datasource_id)
+    values (#{columnName,jdbcType=VARCHAR}, #{columnType,jdbcType=VARCHAR}, #{columnComment,jdbcType=VARCHAR}, 
+      #{datasourceTableId,jdbcType=BIGINT}, #{datasourceId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pj_datasource_table_column
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="columnName != null and columnName != ''">
+        `column_name`,
+      </if>
+      <if test="columnType != null and columnType != ''">
+        column_type,
+      </if>
+      <if test="columnComment != null and columnComment != ''">
+        column_comment,
+      </if>
+      <if test="datasourceTableId != null">
+        datasource_table_id,
+      </if>
+      <if test="datasourceId != null">
+        datasource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="columnName != null and columnName != ''">
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnType != null and columnType != ''">
+        #{columnType,jdbcType=VARCHAR},
+      </if>
+      <if test="columnComment != null and columnComment != ''">
+        #{columnComment,jdbcType=VARCHAR},
+      </if>
+      <if test="datasourceTableId != null">
+        #{datasourceTableId,jdbcType=BIGINT},
+      </if>
+      <if test="datasourceId != null">
+        #{datasourceId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO">
+    <!--@mbg.generated-->
+    update pj_datasource_table_column
+    <set>
+      <if test="columnName != null and columnName != ''">
+        `column_name` = #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnType != null and columnType != ''">
+        column_type = #{columnType,jdbcType=VARCHAR},
+      </if>
+      <if test="columnComment != null and columnComment != ''">
+        column_comment = #{columnComment,jdbcType=VARCHAR},
+      </if>
+      <if test="datasourceTableId != null">
+        datasource_table_id = #{datasourceTableId,jdbcType=BIGINT},
+      </if>
+      <if test="datasourceId != null">
+        datasource_id = #{datasourceId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO">
+    <!--@mbg.generated-->
+    update pj_datasource_table_column
+    set `column_name` = #{columnName,jdbcType=VARCHAR},
+      column_type = #{columnType,jdbcType=VARCHAR},
+      column_comment = #{columnComment,jdbcType=VARCHAR},
+      datasource_table_id = #{datasourceTableId,jdbcType=BIGINT},
+      datasource_id = #{datasourceId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

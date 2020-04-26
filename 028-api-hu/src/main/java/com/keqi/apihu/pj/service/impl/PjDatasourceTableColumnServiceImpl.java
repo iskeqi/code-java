@@ -3,7 +3,6 @@ package com.keqi.apihu.pj.service.impl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.keqi.apihu.pj.mapper.PjDatasourceTableColumnMapper;
-import com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO;
 import com.keqi.apihu.pj.service.PjDatasourceTableColumnService;
 @Service
 public class PjDatasourceTableColumnServiceImpl implements PjDatasourceTableColumnService{

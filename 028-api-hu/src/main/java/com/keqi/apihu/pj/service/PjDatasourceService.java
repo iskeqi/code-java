@@ -1,16 +1,13 @@
 package com.keqi.apihu.pj.service;
 
 import com.keqi.apihu.pj.domain.PjDatasourceDO;
-import com.keqi.apihu.pj.domain.PjDatasourceTableDO;
-
-import java.util.List;
 
 public interface PjDatasourceService{
 
 
-    int deleteByPrimaryKey(Long id);
+    void deleteByDatasourceId(Long datasourceId);
 
-    int insert(PjDatasourceDO record);
+    int create(PjDatasourceDO record);
 
     int insertSelective(PjDatasourceDO record);
 

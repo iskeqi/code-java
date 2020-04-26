@@ -1,15 +1,15 @@
 package com.keqi.apihu.pj.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
-public class PjDatasourceTableColumnDO {
+public class PjDatasourceTableColumnDO implements Serializable {
     private Long id;
 
     /**
@@ -31,6 +31,13 @@ public class PjDatasourceTableColumnDO {
     * 所属表ID
     */
     private Long datasourceTableId;
+
+    /**
+    * 数据源ID
+    */
+    private Long datasourceId;
+
+    private static final long serialVersionUID = 1L;
 
     public PjDatasourceTableColumnDO(String columnName, String columnComment, String columnType) {
         this.columnName = columnName;

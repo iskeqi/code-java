@@ -1,13 +1,13 @@
 package com.keqi.apihu.pj.service.impl;
 
 import com.keqi.apihu.core.exception.BusinessException;
+import com.keqi.apihu.pj.domain.PjDatasourceDO;
 import com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO;
 import com.keqi.apihu.pj.domain.PjDatasourceTableDO;
+import com.keqi.apihu.pj.mapper.PjDatasourceMapper;
+import com.keqi.apihu.pj.service.PjDatasourceService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.keqi.apihu.pj.mapper.PjDatasourceMapper;
-import com.keqi.apihu.pj.domain.PjDatasourceDO;
-import com.keqi.apihu.pj.service.PjDatasourceService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
@@ -22,12 +22,16 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 	private final PjDatasourceMapper pjDatasourceMapper;
 
 	@Override
-	public int deleteByPrimaryKey(Long id) {
-		return pjDatasourceMapper.deleteByPrimaryKey(id);
+	@Transactional
+	public void deleteByDatasourceId(Long datasourceId) {
+		this.pjDatasourceMapper.deleteByPrimaryKey(datasourceId);
+
+
 	}
 
 	@Override
-	public int insert(PjDatasourceDO record) {
+	@Transactional
+	public int create(PjDatasourceDO record) {
 		return pjDatasourceMapper.insert(record);
 	}
 
