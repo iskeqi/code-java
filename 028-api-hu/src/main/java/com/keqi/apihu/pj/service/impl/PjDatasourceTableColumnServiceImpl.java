@@ -6,6 +6,8 @@ import com.keqi.apihu.pj.service.PjDatasourceTableColumnService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Service
 public class PjDatasourceTableColumnServiceImpl implements PjDatasourceTableColumnService{
 
@@ -42,4 +44,14 @@ public class PjDatasourceTableColumnServiceImpl implements PjDatasourceTableColu
         return pjDatasourceTableColumnMapper.updateByPrimaryKey(record);
     }
 
+
+    @Override
+    public void deleteByDatasourceId(Long datasourceId) {
+        this.pjDatasourceTableColumnMapper.deleteByDatasourceId(datasourceId);
+    }
+
+    @Override
+    public void insertList(List<PjDatasourceTableColumnDO> pjDatasourceTableColumnDOList) {
+        this.pjDatasourceTableColumnMapper.insertList(pjDatasourceTableColumnDOList);
+    }
 }

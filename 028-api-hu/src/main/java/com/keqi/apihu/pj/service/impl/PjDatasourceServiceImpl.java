@@ -1,11 +1,15 @@
 package com.keqi.apihu.pj.service.impl;
 
+import com.keqi.apihu.core.common.PageVO;
+import com.keqi.apihu.core.common.QueryBaseParam;
 import com.keqi.apihu.core.exception.BusinessException;
 import com.keqi.apihu.pj.domain.PjDatasourceDO;
 import com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO;
 import com.keqi.apihu.pj.domain.PjDatasourceTableDO;
 import com.keqi.apihu.pj.mapper.PjDatasourceMapper;
 import com.keqi.apihu.pj.service.PjDatasourceService;
+import com.keqi.apihu.pj.service.PjDatasourceTableColumnService;
+import com.keqi.apihu.pj.service.PjDatasourceTableService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,19 +24,21 @@ import java.util.Objects;
 public class PjDatasourceServiceImpl implements PjDatasourceService {
 
 	private final PjDatasourceMapper pjDatasourceMapper;
+	private final PjDatasourceTableService pjDatasourceTableService;
+	private final PjDatasourceTableColumnService pjDatasourceTableColumnService;
 
 	@Override
 	@Transactional
 	public void deleteByDatasourceId(Long datasourceId) {
 		this.pjDatasourceMapper.deleteByPrimaryKey(datasourceId);
-
-
+		this.pjDatasourceTableService.deleteByDatasourceId(datasourceId);
+		this.pjDatasourceTableColumnService.deleteByDatasourceId(datasourceId);
 	}
 
 	@Override
 	@Transactional
-	public int create(PjDatasourceDO record) {
-		return pjDatasourceMapper.insert(record);
+	public void create(PjDatasourceDO record) {
+		pjDatasourceMapper.insert(record);
 	}
 
 	@Override
@@ -51,8 +57,9 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 	}
 
 	@Override
-	public int updateByPrimaryKey(PjDatasourceDO record) {
-		return pjDatasourceMapper.updateByPrimaryKey(record);
+	@Transactional
+	public void updateByDatasourceId(PjDatasourceDO record) {
+		pjDatasourceMapper.updateByDatasourceId(record);
 	}
 
     @Override
@@ -62,9 +69,36 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
         // 读取数据源中的表结构和字段信息
         List<PjDatasourceTableDO> datasourceTableDOList = this.readAllTablesAndFields(pjDatasourceDO);
 
-        // 保存表结构和对应的字段信息
+        // 批量保存所有表结构
+	    for (PjDatasourceTableDO pjDatasourceTableDO : datasourceTableDOList) {
+		    pjDatasourceTableDO.setDatasourceId(datasourceId);
+	    }
+	    this.pjDatasourceTableService.insertList(datasourceTableDOList);
 
+	    // 批量保存所有表中的所有列
+	    List<PjDatasourceTableColumnDO> pjDatasourceTableColumnDOList = new ArrayList<>();
+	    for (PjDatasourceTableDO pjDatasourceTableDO : datasourceTableDOList) {
+		    for (PjDatasourceTableColumnDO pjDatasourceTableColumnDO : pjDatasourceTableDO.getDatasourceTableColumnDOList()) {
+			    pjDatasourceTableColumnDO.setDatasourceId(datasourceId);
+			    pjDatasourceTableColumnDO.setDatasourceTableId(pjDatasourceTableDO.getId());
+			    pjDatasourceTableColumnDOList.add(pjDatasourceTableColumnDO);
+		    }
+	    }
+	    this.pjDatasourceTableColumnService.insertList(pjDatasourceTableColumnDOList);
     }
+
+	@Override
+	public PageVO listDatasource(QueryBaseParam queryBaseParam) {
+		long total = this.pjDatasourceMapper.count(queryBaseParam);
+		List<PjDatasourceDO> pjDatasourceDOList = null;
+		if (total > 0 ) {
+			pjDatasourceDOList = this.pjDatasourceMapper.list(queryBaseParam);
+		}
+
+		return new PageVO(total, pjDatasourceDOList);
+	}
+
+	//================================私有方法================================//
 
     /**
 	 * 获取数据源中的所有表结构以及字段信息

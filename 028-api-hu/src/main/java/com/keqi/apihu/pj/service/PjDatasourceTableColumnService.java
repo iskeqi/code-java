@@ -2,6 +2,8 @@ package com.keqi.apihu.pj.service;
 
 import com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO;
 
+import java.util.List;
+
 public interface PjDatasourceTableColumnService{
 
 
@@ -16,5 +18,9 @@ public interface PjDatasourceTableColumnService{
     int updateByPrimaryKeySelective(PjDatasourceTableColumnDO record);
 
     int updateByPrimaryKey(PjDatasourceTableColumnDO record);
+
+    void deleteByDatasourceId(Long datasourceId);
+
+	void insertList(List<PjDatasourceTableColumnDO> pjDatasourceTableColumnDOList);
 
 }

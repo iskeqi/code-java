@@ -1,10 +1,13 @@
 package com.keqi.apihu.pj.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import com.keqi.apihu.pj.mapper.PjDatasourceTableMapper;
 import com.keqi.apihu.pj.domain.PjDatasourceTableDO;
+import com.keqi.apihu.pj.mapper.PjDatasourceTableMapper;
 import com.keqi.apihu.pj.service.PjDatasourceTableService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
 @Service
 public class PjDatasourceTableServiceImpl implements PjDatasourceTableService{
 
@@ -41,4 +44,13 @@ public class PjDatasourceTableServiceImpl implements PjDatasourceTableService{
         return pjDatasourceTableMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public void deleteByDatasourceId(Long datasourceId) {
+
+    }
+
+    @Override
+    public void insertList(List<PjDatasourceTableDO> datasourceTableDOList) {
+        this.pjDatasourceTableMapper.insertList(datasourceTableDOList);
+    }
 }

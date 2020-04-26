@@ -1,6 +1,9 @@
 package com.keqi.apihu.pj.mapper;
 
+import com.keqi.apihu.core.common.QueryBaseParam;
 import com.keqi.apihu.pj.domain.PjDatasourceDO;
+
+import java.util.List;
 
 public interface PjDatasourceMapper {
     int deleteByPrimaryKey(Long id);
@@ -13,5 +16,9 @@ public interface PjDatasourceMapper {
 
     int updateByPrimaryKeySelective(PjDatasourceDO record);
 
-    int updateByPrimaryKey(PjDatasourceDO record);
+    int updateByDatasourceId(PjDatasourceDO record);
+
+    long count(QueryBaseParam queryBaseParam);
+
+    List<PjDatasourceDO> list(QueryBaseParam queryBaseParam);
 }
