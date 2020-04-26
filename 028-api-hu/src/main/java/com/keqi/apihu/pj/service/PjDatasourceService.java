@@ -4,21 +4,21 @@ import com.keqi.apihu.core.common.PageVO;
 import com.keqi.apihu.core.common.QueryBaseParam;
 import com.keqi.apihu.pj.domain.PjDatasourceDO;
 
-public interface PjDatasourceService{
+public interface PjDatasourceService {
 
-    void deleteByDatasourceId(Long datasourceId);
+	void deleteByDatasourceId(Long datasourceId);
 
-    void create(PjDatasourceDO record);
+	void create(PjDatasourceDO record);
 
-    int insertSelective(PjDatasourceDO record);
+	int insertSelective(PjDatasourceDO record);
 
-    PjDatasourceDO selectByPrimaryKey(Long id);
+	PjDatasourceDO selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(PjDatasourceDO record);
+	int updateByPrimaryKeySelective(PjDatasourceDO record);
 
-    void updateByDatasourceId(PjDatasourceDO record);
+	void updateByDatasourceId(PjDatasourceDO record);
 
-    void readDataSource(Long datasourceId);
+	void readDataSource(Long datasourceId);
 
-    PageVO listDatasource(QueryBaseParam queryBaseParam);
+	PageVO listDatasource(QueryBaseParam queryBaseParam);
 }

@@ -21,36 +21,52 @@ public class QueryBaseParam {
 	 */
 	protected int pageSize = 10;
 
-	/** 搜索字段名称 */
+	/**
+	 * 搜索字段名称
+	 */
 	protected String searchName;
 
-	/** 搜索字段值 */
+	/**
+	 * 搜索字段值
+	 */
 	protected String searchValue;
 
-	/** 开始日期 */
+	/**
+	 * 开始日期
+	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate beginDate;
 
-	/** 结束日期 */
+	/**
+	 * 结束日期
+	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate endDate;
 
-	/** 开始时间 */
+	/**
+	 * 开始时间
+	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	protected LocalDateTime beginTime;
 
-	/** 结束时间 */
+	/**
+	 * 结束时间
+	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	protected LocalDateTime endTime;
 
-	/** 排序字段 */
+	/**
+	 * 排序字段
+	 */
 	protected String orderFiled;
 
-	/** 排序类型（升序：ASC，降序：DESC） */
+	/**
+	 * 排序类型（升序：ASC，降序：DESC）
+	 */
 	protected OrderTypeEnum orderType;
 
 	public String getOrderFiled() {
@@ -121,7 +137,7 @@ public class QueryBaseParam {
 	 * 计算偏移量(使用方式：
 	 *
 	 * <if test="pageSize >= 0">
-	 *    LIMIT #{offset}, #{pageSize})
+	 * LIMIT #{offset}, #{pageSize})
 	 * </if>
 	 *
 	 * @return 偏移量

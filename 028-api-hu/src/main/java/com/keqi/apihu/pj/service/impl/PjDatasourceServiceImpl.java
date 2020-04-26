@@ -62,36 +62,36 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 		pjDatasourceMapper.updateByDatasourceId(record);
 	}
 
-    @Override
-    @Transactional
-    public void readDataSource(Long datasourceId) {
-        PjDatasourceDO pjDatasourceDO = this.pjDatasourceMapper.selectByPrimaryKey(datasourceId);
-        // 读取数据源中的表结构和字段信息
-        List<PjDatasourceTableDO> datasourceTableDOList = this.readAllTablesAndFields(pjDatasourceDO);
+	@Override
+	@Transactional
+	public void readDataSource(Long datasourceId) {
+		PjDatasourceDO pjDatasourceDO = this.pjDatasourceMapper.selectByPrimaryKey(datasourceId);
+		// 读取数据源中的表结构和字段信息
+		List<PjDatasourceTableDO> datasourceTableDOList = this.readAllTablesAndFields(pjDatasourceDO);
 
-        // 批量保存所有表结构
-	    for (PjDatasourceTableDO pjDatasourceTableDO : datasourceTableDOList) {
-		    pjDatasourceTableDO.setDatasourceId(datasourceId);
-	    }
-	    this.pjDatasourceTableService.insertList(datasourceTableDOList);
+		// 批量保存所有表结构
+		for (PjDatasourceTableDO pjDatasourceTableDO : datasourceTableDOList) {
+			pjDatasourceTableDO.setDatasourceId(datasourceId);
+		}
+		this.pjDatasourceTableService.insertList(datasourceTableDOList);
 
-	    // 批量保存所有表中的所有列
-	    List<PjDatasourceTableColumnDO> pjDatasourceTableColumnDOList = new ArrayList<>();
-	    for (PjDatasourceTableDO pjDatasourceTableDO : datasourceTableDOList) {
-		    for (PjDatasourceTableColumnDO pjDatasourceTableColumnDO : pjDatasourceTableDO.getDatasourceTableColumnDOList()) {
-			    pjDatasourceTableColumnDO.setDatasourceId(datasourceId);
-			    pjDatasourceTableColumnDO.setDatasourceTableId(pjDatasourceTableDO.getId());
-			    pjDatasourceTableColumnDOList.add(pjDatasourceTableColumnDO);
-		    }
-	    }
-	    this.pjDatasourceTableColumnService.insertList(pjDatasourceTableColumnDOList);
-    }
+		// 批量保存所有表中的所有列
+		List<PjDatasourceTableColumnDO> pjDatasourceTableColumnDOList = new ArrayList<>();
+		for (PjDatasourceTableDO pjDatasourceTableDO : datasourceTableDOList) {
+			for (PjDatasourceTableColumnDO pjDatasourceTableColumnDO : pjDatasourceTableDO.getDatasourceTableColumnDOList()) {
+				pjDatasourceTableColumnDO.setDatasourceId(datasourceId);
+				pjDatasourceTableColumnDO.setDatasourceTableId(pjDatasourceTableDO.getId());
+				pjDatasourceTableColumnDOList.add(pjDatasourceTableColumnDO);
+			}
+		}
+		this.pjDatasourceTableColumnService.insertList(pjDatasourceTableColumnDOList);
+	}
 
 	@Override
 	public PageVO listDatasource(QueryBaseParam queryBaseParam) {
 		long total = this.pjDatasourceMapper.count(queryBaseParam);
 		List<PjDatasourceDO> pjDatasourceDOList = null;
-		if (total > 0 ) {
+		if (total > 0) {
 			pjDatasourceDOList = this.pjDatasourceMapper.list(queryBaseParam);
 		}
 
@@ -100,7 +100,7 @@ public class PjDatasourceServiceImpl implements PjDatasourceService {
 
 	//================================私有方法================================//
 
-    /**
+	/**
 	 * 获取数据源中的所有表结构以及字段信息
 	 *
 	 * @param pjDatasourceDO pjDatasourceDO

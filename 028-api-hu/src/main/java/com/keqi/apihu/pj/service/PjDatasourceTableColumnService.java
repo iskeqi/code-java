@@ -4,22 +4,22 @@ import com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO;
 
 import java.util.List;
 
-public interface PjDatasourceTableColumnService{
+public interface PjDatasourceTableColumnService {
 
 
-    int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(Long id);
 
-    int insert(PjDatasourceTableColumnDO record);
+	int insert(PjDatasourceTableColumnDO record);
 
-    int insertSelective(PjDatasourceTableColumnDO record);
+	int insertSelective(PjDatasourceTableColumnDO record);
 
-    PjDatasourceTableColumnDO selectByPrimaryKey(Long id);
+	PjDatasourceTableColumnDO selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(PjDatasourceTableColumnDO record);
+	int updateByPrimaryKeySelective(PjDatasourceTableColumnDO record);
 
-    int updateByPrimaryKey(PjDatasourceTableColumnDO record);
+	int updateByPrimaryKey(PjDatasourceTableColumnDO record);
 
-    void deleteByDatasourceId(Long datasourceId);
+	void deleteByDatasourceId(Long datasourceId);
 
 	void insertList(List<PjDatasourceTableColumnDO> pjDatasourceTableColumnDOList);
 

@@ -31,9 +31,9 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO"
             useGeneratedKeys="true">
         insert into pj_datasource (`name`, url, driver_class_name,
-                                   username, `password`)
+        username, `password`)
         values (#{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{driverClassName,jdbcType=VARCHAR},
-                #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+        #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO"
@@ -119,7 +119,8 @@
     </select>
 
     <select id="list" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from pj_datasource
         <where>
             <if test="searchValue != null and searchValue != ''">

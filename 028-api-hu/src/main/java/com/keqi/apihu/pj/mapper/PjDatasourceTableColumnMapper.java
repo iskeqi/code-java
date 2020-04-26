@@ -1,4 +1,5 @@
 package com.keqi.apihu.pj.mapper;
+
 import com.keqi.apihu.pj.domain.PjDatasourceTableColumnDO;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,7 +10,7 @@ public interface PjDatasourceTableColumnMapper {
 
 	int insert(PjDatasourceTableColumnDO record);
 
-	int insertList(@Param("list")List<PjDatasourceTableColumnDO> list);
+	int insertList(@Param("list") List<PjDatasourceTableColumnDO> list);
 
 	int insertSelective(PjDatasourceTableColumnDO record);
 
