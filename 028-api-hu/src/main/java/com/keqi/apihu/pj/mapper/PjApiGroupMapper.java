@@ -23,4 +23,6 @@ public interface PjApiGroupMapper {
     List<PjApiGroupDO> listAll();
 
     void moveGroupOrder(@Param("list") List<PjApiGroupDO> pjApiGroupDOList);
+
+    void deleteByIds(@Param("idList") List<Long> idList);
 }

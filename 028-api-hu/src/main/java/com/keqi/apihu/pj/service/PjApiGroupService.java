@@ -9,7 +9,7 @@ import java.util.List;
 @Validated
 public interface PjApiGroupService{
 
-    int deleteByPrimaryKey(Long id);
+    void deleteByPrimaryKey(Long id);
 
     int create(PjApiGroupDO record);
 

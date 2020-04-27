@@ -132,4 +132,12 @@
         </foreach>
     </update>
 
+    <delete id="deleteByIds">
+        delete from pj_api_group
+        where id in
+        <foreach collection="idList" item="id" separator="," open="(" close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
 </mapper>

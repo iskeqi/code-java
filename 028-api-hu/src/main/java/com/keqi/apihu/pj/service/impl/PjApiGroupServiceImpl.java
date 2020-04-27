@@ -1,5 +1,6 @@
 package com.keqi.apihu.pj.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.keqi.apihu.pj.PjConstant;
 import com.keqi.apihu.pj.domain.PjApiGroupDO;
 import com.keqi.apihu.pj.mapper.PjApiGroupMapper;
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PjApiGroupServiceImpl implements PjApiGroupService{
@@ -19,14 +21,18 @@ public class PjApiGroupServiceImpl implements PjApiGroupService{
     private PjApiGroupMapper pjApiGroupMapper;
 
     @Override
-    public int deleteByPrimaryKey(Long id) {
+    public void deleteByPrimaryKey(Long id) {
         // 如果该分组及其子分组下都没有API接口，才允许删除
         List<PjApiGroupDO> pjApiGroupDOList = this.pjApiGroupMapper.listChildById(id);
         pjApiGroupDOList.add(new PjApiGroupDO(id));
 
         // 查询指定分组ID下的API总数
 
-        return pjApiGroupMapper.deleteByPrimaryKey(id);
+        // 删除所有的子分组
+        List<Long> idList = pjApiGroupDOList.stream().map(PjApiGroupDO::getId).collect(Collectors.toList());
+        if (CollUtil.isNotEmpty(idList)) {
+            this.pjApiGroupMapper.deleteByIds(idList);
+        }
     }
 
     @Override
