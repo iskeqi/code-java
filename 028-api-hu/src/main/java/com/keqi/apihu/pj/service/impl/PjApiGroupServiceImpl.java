@@ -23,6 +23,7 @@ public class PjApiGroupServiceImpl implements PjApiGroupService {
 	private final PjApiGroupMapper pjApiGroupMapper;
 
 	@Override
+	@Transactional
 	public void deleteByPrimaryKey(Long id) {
 		// 如果该分组及其子分组下都没有API接口，才允许删除
 		List<PjApiGroupDO> pjApiGroupDOList = this.pjApiGroupMapper.listChildById(id);
