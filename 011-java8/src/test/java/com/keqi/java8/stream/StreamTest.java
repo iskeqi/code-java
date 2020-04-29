@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 测试java8新增的Stream API的特性
@@ -38,6 +39,9 @@ public class StreamTest {
 
 	总结：
 		以后凡是遇到需要操作集合的时候，就想想能不能通过java8的StreamAPI来解决，而不要去使用for循环
+
+
+	Stream 中的操作分为转换操作和聚合操作。其中转换操作是不会进行计算的，只有聚合操作才真正执行计算。
 
 	 */
 
@@ -138,6 +142,7 @@ public class StreamTest {
 
 	/**
 	 * 集合reduce,将集合中每个元素聚合成一条数据
+	 * reduce() 方法其实就是累加（字符串就拼接，数组就相加）
 	 */
 	@Test
 	public void testReduce() {
