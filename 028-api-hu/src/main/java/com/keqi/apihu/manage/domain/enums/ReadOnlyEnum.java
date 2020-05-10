@@ -5,6 +5,6 @@ package com.keqi.apihu.manage.domain.enums;
  */
 public enum ReadOnlyEnum {
 
-	Y,N;
+	Y, N;
 
 }

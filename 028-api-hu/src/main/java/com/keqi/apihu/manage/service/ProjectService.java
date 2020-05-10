@@ -8,17 +8,17 @@ import com.keqi.apihu.manage.domain.param.ProjectListParam;
 
 import java.util.List;
 
-public interface ProjectService{
+public interface ProjectService {
 
-    void createProject(ProjectDO projectDO);
+	void createProject(ProjectDO projectDO);
 
-    void deleteProject(Long id);
+	void deleteProject(Long id);
 
-    void updateProject(ProjectDO projectDO);
+	void updateProject(ProjectDO projectDO);
 
-    PageVO listProject(ProjectListParam projectListParam);
+	PageVO listProject(ProjectListParam projectListParam);
 
-    void designatedPersonnel(DesignatedPersonnelParam designatedPersonnelParam);
+	void designatedPersonnel(DesignatedPersonnelParam designatedPersonnelParam);
 
-    List<ProjectDO> listMyProject(ListMyProjectParam listMyProjectParam);
+	List<ProjectDO> listMyProject(ListMyProjectParam listMyProjectParam);
 }

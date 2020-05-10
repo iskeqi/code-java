@@ -19,7 +19,8 @@ public class JWTUtil {
 
 	/**
 	 * 生成token
-	 * @param claims claims
+	 *
+	 * @param claims         claims
 	 * @param expirationDate expirationDate
 	 * @return r
 	 */
@@ -33,6 +34,7 @@ public class JWTUtil {
 
 	/**
 	 * 解析token
+	 *
 	 * @param accessToken accessToken
 	 * @return r
 	 */

@@ -55,7 +55,7 @@ public interface AccountService {
 	/**
 	 * 修改密码
 	 *
-	 * @param account account
+	 * @param account     account
 	 * @param oldPassword oldPassword
 	 * @param newPassword newPassword
 	 */
@@ -63,7 +63,8 @@ public interface AccountService {
 
 	/**
 	 * 重置密码
-	 * @param  account account
+	 *
+	 * @param account account
 	 */
 	void resetPassword(String account);
 

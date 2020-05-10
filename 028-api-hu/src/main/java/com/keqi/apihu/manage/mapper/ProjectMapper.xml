@@ -31,9 +31,9 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.manage.domain.ProjectDO"
             useGeneratedKeys="true">
         insert into sys_project (project_name, project_note,
-                                 delete_flag, create_time, update_time)
+        delete_flag, create_time, update_time)
         values (#{projectName,jdbcType=VARCHAR}, #{projectNote,jdbcType=VARCHAR},
-                'N', NOW(), NOW())
+        'N', NOW(), NOW())
     </insert>
 
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.manage.domain.ProjectDO"
@@ -88,7 +88,7 @@
             <if test="deleteFlag != null and deleteFlag != ''">
                 delete_flag = #{deleteFlag,jdbcType=CHAR},
             </if>
-                update_time = NOW()
+            update_time = NOW()
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
@@ -131,15 +131,15 @@
 
     <select id="listMyProject" resultMap="BaseResultMap">
         SELECT
-            <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
         FROM
-            sys_project
+        sys_project
         WHERE
-            id IN (SELECT project_id FROM sys_account_project WHERE account_id = #{accountId,jdbcType=BIGINT})
-            AND delete_flag = 'N'
-            <if test="searchValue != null and searchValue != ''">
-                AND project_name like #{searchValue,jdbcType=VARCHAR}
-            </if>
+        id IN (SELECT project_id FROM sys_account_project WHERE account_id = #{accountId,jdbcType=BIGINT})
+        AND delete_flag = 'N'
+        <if test="searchValue != null and searchValue != ''">
+            AND project_name like #{searchValue,jdbcType=VARCHAR}
+        </if>
         <if test="pageSize > 0">
             limit #{offset}, #{pageNum}
         </if>

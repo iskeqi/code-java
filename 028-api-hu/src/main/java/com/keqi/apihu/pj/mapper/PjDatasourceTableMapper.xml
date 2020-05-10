@@ -1,85 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.keqi.apihu.pj.mapper.PjDatasourceTableMapper">
-  <resultMap id="BaseResultMap" type="com.keqi.apihu.pj.domain.PjDatasourceTableDO">
-    <!--@mbg.generated-->
-    <!--@Table pj_datasource_table-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="datasource_id" jdbcType="BIGINT" property="datasourceId" />
-    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
-    <result column="table_comment" jdbcType="VARCHAR" property="tableComment" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, datasource_id, `table_name`, table_comment
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from pj_datasource_table
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from pj_datasource_table
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into pj_datasource_table (datasource_id, `table_name`, table_comment
-      )
-    values (#{datasourceId,jdbcType=BIGINT}, #{tableName,jdbcType=VARCHAR}, #{tableComment,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into pj_datasource_table
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="datasourceId != null">
-        datasource_id,
-      </if>
-      <if test="tableName != null and tableName != ''">
-        `table_name`,
-      </if>
-      <if test="tableComment != null and tableComment != ''">
-        table_comment,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="datasourceId != null">
-        #{datasourceId,jdbcType=BIGINT},
-      </if>
-      <if test="tableName != null and tableName != ''">
-        #{tableName,jdbcType=VARCHAR},
-      </if>
-      <if test="tableComment != null and tableComment != ''">
-        #{tableComment,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO">
-    <!--@mbg.generated-->
-    update pj_datasource_table
-    <set>
-      <if test="datasourceId != null">
-        datasource_id = #{datasourceId,jdbcType=BIGINT},
-      </if>
-      <if test="tableName != null and tableName != ''">
+    <resultMap id="BaseResultMap" type="com.keqi.apihu.pj.domain.PjDatasourceTableDO">
+        <!--@mbg.generated-->
+        <!--@Table pj_datasource_table-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="datasource_id" jdbcType="BIGINT" property="datasourceId"/>
+        <result column="table_name" jdbcType="VARCHAR" property="tableName"/>
+        <result column="table_comment" jdbcType="VARCHAR" property="tableComment"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, datasource_id, `table_name`, table_comment
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from pj_datasource_table
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from pj_datasource_table
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO"
+            useGeneratedKeys="true">
+        insert into pj_datasource_table (datasource_id, `table_name`, table_comment)
+        values (#{datasourceId,jdbcType=BIGINT}, #{tableName,jdbcType=VARCHAR}, #{tableComment,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into pj_datasource_table
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="datasourceId != null">
+                datasource_id,
+            </if>
+            <if test="tableName != null and tableName != ''">
+                `table_name`,
+            </if>
+            <if test="tableComment != null and tableComment != ''">
+                table_comment,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="datasourceId != null">
+                #{datasourceId,jdbcType=BIGINT},
+            </if>
+            <if test="tableName != null and tableName != ''">
+                #{tableName,jdbcType=VARCHAR},
+            </if>
+            <if test="tableComment != null and tableComment != ''">
+                #{tableComment,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO">
+        <!--@mbg.generated-->
+        update pj_datasource_table
+        <set>
+            <if test="datasourceId != null">
+                datasource_id = #{datasourceId,jdbcType=BIGINT},
+            </if>
+            <if test="tableName != null and tableName != ''">
+                `table_name` = #{tableName,jdbcType=VARCHAR},
+            </if>
+            <if test="tableComment != null and tableComment != ''">
+                table_comment = #{tableComment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO">
+        <!--@mbg.generated-->
+        update pj_datasource_table
+        set datasource_id = #{datasourceId,jdbcType=BIGINT},
         `table_name` = #{tableName,jdbcType=VARCHAR},
-      </if>
-      <if test="tableComment != null and tableComment != ''">
-        table_comment = #{tableComment,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.keqi.apihu.pj.domain.PjDatasourceTableDO">
-    <!--@mbg.generated-->
-    update pj_datasource_table
-    set datasource_id = #{datasourceId,jdbcType=BIGINT},
-      `table_name` = #{tableName,jdbcType=VARCHAR},
-      table_comment = #{tableComment,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        table_comment = #{tableComment,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteByDatasourceId">
+        delete
+        from pj_datasource_table
+        where datasource_id = #{datasourceId,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pj_datasource_table(
+        id,
+        datasource_id,
+        table_name,
+        table_comment
+        )VALUES
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            #{element.id,jdbcType=BIGINT},
+            #{element.datasourceId,jdbcType=BIGINT},
+            #{element.tableName,jdbcType=VARCHAR},
+            #{element.tableComment,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <!--<insert id="insertList" keyProperty="id" useGeneratedKeys="true">
+        insert into pj_datasource_table (datasource_id, `table_name`, table_comment)
+        values
+        <foreach collection="pjDatasourceTableDOList" open="(" item="item" separator="," close=")">
+            #{item.datasourceId,jdbcType=BIGINT}, #{item.tableName,jdbcType=VARCHAR}, #{item.tableComment,jdbcType=VARCHAR}
+        </foreach>
+    </insert>-->
 </mapper>

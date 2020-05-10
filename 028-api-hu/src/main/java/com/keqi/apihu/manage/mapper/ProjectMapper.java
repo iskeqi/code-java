@@ -7,21 +7,21 @@ import com.keqi.apihu.manage.domain.param.ProjectListParam;
 import java.util.List;
 
 public interface ProjectMapper {
-    int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(Long id);
 
-    int insert(ProjectDO record);
+	int insert(ProjectDO record);
 
-    int insertSelective(ProjectDO record);
+	int insertSelective(ProjectDO record);
 
-    ProjectDO selectByPrimaryKey(Long id);
+	ProjectDO selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(ProjectDO record);
+	int updateByPrimaryKeySelective(ProjectDO record);
 
-    int updateByPrimaryKey(ProjectDO record);
+	int updateByPrimaryKey(ProjectDO record);
 
-    long count(ProjectListParam projectListParam);
+	long count(ProjectListParam projectListParam);
 
-    List<ProjectDO> list(ProjectListParam projectListParam);
+	List<ProjectDO> list(ProjectListParam projectListParam);
 
 	List<ProjectDO> listMyProject(ListMyProjectParam listMyProjectParam);
 }

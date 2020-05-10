@@ -12,29 +12,29 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 public class PjDatasourceTableDO {
-    private Long id;
+	private Long id;
 
-    /**
-    * 数据源ID
-    */
-    private Long datasourceId;
+	/**
+	 * 数据源ID
+	 */
+	private Long datasourceId;
 
-    /**
-    * 表名称
-    */
-    private String tableName;
+	/**
+	 * 表名称
+	 */
+	private String tableName;
 
-    /**
-    * 表备注
-    */
-    private String tableComment;
+	/**
+	 * 表备注
+	 */
+	private String tableComment;
 
-    public PjDatasourceTableDO(String tableName, String tableComment) {
-        this.tableName = tableName;
-        this.tableComment = tableComment;
-    }
+	public PjDatasourceTableDO(String tableName, String tableComment) {
+		this.tableName = tableName;
+		this.tableComment = tableComment;
+	}
 
-    //=============其它参数============//
+	//=============其它参数============//
 
-    private List<PjDatasourceTableColumnDO> datasourceTableColumnDOList;
+	private List<PjDatasourceTableColumnDO> datasourceTableColumnDOList;
 }

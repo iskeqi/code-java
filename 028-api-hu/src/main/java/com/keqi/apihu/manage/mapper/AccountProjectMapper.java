@@ -15,7 +15,7 @@ public interface AccountProjectMapper {
 
 	int batchInsert(@Param("list") List<AccountProjectDO> list);
 
-	int deleteByProjectId(@Param("projectId")Long projectId);
+	int deleteByProjectId(@Param("projectId") Long projectId);
 
 
 }

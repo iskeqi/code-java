@@ -1,107 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.keqi.apihu.pj.mapper.PjDatasourceMapper">
-  <resultMap id="BaseResultMap" type="com.keqi.apihu.pj.domain.PjDatasourceDO">
-    <!--@mbg.generated-->
-    <!--@Table pj_datasource-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="driver_class_name" jdbcType="VARCHAR" property="driverClassName" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, `name`, url, driver_class_name, username, `password`
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from pj_datasource
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from pj_datasource
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into pj_datasource (`name`, url, driver_class_name, 
-      username, `password`)
-    values (#{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{driverClassName,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into pj_datasource
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
-        `name`,
-      </if>
-      <if test="url != null and url != ''">
-        url,
-      </if>
-      <if test="driverClassName != null and driverClassName != ''">
-        driver_class_name,
-      </if>
-      <if test="username != null and username != ''">
-        username,
-      </if>
-      <if test="password != null and password != ''">
-        `password`,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null and url != ''">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="driverClassName != null and driverClassName != ''">
-        #{driverClassName,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null and username != ''">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null and password != ''">
-        #{password,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO">
-    <!--@mbg.generated-->
-    update pj_datasource
-    <set>
-      <if test="name != null and name != ''">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null and url != ''">
+    <resultMap id="BaseResultMap" type="com.keqi.apihu.pj.domain.PjDatasourceDO">
+        <!--@mbg.generated-->
+        <!--@Table pj_datasource-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="driver_class_name" jdbcType="VARCHAR" property="driverClassName"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`, url, driver_class_name, username, `password`
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from pj_datasource
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from pj_datasource
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO"
+            useGeneratedKeys="true">
+        insert into pj_datasource (`name`, url, driver_class_name,
+        username, `password`)
+        values (#{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{driverClassName,jdbcType=VARCHAR},
+        #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into pj_datasource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+            <if test="url != null and url != ''">
+                url,
+            </if>
+            <if test="driverClassName != null and driverClassName != ''">
+                driver_class_name,
+            </if>
+            <if test="username != null and username != ''">
+                username,
+            </if>
+            <if test="password != null and password != ''">
+                `password`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null and url != ''">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="driverClassName != null and driverClassName != ''">
+                #{driverClassName,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null and username != ''">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != ''">
+                #{password,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO">
+        <!--@mbg.generated-->
+        update pj_datasource
+        <set>
+            <if test="name != null and name != ''">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="driverClassName != null and driverClassName != ''">
+                driver_class_name = #{driverClassName,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != ''">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByDatasourceId" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO">
+        update pj_datasource
+        set `name` = #{name,jdbcType=VARCHAR},
         url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="driverClassName != null and driverClassName != ''">
         driver_class_name = #{driverClassName,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null and username != ''">
         username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null and password != ''">
-        `password` = #{password,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.keqi.apihu.pj.domain.PjDatasourceDO">
-    <!--@mbg.generated-->
-    update pj_datasource
-    set `name` = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      driver_class_name = #{driverClassName,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        `password` = #{password,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="count" resultType="long">
+        select count(*)
+        from pj_datasource
+        <where>
+            <if test="searchValue != null and searchValue != ''">
+                name like #{searchValue,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pj_datasource
+        <where>
+            <if test="searchValue != null and searchValue != ''">
+                name like #{searchValue,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="pageSize > 0">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
 </mapper>
