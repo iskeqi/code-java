@@ -9,19 +9,20 @@ public class Demo {
 
 		@Override
 		public void run() {
-			System.out.println("My Thread");
+			System.out.println("线程名称：" + Thread.currentThread().getName());
 		}
 	}
 
 	public static void main(String[] args) {
-		// 传统方式
-		new MyThread().run();
 
+		System.out.println("线程名称：" + Thread.currentThread().getName());
+
+		// 传统方式
+		Thread thread = new Thread(new MyThread());
+		thread.start();
 
 
 		// 使用 java 8 的lambda表达式的方式
-		new Thread(() -> {
-			System.out.println("My Thread");
-		}).start();
+		/*new Thread(() -> System.out.println("线程名称：" + Thread.currentThread().getName())).start();*/
 	}
 }
