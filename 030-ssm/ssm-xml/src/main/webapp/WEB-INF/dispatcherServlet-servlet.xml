@@ -12,6 +12,9 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
                         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
+    <!--SSM的配置简直太繁琐了，SpringBoot用起来真的爽啊-->
+
+
     <!--只扫描@Controller注解标记的类-->
     <context:component-scan base-package="com.keqi.ssm.xml" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
