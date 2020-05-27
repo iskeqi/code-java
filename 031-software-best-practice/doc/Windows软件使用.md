@@ -48,5 +48,11 @@
 
 - Office Tool Plus
 
+- Dynamic theme
+
+- Screen To Gif
+
+- 滴答清单
+
   
 
