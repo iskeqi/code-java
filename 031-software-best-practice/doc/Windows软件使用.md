@@ -7,6 +7,7 @@
 - 直接使用 Windows10 最新的企业版，通过产品秘钥激活，网上可以搜索到
 - 可以利用 Windows10 的沙箱机制来，安全某个没使用过的软件
 - Windows 10 作为一个开发机器，仅仅在 C 盘安装 JDK 和 Maven 即可，其它工具一律安装在 Linux 系统上
+- 到底需不需要在 C 盘安装 Maven ，存在疑虑，直接使用 IntelliJ IDEA 内置的 Maven 工具足够了。默认的 setting.xml 和 repository 也已经是在默认的位置上。
 - 使用 VMware Workstation Pro 作为虚拟机软件，安装 Linux 系统来做实验。不适用内置的 ubuntu 子系统，因为不好用。
 
 ## 开发工具
