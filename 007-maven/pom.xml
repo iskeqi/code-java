@@ -12,5 +12,6 @@
 
     <modules>
         <module>maven-springboot-demo</module>
+        <module>maven-parent-demo</module>
     </modules>
 </project>

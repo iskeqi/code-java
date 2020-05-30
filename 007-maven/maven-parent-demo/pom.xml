@@ -10,12 +10,11 @@
     </parent>
 
     <groupId>com.keqi</groupId>
-    <artifactId>maven-springboot-demo</artifactId>
-    <!--后缀是SNAPSHOT就会发布到maven-snapshots中，后缀是RELEASE就会发布到maven-releases中-->
-    <version>0.0.2-SNAPSHOT</version>
+    <artifactId>maven-parent-demo</artifactId>
+    <version>0.0.3-SNAPSHOT</version>
 
-    <name>maven-springboot-demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>maven-parent-demo</name>
+    <description>测试依赖nexus私服中的 artifict 的使用</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -38,7 +37,21 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>com.keqi</groupId>
+            <artifactId>maven-springboot-demo</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
     </dependencies>
+
+    <!--配置 Nexus 私服地址（仅用于从私服中下载 artifact ）-->
+    <repositories>
+        <repository>
+            <id>maven-public</id>
+            <url>http://192.168.190.129:8081/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
     <!--私服仓库（发布 jar 包到私服中）-->
     <distributionManagement>
