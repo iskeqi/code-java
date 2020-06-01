@@ -39,4 +39,12 @@ public class RandomTest {
 		SecureRandom secureRandom = new SecureRandom();
 		System.out.println(secureRandom.nextInt());
 	}
+
+	@Test
+	public void test4() {
+		Random random = new Random();
+		// 生成一个[5,7]范围内的数
+		int a = (int)(random.nextFloat() * (7-5)) + 5;
+		System.out.println(a);
+	}
 }
