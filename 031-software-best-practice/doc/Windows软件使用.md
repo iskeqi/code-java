@@ -14,7 +14,7 @@
 
 - IntelliJ IDEA
 - Visual Studio Code
-- Navicat
+- Navicat/DataGrip
 - Final Shell
 - Redis Desktop Manager
 - Postman
@@ -40,6 +40,7 @@
 - XMind、MindMaster、幕布、百度脑图、XMind Zen
 - 万彩办公大师
 - ProcessOn
+- 迅雷/Motrix
 ## 笔记软件
 
 - 印象笔记、OneNote、思否、羽雀
