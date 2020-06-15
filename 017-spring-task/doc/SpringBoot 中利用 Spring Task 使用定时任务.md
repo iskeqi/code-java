@@ -43,15 +43,15 @@ Cron 表达式是一种使用字符串形式来描述周期性定时任务的语
 
 ### Cron 表达式的组成
 
-![image-20200615170157309](C:\Users\keqi\AppData\Roaming\Typora\typora-user-images\image-20200615170157309.png)
+![](images/image-20200615170157309.png)
 
 ### Cron 表达式各个通配符的含义
 
-![image-20200615170523792](C:\Users\keqi\AppData\Roaming\Typora\typora-user-images\image-20200615170523792.png)
+![](images/image-20200615170433064.png)
 
 ### Cron 表达式的各种使用示例
 
-![image-20200615170608569](C:\Users\keqi\AppData\Roaming\Typora\typora-user-images\image-20200615170608569.png)
+![](images/image-20200615170608569.png)
 
 ## Spring Task 的使用
 
