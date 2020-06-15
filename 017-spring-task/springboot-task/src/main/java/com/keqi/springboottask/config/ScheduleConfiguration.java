@@ -10,35 +10,28 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 /**
- * 给定时任务配置线程池
- *
- * @author keqi
+ * 给 Spring Task 配置线程池
  */
 @Configuration
 @EnableScheduling // 必须加上此注解，否则定时任务不会开启
 public class ScheduleConfiguration implements SchedulingConfigurer {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleConfiguration.class);
-
+	private static final Logger log = LoggerFactory.getLogger(ScheduleConfiguration.class);
 
 	// 给ScheduledTaskRegistrar对象注入一个ThreadPoolTaskScheduler对象，就拥有了使用线程池来执行定时任务的能力
 	@Override
 	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		taskRegistrar.setTaskScheduler(taskScheduler());
-	}
-
-	// 声明一个ThreadPoolTaskScheduler对象
-	@Bean
-	public ThreadPoolTaskScheduler taskScheduler() {
 		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
-		// 设定线程池大小
+
+		// ThreadPoolTaskScheduler对象核心配置
 		taskScheduler.setPoolSize(4);
 		taskScheduler.setWaitForTasksToCompleteOnShutdown(true);
-		// 设置线程名称前缀
 		taskScheduler.setThreadNamePrefix("schedule");
 		taskScheduler.setRemoveOnCancelPolicy(true);
-		taskScheduler.setErrorHandler(t -> LOGGER.error("Error occurs", t));
-		return taskScheduler;
+		taskScheduler.setErrorHandler(t -> log.error("Error occurs", t));
+		taskScheduler.initialize(); // 这行代码不能少
+
+		// 向 ScheduledTaskRegistrar 对象中注册 ThreadPoolTaskScheduler 对象
+		taskRegistrar.setTaskScheduler(taskScheduler);
 	}
 }
 

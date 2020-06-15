@@ -12,5 +12,6 @@
     <modules>
         <module>springboot-task</module>
         <module>java-timer</module>
+        <module>web-executor</module>
     </modules>
 </project>
