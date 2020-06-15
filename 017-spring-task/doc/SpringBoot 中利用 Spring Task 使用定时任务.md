@@ -144,3 +144,13 @@ public class SpringTaskJob {
 
 - 静态变量是 ClassLoader 级别的，如果 Web 应用程序停止，那么这些静态变量也会从 JVM 中清除。但是，线程池是 JVM 级别的。**这意味着如果用户在 Web 应用中启动了一个线程，那么这个线程的生命周期并不会和 Web 应用程序保持同步。这是个大坑，但是很多人显然不知道。所以，真正保险的方式是，在程序关闭的时候，手动的去关闭这些线程。**这时候，最好还是利用 Spring 已经实现好了的机制来实现这个功能，不要去自己实现。
 
+## 参考链接
+
+- https://juejin.im/post/5d653f9ef265da03a31d4792
+- https://medium.com/@guraycintir/task-scheduling-in-spring-boot-e70a1069a9f
+- https://juejin.im/post/5b31b9eff265da598826c200#heading-1
+- http://www.bejson.com/othertools/cron/
+- https://www.pppet.net/
+
+
+
