@@ -7,7 +7,7 @@
 
 ## Spring MVC 为什么能够处理异常
 
-**每一个 HTTP 请求都会通过DispatcherServlet 类的 void doDispatch(HttpServletRequest request, HttpServletResponse response) 方法找到请求路径找到对应的控制器的具体方法，然后再调用该方法。整个过程是使用了一个 try catch 代码块包含起来了，这就使得 Spring MVC 框架有能力处理这个调用链往上抛出的异常。**源码如下：
+**每一个 HTTP 请求都会通过DispatcherServlet 类的 void doDispatch(HttpServletRequest request, HttpServletResponse response) 方法找到请求路径找到对应的控制器的具体方法，然后再调用该方法。整个过程是使用了一个 try catch 代码块包含起来了，这就使得 Spring MVC 框架有能力处理这个调用链往上抛出的异常。源码如下：**
 
 ![](images/Snipaste_2020-06-17_19-47-51.png)
 
@@ -29,19 +29,33 @@
 
   ```java
   @ControllerAdvice
+  @Slf4j
+  @ResponseBody
   public class GlobalExceptionHandler {
   
-  	@ExceptionHandler(value = Throwable.class)
-  	@ResponseBody
-  	public AjaxEntity<Map<String, Object>> jsonErrorHandler(HttpServletRequest req, Throwable exception) throws Exception {
-  		// 打印异常栈信息
-  		exception.printStackTrace();
-  		// 自定义异常则显示异常对象中指定的描述信息
-  		if (exception instanceof CustomerException) {
-  			return AjaxEntityBuilder.failure(exception.getMessage());
+  	/**
+  	 * 专治表单以及GET方式提交参数进行校验时的异常
+  	 */
+  	@ExceptionHandler(value = BindException.class)
+  	public AjaxEntity errorHandler(BindException e) {
+  		e.printStackTrace();
+  		// 有多个异常时直接凭借出来一次性给出
+  		StringBuilder errorMsg = new StringBuilder();
+  		for (ObjectError allError : e.getBindingResult().getAllErrors()) {
+  			errorMsg.append(allError.getDefaultMessage()).append(",");
   		}
-  		// 非自定义异常则统一显示"系统内部错误"字样
-  		return AjaxEntityBuilder.failure("系统内部错误");
+  		errorMsg.delete(errorMsg.length() - 1, errorMsg.length());
+  
+  		return AjaxEntityBuilder.failure(errorMsg.toString());
+  	}
+  
+  	/**
+  	 * 这个异常必须要放在最后
+  	 */
+  	@ExceptionHandler(Throwable.class)
+  	public AjaxEntity handleException(Throwable e) {
+  		e.printStackTrace();
+  		return AjaxEntityBuilder.failure("系统繁忙，请稍后再试");
   	}
   }
   ```
