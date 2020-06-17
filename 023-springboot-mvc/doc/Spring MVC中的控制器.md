@@ -164,17 +164,6 @@ public AjaxEntity get2(@RequestParam String username, @RequestParam String passw
 }
 ```
 
-### 获取 POST 请求体中的参数
-
-#### Content-Type 属性值为 `form-data` 或者是 `application/x-www-form-urlencoded`时
-
-- 可以使用单个参数或者是单个 POJO 类来接收参数
-- 可以使用 @RequestParam 注解或者不使用
-
-#### Content-Type 属性值为 `application/json`时
-
-- 只能是使用 POJO 类来接收参数
-
 ### 获取 Cookie 或者 Header 中的请求参数
 
 使用 @CookieValue 注解从 Cookie 中获取请求参数，使用 @ReqeustHeader 注解从 Header 中获取请求参数
@@ -205,6 +194,17 @@ public AjaxEntity get3(HttpServletRequest request, HttpServletResponse response)
 	return AjaxEntityBuilder.success();
 }
 ```
+
+### 获取 POST 请求体中的参数
+
+#### Content-Type 属性值为 `form-data` 或者是 `application/x-www-form-urlencoded`时
+
+- 可以使用单个参数或者是单个 POJO 类来接收参数
+- 可以使用 @RequestParam 注解或者不使用
+
+#### Content-Type 属性值为 `application/json`时
+
+- 只能是使用 POJO 类来接收参数
 
 ## 参考链接
 

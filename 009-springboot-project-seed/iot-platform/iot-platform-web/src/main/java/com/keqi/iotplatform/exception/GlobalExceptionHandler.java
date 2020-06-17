@@ -22,14 +22,11 @@ public class GlobalExceptionHandler {
 	public AjaxEntity<Map<String, Object>> jsonErrorHandler(HttpServletRequest req, Throwable exception) throws Exception {
 		// 打印异常栈信息
 		exception.printStackTrace();
-
 		// 自定义异常则显示异常对象中指定的描述信息
 		if (exception instanceof CustomerException) {
 			return AjaxEntityBuilder.failure(exception.getMessage());
 		}
-
 		// 非自定义异常则统一显示"系统内部错误"字样
 		return AjaxEntityBuilder.failure("系统内部错误");
 	}
-
 }
