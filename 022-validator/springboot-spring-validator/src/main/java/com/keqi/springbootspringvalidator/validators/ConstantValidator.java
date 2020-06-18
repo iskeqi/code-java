@@ -32,5 +32,4 @@ public class ConstantValidator implements ConstraintValidator<Constant, String> 
 		// 判断参数是否等于设置的字段值，返回结果
 		return constant.equals(value);
 	}
-
 }
