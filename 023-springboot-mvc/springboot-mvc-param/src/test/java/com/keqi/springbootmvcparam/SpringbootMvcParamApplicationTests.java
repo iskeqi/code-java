@@ -7,6 +7,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootTest
 class SpringbootMvcParamApplicationTests {
@@ -18,6 +19,7 @@ class SpringbootMvcParamApplicationTests {
 		MultipartResolver multipartResolver;
 		View view;
 		ViewResolver viewResolver;
+		WebMvcConfigurer webMvcConfigurer;
 	}
 
 }

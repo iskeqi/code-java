@@ -34,7 +34,60 @@ Spring MVC 借助视图解析器（ViewResolver）得到最终的视图对象（
 
 ## 最佳实践
 
-- 前后端不分离：对于前端的每个页面，后台都有一个专门的接口和它一一对应（通常都是同时负责页面的转发和数据的响应，直接使用 ModelAndView 对象即可）。其它的接口全部采用 JSON 的方式进行请求和响应，前端则通过 AJAX 技术进行异步请求。
-- 前后端分离：页面的跳转逻辑放在前端控制，后台系统只负责对外提供 JSON 请求接口。**也就是说，在前后端分离的情况下，是根本就用不到视图和视图解析器的。**
+- **前后端不分离：**对于前端的每个页面，后台都有一个专门的接口和它一一对应（通常都是同时负责页面的转发和数据的响应，直接使用 ModelAndView 对象即可）。其它的接口全部采用 JSON 的方式进行请求和响应，前端则通过 AJAX 技术进行异步请求。
 
- 
+ ```java
+@Controller
+public class ViewController {
+
+	@GetMapping("/account/list")
+	public ModelAndView accountList(String accountName) {
+		// 模拟 account 列表查询
+		Map<String, Object> accountList = new HashMap<>();
+		return new ModelAndView("account", accountList);
+	}
+
+	@PostMapping("account/create")
+	@ResponseBody
+	public AjaxEntity createAccount(String accountName) {
+		// 模拟增加 account
+		return AjaxEntityBuilder.success();
+	}
+}
+ ```
+
+- **前后端分离：**页面的跳转逻辑放在前端控制，后台系统只负责对外提供 JSON 请求接口。**也就是说，在前后端分离的情况下，是根本就用不到视图和视图解析器的。
+
+ ```java
+@RestController
+public class ViewController {
+
+	@GetMapping("/account/list")
+	public AjaxEntity accountList(String accountName) {
+		// 模拟 account 列表查询
+		Map<String, Object> accountList = new HashMap<>();
+		return AjaxEntityBuilder.success(accountList);
+	}
+
+	@PostMapping("account/create")
+	@ResponseBody
+	public AjaxEntity createAccount(String accountName) {
+		// 模拟增加 account
+		return AjaxEntityBuilder.success();
+	}
+}
+ ```
+
+## SpringBoot 中配置 Thymeleaf 模板引擎
+
+在早些年，Java Web 开发都是采用的 JSP 作为模板引擎，但是 JSP 有很多的缺点，于是业界就提出了很多新的模板技术来替代 JSP。比较流行的有 FreeMarker、Thymeleaf 等。在 SpringBoot 2.0 以后，即已经默认推荐使用 Thymeleaf 模板来提点其它模板了。
+
+SpringBoot 2.0 之后想要使用 Thymeleaf 模板，只需要导入对应的依赖，然后再在 resources/templates 目录下存放真正的 Thymeleaf 模板，无需再做任何额外的配置（这个过程会自动进行视图解析器的配置等）。Thymeleaf 依赖会提供对应的视图解析器（ThymeleafViewResolver）和视图（ThymeleafView）。
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
+
