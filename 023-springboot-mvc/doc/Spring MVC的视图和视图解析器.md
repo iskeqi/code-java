@@ -30,7 +30,12 @@ Controller 中的请求方法执行完成之后，最终都会返回一个 Model
 
 Spring MVC 借助视图解析器（ViewResolver）得到最终的视图对象（View），这可能是我们常见的 JSP 视图，也有可能是一个基于 Thymeleaf 模板技术的视图，也可能是 PDF、Excel 等视图。**对于最终究竟采用哪种视图对模型数据进行渲染，Controller 并不关心，这个完全由开发人员对视图解析器的配置决定。**
 
-也就是说，Spring MVC 中的视图和视图解析器的工作流程如下：**Spring MVC 在调用了控制器中的方法执行业务逻辑之后，得到了一个 ModelAndView 对象作为方法返回值。然后它会调用系统中配置好的 ViewResolver 对象列表依次解析 ModelAndView 对象中包含的逻辑视图名称，直到找到一个可以解析该视图的视图解析器。然后，使用这个视图解析器来获得对象的视图对象，最后再使用视图对象去渲染具体的模型数据，最终将响应信息输出给客户端。**
+Spring MVC 中的视图和视图解析器的工作流程如下：
+
+- Spring MVC 调用了控制器中的方法执行业务逻辑之后，得到了一个 ModelAndView 对象作为方法返回值
+- 它会调用系统中配置好的 ViewResolver 对象列表依次解析 ModelAndView 对象中包含的逻辑视图名称，直到找到一个可以解析该视图的视图解析器
+- 使用这个视图解析器的 resolveViewResolve() 方法来获得对应的视图对象
+- 最后，再使用视图对象的 render() 方法去渲染具体的模型数据，最终将响应信息通过 response 对象输出给客户端。
 
 ## 最佳实践
 
@@ -80,9 +85,14 @@ public class ViewController {
 
 ## SpringBoot 中配置 Thymeleaf 模板引擎
 
-在早些年，Java Web 开发都是采用的 JSP 作为模板引擎，但是 JSP 有很多的缺点，于是业界就提出了很多新的模板技术来替代 JSP。比较流行的有 FreeMarker、Thymeleaf 等。在 SpringBoot 2.0 以后，即已经默认推荐使用 Thymeleaf 模板来提点其它模板了。
+在早些年，Java Web 开发都是采用的 JSP 作为模板引擎，但是 JSP 有很多的缺点，于是业界就提出了很多新的模板技术来替代 JSP，比较流行的有 FreeMarker、Thymeleaf 等。在 SpringBoot 2.0 以后，默认推荐使用 Thymeleaf 来替代其它模板技术。
 
-SpringBoot 2.0 之后想要使用 Thymeleaf 模板，只需要导入对应的依赖，然后再在 resources/templates 目录下存放真正的 Thymeleaf 模板，无需再做任何额外的配置（这个过程会自动进行视图解析器的配置等）。Thymeleaf 依赖会提供对应的视图解析器（ThymeleafViewResolver）和视图（ThymeleafView）。
+SpringBoot 2.0 之后使用 Thymeleaf 模板的步骤如下：
+
+- 导入 spring-boot-starter-thymeleaf 依赖
+- 在 resources/templates 目录下存放真正的 Thymeleaf 模板文件（就是一个以 .html 结尾的页面）
+
+无需再做任何额外的配置（这个过程会自动进行视图解析器的配置等）。Thymeleaf 依赖会提供对应的视图解析器（ThymeleafViewResolver）和视图（ThymeleafView）。
 
 ```xml
 <dependency>
