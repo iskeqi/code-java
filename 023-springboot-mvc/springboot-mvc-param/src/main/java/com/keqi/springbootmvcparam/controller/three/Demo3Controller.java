@@ -1,3 +1,4 @@
+/*
 package com.keqi.springbootmvcparam.controller.three;
 
 import com.keqi.springbootmvcparam.common.AjaxEntity;
@@ -82,3 +83,4 @@ public class Demo3Controller {
 		return AjaxEntityBuilder.success();
 	}
 }
+*/

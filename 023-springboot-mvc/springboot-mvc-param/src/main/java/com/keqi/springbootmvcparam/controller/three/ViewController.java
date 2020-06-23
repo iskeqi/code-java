@@ -1,3 +1,4 @@
+/*
 package com.keqi.springbootmvcparam.controller.three;
 
 import com.keqi.springbootmvcparam.common.AjaxEntity;
@@ -29,3 +30,4 @@ public class ViewController {
 		return AjaxEntityBuilder.success();
 	}
 }
+*/
