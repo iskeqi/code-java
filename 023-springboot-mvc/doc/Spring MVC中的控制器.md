@@ -204,9 +204,49 @@ public AjaxEntity get3(HttpServletRequest request, HttpServletResponse response)
 
 #### Content-Type 属性值为 `application/json`时
 
-- 只能是使用 POJO 类来接收参数
+- 可以使用 POJO 类或者 String 字符串来接收参数，但是大部分情况下都是使用的前者
+
+## 使用 HttpMessageConverter`<T>`
+
+HttpMessageConverter 是 Spring 的一个重要接口，它负责将 HTTP 请求体的信息转化为一个对象（类型为 T），将对象（类型为 T）转化成响应信息。此接口有 5 个抽象方法，如下：
+
+- boolean canRead(Class<?> clazz, @Nullable MediaType mediaType)
+- boolean canWrite(Class<?> clazz, @Nullable MediaType mediaType)
+- List<`MediaType`> getSupportedMediaTypes()
+- T read(Class<? extends T> clazz, HttpInputMessage inputMessage)
+- void write(T t, @Nullable MediaType contentType, HttpOutputMessage outputMessage)
+
+HttpMessageConverter 有很多实现类，类继承结构如下：
+
+![](images/Snipaste_2020-06-23_13-05-51.png)
+
+Spring MVC 提供了 2 种方法使用 HttpMessageConverter 将请求信息转换成处理方法的入参中
+
+- 使用 @RequestBody/@ResponseBody 对处理方法进行标注（**推荐使用**）
+- 使用 HttpEntity<T> 和 ResponseEntity<T> 作为处理方法的入参或者返回值（不推荐使用）
+
+### HttpMessageConverter 的工作流程
+
+HttpMessageConverter 的作用就是将 HTTP 请求体中的数据转换成处理方法的入参，将处理方法的返回值转成换 HTTP 响应体中的内容。流程图如下：
+
+![](images/Snipaste_2020-06-23_14-48-38.png)
+
+- @RequestBody：Spring 首先根据请求头的 Content-Type 属性选择对应的 HttpMessageConverter ，然后再根据处理方法中使用了 @RequestBody 标注的参数的类型来得到最终匹配的 HttpMessageConverter 。找到对应的 HttpMessageConverter 后，就调用它的 read() 方法将请求体中的参数转换到方法入参中。
+- @ResponseBody：Spring 首先根据处理方法的返回值类型找到对应的 HttpMessageConverter ，然后再根据请求头的 Accept 属性来确定最终的 HttpMessageConverter 对象。找到对应的 HttpMessageConverter 后，就调用它的 write() 方法将方法的返回值作为响应参数序列化到 response 输出流中。
+
+### 关于 HttpMessageConverter 的零散知识点
+
+- @RequestBody 和 ResponseBody 并不需要成对出现
+- 只要配置好了 JSON 和 XML 对应的 HttpMessageConverter 对象后，在具体的 HTTP 交互中，只需要指定好 Accept 和 Content-type 属性，就能够透明的在 XML  和 JSON 中进行切换。
+
+### HttpMessageConverter 的底层实现原理
+
+本质上就是把 Servlet API 进行了封装，类似的实现机制如下：
+
+![](images/Snipaste_2020-06-23_14-50-55.png)
 
 ## 参考链接
 
 - https://dzone.com/articles/5-basic-rest-api-design-guidelines
-- https://xovel.cn/article/naming-rule.html
+- https://xovel.cn/article/naming-rule.html  
+- https://cloud.tencent.com/developer/article/1147018
