@@ -37,7 +37,7 @@ class SpringbootMvcParamApplicationTests {
 		HttpMessageConverter httpMessageConverter;
 		// Spring Bean 的生命周期
 		BeanFactoryPostProcessor beanFactoryPostProcessor;
-
+		ThreadLocal threadLocal;
 		InstantiationAwareBeanPostProcessor instantiationAwareBeanPostProcessor;
 		BeanPostProcessor beanPostProcessor;
 
