@@ -5,7 +5,11 @@ package communication;
  */
 public class ObjectNotify {
 	public static void main(String[] args) throws InterruptedException {
-		test1();
+		// test1();
+		// Thread.interrupted();
+		// Thread 类中有一个实例方法 interrupt();
+		Object obj = new Object();
+		obj.wait();
 	}
 
 	/**
