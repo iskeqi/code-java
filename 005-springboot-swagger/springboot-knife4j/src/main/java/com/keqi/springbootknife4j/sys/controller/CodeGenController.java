@@ -5,6 +5,7 @@ import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
 import com.github.xiaoymin.knife4j.annotations.DynamicParameters;
 import com.keqi.springbootknife4j.common.AjaxEntity;
@@ -17,10 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,15 +26,47 @@ import java.util.List;
 import java.util.Map;
 
 @Api(tags = "1. 代码生成管理")
+@ApiSupport(order = 1, author = "keqi")
 @RestController
-@RequestMapping(value = "/code-gen", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/code-gen"/*, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE*/)
 @AllArgsConstructor
 public class CodeGenController {
 
 	private final CodeGenMapper codeGenMapper;
 
-	@ApiOperation(value = "1.1 增加代码生成", notes = "接口备注")
-	@ApiOperationSupport(order = 1) // 指定接口的排序
+	/*
+	一、用在 Controller 类上的注解：
+
+		@Api
+			作用：用在 Controller 类上方，填写 Controller 类中所有接口的总的信息，也就是分组的信息
+			属性：
+				tags：填写分组的名称
+
+		@ApiSupport
+			作用：用于给同一个包下的多个 Controller 类进行排序
+			属性：
+				order：指定 Controlelr 的顺序，默认是从小到大的
+				author：用于指定这个 Controller 中所有接口的作者，这样就不需要使用 @ApiOperationSupport 注解在每个方法上都声明了
+						如果两个注解的 author 不同的话，以范围小的那个为准（也就是 @ApiOperationSupport 指定的那个 auhor 属性）
+
+	二、用在 Controller 方法上的注解：
+
+		@ApiOperation
+			作用：用在 Controller 接口上方，填写接口的描述信息
+			属性：
+				value：填写接口名称（肯定是必填啊）
+				notes：填写接口的备注信息，有时候需要额外的信息来描述一个接口。（不是必填项，如果不填写，UI 界面上就不会有 "接口描述" 这一项）
+
+		@ApiOperationSupport
+			注解：用在 Controller 接口上方，用于给一个 Controller 中的接口在 UI 界面上进行排序
+			属性：
+				order：指定接口的顺序，默认是从小到大的
+				author：指定接口的作者（不是必填项，如果不填写，UI 界面上就不会出现 "开发者" 这一项）
+	 */
+
+
+	@ApiOperation(value = "1.1 增加代码生成"/*, notes = "接口备注"*/)
+	@ApiOperationSupport(order = 1, author = "keqi123") // 指定接口的排序
 	@PostMapping(value = "/save")
 	public AjaxEntity<?> addCodeGen(@RequestBody CodeGenSaveParam codeGenSaveParam) {
 		CodeGenDO codeGenDO = new CodeGenDO();
