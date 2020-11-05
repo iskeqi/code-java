@@ -5,6 +5,7 @@ import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
 import com.github.xiaoymin.knife4j.annotations.DynamicParameters;
 import com.keqi.springbootknife4j.common.AjaxEntity;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Api(tags = "1. 代码生成管理")
+@ApiSupport(order = 1)
 @RestController
 @RequestMapping(value = "/code-gen-dev", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
@@ -113,8 +115,8 @@ public class CodeGenDevController {
 		1、请求、响应参数全部都使用json，直接在Controller类的上面通过@RequestMapping注解指定即可
 		2、请求参数只有一个或者两个时，直接用一个Map接收就行
 		3、响应体中为了保持固定的层次结构，还是需要创建一个单独的VO，不论是多个参数还是只有一个参数时
-		4、方法通过@ApiOperationSupport注解的order属性进行排序
-		5、类通过@ApiSort注解进行排序
+		4、方法通过@ApiOperationSupport注解的order属性进行排序(不知道为啥不顶用啊)
+		5、类通过@ApiSort注解进行排序（好像也没有卵用诶）
 		6、记得熟读knife4j的文档
 
 
