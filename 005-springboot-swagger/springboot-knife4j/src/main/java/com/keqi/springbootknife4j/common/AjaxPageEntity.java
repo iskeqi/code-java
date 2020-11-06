@@ -17,29 +17,24 @@ import java.util.List;
 @AllArgsConstructor
 public class AjaxPageEntity<T> {
 
-	@ApiModelProperty(value = "状态码", dataType = "String", required = true,
-			position = 1, example = "200")
+	@ApiModelProperty(value = "状态码", required = true, example = "200")
 	private Integer status;
 
-	@ApiModelProperty(value = "说明", dataType = "String", required = true,
-			position = 2, example = "OK")
+	@ApiModelProperty(value = "说明", required = true, example = "OK")
 	private String msg;
 
-	@ApiModelProperty(value = "响应体", dataType = "String", required = true,
-			position = 3)
-	private PageEntity<T> body;
+	@ApiModelProperty(value = "响应体", required = true)
+	private PageEntity body;
 
 	@Data
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public class PageEntity<T> {
+	public class PageEntity {
 
-		@ApiModelProperty(value = "总记录数", dataType = "Integer", required = true,
-				position = 1, example = "200")
+		@ApiModelProperty(value = "总记录数", required = true, example = "200")
 		private Long total;
 
-		@ApiModelProperty(value = "记录列表", dataType = "List", required = true,
-				position = 2)
+		@ApiModelProperty(value = "记录列表", required = true)
 		private List<T> records;
 	}
 }

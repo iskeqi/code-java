@@ -11,6 +11,7 @@ import com.github.xiaoymin.knife4j.annotations.DynamicParameters;
 import com.keqi.springbootknife4j.common.AjaxEntity;
 import com.keqi.springbootknife4j.common.AjaxEntityBuilder;
 import com.keqi.springbootknife4j.common.AjaxPageEntity;
+import com.keqi.springbootknife4j.common.PageEntitiy;
 import com.keqi.springbootknife4j.sys.domain.*;
 import com.keqi.springbootknife4j.sys.mapper.CodeGenMapper;
 import io.swagger.annotations.Api;
@@ -62,6 +63,24 @@ public class CodeGenController {
 			属性：
 				order：指定接口的顺序，默认是从小到大的
 				author：指定接口的作者（不是必填项，如果不填写，UI 界面上就不会出现 "开发者" 这一项）
+
+	三、用在请求参数和相应参数上的注解：
+
+		@ApiModelProperty
+			作用：用在请求参数或者相应参数实体类的属性中
+			属性：
+				value：指定属性的名称，直接会显示在 UI 界面上
+				required：默认值是 flase，如果该参数是必须传递的，那么一定要设置此值为 true。同样会显示在 UI 界面上
+				dataType：此注解中的解释是用来指定数据类型的，但是实际上在 knife4j 中指定了此属性反而不起作用，不指定反而能自动识别出来
+				example：用于给定一个示例值，直接和 value 属性一同在 UI 界面上显示
+
+				至于如何保证字段在界面上的顺序，这个 knife4j 的作者明确说了暂不支持，后续好像也没有开发的计划
+	 */
+
+	/*
+		此次学习仅仅是把常用的几种方式学习一下，更多的玩法肯定不是这样子学习的，等到了实际项目中需要用到时，再去 knife4j 的官方 demo 看，
+		通过界面的展示和代码的使用，来进一步学习，然后整理成自己的笔记。demo：swagger-bootstrap-ui-demo
+
 	 */
 
 
@@ -113,7 +132,9 @@ public class CodeGenController {
 	@ApiOperation(value = "1.5 查询列表代码生成", notes = "接口备注")
 	@ApiOperationSupport(order = 5)
 	@PostMapping("/page")
-	public AjaxPageEntity<CodeGenVO> listCodeGen(@RequestBody CodeGenPageParam codeGenPageParam) {
+	// 为了使得能够自动的嵌套 List 列表并在 UI 界面上显示，只能这么干了
+	// （可以在 PageEntity 中把 AjaxEntity 中的 3 个属性放在一起，这样就不需要套来套去了）
+	public AjaxEntity<PageEntitiy<CodeGenVO>> listCodeGen(@RequestBody CodeGenPageParam codeGenPageParam) {
 
 		LambdaQueryWrapper<CodeGenDO> lambdaQueryWrapper = new LambdaQueryWrapper<CodeGenDO>()
 				.ge(CodeGenDO::getAge, codeGenPageParam.getAge())
@@ -133,8 +154,7 @@ public class CodeGenController {
 					ret.add(c);
 				}
 		);
-
-		return AjaxEntityBuilder.list(codeGenDOPage.getTotal(), ret);
+		return null; // 改成此种方式作为返回之后，需要配套准备一个返回值的便利方法
 	}
 
 	/*
@@ -144,7 +164,7 @@ public class CodeGenController {
 		2、请求参数只有一个或者两个时，直接用一个Map接收就行
 		3、响应体中为了保持固定的层次结构，还是需要创建一个单独的VO，不论是多个参数还是只有一个参数时
 		4、方法通过@ApiOperationSupport注解的order属性进行排序
-		5、类通过@ApiSort注解进行排序
+		5、类通过@ApiSupport注解进行排序
 		6、记得熟读knife4j的文档
 
 
