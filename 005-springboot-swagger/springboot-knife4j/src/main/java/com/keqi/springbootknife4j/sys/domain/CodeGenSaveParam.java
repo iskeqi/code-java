@@ -10,16 +10,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CodeGenSaveParam {
 
-	@ApiModelProperty(value = "用户名", dataType = "String", required = true,
-			position = 0, example = "grace")
+	@ApiModelProperty(value = "用户名",  required = true, example = "grace")
 	private String username;
 
-	@ApiModelProperty(value = "年龄", dataType = "Integer", required = true,
-			position = 1, example = "22")
+	@ApiModelProperty(value = "年龄",  required = true, example = "22")
 	private Integer age;
 
-	@ApiModelProperty(value = "体重", dataType = "Float", required = false,
-			position = 2, example = "63.45")
+	@ApiModelProperty(value = "体重",  required = false, example = "63.45")
 	private Float weight;
+
+	/*
+		@ApiModelProperty
+			作用：用在请求参数或者相应参数实体类的属性中
+			属性：
+				value：指定属性的名称，直接会显示在 UI 界面上
+				required：默认值是 flase，如果该参数是必须传递的，那么一定要设置此值为 true。同样会显示在 UI 界面上
+				dataType：此注解中的解释是用来指定数据类型的，但是实际上在 knife4j 中指定了此属性反而不起作用，不指定反而能自动识别出来
+				example：用于给定一个示例值，直接和 value 属性一同在 UI 界面上显示
+
+				至于如何保证字段在界面上的顺序，这个 knife4j 的作者明确说了暂不支持，后续好像也没有开发的计划
+	 */
 
 }

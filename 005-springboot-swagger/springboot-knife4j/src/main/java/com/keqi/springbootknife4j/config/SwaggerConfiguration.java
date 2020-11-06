@@ -26,6 +26,8 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket systemManger() {
 
+		// 这个全局处理参数已经过期，暂时还不清楚应该怎么修改（待定中...）
+
 		// 全局响应状态码设置(默认已经有一个200的成功状态码，所以不需要设置)
 		List<ResponseMessage> responseMessageList = new ArrayList<>();
 		responseMessageList.add(new ResponseMessageBuilder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
