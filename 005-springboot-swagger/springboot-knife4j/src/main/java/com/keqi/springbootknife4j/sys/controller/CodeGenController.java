@@ -133,6 +133,7 @@ public class CodeGenController {
 	@ApiOperationSupport(order = 5)
 	@PostMapping("/page")
 	// 为了使得能够自动的嵌套 List 列表并在 UI 界面上显示，只能这么干了
+	// （可以在 PageEntity 中把 AjaxEntity 中的 3 个属性放在一起，这样就不需要套来套去了）
 	public AjaxEntity<PageEntitiy<CodeGenVO>> listCodeGen(@RequestBody CodeGenPageParam codeGenPageParam) {
 
 		LambdaQueryWrapper<CodeGenDO> lambdaQueryWrapper = new LambdaQueryWrapper<CodeGenDO>()
