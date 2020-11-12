@@ -141,6 +141,23 @@ public class DateTest {
 	}
 
 
+	// 计算两个日期至今的间隔
+	@Test
+	public void period() {
+		LocalDate time1 = LocalDate.of(2019,12,13);
+		LocalDate time2 = LocalDate.of(2020,10,13);
+
+		// 使用Period类的between()方法来计算两个时间之间的间隔
+		// 小的(早)那个时间放在前面，大的(晚)那个时间放在后面，否则计算出来的会是负数
+		Period period = Period.between(time1,time2);
+
+		// 间隔年(未满一年会被忽略)
+		System.out.println(period.getYears());  // 输出结果为：0
+		// 间隔月(未满一月会被忽略)
+		System.out.println(period.getMonths()); // 输出结果为：10
+		// 间隔天(未满一天会被忽略)
+		System.out.println(period.getDays()); // 输出结果为：0
+	}
 
 	// 计算两个日期至今的间隔
 	@Test
@@ -255,6 +272,37 @@ public class DateTest {
 		result += (minutes == 0) ? "" : str3;
 
 		System.out.println(result);
+	}
+
+	@Test
+	public void test12() {
+		Instant instant = Instant.now();
+		Instant instant1 = Instant.ofEpochMilli(System.currentTimeMillis());
+
+		// 获取操作系统默认时区的当前日期时间
+		LocalDateTime localDateTime = LocalDateTime.now();
+		// 直接通过年月日时分秒等信息构造日期时间对象
+		LocalDateTime localDateTime1 = LocalDateTime.of(2017, 11, 1, 12, 23, 32);
+
+		// 直接通过日期时间对象获取对应的年月日时分秒，周几等信息
+		DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
+		int minute = localDateTime.getMinute();
+
+		// 获取操作系统默认时区的当前日期
+		LocalDate now = LocalDate.now();
+		// 直接通过年月日等信息构造日期对象
+		LocalDate localDate = LocalDate.of(2017, 12, 12);
+
+		// 获取操作系统默认时区的当前时间
+		LocalTime now1 = LocalTime.now();
+		// 直接通过年月日等信息构造时间对象
+		LocalTime localTime = LocalTime.of(20, 12, 12);
+
+		// LocalDate 加上 LocalTime 就能够直接转成 LocalDateTime
+		LocalDateTime localDateTime2 = localDate.atTime(12, 12, 12);
+		// LocalTime 加上 LocalDate 就能够直接转成 LocalDateTime
+		LocalDateTime localDateTime3 = localTime.atDate(localDate);
+		// 同理，LocalDateTime 也能够轻松的拆分成 LocalDate 和 LocalTime
 	}
 
 	/*
