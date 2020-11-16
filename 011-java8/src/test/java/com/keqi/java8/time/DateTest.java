@@ -78,14 +78,21 @@ public class DateTest {
 	// LocalDate 转 java.util.Date ()
 	@Test
 	public void localDateToDate() {
-		LocalDate localDate = LocalDate.now();
+
+		// 获取当前系统默认时区
+		ZoneId zoneId = ZoneId.systemDefault();
+		// 获取指定名称时区的 ZoneId 对象
+		ZoneId zoneId1 = ZoneId.of("America/New_York");
+
+
+		/*LocalDate localDate = LocalDate.now();
 		// 1、获取系统默认时区id(因为java.util.Date是有时区信息的，而java8的时间API除了ZonedDateTime外，都是不带时区信息的)
 		ZoneId zoneId = ZoneId.systemDefault(); // toString()结果为："Asia/Shanghai"
 		// 2、转成有时区信息的ZonedDateTime对象
 		ZonedDateTime zonedDateTime = localDate.atStartOfDay(zoneId);
 		// 3、先获取当前瞬时时间，然后通过Date类的from(Instant instant)方法转换
 		Date from = Date.from(zonedDateTime.toInstant());
-		System.out.println(from);
+		System.out.println(from);*/
 	}
 
 	/*
