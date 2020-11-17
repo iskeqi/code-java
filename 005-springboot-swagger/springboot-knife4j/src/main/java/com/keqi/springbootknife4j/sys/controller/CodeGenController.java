@@ -15,10 +15,13 @@ import com.keqi.springbootknife4j.common.PageEntitiy;
 import com.keqi.springbootknife4j.sys.domain.*;
 import com.keqi.springbootknife4j.sys.mapper.CodeGenMapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -73,8 +76,21 @@ public class CodeGenController {
 				required：默认值是 flase，如果该参数是必须传递的，那么一定要设置此值为 true。同样会显示在 UI 界面上
 				dataType：此注解中的解释是用来指定数据类型的，但是实际上在 knife4j 中指定了此属性反而不起作用，不指定反而能自动识别出来
 				example：用于给定一个示例值，直接和 value 属性一同在 UI 界面上显示
+				hidden：尽管编码规范要求 Param 类和 VO 类不允许出现额外的属性，但有时真的有点不可避免。
+						那么就可以使用将 hidden 属性设置为 true，则不会再 UI 界面上显示出来
 
 				至于如何保证字段在界面上的顺序，这个 knife4j 的作者明确说了暂不支持，后续好像也没有开发的计划
+
+		@ApiImplicitParam
+			作用：如果只有一两个参数时，懒得单独封装成一个实体类，那么就可以使用表单的方式提交，这时就可以使用此注解来标识请求参数
+			属性：
+				name：和 @RequestParam 注解 value 属性的值一样，也就是要和方法中形参名称一样（必须搭配此注解，否则不会生效）
+				value：指定属性的名称，直接会显示在 UI 界面上
+				example：用于给定一个示例值，直接和 value 属性一同在 UI 界面上显示
+				required：默认值是 flase，如果该参数是必须传递的，那么一定要设置此值为 true。同样会显示在 UI 界面上
+
+		@ApiImplicitParams
+			作用：如果接口方法中只有一个参数，那么直接使用 @ApiImplicitParam 注解即可，如果有多个，那么就需要使用此注解
 	 */
 
 	/*
@@ -157,6 +173,36 @@ public class CodeGenController {
 		return null; // 改成此种方式作为返回之后，需要配套准备一个返回值的便利方法
 	}
 
+	/**
+	 * 查询指定字典类型下的全部列表
+	 * @param typeCode typeCode
+	 * @return r
+	 */
+	@ApiOperation(value = "1.6 查询字典项列表")
+	@ApiOperationSupport(order = 6)
+	@ApiImplicitParam(name = "typeCode", value = "字典类型code", example = "gender", required = true)
+	@PostMapping("/page")
+	public AjaxEntity page(@Validated @RequestParam String typeCode) {
+		return AjaxEntityBuilder.success();
+	}
+
+	/**
+	 * 用户自己修改密码
+	 * @param oldPassword oldPassword
+	 * @param newPassword newPassword
+	 * @return r
+	 */
+	@ApiOperation(value = "1.7 用户修改密码")
+	@ApiOperationSupport(order = 7)
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "oldPassword", value = "旧密码", example = "123456", required = true),
+			@ApiImplicitParam(name = "newPassword", value = "新密码", example = "123456", required = true)
+	}
+	)
+	@PostMapping("/updatePassword")
+	public AjaxEntity updatePassword(String oldPassword, String newPassword) {
+		return AjaxEntityBuilder.success();
+	}
 	/*
 
 	总结：
