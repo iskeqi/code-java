@@ -1,9 +1,9 @@
 spring:
   datasource:
-    password: root
+    password: Lt@888888
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.102.124.165:3306/ry-vue?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
-    username: root
+    url: jdbc:mysql://10.10.20.200:3306/ry-vue?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: user_dev
 
 server:
   port: 8333
@@ -12,5 +12,7 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:/mapper/**/*Mapper.xml
+  # 只有这样 typeHandler 中的类使用了 @Alias 注解才会生效
+  type-aliases-package: com.keqi.springbootmybatistypehandler.typeHandler
 
 

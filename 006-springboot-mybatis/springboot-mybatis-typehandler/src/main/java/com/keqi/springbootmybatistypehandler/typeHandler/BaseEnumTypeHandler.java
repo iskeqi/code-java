@@ -1,6 +1,7 @@
 package com.keqi.springbootmybatistypehandler.typeHandler;
 
 import com.keqi.springbootmybatistypehandler.enumeration.BaseEnum;
+import org.apache.ibatis.type.Alias;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * 自定义MyBatis的枚举类型转换器
  */
+@Alias("BaseEnumTypeHandler")
 public class BaseEnumTypeHandler<E extends BaseEnum> extends BaseTypeHandler<E> {
 
 	private Class<E> enumType;

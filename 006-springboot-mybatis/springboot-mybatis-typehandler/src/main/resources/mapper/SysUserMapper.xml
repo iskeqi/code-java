@@ -11,9 +11,11 @@
         <result column="user_type" jdbcType="VARCHAR" property="userType"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber"/>
-        <result column="sex" jdbcType="INTEGER" property="sex"
-                javaType="com.keqi.springbootmybatistypehandler.enumeration.GenderEnum"
-                typeHandler="com.keqi.springbootmybatistypehandler.typeHandler.BaseEnumTypeHandler"/>
+        <!--typeHandler 都已经直接指定了，那就根本不需要指定 javaType 和 jdbcType 了
+            指定全名要这么长：typeHandler="com.keqi.springbootmybatistypehandler.typeHandler.BaseEnumTypeHandler"
+            可以使用别名呀：BaseEnumTypeHandler
+        -->
+        <result column="sex"  property="sex" typeHandler="BaseEnumTypeHandler"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="status" jdbcType="CHAR" property="status"/>
