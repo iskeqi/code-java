@@ -1,5 +1,7 @@
 package com.keqi.springbootmybatistypehandler.domain;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.keqi.springbootmybatistypehandler.enumeration.GenderEnum;
 import lombok.*;
 
@@ -106,4 +108,14 @@ public class SysUser {
 	 * 备注
 	 */
 	private String remark;
+
+	/**
+	 * 测试 JSON 字段
+	 */
+	private JSONObject jsonStr;
+
+	/**
+	 * 测试 JSON Array 字段
+	 */
+	private JSONArray jsonArrayStr;
 }
