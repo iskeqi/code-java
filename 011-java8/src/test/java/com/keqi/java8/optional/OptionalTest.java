@@ -2,7 +2,10 @@ package com.keqi.java8.optional;
 
 import org.junit.Test;
 
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
+import java.util.function.Supplier;
 
 public class OptionalTest {
 
@@ -82,6 +85,19 @@ public class OptionalTest {
 
 	private static Boy getBoy() {
 		return null;
+	}
+
+	@Test
+	public void test13() throws Throwable {
+		String id = this.t1().orElseThrow((Supplier<Throwable>) () -> new RuntimeException("非法id"));
+		System.out.println(id);
+	}
+
+	// Optional 类的真正作用是，显示的告知调用者，这个返回值有可能是为 null 的
+	private Optional<String> t1() {
+		Random random = new Random();
+		int i = random.nextInt(10);
+		return i % 2 == 0 ? Optional.empty() : Optional.of("optional");
 	}
 
 }
