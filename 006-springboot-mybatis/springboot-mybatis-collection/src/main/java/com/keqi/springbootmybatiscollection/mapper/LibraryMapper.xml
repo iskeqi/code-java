@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.springbootmybatiscollection.mapper.LibraryMapper">
+  <resultMap id="BaseResultMap" type="com.keqi.springbootmybatiscollection.domain.Library">
+    <!--@mbg.generated-->
+    <!--@Table library-->
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="school_id" property="schoolId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, school_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from library
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from library
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.keqi.springbootmybatiscollection.domain.Library" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into library (`name`, school_id)
+    values (#{name}, #{schoolId})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.keqi.springbootmybatiscollection.domain.Library" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into library
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null and name != ''">
+        `name`,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null and name != ''">
+        #{name},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.keqi.springbootmybatiscollection.domain.Library">
+    <!--@mbg.generated-->
+    update library
+    <set>
+      <if test="name != null and name != ''">
+        `name` = #{name},
+      </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.keqi.springbootmybatiscollection.domain.Library">
+    <!--@mbg.generated-->
+    update library
+    set `name` = #{name},
+      school_id = #{schoolId}
+    where id = #{id}
+  </update>
+</mapper>

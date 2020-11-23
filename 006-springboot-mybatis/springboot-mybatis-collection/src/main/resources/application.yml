@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    password: Lt@888888
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.10.20.200:3306/ry-vue?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: user_dev
+
+server:
+  port: 9102
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+
+logging:
+  file:
+    name: logs/springboot-mybatis-mapper-xml.log

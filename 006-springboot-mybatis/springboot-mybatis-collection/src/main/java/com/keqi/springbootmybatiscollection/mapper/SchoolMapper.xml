@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.springbootmybatiscollection.mapper.SchoolMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.springbootmybatiscollection.domain.School">
+        <!--@mbg.generated-->
+        <!--@Table school-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+    <!--直接一次性嵌套，发现无法嵌套成功（最多只能一次性套一层collection）-->
+    <resultMap id="SchoolVO" type="com.keqi.springbootmybatiscollection.domain.School">
+        <!--@mbg.generated-->
+        <!--@Table school-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="departmentList" ofType="com.keqi.springbootmybatiscollection.domain.Department"
+                    columnPrefix="department_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="school_id" property="schoolId"/>
+            <collection property="classesList" ofType="com.keqi.springbootmybatiscollection.domain.Classes"
+                        columnPrefix="classes_">
+                <id column="id" property="id"/>
+                <result column="name" property="name"/>
+                <result column="department_id" property="departmentId"/>
+                <collection property="studentList" ofType="com.keqi.springbootmybatiscollection.domain.Student"
+                            columnPrefix="student_">
+                    <id column="id" property="id"/>
+                    <result column="name" property="name"/>
+                    <result column="classes_id" property="classesId"/>
+                </collection>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!--这里使用了分步查询，其实就是循环查询多次（发送了多次SQL），每一个嵌套查询里面都可以套两层-->
+    <resultMap id="SchoolVOSelect" type="com.keqi.springbootmybatiscollection.domain.School">
+        <!--@mbg.generated-->
+        <!--@Table school-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="departmentList" ofType="com.keqi.springbootmybatiscollection.domain.Department"
+                    columnPrefix="department_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="school_id" property="schoolId"/>
+            <!--通过department_id查找对应的所有Classes（分步查询）-->
+            <collection property="classesList" column="id"
+                        select="com.keqi.springbootmybatiscollection.mapper.ClassesMapper.findAllByDepartmentId"/>
+        </collection>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from school
+        where id = #{id}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete
+        from school
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.keqi.springbootmybatiscollection.domain.School" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into school (`name`)
+        values (#{name})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.keqi.springbootmybatiscollection.domain.School" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into school
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.keqi.springbootmybatiscollection.domain.School">
+        <!--@mbg.generated-->
+        update school
+        <set>
+            <if test="name != null and name != ''">
+                `name` = #{name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.keqi.springbootmybatiscollection.domain.School">
+        <!--@mbg.generated-->
+        update school
+        set `name` = #{name}
+        where id = #{id}
+    </update>
+
+    <!--这里使用 SQL 一次性查询出所有数据（层次结构达到了3层），然后一次性映射进去，发现无法映射。-->
+    <select id="findOneById" resultMap="SchoolVO">
+        select school.id,
+               school.name,
+
+               department.id         as department_id,
+               department.`name`     as department_name,
+               department.school_id  as department_school_id,
+
+               classes.id            as classes_id,
+               classes.`name`        as classes_name,
+               classes.department_id as classes_department_id,
+
+               student.id            as student_id,
+               student.`name`        as student_name,
+               student.classes_id    as student_classes_id
+
+        from school
+                     left join department on school.id = department.school_id
+                     left join classes on department.id = classes.department_id
+                     left join student on classes.id = student.classes_id
+        where school.id = #{id}
+    </select>
+
+    <select id="getById" resultMap="SchoolVOSelect">
+        select school.id,
+               school.name,
+
+               department.id        as department_id,
+               department.`name`    as department_name,
+               department.school_id as department_school_id
+
+        from school
+                     left join department on school.id = department.school_id
+        where school.id = #{id}
+    </select>
+
+    <!--可见一次性查询多条出来和查询单条都是一样的（分步查询不会被影响到）-->
+    <select id="getByIds" resultMap="SchoolVOSelect">
+        select school.id,
+               school.name,
+
+               department.id        as department_id,
+               department.`name`    as department_name,
+               department.school_id as department_school_id
+
+        from school
+                     left join department on school.id = department.school_id
+                where school.id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

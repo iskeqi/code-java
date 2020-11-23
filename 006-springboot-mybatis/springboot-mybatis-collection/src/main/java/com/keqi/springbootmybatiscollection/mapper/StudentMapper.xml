@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.springbootmybatiscollection.mapper.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.springbootmybatiscollection.domain.Student">
+        <!--@mbg.generated-->
+        <!--@Table student-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="classes_id" property="classesId"/>
+    </resultMap>
+
+    <!--直接一次性嵌套，发现无法嵌套成功（最多只能一次性套一层association）-->
+    <resultMap id="StudentVO" type="com.keqi.springbootmybatiscollection.domain.Student">
+        <!--@mbg.generated-->
+        <!--@Table student-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="classes_id" property="classesId"/>
+        <association property="classes" javaType="com.keqi.springbootmybatiscollection.domain.Classes"
+                     columnPrefix="classess_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="department_id" property="departmentId"/>
+            <association property="department" javaType="com.keqi.springbootmybatiscollection.domain.Department"
+                         columnPrefix="departmentt_">
+                <id column="id" property="id"/>
+                <result column="name" property="name"/>
+                <result column="school_id" property="schoolId"/>
+                <association property="school" javaType="com.keqi.springbootmybatiscollection.domain.School"
+                             columnPrefix="school_">
+                    <id column="id" property="id"/>
+                    <result column="name" property="name"/>
+                </association>
+            </association>
+        </association>
+    </resultMap>
+
+    <!--使用分步查询，能够查询出来了哦-->
+    <resultMap id="StudentVOSelect" type="com.keqi.springbootmybatiscollection.domain.Student">
+        <!--@mbg.generated-->
+        <!--@Table student-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="classes_id" property="classesId"/>
+        <association property="classes" javaType="com.keqi.springbootmybatiscollection.domain.Classes"
+                     columnPrefix="classess_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="department_id" property="departmentId"/>
+            <association property="department" column="id"
+                         select="com.keqi.springbootmybatiscollection.mapper.DepartmentMapper.findOneById"/>
+        </association>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`, classes_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete
+        from student
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.keqi.springbootmybatiscollection.domain.Student" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into student (`name`, classes_id)
+        values (#{name}, #{classesId})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.keqi.springbootmybatiscollection.domain.Student" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+            <if test="classesId != null">
+                classes_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="classesId != null">
+                #{classesId},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.keqi.springbootmybatiscollection.domain.Student">
+        <!--@mbg.generated-->
+        update student
+        <set>
+            <if test="name != null and name != ''">
+                `name` = #{name},
+            </if>
+            <if test="classesId != null">
+                classes_id = #{classesId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.keqi.springbootmybatiscollection.domain.Student">
+        <!--@mbg.generated-->
+        update student
+        set `name`     = #{name},
+            classes_id = #{classesId}
+        where id = #{id}
+    </update>
+
+    <!--auto generated by MybatisCodeHelper on 2020-11-23-->
+    <select id="findAllByClassesId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        where classes_id = #{classesId}
+    </select>
+
+    <!--auto generated by MybatisCodeHelper on 2020-11-23-->
+    <select id="findOneById" resultMap="StudentVO">
+        select student.id,
+               student.`name`,
+               student.classes_id,
+
+               classes.id            as classess_id,
+               classes.`name`        as classess_name,
+               classes.department_id as classess_department_id,
+
+               department.id         as departmentt_id,
+               department.`name`     as departmentt_name,
+               department.school_id  as departmentt_school_id,
+
+               school.id             as school_id,
+               school.`name`         as school_name
+        from student
+                     left join classes on student.classes_id = classes.id
+                     left join department on classes.department_id = department.id
+                     left join school on department.school_id = school.id
+        where student.id = #{id};
+    </select>
+
+    <select id="getById" resultMap="StudentVOSelect">
+        select student.id,
+               student.`name`,
+               student.classes_id,
+
+               classes.id            as classess_id,
+               classes.`name`        as classess_name,
+               classes.department_id as classess_department_id
+        from student
+                     left join classes on student.classes_id = classes.id
+
+        where student.id = #{id};
+    </select>
+</mapper>
