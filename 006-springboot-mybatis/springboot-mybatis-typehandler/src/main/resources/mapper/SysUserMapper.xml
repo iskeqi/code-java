@@ -10,7 +10,7 @@
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="user_type" jdbcType="VARCHAR" property="userType"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber"/>
+        <result column="phonenumber" typeHandler="DoubleHandler" property="phonenumber"/>
         <!--typeHandler 都已经直接指定了，那就根本不需要指定 javaType 和 jdbcType 了
             指定全名要这么长：typeHandler="com.keqi.springbootmybatistypehandler.typeHandler.BaseEnumTypeHandler"
             可以使用别名呀：BaseEnumTypeHandler

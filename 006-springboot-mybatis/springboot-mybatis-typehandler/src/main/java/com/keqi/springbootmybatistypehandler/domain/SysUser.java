@@ -47,7 +47,7 @@ public class SysUser {
 	/**
 	 * 手机号码
 	 */
-	private String phonenumber;
+	private Double phonenumber;
 
 	/**
 	 * 用户性别（0男 1女 2未知）
