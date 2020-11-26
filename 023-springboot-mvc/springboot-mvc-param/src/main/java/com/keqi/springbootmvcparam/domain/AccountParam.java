@@ -19,4 +19,7 @@ public class AccountParam {
 
 	// 此参数可选(前端可能传递的是""或者是null)
 	private String remark;
+
+	// JSON 字符串
+	private String jsonStr;
 }
