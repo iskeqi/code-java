@@ -2,6 +2,8 @@ package com.keqi.springbootmvcparam.domain;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 /**
  * 用户参数(新增/修改公用此Param类)
  */
@@ -22,4 +24,7 @@ public class AccountParam {
 
 	// JSON 字符串
 	private String jsonStr;
+
+	// 测试 BigDecimal 类
+	private BigDecimal longitude;
 }

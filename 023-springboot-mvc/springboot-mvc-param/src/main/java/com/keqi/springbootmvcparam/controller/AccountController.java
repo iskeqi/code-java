@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -82,8 +83,9 @@ public class AccountController {
 		Long id = accountParam.getId();
 		String account = accountParam.getAccount();
 		String remark = accountParam.getRemark();
+		BigDecimal longitude = accountParam.getLongitude();
 
-		return AjaxEntityBuilder.success();
+		return AjaxEntityBuilder.success(accountParam);
 	}
 
 	@GetMapping("/account/createGET")
