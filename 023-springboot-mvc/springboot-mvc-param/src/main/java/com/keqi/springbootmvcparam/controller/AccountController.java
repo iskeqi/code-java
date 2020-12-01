@@ -1,7 +1,6 @@
 package com.keqi.springbootmvcparam.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.keqi.springbootmvcparam.common.AjaxEntity;
 import com.keqi.springbootmvcparam.common.AjaxEntityBuilder;
 import com.keqi.springbootmvcparam.domain.AccountParam;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -96,4 +96,54 @@ public class AccountController {
 
 		return AjaxEntityBuilder.success();
 	}
+
+	// 测试返回值为 AjaxEntity 时
+	@GetMapping("/account/testAjaxEntity")
+	public AjaxEntity testAjaxEntity(AccountParam accountParam) {
+		Long id = accountParam.getId();
+		String account = accountParam.getAccount();
+		String remark = accountParam.getRemark();
+
+		return AjaxEntityBuilder.success(accountParam);
+	}
+
+	// 测试返回值为 String 时
+	@GetMapping("/account/testString")
+	public String testString(AccountParam accountParam) {
+		Long id = accountParam.getId();
+		String account = accountParam.getAccount();
+		String remark = accountParam.getRemark();
+
+		return account;
+	}
+
+	// 测试没有返回值时
+	@GetMapping("/account/testVoid")
+	public void testVoid(AccountParam accountParam) {
+		System.out.println("void");
+	}
+
+	// 测试返回值为 Object 时
+	@GetMapping("/account/testObject")
+	public AccountParam testObject(AccountParam accountParam) {
+		Long id = accountParam.getId();
+		String account = accountParam.getAccount();
+		String remark = accountParam.getRemark();
+
+		return accountParam;
+	}
+
+	// 测试返回值为 List 类型对象时
+	@GetMapping("/account/testList")
+	public List<AccountParam> testList(AccountParam accountParam) {
+		return Collections.singletonList(accountParam);
+	}
+
+
+
+
+
+
+
+
 }
