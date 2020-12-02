@@ -13,7 +13,6 @@
         <result column="update_by" property="updateBy"/>
     </resultMap>
 
-
     <!--使用了IDEA中的Database连接了指定的数据库之后，mapper.xml文件中的字段就不会报红色了，而且还有智能提示-->
     <select id="selectByUsername" resultMap="CodeGenMap">
         select id, username, age, weight, create_time, update_time, create_by, update_by
@@ -21,5 +20,27 @@
         where username = #{username}
     </select>
 
+    <select id="page1" resultMap="CodeGenMap">
+        select t1.id, t1.age, t2.username
+        from t_code_gen as t1
+        left join t_code_gen_db as t2 on t1.id = t2.id
+    </select>
 
+    <select id="page2" resultMap="CodeGenMap">
+        select t1.id, t1.age, t2.username
+        from t_code_gen as t1
+                     left join t_code_gen_db as t2 on t1.id = t2.id
+    </select>
+
+    <select id="page3" resultMap="CodeGenMap">
+        select t1.id, t1.age, t2.username
+        from t_code_gen as t1
+                     left join t_code_gen_db as t2 on t1.id = t2.id
+    </select>
+
+    <select id="page4" resultMap="CodeGenMap">
+        select t1.id, t1.age, t2.username
+        from t_code_gen as t1
+                     left join t_code_gen_db as t2 on t1.id = t2.id
+    </select>
 </mapper>
