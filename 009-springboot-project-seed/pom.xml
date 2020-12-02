@@ -16,6 +16,7 @@
         <module>dict-sample</module>
         <module>project-seed-first</module>
         <module>project-seed-second</module>
+        <module>best-practice-one</module>
     </modules>
 
 </project>

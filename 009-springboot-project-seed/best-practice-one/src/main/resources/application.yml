@@ -1,0 +1,23 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /best-practice-one
+
+spring:
+  datasource:
+    url: jdbc:mysql://120.25.26.123:3306/api-hu?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis打印sql(配合MyBatis Log Plugin插件可以在控制台查看格式化并且填充了占位符的SQL语句)
+mybatis-plus:
+  config-location:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 只有这样 typeHandler 中的类使用了 @Alias 注解才会生效
+    type-aliases-package: com.keqi.bestpracticeone.core.typeHandler
+
+# log configuration
+logging:
+  file:
+    name: logs/best-practice-one.log
