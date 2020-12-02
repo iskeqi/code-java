@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://120.25.26.123:3306/api-hu?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+    url: jdbc:mysql://120.25.26.123:3306/best-practice-one?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -21,3 +21,6 @@ mybatis-plus:
 logging:
   file:
     name: logs/best-practice-one.log
+  level:
+    com:
+      keqi: debug

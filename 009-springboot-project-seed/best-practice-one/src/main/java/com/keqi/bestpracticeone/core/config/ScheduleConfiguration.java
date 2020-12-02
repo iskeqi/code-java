@@ -9,6 +9,8 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 /**
  * 给 Spring Task 配置线程池（如果系统中对定时任务的需求不大，使用 Spring Task 即可）
+ *
+ * @author keqi
  */
 @Configuration
 @EnableScheduling // 必须加上此注解，否则定时任务不会开启

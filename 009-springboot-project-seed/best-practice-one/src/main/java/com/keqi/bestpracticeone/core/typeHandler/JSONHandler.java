@@ -12,6 +12,8 @@ import java.sql.SQLException;
 
 /**
  * 不确定 {}还是[] 为根节点的 JSON 对象
+ *
+ * @author keqi
  */
 @Alias("JSONHandler")
 public class JSONHandler extends BaseTypeHandler<JSON> {

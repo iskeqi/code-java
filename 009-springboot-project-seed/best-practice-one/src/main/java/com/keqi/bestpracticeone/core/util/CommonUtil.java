@@ -5,6 +5,8 @@ import org.springframework.boot.system.ApplicationHome;
 
 /**
  * 公共工具类（不知道怎么分类就放在这里）
+ *
+ * @author keqi
  */
 public class CommonUtil {
 

@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 
 /**
  * 基础查询实体类（仅用于统一公共字段命名，不要求必须继承，可以拷贝需要的属性至自己的Param实体类中，且推荐这么做）
+ *
+ * @author keqi
  */
 public class QueryBaseParam {
 

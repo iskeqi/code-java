@@ -1,22 +1,48 @@
 package com.keqi.bestpracticeone.core.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * 响应实体类
  *
  * @author keqi
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ResultEntity {
 
-    private Integer status;
+    private Integer code;
 
-    private String msg;
+    private String message;
 
-    private Object body;
+    private Object data;
+
+    public ResultEntity() {
+    }
+
+    public ResultEntity(Integer code, String message, Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
 }

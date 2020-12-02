@@ -9,6 +9,8 @@ import java.util.Objects;
 
 /**
  * 登录用户信息工具类（通过 ThreadLocal 存储用户信息）
+ *
+ * @author keqi
  */
 @Component
 public class Auth {

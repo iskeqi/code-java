@@ -1,7 +1,13 @@
 package com.keqi.bestpracticeone.core.interceptor;
 
+import com.keqi.bestpracticeone.core.auth.Auth;
+import com.keqi.bestpracticeone.core.auth.LoginUserBO;
+import com.keqi.bestpracticeone.core.exception.BusinessException;
+import com.keqi.bestpracticeone.core.pojo.CommonConstant;
+import com.keqi.bestpracticeone.core.util.JWTUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +25,20 @@ public class SecurityInterceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
         String contextPath = request.getContextPath();
 
-        // 这里根据 header 中的 accessToken 的值来获取登录token，判断是否登录，然后解析用户信息并注入到当前线程中
+        // 通过 header 中的 accessToken 属性来获取当前登录用户信息
+        String accessToken = request.getHeader(CommonConstant.ACCESS_TOKEN);
+        LoginUserBO loginUserBO = JWTUtil.resolveToken(accessToken);
+        if (loginUserBO != null) {
+            // 设置当前操作用户信息到当前线程对象中
+            Auth.setLoginUserBO(loginUserBO);
+            return true;
+        } else {
+            throw new BusinessException("当前操作用户未登录");
+        }
+    }
 
-        return true;
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        Auth.setLoginUserBO(null);
     }
 }

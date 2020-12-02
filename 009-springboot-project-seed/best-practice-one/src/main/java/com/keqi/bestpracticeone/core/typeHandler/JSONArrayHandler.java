@@ -13,6 +13,8 @@ import java.sql.SQLException;
 
 /**
  * 确定是 [] 为根节点的 JSON 对象
+ *
+ * @author keqi
  */
 @Alias("JSONArrayHandler")
 public class JSONArrayHandler extends BaseTypeHandler<JSONArray> {
