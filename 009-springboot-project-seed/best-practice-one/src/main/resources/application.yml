@@ -24,3 +24,8 @@ logging:
   level:
     com:
       keqi: debug
+
+# 指定文件存储路径(不同系统路径不同)
+best-practice-one-file-path:
+  linux: /home/keqi/myApp/
+  windows: D:/best-practice-one/upload/
