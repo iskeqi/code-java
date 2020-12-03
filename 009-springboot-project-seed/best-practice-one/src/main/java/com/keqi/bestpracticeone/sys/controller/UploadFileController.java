@@ -10,7 +10,6 @@ import com.keqi.bestpracticeone.sys.service.UploadFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.apache.ibatis.io.Resources;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -47,14 +44,14 @@ public class UploadFileController {
 
         // 相对路径
         String relativePath = file.getContentType() + "/" + LocalDate.now() + "/" + UUID.randomUUID().toString() + "/";
-
+        // 全路径
         String fullPath = basePath + relativePath;
-        Path path = Paths.get(fullPath);
-        if (!Files.exists(path)) {
-            Files.createDirectories(path);
-        }
 
-        file.transferTo(path);
+        File f = new File(fullPath, file.getOriginalFilename());
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        file.transferTo(f);
 
         UploadFileDO t = new UploadFileDO();
         t.setName(file.getOriginalFilename());
@@ -76,13 +73,12 @@ public class UploadFileController {
         }
         String path = this.globalPropertyUtil.getUploadPath() + uploadFileDO.getPath() + uploadFileDO.getName();
 
-
         response.setCharacterEncoding(request.getCharacterEncoding());
         response.setContentType("application/octet-stream");
-        InputStream in = Resources.getResourceAsStream(path);
+        FileInputStream fileInputStream = new FileInputStream(new File(path));
         String fileName = URLEncoder.encode(uploadFileDO.getName(), request.getCharacterEncoding());
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-        IOUtils.copy(in, response.getOutputStream());
+        IOUtils.copy(fileInputStream, response.getOutputStream());
         response.flushBuffer();
     }
 }
