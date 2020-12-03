@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 02/12/2020 20:38:02
+ Date: 03/12/2020 11:09:05
 */
 
 SET NAMES utf8mb4;
@@ -50,7 +50,7 @@ CREATE TABLE `sys_dict_item`  (
   `item_sort` int UNSIGNED NULL DEFAULT NULL COMMENT '字典项排序',
   `item_remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典项备注字段',
   `item_css` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典项样式属性(备用字段)',
-  `id_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除字段（0 未删除，1 已删除）',
+  `is_deleted` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '逻辑删除字段（0 未删除，1 已删除）',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_item_code`(`item_code`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统管理-字典表' ROW_FORMAT = DYNAMIC;
@@ -58,10 +58,32 @@ CREATE TABLE `sys_dict_item`  (
 -- ----------------------------
 -- Records of sys_dict_item
 -- ----------------------------
-INSERT INTO `sys_dict_item` VALUES (1, 'post', '岗位', 'Java', 'Java后端开发工程师', 1, NULL, NULL, 0);
-INSERT INTO `sys_dict_item` VALUES (2, 'post', '岗位', 'Web', 'Web前端开发工程师', 2, NULL, NULL, 0);
-INSERT INTO `sys_dict_item` VALUES (3, 'post', '岗位', 'Product', '产品经理', 3, NULL, NULL, 0);
+INSERT INTO `sys_dict_item` VALUES (5, 'post', '岗位', 'Java', 'Java后端开发工程师', 1, NULL, NULL, 0);
+INSERT INTO `sys_dict_item` VALUES (6, 'post', '岗位', 'Web', 'Web前端开发工程师', 2, NULL, NULL, 0);
+INSERT INTO `sys_dict_item` VALUES (7, 'post', '岗位', 'Product', '产品经理', 3, NULL, NULL, 0);
 INSERT INTO `sys_dict_item` VALUES (8, 'post', '岗位', 'IOS', 'IOS开发工程师', 4, NULL, NULL, 0);
 INSERT INTO `sys_dict_item` VALUES (9, 'post', '岗位', 'android', 'android开发工程师', 5, NULL, NULL, 0);
+INSERT INTO `sys_dict_item` VALUES (10, 'gender', '性别', 'man', '男', 1, NULL, NULL, 0);
+INSERT INTO `sys_dict_item` VALUES (11, 'gender', '性别', 'women', '女', 2, NULL, NULL, 0);
+INSERT INTO `sys_dict_item` VALUES (12, 'gender', '性别', 'unknown', '未知', 3, NULL, NULL, 0);
+
+-- ----------------------------
+-- Table structure for sys_upload_file
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_upload_file`;
+CREATE TABLE `sys_upload_file`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文件ID',
+  `name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件名称',
+  `path` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件存储路径（相对路径）',
+  `type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件类型',
+  `size` int UNSIGNED NULL DEFAULT NULL COMMENT '文件大小（单位：字节）',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `is_deleted` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '逻辑删除字段（0 未删除，1 已删除）',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_upload_file
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;

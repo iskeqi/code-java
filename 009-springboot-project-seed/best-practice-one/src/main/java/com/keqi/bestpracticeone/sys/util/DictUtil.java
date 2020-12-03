@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 程序启动后读取 sys_dict_item 表中的所数据，并存储在内存中
@@ -27,12 +28,8 @@ public class DictUtil implements CommandLineRunner {
     @Override
     public void run(String... args) {
         dictMap = new HashMap<>();
-
-        List<String> typeCodes = this.dictItemMapper.listAllTypeCode();
-        for (String typeCode : typeCodes) {
-            List<DictItemVO> dictItemVOS = this.dictItemMapper.listAllByTypeCode(typeCode);
-            dictMap.put(typeCode, dictItemVOS);
-        }
+        List<DictItemVO> dictItemVOS = this.dictItemMapper.listAll();
+        dictMap = dictItemVOS.stream().collect(Collectors.groupingBy(DictItemVO::getTypeCode));
     }
 
     /**

@@ -14,7 +14,7 @@ public interface DictItemService {
      *
      * @param dictItemParam dictItemParam
      */
-    void create(DictItemParam dictItemParam);
+    void insert(DictItemParam dictItemParam);
 
     /**
      * 根据ID修改字典项

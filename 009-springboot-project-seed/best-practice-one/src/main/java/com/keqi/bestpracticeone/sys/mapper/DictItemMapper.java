@@ -44,5 +44,12 @@ public interface DictItemMapper extends BaseMapper<DictItemDO> {
      */
     int disableById(Long id);
 
+    /**
+     * 一次性查询出所有字典项数据
+     *
+     * @return r
+     */
+    List<DictItemVO> listAll();
+
 
 }

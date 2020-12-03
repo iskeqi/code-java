@@ -1,5 +1,6 @@
 package com.keqi.bestpracticeone.sys.domain.param;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,33 +10,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DictItemPageParam {
 
-    /**
-     * 字典类型编码
-     */
+    @ApiModelProperty(value = "字典类型编码")
     private String typeCode;
 
-    /**
-     * 字典类型名称
-     */
+    @ApiModelProperty(value = "字典类型名称")
     private String typeName;
 
-    /**
-     * 字典项编码
-     */
+    @ApiModelProperty(value = "字典项编码")
     private String itemCode;
 
-    /**
-     * 字典项值
-     */
+    @ApiModelProperty(value = "字典项值")
     private String itemName;
 
-    /**
-     * 当前页数（最小为1）（命名和 MyBatisPlus 保持一致）
-     */
+    @ApiModelProperty(value = "前页数", example = "1", required = true)
     protected int current = 1;
 
-    /**
-     * 每页大小（最大为50）（命名和 MyBatisPlus 保持一致）
-     */
+    @ApiModelProperty(value = "每页大小", example = "10", required = true)
     protected int size = 10;
 }

@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BindException.class)
     public ResultEntity errorHandler(BindException e) {
         e.printStackTrace();
-        // 有多个异常时直接凭借出来一次性给出
+        // 有多个异常时直接拼接出来一次性给出
         StringBuilder errorMsg = new StringBuilder();
         for (ObjectError allError : e.getBindingResult().getAllErrors()) {
             errorMsg.append(allError.getDefaultMessage()).append(",");

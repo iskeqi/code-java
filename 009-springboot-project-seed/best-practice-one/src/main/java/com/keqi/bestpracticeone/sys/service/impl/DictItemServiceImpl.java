@@ -29,7 +29,7 @@ public class DictItemServiceImpl implements DictItemService {
      */
     @Override
     @Transactional
-    public void create(DictItemParam dictItemParam) {
+    public void insert(DictItemParam dictItemParam) {
         DictItemDO t = new DictItemDO();
         BeanUtils.copyProperties(dictItemParam, t);
         this.dictItemMapper.insert(t);

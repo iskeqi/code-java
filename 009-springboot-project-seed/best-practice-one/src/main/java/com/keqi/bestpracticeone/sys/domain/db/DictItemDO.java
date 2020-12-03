@@ -67,6 +67,6 @@ public class DictItemDO {
     /**
      * 逻辑删除字段（0 未删除，1 已删除）
      */
-    @TableField(value = "id_deleted")
-    private Boolean deleted;
+    @TableField(value = "is_deleted")
+    private Integer deleted;
 }

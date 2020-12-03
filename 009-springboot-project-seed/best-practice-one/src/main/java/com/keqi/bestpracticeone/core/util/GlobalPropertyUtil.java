@@ -1,5 +1,6 @@
 package com.keqi.bestpracticeone.core.util;
 
+import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -8,14 +9,11 @@ import org.springframework.stereotype.Component;
  *
  * @author keqi
  */
+@AllArgsConstructor
 @Component
 public class GlobalPropertyUtil {
 
     private final Environment environment;
-
-    public GlobalPropertyUtil(Environment environment) {
-        this.environment = environment;
-    }
 
     /**
      * 根据当前程序运行所处的不同环境来决定使用哪个存储路径
