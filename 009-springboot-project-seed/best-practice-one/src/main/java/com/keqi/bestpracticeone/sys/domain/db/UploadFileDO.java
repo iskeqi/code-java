@@ -1,28 +1,22 @@
 package com.keqi.bestpracticeone.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.keqi.bestpracticeone.core.pojo.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 /**
     * 文件表
     */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_upload_file")
-public class UploadFileDO {
-    /**
-     * 文件ID
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+public class UploadFileDO extends BaseDO {
 
     /**
      * 文件名称
@@ -47,12 +41,6 @@ public class UploadFileDO {
      */
     @TableField(value = "`size`")
     private Long size;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    private LocalDateTime createTime;
 
     /**
      * 逻辑删除字段（0 未删除，1 已删除）

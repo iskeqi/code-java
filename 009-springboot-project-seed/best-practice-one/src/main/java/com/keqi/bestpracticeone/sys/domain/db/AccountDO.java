@@ -1,28 +1,22 @@
 package com.keqi.bestpracticeone.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.keqi.bestpracticeone.core.pojo.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 /**
     * 用户表
     */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_account")
-public class AccountDO {
-    /**
-     * 用户ID
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+public class AccountDO extends BaseDO {
 
     /**
      * 用户名
@@ -47,16 +41,4 @@ public class AccountDO {
      */
     @TableField(value = "`password`")
     private String password;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    @TableField(value = "update_time")
-    private LocalDateTime updateTime;
 }

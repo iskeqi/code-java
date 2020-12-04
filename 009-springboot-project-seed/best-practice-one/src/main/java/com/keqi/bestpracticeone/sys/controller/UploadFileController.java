@@ -43,20 +43,23 @@ public class UploadFileController {
         String basePath = this.globalPropertyUtil.getUploadPath();
 
         // 相对路径
-        String relativePath = file.getContentType() + "/" + LocalDate.now() + "/" + UUID.randomUUID().toString() + "/";
+        String relativePath = LocalDate.now() + "/" + file.getContentType() + "/";
         // 全路径
         String fullPath = basePath + relativePath;
+        // 对用户上传过来的文件使用UUID进行重命名，下载时截取掉UUID这段名称即可
+        String name = UUID.randomUUID().toString() + file.getOriginalFilename();
 
-        File f = new File(fullPath, file.getOriginalFilename());
+        File f = new File(fullPath, name);
         if (!f.exists()) {
             f.mkdirs();
         }
         file.transferTo(f);
 
         UploadFileDO t = new UploadFileDO();
-        t.setName(file.getOriginalFilename());
+        t.setName(name);
         t.setSize(file.getSize());
         t.setPath(relativePath);
+        t.setType(file.getContentType());
         this.uploadFileService.insert(t);
 
         return new UploadFileVO(t.getId(), t.getName());
@@ -75,8 +78,12 @@ public class UploadFileController {
 
         response.setCharacterEncoding(request.getCharacterEncoding());
         response.setContentType("application/octet-stream");
+
         FileInputStream fileInputStream = new FileInputStream(new File(path));
-        String fileName = URLEncoder.encode(uploadFileDO.getName(), request.getCharacterEncoding());
+
+        // 截取出 name 属性 [37,length-1) 位置的字符串，文件的真正命名
+        String fileName = URLEncoder.encode(uploadFileDO.getName().substring(37), request.getCharacterEncoding());
+
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
         IOUtils.copy(fileInputStream, response.getOutputStream());
         response.flushBuffer();

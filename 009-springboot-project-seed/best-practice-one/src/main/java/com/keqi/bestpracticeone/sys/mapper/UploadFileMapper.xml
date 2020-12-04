@@ -9,11 +9,12 @@
         <result column="path" property="path"/>
         <result column="type" property="type"/>
         <result column="size" property="size"/>
-        <result column="create_time" property="createTime"/>
         <result column="is_deleted" property="deleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, `name`, `path`, `type`, `size`, create_time, is_deleted
+        id, `name`, `path`, `type`, `size`, is_deleted, create_time, update_time
     </sql>
 </mapper>

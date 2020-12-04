@@ -1,26 +1,22 @@
 package com.keqi.bestpracticeone.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.keqi.bestpracticeone.core.pojo.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * 系统管理-字典表
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_dict_item")
-public class DictItemDO {
-    /**
-     * 字典记录主键
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+public class DictItemDO extends BaseDO {
 
     /**
      * 字典类型编码

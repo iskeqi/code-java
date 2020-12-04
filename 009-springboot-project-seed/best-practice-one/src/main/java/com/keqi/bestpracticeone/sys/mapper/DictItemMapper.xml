@@ -13,6 +13,8 @@
         <result column="item_remark" property="itemRemark"/>
         <result column="item_css" property="itemCss"/>
         <result column="is_deleted" property="deleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <resultMap id="DictItemVO" type="com.keqi.bestpracticeone.sys.domain.vo.DictItemVO">
@@ -29,7 +31,7 @@
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         id, type_code, type_name, item_code, item_name, item_sort, item_remark, item_css,
-        is_deleted
+        is_deleted,create_time,update_time
     </sql>
 
     <select id="listAllTypeCode" resultType="java.lang.String">
