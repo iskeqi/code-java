@@ -31,7 +31,7 @@ public class UploadFileServiceImpl implements UploadFileService {
      * @return r
      */
     @Override
-    public UploadFileDO getById(String id) {
-        return this.uploadFileMapper.selectById(id);
+    public UploadFileDO getById(Long id) {
+        return this.uploadFileMapper.getById(id);
     }
 }

@@ -1,35 +1,40 @@
-spring:
-  datasource:
-    url: jdbc:mysql://120.25.26.123:3306/best-practice-one?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-server:
-  port: 9090
-  servlet:
-    context-path: /best-practice-one
-
-# mybatis打印sql(配合MyBatis Log Plugin插件可以在控制台查看格式化并且填充了占位符的SQL语句)
-mybatis-plus:
-  config-location:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    # 只有这样 typeHandler 中的类使用了 @Alias 注解才会生效
-    type-aliases-package: com.keqi.bestpracticeone.core.typeHandler
-
-# log configuration
-logging:
-  file:
-    name: logs/best-practice-one.log
-  level:
-    com:
-      keqi: debug
-
-# 指定文件存储路径(不同系统路径不同)
+# 配置文件上传路径
 best-practice-one-file-path:
-  linux: /home/keqi/myApp/
-  windows: E:/best-practice-one-upload-file/
+    linux: /home/keqi/myApp/
+    windows: E:/best-practice-one-upload-file/
 
 # 开启 knife4j 增强功能
 knife4j:
-  enable: true
+    enable: true
+
+# 配置日志文件
+logging:
+    file:
+        name: logs/best-practice-one.log
+    level:
+        com:
+            keqi: debug
+
+# 配置 MyBatisPlus 日志和别名包
+mybatis-plus:
+    config-location:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        type-aliases-package: com.keqi.bestpracticeone.core.typeHandler
+
+# 配置端口号和应用路径
+server:
+    port: 9090
+    servlet:
+        context-path: /best-practice-one
+
+# 配置数据源信息
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: 123456
+        url: jdbc:mysql://120.25.26.123:3306/best-practice-one?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: root
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB

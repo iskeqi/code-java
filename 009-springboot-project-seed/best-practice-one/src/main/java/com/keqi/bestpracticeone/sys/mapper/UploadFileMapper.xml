@@ -17,4 +17,12 @@
         <!--@mbg.generated-->
         id, `name`, `path`, `type`, `size`, is_deleted, create_time, update_time
     </sql>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_upload_file
+        where is_deleted = 0
+          and id = #{id}
+    </select>
 </mapper>

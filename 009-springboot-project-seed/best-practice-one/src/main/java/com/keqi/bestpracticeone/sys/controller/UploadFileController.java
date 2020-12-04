@@ -41,7 +41,6 @@ public class UploadFileController {
     public UploadFileVO upload(@RequestParam("file") MultipartFile file) throws IOException {
         // 基础路径
         String basePath = this.globalPropertyUtil.getUploadPath();
-
         // 相对路径
         String relativePath = LocalDate.now() + "/" + file.getContentType() + "/";
         // 全路径
@@ -70,7 +69,7 @@ public class UploadFileController {
     @GetMapping("/download")
     public void downloadFileAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String id = request.getParameter("id");
-        UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
+        UploadFileDO uploadFileDO = this.uploadFileService.getById(Long.valueOf(id));
         if (uploadFileDO == null) {
             throw new BusinessException("文件不存在");
         }

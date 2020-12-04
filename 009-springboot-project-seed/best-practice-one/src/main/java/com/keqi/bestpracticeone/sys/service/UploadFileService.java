@@ -18,5 +18,5 @@ public interface UploadFileService {
      * @param id id
      * @return r
      */
-    UploadFileDO getById(String id);
+    UploadFileDO getById(Long id);
 }
