@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ObjectMapper 是线程安全的，可以同时被多个线程共享
@@ -15,8 +16,8 @@ public class TestJSON {
 
     public static void main(String[] args) throws JsonProcessingException {
         TestJSON testJSON = new TestJSON();
-        String json = "[{\"name2\":\"keqi\",\"age\":24,\"score\":null},{\"name\":\"keqi\",\"age\":25,\"score\":null},{\"name\":\"keqi\",\"age\":26,\"score\":null}]";
-        List<Student> list = testJSON.jsonList2Object2(json, new TypeReference<List<Student>>() {});
+        String json = "{\"name\":\"keqi\",\"age\":24,\"score2\":null}";
+        Map<String, Object> list = JSONUtil.readValue(json, new TypeReference<Map<String, Object>>() {});
         System.out.println(list);
     }
 
