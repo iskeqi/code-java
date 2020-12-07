@@ -1,6 +1,5 @@
 package com.keqi.knife4j.sys.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.keqi.knife4j.core.pojo.PageVO;
@@ -9,6 +8,7 @@ import com.keqi.knife4j.sys.domain.param.DictItemParam;
 import com.keqi.knife4j.sys.domain.vo.DictItemVO;
 import com.keqi.knife4j.sys.service.DictItemService;
 import com.keqi.knife4j.sys.util.DictUtil;
+import com.keqi.knife4j.core.util.JSONUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -69,6 +69,6 @@ public class DictItemController {
     @GetMapping("/getAllDictItem")
     public String getAllDictItem() {
         Map<String, List<DictItemVO>> dictMap = DictUtil.getDictMap();
-        return JSON.toJSONString(dictMap);
+        return JSONUtil.writeValueAsString(dictMap);
     }
 }

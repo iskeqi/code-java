@@ -21,8 +21,8 @@ public class GlobalPropertyUtil {
      * @return uploadPath路径
      */
     public String getUploadPath() {
-        String linux = environment.getProperty("best-practice-one-file-path.linux");
-        String windows = environment.getProperty("best-practice-one-file-path.windows");
+        String linux = environment.getProperty("knife4j-file-path.linux");
+        String windows = environment.getProperty("knife4j-file-path.windows");
 
         String osName = System.getProperty("os.name");
 

@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 80022
  Source Host           : 120.25.26.123:3306
- Source Schema         : best-practice-one
+ Source Schema         : knife4j
 
  Target Server Type    : MySQL
  Target Server Version : 80022
