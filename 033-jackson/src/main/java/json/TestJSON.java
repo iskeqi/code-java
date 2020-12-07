@@ -1,6 +1,7 @@
 package json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,8 +15,9 @@ public class TestJSON {
 
     public static void main(String[] args) throws JsonProcessingException {
         TestJSON testJSON = new TestJSON();
-        Object obj = testJSON.json2Object2();
-        System.out.println(obj);
+        String json = "[{\"name2\":\"keqi\",\"age\":24,\"score\":null},{\"name\":\"keqi\",\"age\":25,\"score\":null},{\"name\":\"keqi\",\"age\":26,\"score\":null}]";
+        List<Student> list = testJSON.jsonList2Object2(json, new TypeReference<List<Student>>() {});
+        System.out.println(list);
     }
 
 
@@ -60,5 +62,16 @@ public class TestJSON {
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         return objectMapper.readValue(json, Student.class);
+    }
+
+    // JSON字符串 -> list对象（有多余属性或者属性名称不对）
+    public <T> T jsonList2Object2(String content, TypeReference<T> valueTypeRef) throws JsonProcessingException {
+        String json = "[{\"name2\":\"keqi\",\"age\":24,\"score\":null},{\"name\":\"keqi\",\"age\":25,\"score\":null},{\"name\":\"keqi\",\"age\":26,\"score\":null}]";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // 反序列化时，如果有多余参数或属性名不对，需要显示做此配置
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        return objectMapper.readValue(content, valueTypeRef);
     }
 }
