@@ -97,6 +97,7 @@ public class CodeGenController {
 		此次学习仅仅是把常用的几种方式学习一下，更多的玩法肯定不是这样子学习的，等到了实际项目中需要用到时，再去 knife4j 的官方 demo 看，
 		通过界面的展示和代码的使用，来进一步学习，然后整理成自己的笔记。demo：swagger-bootstrap-ui-demo
 
+		其实总共就只有这几个注解需要掌握，也没啥其他的注解了
 	 */
 
 
