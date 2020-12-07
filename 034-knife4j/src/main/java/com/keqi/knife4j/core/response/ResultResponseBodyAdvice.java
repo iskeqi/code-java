@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
  *
  * @author keqi
  */
-@ControllerAdvice(basePackages = "com.keqi.bestpracticeone")
+@ControllerAdvice(basePackages = "com.keqi.knife4j")
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

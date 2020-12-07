@@ -8,6 +8,7 @@ import com.keqi.knife4j.sys.domain.db.UploadFileDO;
 import com.keqi.knife4j.sys.domain.vo.UploadFileVO;
 import com.keqi.knife4j.sys.service.UploadFileService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -66,10 +67,10 @@ public class UploadFileController {
 
     @ApiOperation("3.2 文件下传(只支持单个)")
     @ApiOperationSupport(order = 2)
+    @ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
     @GetMapping("/download")
-    public void downloadFileAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String id = request.getParameter("id");
-        UploadFileDO uploadFileDO = this.uploadFileService.getById(Long.valueOf(id));
+    public void downloadFileAction(HttpServletRequest request, HttpServletResponse response, @RequestParam Long id) throws Exception {
+        UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
         if (uploadFileDO == null) {
             throw new BusinessException("文件不存在");
         }
