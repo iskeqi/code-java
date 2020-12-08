@@ -37,6 +37,13 @@ public class UserController {
 		// JSONObject 类型的对象 通过类型转换器转成了 string ，然后存储进 DB 中的 json 类型字段 jsonStr
 		// 从DB 中取出的 json 类型字段值，又通过类型转换器转成了 JSONObject 对象
 		this.sysUserMapper.insert(sysUser);
+
+		/*
+		JSON 类型的转换器，直接使用 Map 接受参数就行了，
+		数组则使用 List<Map>
+
+		 */
+
 		SysUser oneById = this.sysUserMapper.findOneById(sysUser.getUserId());
 		return AjaxEntityBuilder.success(oneById);
 	}

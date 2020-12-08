@@ -29,13 +29,15 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="jsonStr" property="jsonStr" typeHandler="JSONObjectHandler"/>
         <result column="jsonArrayStr" property="jsonArrayStr" typeHandler="JSONArrayHandler"/>
+        <result column="jsonMap" property="jsonMap" typeHandler="JSONObjectMapHandler"/>
+        <result column="jsonArrayMap" property="jsonArrayMap" typeHandler="JSONArrayMapHandler"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         user_id, dept_id, user_name, nick_name, user_type, email, phonenumber, sex, avatar,
         `password`, `status`, del_flag, login_ip, login_date, create_by, create_time, update_by,
-        update_time, remark,jsonStr,jsonArrayStr
+        update_time, remark,jsonStr,jsonArrayStr,jsonMap,jsonArrayMap
     </sql>
 
     <select id="findOneById" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -54,7 +56,7 @@
         sex, avatar, `password`,
         `status`, del_flag, login_ip,
         login_date, create_by, create_time,
-        update_by, update_time, remark,jsonStr,jsonArrayStr
+        update_by, update_time, remark,jsonStr,jsonArrayStr,jsonMap,jsonArrayMap
         )
         values (#{deptId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
         #{userType,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR},
@@ -64,6 +66,7 @@
         #{loginDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
         #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
         #{jsonStr,typeHandler=JSONObjectHandler},#{jsonArrayStr,typeHandler=JSONArrayHandler}
+        ,#{jsonMap,typeHandler=JSONObjectMapHandler},#{jsonArrayMap,typeHandler=JSONArrayMapHandler}
         )
     </insert>
 

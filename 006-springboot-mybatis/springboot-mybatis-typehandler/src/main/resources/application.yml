@@ -1,9 +1,9 @@
 spring:
   datasource:
-    password: Lt@888888
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.10.20.200:3306/ry-vue?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
-    username: user_dev
+    url: jdbc:mysql://120.25.26.123:3306/ry-vue?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
 
 server:
   port: 8333

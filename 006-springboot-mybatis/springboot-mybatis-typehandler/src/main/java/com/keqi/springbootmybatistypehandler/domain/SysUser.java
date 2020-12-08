@@ -6,6 +6,8 @@ import com.keqi.springbootmybatistypehandler.enumeration.GenderEnum;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -118,4 +120,14 @@ public class SysUser {
 	 * 测试 JSON Array 字段
 	 */
 	private JSONArray jsonArrayStr;
+
+	/**
+	 * 测试 JSON 字段
+	 */
+	private Map<String, Object> jsonMap;
+
+	/**
+	 * 测试 JSON Array 字段
+	 */
+	private List<Map<String, Object>> jsonArrayMap;
 }

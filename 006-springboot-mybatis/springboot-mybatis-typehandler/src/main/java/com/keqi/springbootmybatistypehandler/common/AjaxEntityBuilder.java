@@ -36,6 +36,7 @@ public class AjaxEntityBuilder {
 		AjaxEntity ajaxEntity = new AjaxEntity();
 		ajaxEntity.setStatus(successCode);
 		ajaxEntity.setMsg(successMsg);
+		ajaxEntity.setBody(body);
 		return ajaxEntity;
 	}
 

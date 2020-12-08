@@ -41,7 +41,7 @@ public class DictItemController {
         this.dictItemService.updateById(dictItemParam);
     }
 
-    @ApiOperation(value = "2.3根据ID删除字典项")
+    @ApiOperation(value = "2.3 根据ID删除字典项")
     @ApiOperationSupport(order = 3)
     @ApiImplicitParam(name = "id", value = "字典项ID", example = "1", required = true)
     @PostMapping("/deleteById")
@@ -64,7 +64,7 @@ public class DictItemController {
         return this.dictItemService.listAllByTypeCode(typeCode);
     }
 
-    @ApiOperation(value = "2.6 获取所有字典类型对应的字典项JSON结构")
+    @ApiOperation(value = "2.6 获取所有字典项JSON结构")
     @ApiOperationSupport(order = 6)
     @GetMapping("/getAllDictItem")
     public String getAllDictItem() {
