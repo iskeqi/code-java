@@ -1,22 +1,27 @@
-package json;
+package xml;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 /**
- * JSON 工具类，使用 jackson-bind 封装
+ * XML 工具类，使用 jackson-bind 封装
  *
  * @author keqi
  */
-public class JSONUtil {
+public class XmlUtil {
 
     private static final ObjectMapper objectMapper;
 
     static {
-        objectMapper = new ObjectMapper();
+        // 此对象线程安全
+        objectMapper = new XmlMapper();
+        // 反序列化时忽略未知字段，否则会抛出 UnrecognizedPropertyException 异常
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        // 格式化输出，便于阅读，一般情况下不要加上这行配置
+        // objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     /**
@@ -36,7 +41,7 @@ public class JSONUtil {
     }
 
     /**
-     * 支持JSON字符串转对象/Map，不支持数组（属性名不同会自动忽略）
+     * 支持xml字符串转对象/Map，不支持数组（属性名不同会自动忽略）
      *
      * @param content   content
      * @param valueType valueType
@@ -54,7 +59,7 @@ public class JSONUtil {
     }
 
     /**
-     * 支持 JSON 字符串转数组/List<Map>（属性名不同会自动忽略）
+     * 支持 xml 字符串转数组/List<Map>（属性名不同会自动忽略）
      *
      * @param content      content
      * @param valueTypeRef valueTypeRef
