@@ -5,7 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import com.keqi.knife4j.core.auth.LoginUserBO;
 import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.core.util.CommonUtil;
-import com.keqi.knife4j.core.util.JWTUtil;
+import com.keqi.knife4j.core.util.JwtUtil;
 import com.keqi.knife4j.sys.domain.db.AccountDO;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.mapper.AccountMapper;
@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
 
         // 设置过期时间为第二天的凌晨 2 点钟
         LocalDateTime expirationDate = LocalDate.now().plusDays(1).atTime(2,0,0);
-        String accessToken = JWTUtil.generateToken(BeanUtil.beanToMap(loginUserBO), DateUtil.date(expirationDate));
+        String accessToken = JwtUtil.generateToken(BeanUtil.beanToMap(loginUserBO), DateUtil.date(expirationDate));
 
         LoginVO loginVO = new LoginVO();
         loginVO.setAccessToken(accessToken);

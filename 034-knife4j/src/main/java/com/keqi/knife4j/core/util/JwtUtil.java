@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author keqi
  */
-public class JWTUtil {
+public class JwtUtil {
 
     private static final String secret = "1O!dZ@%YXsvOaKHC";
 
