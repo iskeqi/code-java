@@ -65,7 +65,7 @@ public class UploadFileController {
         return new UploadFileVO(t.getId(), t.getName());
     }
 
-    @ApiOperation("3.2 文件下传(只支持单个)")
+    @ApiOperation("3.2 文件下载(只支持单个)")
     @ApiOperationSupport(order = 2)
     @ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
     @GetMapping("/download")
