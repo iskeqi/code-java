@@ -2,7 +2,6 @@ package com.keqi.knife4j.sys.util;
 
 import com.keqi.knife4j.sys.domain.vo.DictItemVO;
 import com.keqi.knife4j.sys.mapper.DictItemMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +21,11 @@ public class DictUtil implements CommandLineRunner {
 
     private static Map<String, List<DictItemVO>> dictMap;
 
-    @Autowired
-    private DictItemMapper dictItemMapper;
+    private final DictItemMapper dictItemMapper;
+
+    public DictUtil(DictItemMapper dictItemMapper) {
+        this.dictItemMapper = dictItemMapper;
+    }
 
     @Override
     public void run(String... args) {
