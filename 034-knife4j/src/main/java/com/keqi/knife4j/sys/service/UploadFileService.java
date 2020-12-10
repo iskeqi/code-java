@@ -19,4 +19,11 @@ public interface UploadFileService {
      * @return r
      */
     UploadFileDO getById(Long id);
+
+    /**
+     * 根据 id 删除文件
+     *
+     * @param id id
+     */
+    void deleteById(Long id);
 }

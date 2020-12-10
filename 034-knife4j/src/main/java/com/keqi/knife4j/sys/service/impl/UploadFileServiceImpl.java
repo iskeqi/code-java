@@ -34,4 +34,15 @@ public class UploadFileServiceImpl implements UploadFileService {
     public UploadFileDO getById(Long id) {
         return this.uploadFileMapper.getById(id);
     }
+
+    /**
+     * 根据 id 删除文件
+     *
+     * @param id id
+     */
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        this.uploadFileMapper.deleteById(id);
+    }
 }

@@ -92,8 +92,8 @@ public class UploadFileController {
     @ApiOperation("3.3 文件删除(只支持单个)")
     @ApiOperationSupport(order = 3)
     @ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
-    @GetMapping("/deleteById")
-    public void downloadFileAction(@RequestParam Long id) throws Exception {
+    @PostMapping("/deleteById")
+    public void downloadFileAction(@RequestParam Long id) {
         UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
         if (uploadFileDO == null) {
             throw new BusinessException("文件不存在");
@@ -104,5 +104,6 @@ public class UploadFileController {
         if (!file.delete()) {
             throw new BusinessException("文件删除失败");
         }
+        this.uploadFileService.deleteById(id);
     }
 }
