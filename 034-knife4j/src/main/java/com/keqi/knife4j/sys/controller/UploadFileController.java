@@ -88,4 +88,21 @@ public class UploadFileController {
         IOUtils.copy(fileInputStream, response.getOutputStream());
         response.flushBuffer();
     }
+
+    @ApiOperation("3.3 文件删除(只支持单个)")
+    @ApiOperationSupport(order = 3)
+    @ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
+    @GetMapping("/deleteById")
+    public void downloadFileAction(@RequestParam Long id) throws Exception {
+        UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
+        if (uploadFileDO == null) {
+            throw new BusinessException("文件不存在");
+        }
+        String path = this.globalPropertyUtil.getUploadPath() + uploadFileDO.getPath() + uploadFileDO.getName();
+
+        File file = new File(path);
+        if (!file.delete()) {
+            throw new BusinessException("文件删除失败");
+        }
+    }
 }
