@@ -87,6 +87,8 @@ public class UploadFileController {
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
         IOUtils.copy(fileInputStream, response.getOutputStream());
         response.flushBuffer();
+
+        fileInputStream.close();
     }
 
     @ApiOperation("3.3 文件删除(只支持单个)")
