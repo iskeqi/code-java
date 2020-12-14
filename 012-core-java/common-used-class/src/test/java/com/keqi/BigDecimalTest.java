@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 
 public class BigDecimalTest {
     public static void main(String[] args) {
+        // 只推荐使用这种方式构造 BigDecimal 类，其他方式否无法保证精度
         BigDecimal a = new BigDecimal("100");
         BigDecimal b = new BigDecimal("3");
 
