@@ -7,7 +7,7 @@ knife4j-file-path:
 knife4j:
     enable: true
     basic:
-        enable: true
+        enable: false
         username: admin
         password: 123456
 
