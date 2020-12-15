@@ -16,15 +16,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 
 @Controller
 @RequestMapping("/sys/uploadFile")
 public class UploadFileController {
+
+    /*
+        后台查询到系统中的所有模块、分组、API信息后，组装成一个Map对象。然后使用 FreeMarker 模板技术生成 md 文件，保存至本地
+        磁盘，最后再通过 response 对象的输出流下载文件到浏览器中。
+     */
 
     @GetMapping("/download")
     public void downloadFileAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -35,8 +36,31 @@ public class UploadFileController {
         configuration.setDirectoryForTemplateLoading(new File(str3 + "/ftl"));
         Template template = configuration.getTemplate("api-template.ftl");
 
+        // 构造对象
+        List<Map<String, Object>> moduleList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            Map<String, Object> module = new HashMap<>();
+            List<Map<String, Object>> groupList = new ArrayList<>();
+            for (int j = 0; j < 2; j++) {
+                // 构建分组列表
+                Map<String, Object> group = new HashMap<>();
+                List<Map<String, Object>> apiList = new ArrayList<>();
+                for (int k = 0; k < 10; k++) {
+                    // 构建API列表
+                    apiList.add(this.assembler());
+                }
+                group.put("apiList", apiList);
+                group.put("groupName", "分组名称" + j);
+                groupList.add(group);
+            }
+            module.put("groupList", groupList);
+            module.put("moduleName", "模块名称" + i);
+            moduleList.add(module);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("moduleList", moduleList);
+
         // 导出文件到本地磁盘
-        Map<String, Object> map = this.assmeber();
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream("E:\\knife4j-upload-file\\2020-12-10\\application\\pdf\\api.md"));
         template.process(map, outputStreamWriter);
         outputStreamWriter.close();
@@ -44,8 +68,11 @@ public class UploadFileController {
         // 读取本地文件并通过 response 输出到浏览器端
         response.setCharacterEncoding(request.getCharacterEncoding());
         response.setContentType("application/octet-stream");
+
         File file = new File("E:\\knife4j-upload-file\\2020-12-10\\application\\pdf\\api.md");
+
         FileInputStream fileInputStream = new FileInputStream(file);
+
         String fileName = URLEncoder.encode("file.md", request.getCharacterEncoding());
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
         IOUtils.copy(fileInputStream, response.getOutputStream());
@@ -56,7 +83,7 @@ public class UploadFileController {
         System.out.println(delete);
     }
 
-    private Map<String, Object> assmeber() {
+    private Map<String, Object> assembler() {
         // &emsp;
 
         Map<String, Object> map = new HashMap<>();
@@ -65,6 +92,7 @@ public class UploadFileController {
         map.put("requestMethod", "POST");
         map.put("requestContentType", "application/json");
         map.put("responseContentType", "application/json");
+        map.put("note", new Random().nextInt(10) / 2 == 0 ? "接口描述性信息" : null);
 
         String requestDemo = JsonUtil.writeValueAsString(map);
         String responseDemo = JsonUtil.writeValueAsString(map);
