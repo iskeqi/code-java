@@ -65,10 +65,8 @@ public class UploadFileController {
         StringWriter stringWriter = new StringWriter();
         template.process(map, stringWriter);
 
-        // 读取本地文件并通过 response 输出到浏览器端
         response.setCharacterEncoding(request.getCharacterEncoding());
         response.setContentType("application/octet-stream");
-
         String fileName = URLEncoder.encode("file.md", request.getCharacterEncoding());
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
 
