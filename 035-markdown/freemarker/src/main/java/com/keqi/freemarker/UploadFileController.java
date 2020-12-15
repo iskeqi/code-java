@@ -72,9 +72,10 @@ public class UploadFileController {
 
         byte[] bytes = stringWriter.toString().getBytes();
         IOUtils.copy(new ByteInputStream(bytes, bytes.length), response.getOutputStream());
-
-        response.flushBuffer();
         stringWriter.close();
+
+        response.flushBuffer(); // 使用此方法后，会自动提交HTTP响应
+
     }
 
     private Map<String, Object> assembler() {
