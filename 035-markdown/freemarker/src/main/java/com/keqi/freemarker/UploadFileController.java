@@ -1,6 +1,7 @@
 package com.keqi.freemarker;
 
 
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -12,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -27,6 +26,9 @@ public class UploadFileController {
         磁盘，最后再通过 response 对象的输出流下载文件到浏览器中。
      */
 
+    /*
+        这里就涉及到了 IO 流的知识了，你说有没有用啊
+     */
     @GetMapping("/download")
     public void downloadFileAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 配置 FreeMarker 对象
@@ -45,7 +47,7 @@ public class UploadFileController {
                 // 构建分组列表
                 Map<String, Object> group = new HashMap<>();
                 List<Map<String, Object>> apiList = new ArrayList<>();
-                for (int k = 0; k < 10; k++) {
+                for (int k = 0; k < 2; k++) {
                     // 构建API列表
                     apiList.add(this.assembler());
                 }
@@ -60,27 +62,21 @@ public class UploadFileController {
         Map<String, Object> map = new HashMap<>();
         map.put("moduleList", moduleList);
 
-        // 导出文件到本地磁盘
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream("E:\\knife4j-upload-file\\2020-12-10\\application\\pdf\\api.md"));
-        template.process(map, outputStreamWriter);
-        outputStreamWriter.close();
+        StringWriter stringWriter = new StringWriter();
+        template.process(map, stringWriter);
 
         // 读取本地文件并通过 response 输出到浏览器端
         response.setCharacterEncoding(request.getCharacterEncoding());
         response.setContentType("application/octet-stream");
 
-        File file = new File("E:\\knife4j-upload-file\\2020-12-10\\application\\pdf\\api.md");
-
-        FileInputStream fileInputStream = new FileInputStream(file);
-
         String fileName = URLEncoder.encode("file.md", request.getCharacterEncoding());
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-        IOUtils.copy(fileInputStream, response.getOutputStream());
-        fileInputStream.close();
-        response.flushBuffer();
 
-        boolean delete = file.delete();
-        System.out.println(delete);
+        byte[] bytes = stringWriter.toString().getBytes();
+        IOUtils.copy(new ByteInputStream(bytes, bytes.length), response.getOutputStream());
+
+        response.flushBuffer();
+        stringWriter.close();
     }
 
     private Map<String, Object> assembler() {
