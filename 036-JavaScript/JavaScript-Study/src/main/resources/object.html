@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>object</title>
+</head>
+<body>
+<script>
+    var people = {
+        "name": "jack",
+        "age": 23,
+        "birthday": "2020-12-12 12:12:32",
+        "son": {
+            "name": "son",
+            "age": 23,
+            "birthday": "2020-12-12 12:12:32",
+        },
+        "father": {
+            "name": "father",
+            "age": 23,
+            "birthday": "2020-12-12 12:12:32",
+        }
+    }
+
+    // JavaScript 中的对象是可以动态的增减属性的
+
+    // 判断对象是否具有某个属性（此方法不会包括从父类 object 中继承而来的属性）
+    let b = people.hasOwnProperty("son");
+    console.log(b); // 输出为 true
+
+
+    alert(people.son.name);
+</script>
+</body>
+</html>

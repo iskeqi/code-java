@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    // JavaScript 中的 Map 使用和 Java 中的是一样的
+    const map = new Map();
+    map.set("name", "keqi");
+    map.set("age", 23);
+
+    let age = map.get("age");
+
+    console.log(age);
+
+    // JavaScript 中的 Set 使用和 Java 中的是一样的
+    const set = new Set();
+    set.add(1);
+
+    console.log(set);
+
+    // JS 中遍历 array、map、set 可以使用 for of 方法遍历，也可以使用 foreach 方法
+    map.forEach(function (value, key, map) {
+        console.log(key + ":" + value);
+    })
+
+</script>
+</body>
+</html>

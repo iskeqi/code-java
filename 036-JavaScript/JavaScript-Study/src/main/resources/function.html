@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    function add(x, y) {
+        return x + y;
+    }
+
+    const sub = function (x, y) {
+        return x - y;
+    };
+
+    // 调用函数
+    console.log(sub(1, 2));
+
+    // JS 中的函数也是一个对象，对象，对象！！！
+
+    // JS 中的函数允许有多个参数，可以在方法体内通过 arguments 对象获取到方法中的所有参数
+    const sum = function (x, y) {
+        for (let i = 0; i < arguments.length; i++) {
+            console.log(arguments[i]);
+        }
+    }
+
+    // 或者通过 ...rest 参数获取到方法声明参数之外的参数
+    const sum2 = function (x, y, ...rest) {
+        for (let i = 0; i < rest.length; i++) {
+            console.log(rest[i]);
+            // 这里的 x 和y 是不会被输出的
+        }
+    }
+    sum2(1, 2, 3, 4, 5, 6, 7, 8);
+
+
+    // 方法内的变量作用域是方法，不在方法内定义的就是整个页面，也就是 document 对象作用域
+
+
+    const people = {
+        "name": "jack",
+        "age": 23,
+        "birthday": "2020-12-12 12:12:32",
+        "son": {
+            "name": "son",
+            "age": 23,
+            "birthday": "2020-12-12 12:12:32",
+        },
+        "father": {
+            "name": "father",
+            "age": 23,
+            "birthday": "2020-12-12 12:12:32",
+        },
+        // 对象中的方法
+        "play": function () {
+            console.log(this.age + this.son.age)
+        }
+    };
+
+    people.play(); // 调用对象的方法
+
+    // JS 中一个函数可以作为参数继续传递给另外一个函数，这就叫做高阶函数
+    const abs = function (x, y, f) {
+        return f(x) + f(y);
+    };
+    console.log(abs(1,2,Math.abs));
+
+    // JS 中有几个常用的对象是需要掌握的 Date 、JSON
+    const today = new Date();
+    console.log(today.getMonth())
+
+    let s = JSON.stringify(people);
+    console.log(s);
+    let parse = JSON.parse(s);
+    console.log(parse.name);
+
+</script>
+</body>
+</html>

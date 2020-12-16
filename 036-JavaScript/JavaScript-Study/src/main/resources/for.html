@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    // 普通 for 循环
+    for (let i = 0; i < 10; i++) {
+        console.log(i);
+    }
+    console.log("======")
+
+    // 遍历数组
+    const array = ['a', 'b', 'c', 'd'];
+    for (const item in array) {
+        console.log(array[item]);
+    }
+    console.log("======")
+
+    // 遍历对象中的每个属性
+    const people = {
+        "name": "jack",
+        "age": 23,
+        "birthday": "2020-12-12 12:12:32",
+        "son": {
+            "name": "son",
+            "age": 23,
+            "birthday": "2020-12-12 12:12:32"
+        },
+        "father": {
+            "name": "father",
+            "age": 23,
+            "birthday": "2020-12-12 12:12:32"
+        }
+    };
+    for (const key in people) {
+        console.log(key);
+    }
+    console.log("======")
+
+
+    // while 循环
+    let j = 9;
+    while (j < 10) {
+        console.log(j++);
+    }
+    console.log("======")
+
+    // do while 循环
+    let k = 1;
+    do {
+        console.log(k++);
+    } while (k <5);
+
+</script>
+</body>
+</html>
