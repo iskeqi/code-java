@@ -136,12 +136,22 @@
 		<script src="js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 		<script>
             layui.use(['jquery', 'layer', 'miniAdmin'], function () {
-                var $ = layui.jquery,
+                const $ = layui.jquery,
                     layer = layui.layer,
-                    miniAdmin = layui.miniAdmin
+                    miniAdmin = layui.miniAdmin;
 
-                var options = {
-                    iniUrl: "api/init.json",    // 初始化接口
+                // 设置全局 ajax 请求
+				$.ajaxSetup({
+					dataType: 'json',
+					contentType: 'Content-Type: application/json charset-UTF-8',
+					headers: {
+					    // 从 localStorage 中获取到 accessToken 信息
+					    accessToken : layui.data('accessToken').accessToken
+					}
+				});
+
+                const options = {
+                    iniUrl: "/sys/menu",    // 初始化接口
                     clearUrl: "api/clear.json", // 缓存清理接口
                     urlHashLocation: true,      // 是否打开hash定位
                     bgColorDefault: false,      // 主题默认配置
