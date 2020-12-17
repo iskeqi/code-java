@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>开始使用layui</title>
-    <link rel="stylesheet" href="../layui/css/layui.css">
-</head>
-<body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>开始使用layui</title>
+		<link rel="stylesheet" href="../layui/css/layui.css">
+	</head>
+	<body>
 
-<!-- 你的HTML代码 -->
+		<!-- 你的HTML代码 -->
 
-<script src="../layui/layui.js"></script>
+		<script src="../layui/layui.js"></script>
 
-<script>
-    layui.use(['layer'], function () {
-        const layer = layui.layer;
+		<script>
+            layui.use(['layer'], function () {
+                let layer = layui.layer;
 
-        layer.msg('Hello LayUI');
-    })
-</script>
-</body>
+                layer.msg('Hello LayUI');
+
+
+                // 获取设备信息
+                let device = layui.device();
+                console.log(device.os);
+                console.log(device.ie);
+                console.log(device.weixin);
+                console.log(device.android);
+                console.log(device.ios);
+                console.log(device.mobile);
+
+
+                // 设置信息到 localStorage 中
+                layui.data('cookie',
+                    {
+                        key: 'author',
+                        value: '闲心'
+                    }
+                )
+            })
+		</script>
+	</body>
 </html>
