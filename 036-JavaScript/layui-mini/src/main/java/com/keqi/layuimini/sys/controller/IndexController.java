@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -25,11 +27,13 @@ public class IndexController {
     }
 
     @PostMapping("/sys/login")
-    public String login( String username, String password, HttpServletRequest request) {
+    public Map<String, Object> login(String username, String password, HttpServletRequest request) {
         String accessToken = request.getHeader("accessToken");
         System.out.println(accessToken);
         System.out.println(username);
         System.out.println(password);
-        return "dsalkf";
+        Map<String, Object> obj = new HashMap<>();
+        obj.put("accessToken", "daf");
+        return obj;
     }
 }

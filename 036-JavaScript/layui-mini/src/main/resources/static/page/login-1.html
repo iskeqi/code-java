@@ -188,29 +188,23 @@
                         return false;
                     }*/
 
-                    // 设置全局 ajax 请求
-                    $.ajaxSetup({
-                        dataType: 'json',
-                        contentType: 'Content-Type: application/json charset-UTF-8',
-                        headers: {
-                            // 从 localStorage 中获取到 accessToken 信息
-                            accessToken : layui.data('accessToken').accessToken
-                        }
-                    });
-
                     //使用ajax发送请求
                     $.ajax({
                         url: "/sys/login",
                         type: "post",
+						contentType: 'application/x-www-form-urlencoded',
                         data: data.field,
-                        dataType: "x-www-form-urlencoded",
+                        dataType: "json",
+						headers: {
+                          accessToken: layui.data('accessToken').accessToken
+						},
                         success: function (data) {
-                            console.log(JSON.stringify(data));
+                            layer.msg(JSON.stringify(data));
                         }
                     });
 
                     layer.msg('登录成功', function () {
-                        window.location = '../index.html';
+                        //window.location = '../index.html';
 
                         // 登录成功后，写入 accessToken 信息至 localStorage 中
                         layui.data('accessToken', {
