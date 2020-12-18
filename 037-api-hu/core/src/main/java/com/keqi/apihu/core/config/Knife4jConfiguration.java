@@ -26,7 +26,7 @@ public class Knife4jConfiguration {
                 .groupName("一、系统管理模块") // 指定模块名称
                 .apiInfo(systemMangerInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.keqi.knife4j.sys")) // 扫描指定包路径下的接口
+                .apis(RequestHandlerSelectors.basePackage("com.keqi.apihu.sys")) // 扫描指定包路径下的接口
                 .paths(PathSelectors.any())
                 .build();
     }

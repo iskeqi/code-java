@@ -19,7 +19,7 @@ public class Auth {
 
     /**
      * 获取当前线程操作用户登录名
-     * <bind name="loginAccount" value="@com.keqi.knife4j.core.auth.Auth@getLoginAccount()"/>
+     * <bind name="loginAccount" value="@com.keqi.apihu.core.auth.Auth@getLoginAccount()"/>
      *
      * @return r
      */
