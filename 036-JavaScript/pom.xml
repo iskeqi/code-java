@@ -11,6 +11,7 @@
     <modules>
         <module>JavaScript-Study</module>
         <module>layui</module>
+        <module>layui-mini</module>
     </modules>
 
 

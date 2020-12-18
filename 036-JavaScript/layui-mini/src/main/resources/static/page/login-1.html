@@ -189,7 +189,7 @@
                     }*/
 
                     //使用ajax发送请求
-                    $.ajax({
+                    /*$.ajax({
                         url: "/sys/login",
                         type: "post",
 						contentType: 'application/x-www-form-urlencoded',
@@ -201,10 +201,10 @@
                         success: function (data) {
                             layer.msg(JSON.stringify(data));
                         }
-                    });
+                    });*/
 
                     layer.msg('登录成功', function () {
-                        //window.location = '../index.html';
+                        window.location = '../index.html'; // 通过何种方式实现页面跳转
 
                         // 登录成功后，写入 accessToken 信息至 localStorage 中
                         layui.data('accessToken', {
