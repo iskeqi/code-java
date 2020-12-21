@@ -1,10 +1,7 @@
 package com.keqi.apihu.core.config;
 
-import lombok.AllArgsConstructor;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -13,19 +10,16 @@ import org.springframework.web.client.RestTemplate;
  * @author keqi
  */
 @Configuration
-@AllArgsConstructor
 public class RestTemplateConfig {
 
-    private final CloseableHttpClient httpClient;
-
+    /**
+     * 底层使用的是 JDK 中的 HttpUrlConnection 对象
+     *
+     * @return r
+     */
     @Bean
     public RestTemplate restTemplate() {
-        // 为RestTemplate对象注入HttpComponentsClientHttpRequestFactory对象
-        HttpComponentsClientHttpRequestFactory clientHttpRequestFactory =
-                new HttpComponentsClientHttpRequestFactory();
-        // 为HttpComponentsClientHttpRequestFactory对象设置CloseableHttpClient对象
-        clientHttpRequestFactory.setHttpClient(httpClient);
-        return new RestTemplate(clientHttpRequestFactory);
+        return new RestTemplate();
     }
 
 }

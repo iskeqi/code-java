@@ -35,7 +35,7 @@ public class Knife4jConfiguration {
         return new ApiInfoBuilder()
                 .title("knife4j")
                 .description("knife4j 项目接口文档")
-                .termsOfServiceUrl("http://localhost:9090/knife4j")
+                .termsOfServiceUrl("http://localhost:9090/api-hu")
                 .version("1.0")
                 .build();
     }
