@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
-    * 文件表
-    */
+ * 文件表
+ */
 @Data
 public class UploadFileVO {
 

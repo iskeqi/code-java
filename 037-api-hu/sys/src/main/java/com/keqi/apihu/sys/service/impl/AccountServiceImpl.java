@@ -44,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
         BeanUtil.copyProperties(accountDO, loginUserBO);
 
         // 设置过期时间为第二天的凌晨 2 点钟
-        LocalDateTime expirationDate = LocalDate.now().plusDays(1).atTime(2,0,0);
+        LocalDateTime expirationDate = LocalDate.now().plusDays(1).atTime(2, 0, 0);
         String accessToken = JwtUtil.generateToken(BeanUtil.beanToMap(loginUserBO), DateUtil.date(expirationDate));
 
         LoginVO loginVO = new LoginVO();

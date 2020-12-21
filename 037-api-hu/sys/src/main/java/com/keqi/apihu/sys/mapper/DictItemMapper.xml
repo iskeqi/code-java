@@ -45,7 +45,7 @@
         <include refid="Base_Column_List"/>
         from sys_dict_item
         where type_code = #{typeCode}
-          and is_deleted = 0
+        and is_deleted = 0
         order by item_sort
     </select>
 
@@ -55,19 +55,19 @@
         from sys_dict_item where is_deleted = 0
         <if test="pageParam.typeCode != null and pageParam.typeCode != ''">
             and type_code like concat('%', replace(replace(#{pageParam.typeCode}, '%', '/%'), '_', '/_'), '%') escape
-                    '/'
+            '/'
         </if>
         <if test="pageParam.typeName != null and pageParam.typeName != ''">
             and type_name like concat('%', replace(replace(#{pageParam.typeName}, '%', '/%'), '_', '/_'), '%') escape
-                    '/'
+            '/'
         </if>
         <if test="pageParam.itemCode != null and pageParam.itemCode != ''">
             and item_code like concat('%', replace(replace(#{pageParam.itemCode}, '%', '/%'), '_', '/_'), '%') escape
-                    '/'
+            '/'
         </if>
         <if test="pageParam.itemName != null and pageParam.itemName != ''">
             and item_name like concat('%', replace(replace(#{pageParam.itemName}, '%', '/%'), '_', '/_'), '%') escape
-                '/'
+            '/'
         </if>
     </select>
 

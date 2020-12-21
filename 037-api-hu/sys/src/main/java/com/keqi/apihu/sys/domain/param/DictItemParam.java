@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DictItemParam {
-    
+
     @ApiModelProperty(value = "字典记录主键", example = "1", required = true)
     private Long id;
 

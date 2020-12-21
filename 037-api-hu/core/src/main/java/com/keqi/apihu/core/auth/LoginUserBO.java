@@ -28,4 +28,9 @@ public class LoginUserBO {
      * 登录用户姓名
      */
     private String nickName;
+
+    /**
+     * 当前登录用户所操作的项目ID
+     */
+    private Long projectId;
 }

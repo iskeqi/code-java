@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
-    * 用户表
-    */
+ * 用户表
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor

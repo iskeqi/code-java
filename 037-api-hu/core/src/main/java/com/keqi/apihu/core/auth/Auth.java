@@ -27,13 +27,16 @@ public class Auth {
         return getLoginUserBO() == null ? null : getLoginUserBO().getAccount();
     }
 
-
     public static String getLoginAccountName() {
         return getLoginUserBO() == null ? null : getLoginUserBO().getNickName();
     }
 
     public static Long getLoginAccountId() {
         return getLoginUserBO() == null ? null : getLoginUserBO().getId();
+    }
+
+    public static Long getProjectId() {
+        return getLoginUserBO() == null ? null : getLoginUserBO().getProjectId();
     }
 
     /**

@@ -10,4 +10,6 @@ public final class CommonConstant {
     public static final String LOGIN_USER = "loginUser";
 
     public static final String ACCESS_TOKEN = "accessToken";
+
+    public static final String PROJECT_ID = "projectId";
 }
