@@ -17,6 +17,8 @@ public class JsonUtil {
     static {
         objectMapper = new ObjectMapper();
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        // 格式化输出，便于阅读，一般情况下不要加上这行配置
+        // objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     /**
