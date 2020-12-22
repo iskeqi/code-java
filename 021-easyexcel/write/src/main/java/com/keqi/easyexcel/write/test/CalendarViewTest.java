@@ -3,6 +3,7 @@ package com.keqi.easyexcel.write.test;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
+import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public class CalendarViewTest {
 
         EasyExcel.write(fileName).head(headList)
                 // 自动填充字段
-                //.registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                 // 设置标题和内容策略
                 .registerWriteHandler(horizontalCellStyleStrategy)
                 .sheet("部门视图").doWrite(dataList);
