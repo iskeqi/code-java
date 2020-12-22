@@ -27,7 +27,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        // 获取 Controler 中方法的返回值类型对应的 Class 反射对象
+        // 获取 Controller 中方法的返回值类型对应的 Class 反射对象
         Type type = methodParameter.getGenericParameterType();
 
         if (String.class == type || ResultEntity.class == type) {

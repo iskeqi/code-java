@@ -53,11 +53,6 @@ public class ProjectController {
         return this.projectService.page(pageParam);
     }
 
-    /**
-     * 指定项目人员
-     *
-     * @param designatedAccountParam designatedAccountParam
-     */
     @ApiOperation(value = "4.5 指定项目人员")
     @ApiOperationSupport(order = 5)
     @PostMapping("/designatedAccount")

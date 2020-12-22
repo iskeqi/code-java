@@ -33,5 +33,5 @@ public class ProjectDO extends BaseDO {
      * 逻辑删除字段（0 未删除，1 已删除）
      */
     @TableField(value = "is_deleted")
-    private Integer isDeleted;
+    private Integer deleted;
 }

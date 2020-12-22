@@ -33,5 +33,12 @@ public interface ProjectMapper extends BaseMapper<ProjectDO> {
      */
     int disableProjectById(Long id);
 
-    IPage<ProjectVO> page(@Param("page") IPage<ProjectVO> page, @Param("projectPageParam") ProjectPageParam projectPageParam);
+    /**
+     * 分页查询项目列表
+     *
+     * @param page  page
+     * @param param param
+     * @return r
+     */
+    IPage<ProjectVO> page(@Param("page") IPage<ProjectVO> page, @Param("param") ProjectPageParam param);
 }
