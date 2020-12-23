@@ -9,6 +9,7 @@ import com.keqi.knife4j.sys.domain.param.DictItemParam;
 import com.keqi.knife4j.sys.domain.vo.DictItemVO;
 import com.keqi.knife4j.sys.mapper.DictItemMapper;
 import com.keqi.knife4j.sys.service.DictItemService;
+import com.keqi.knife4j.sys.util.DictUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.List;
 public class DictItemServiceImpl implements DictItemService {
 
     private final DictItemMapper dictItemMapper;
+    private final DictUtil dictUtil;
 
     /**
      * 新增字典项
@@ -33,6 +35,8 @@ public class DictItemServiceImpl implements DictItemService {
         DictItemDO t = new DictItemDO();
         BeanUtils.copyProperties(dictItemParam, t);
         this.dictItemMapper.insert(t);
+
+        this.dictUtil.run();
     }
 
     /**
@@ -46,6 +50,8 @@ public class DictItemServiceImpl implements DictItemService {
         DictItemDO t = new DictItemDO();
         BeanUtils.copyProperties(dictItemParam, t);
         this.dictItemMapper.updateById(t);
+
+        this.dictUtil.run();
     }
 
     /**
@@ -58,6 +64,8 @@ public class DictItemServiceImpl implements DictItemService {
     public void deleteById(Long id) {
         // 逻辑删除
         this.dictItemMapper.disableById(id);
+
+        this.dictUtil.run();
     }
 
     /**
