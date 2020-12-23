@@ -33,4 +33,15 @@ public class AuthController {
     public LoginVO login(@RequestParam String account, @RequestParam String password) {
         return this.accountService.login(account, password);
     }
+
+    @ApiOperation(value = "1.2 修改密码")
+    @ApiOperationSupport(order = 2)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "password", value = "原密码", example = "123456", required = true),
+            @ApiImplicitParam(name = "newPassword", value = "新密码", example = "981223", required = true)
+    })
+    @PostMapping("/updatePassword")
+    public void updatePassword(@RequestParam String password, @RequestParam String newPassword) {
+        this.accountService.updatePassword(password, newPassword);
+    }
 }

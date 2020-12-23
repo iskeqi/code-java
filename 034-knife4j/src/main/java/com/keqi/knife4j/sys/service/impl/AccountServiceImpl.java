@@ -2,6 +2,7 @@ package com.keqi.knife4j.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
+import com.keqi.knife4j.core.auth.Auth;
 import com.keqi.knife4j.core.auth.LoginUserBO;
 import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.core.util.CommonUtil;
@@ -46,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         BeanUtil.copyProperties(accountDO, loginUserBO);
 
         // 设置过期时间为第二天的凌晨 2 点钟
-        LocalDateTime expirationDate = LocalDate.now().plusDays(1).atTime(2,0,0);
+        LocalDateTime expirationDate = LocalDate.now().plusDays(1).atTime(2, 0, 0);
         String accessToken = JwtUtil.generateToken(BeanUtil.beanToMap(loginUserBO), DateUtil.date(expirationDate));
 
         LoginVO loginVO = new LoginVO();
@@ -67,5 +68,27 @@ public class AccountServiceImpl implements AccountService {
         BeanUtil.copyProperties(accountParam, accountDO);
 
         this.accountMapper.insert(accountDO);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param password    password
+     * @param newPassword newPassword
+     */
+    @Override
+    @Transactional
+    public void updatePassword(String password, String newPassword) {
+        Long id = Auth.getLoginAccountId();
+        AccountDO accountDO = this.accountMapper.selectById(id);
+
+        if (CommonUtil.encryptedPassword(
+                accountDO.getAccount(), password).equals(accountDO.getPassword())) {
+            // 密码正确，修改密码
+            this.accountMapper.updatePasswordById(
+                    CommonUtil.encryptedPassword(accountDO.getAccount(), newPassword), id);
+        } else {
+            throw new BusinessException("请输入正确的密码");
+        }
     }
 }

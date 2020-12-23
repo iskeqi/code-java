@@ -20,4 +20,12 @@ public interface AccountService {
      * @param accountParam accountParam
      */
     void insert(AccountParam accountParam);
+
+    /**
+     * 修改密码
+     *
+     * @param password    password
+     * @param newPassword newPassword
+     */
+    void updatePassword(String password, String newPassword);
 }

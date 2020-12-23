@@ -14,5 +14,14 @@ public interface AccountMapper extends BaseMapper<AccountDO> {
      */
     AccountDO getByAccount(@Param("account") String account);
 
+    /**
+     * 根据id修改密码
+     *
+     * @param newPassword newPassword
+     * @param id          id
+     * @return r
+     */
+    int updatePasswordById(@Param("newPassword") String newPassword, @Param("id") Long id);
+
 
 }

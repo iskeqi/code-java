@@ -1,6 +1,6 @@
 # 配置文件上传路径
 upload-file-path:
-    linux: /home/keqi/myApp/
+    linux: /knife4j-upload-file
     windows: E:/knife4j-upload-file/
 
 # 开启 knife4j 增强功能
