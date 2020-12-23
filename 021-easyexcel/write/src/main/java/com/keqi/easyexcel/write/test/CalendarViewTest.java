@@ -3,7 +3,6 @@ package com.keqi.easyexcel.write.test;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
-import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -15,8 +14,8 @@ public class CalendarViewTest {
 
     public static void main(String[] args) {
         CalendarViewTest t = new CalendarViewTest();
-        List<List<String>> dataList = t.dataList(2020, 12);
-        List<List<String>> headList = t.head();
+        List<List<String>> dataList = t.dataList(2021, 2);
+        List<List<String>> headList = t.head(2021, 2);
 
         String fileName = "E:\\easyexcel\\" + System.currentTimeMillis() + ".xlsx";
 
@@ -31,7 +30,7 @@ public class CalendarViewTest {
 
         EasyExcel.write(fileName).head(headList)
                 // 自动填充字段
-                .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                //.registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                 // 设置标题和内容策略
                 .registerWriteHandler(horizontalCellStyleStrategy)
                 .sheet("部门视图").doWrite(dataList);
@@ -42,10 +41,10 @@ public class CalendarViewTest {
      *
      * @return r
      */
-    private List<List<String>> head() {
+    private List<List<String>> head(int year, int month) {
         List<List<String>> list = new ArrayList<>();
 
-        String mainTitle = "滕州市 2020 年 2 月排班表";
+        String mainTitle = "滕州市 " + year + " 年 "+ month + " 月排班表";
         
         List<String> head1 = new ArrayList<>();
         head1.add(mainTitle);
