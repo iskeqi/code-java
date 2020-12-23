@@ -68,7 +68,7 @@ public class DictItemController {
     @ApiOperationSupport(order = 6)
     @GetMapping("/getAllDictItem")
     public String getAllDictItem() {
-        Map<String, List<DictItemVO>> dictMap = DictUtil.getDictMap();
+        Map<String, List<DictItemVO>> dictMap = DictUtil.getDictTypeMap();
         return JsonUtil.writeValueAsString(dictMap);
     }
 }
