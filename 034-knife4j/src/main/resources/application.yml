@@ -1,5 +1,5 @@
 # 配置文件上传路径
-knife4j-file-path:
+upload-file-path:
     linux: /home/keqi/myApp/
     windows: E:/knife4j-upload-file/
 
@@ -14,7 +14,7 @@ knife4j:
 # 配置日志文件
 logging:
     file:
-        name: logs/knife4j.log
+        name: logs/app.log
     level:
         com:
             keqi: debug

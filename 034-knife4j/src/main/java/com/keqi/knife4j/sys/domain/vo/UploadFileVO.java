@@ -15,11 +15,15 @@ public class UploadFileVO {
     @ApiModelProperty(value = "文件名称", example = "字典数据表")
     private String name;
 
+    @ApiModelProperty(value = "文件存储路径（相对路径）", example = "/sl")
+    private String path;
+
     public UploadFileVO() {
     }
 
-    public UploadFileVO(Long id, String name) {
+    public UploadFileVO(Long id, String name, String path) {
         this.id = id;
         this.name = name;
+        this.path = path;
     }
 }

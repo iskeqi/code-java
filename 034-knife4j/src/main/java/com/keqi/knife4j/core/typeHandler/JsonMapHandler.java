@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+/**
+ * JSON 类型转换器（支持 object 类型的）
+ */
 @Alias("JsonMapHandler")
 public class JsonMapHandler extends BaseTypeHandler<Map<String, Object>> {
 

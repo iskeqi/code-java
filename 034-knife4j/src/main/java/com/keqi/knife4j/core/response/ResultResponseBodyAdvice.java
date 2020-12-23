@@ -1,5 +1,6 @@
 package com.keqi.knife4j.core.response;
 
+import com.keqi.knife4j.core.pojo.CommonConstant;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -17,7 +18,7 @@ import java.lang.reflect.Type;
  *
  * @author keqi
  */
-@ControllerAdvice(basePackages = "com.keqi.knife4j")
+@ControllerAdvice(basePackages = CommonConstant.ROOT_PACKAGE_NAME)
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

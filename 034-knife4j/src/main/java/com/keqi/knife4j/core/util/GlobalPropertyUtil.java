@@ -1,5 +1,6 @@
 package com.keqi.knife4j.core.util;
 
+import com.keqi.knife4j.core.pojo.CommonConstant;
 import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -21,8 +22,8 @@ public class GlobalPropertyUtil {
      * @return uploadPath路径
      */
     public String getUploadPath() {
-        String linux = environment.getProperty("knife4j-file-path.linux");
-        String windows = environment.getProperty("knife4j-file-path.windows");
+        String linux = environment.getProperty(CommonConstant.UPLOAD_FILE_PATH + ".linux");
+        String windows = environment.getProperty(CommonConstant.UPLOAD_FILE_PATH + ".windows");
 
         String osName = System.getProperty("os.name");
 

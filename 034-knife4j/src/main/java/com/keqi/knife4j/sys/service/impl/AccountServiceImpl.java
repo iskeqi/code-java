@@ -7,11 +7,13 @@ import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.core.util.CommonUtil;
 import com.keqi.knife4j.core.util.JwtUtil;
 import com.keqi.knife4j.sys.domain.db.AccountDO;
+import com.keqi.knife4j.sys.domain.param.AccountParam;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.mapper.AccountMapper;
 import com.keqi.knife4j.sys.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -51,5 +53,19 @@ public class AccountServiceImpl implements AccountService {
         loginVO.setAccessToken(accessToken);
 
         return loginVO;
+    }
+
+    /**
+     * 新增用户
+     *
+     * @param accountParam accountParam
+     */
+    @Override
+    @Transactional
+    public void insert(AccountParam accountParam) {
+        AccountDO accountDO = new AccountDO();
+        BeanUtil.copyProperties(accountParam, accountDO);
+
+        this.accountMapper.insert(accountDO);
     }
 }

@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * JSON 类型转换器（支持 array 类型的）
+ */
 @Alias("JsonListMapHandler")
 public class JsonListMapHandler extends BaseTypeHandler<List<Map<String, Object>>> {
 

@@ -1,5 +1,6 @@
 package com.keqi.knife4j.sys.controller;
 
+import cn.hutool.core.io.IoUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.keqi.knife4j.core.exception.BusinessException;
@@ -11,7 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +29,6 @@ import java.util.UUID;
 @ApiSupport(order = 3)
 @AllArgsConstructor
 @Controller
-@RequestMapping("/sys/uploadFile")
 public class UploadFileController {
 
     private final UploadFileService uploadFileService;
@@ -38,7 +37,7 @@ public class UploadFileController {
     @ApiOperation("3.1 文件上传(只支持单个)")
     @ApiOperationSupport(order = 1)
     @ResponseBody
-    @PostMapping("/upload")
+    @PostMapping("/sys/uploadFile/upload")
     public UploadFileVO upload(@RequestParam("file") MultipartFile file) throws IOException {
         // 基础路径
         String basePath = this.globalPropertyUtil.getUploadPath();
@@ -62,14 +61,14 @@ public class UploadFileController {
         t.setType(file.getContentType());
         this.uploadFileService.insert(t);
 
-        return new UploadFileVO(t.getId(), t.getName());
+        return new UploadFileVO(t.getId(), t.getName(), t.getPath());
     }
 
-    @ApiOperation("3.2 文件下载(只支持单个)")
+    @ApiOperation("3.2 根据文件ID下载(只支持单个)")
     @ApiOperationSupport(order = 2)
     @ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
-    @GetMapping("/download")
-    public void downloadFileAction(HttpServletRequest request, HttpServletResponse response, @RequestParam Long id) throws Exception {
+    @GetMapping("/sys/uploadFile/downloadById")
+    public void downloadById(HttpServletRequest request, HttpServletResponse response, @RequestParam Long id) throws Exception {
         UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
         if (uploadFileDO == null) {
             throw new BusinessException("文件不存在");
@@ -85,17 +84,43 @@ public class UploadFileController {
         String fileName = URLEncoder.encode(uploadFileDO.getName().substring(37), request.getCharacterEncoding());
 
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-        IOUtils.copy(fileInputStream, response.getOutputStream());
+        IoUtil.copy(fileInputStream, response.getOutputStream());
         response.flushBuffer();
 
         fileInputStream.close();
     }
 
-    @ApiOperation("3.3 文件删除(只支持单个)")
+    @ApiOperation(value = "3.3 根据文件路径下载(只支持单个)", notes = "将文件上传接口返回的 path 和 name 拼接后可得到文件的相对路径，" +
+            "在此相对路径前拼接 '/upload-file-path/' 可直接根据相对路径下载此文件（此接口无需鉴权）")
     @ApiOperationSupport(order = 3)
+    @GetMapping("/upload-file-path/**")
+    public void downloadByPath(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String requestURI = request.getRequestURI();
+
+        String path = this.globalPropertyUtil.getUploadPath() +
+                requestURI.substring(requestURI.indexOf("/upload-file-path/") + 17);
+        String name = path.substring(path.lastIndexOf("/") + 1);
+
+        response.setCharacterEncoding(request.getCharacterEncoding());
+        response.setContentType("application/octet-stream");
+
+        FileInputStream fileInputStream = new FileInputStream(new File(path));
+
+        // 截取出 name 属性 [37,length-1) 位置的字符串，文件的真正命名
+        String fileName = URLEncoder.encode(name.substring(37), request.getCharacterEncoding());
+
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        IoUtil.copy(fileInputStream, response.getOutputStream());
+        response.flushBuffer();
+
+        fileInputStream.close();
+    }
+
+    @ApiOperation("3.4 文件删除(只支持单个)")
+    @ApiOperationSupport(order = 4)
     @ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
-    @PostMapping("/deleteById")
-    public void downloadFileAction(@RequestParam Long id) {
+    @PostMapping("/sys/uploadFile/deleteById")
+    public void deleteById(@RequestParam Long id) {
         UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
         if (uploadFileDO == null) {
             throw new BusinessException("文件不存在");
@@ -108,4 +133,6 @@ public class UploadFileController {
         }
         this.uploadFileService.deleteById(id);
     }
+
+
 }

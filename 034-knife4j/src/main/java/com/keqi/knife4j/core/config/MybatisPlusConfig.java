@@ -2,6 +2,7 @@ package com.keqi.knife4j.core.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
+import com.keqi.knife4j.core.pojo.CommonConstant;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.keqi.knife4j.**.mapper")
+@MapperScan(CommonConstant.ROOT_PACKAGE_NAME + ".**.mapper")
 public class MybatisPlusConfig {
 
     @Bean

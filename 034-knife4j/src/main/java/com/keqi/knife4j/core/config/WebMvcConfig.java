@@ -40,8 +40,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         };
 
         registry.addInterceptor(securityInterceptor).addPathPatterns("/**")
+                // 放行 knife4j 路径
                 .excludePathPatterns(knife4jPaths)
-                .excludePathPatterns("/sys/auth/login");
+                // 放行登录接口请求路径
+                .excludePathPatterns("/sys/auth/login")
+                // 放行根据文件路径下载文件请求路径
+                .excludePathPatterns("/upload-file-path/**");
     }
 
     /**
