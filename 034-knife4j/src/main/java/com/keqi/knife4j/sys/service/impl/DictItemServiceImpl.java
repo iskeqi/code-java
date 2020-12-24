@@ -21,74 +21,74 @@ import java.util.List;
 @Service
 public class DictItemServiceImpl implements DictItemService {
 
-    private final DictItemMapper dictItemMapper;
-    private final DictUtil dictUtil;
+	private final DictItemMapper dictItemMapper;
+	private final DictUtil dictUtil;
 
-    /**
-     * 新增字典项
-     *
-     * @param dictItemParam dictItemParam
-     */
-    @Override
-    @Transactional
-    public void insert(DictItemParam dictItemParam) {
-        DictItemDO t = new DictItemDO();
-        BeanUtils.copyProperties(dictItemParam, t);
-        this.dictItemMapper.insert(t);
+	/**
+	 * 新增字典项
+	 *
+	 * @param dictItemParam dictItemParam
+	 */
+	@Override
+	@Transactional
+	public void insert(DictItemParam dictItemParam) {
+		DictItemDO t = new DictItemDO();
+		BeanUtils.copyProperties(dictItemParam, t);
+		this.dictItemMapper.insert(t);
 
-        this.dictUtil.run();
-    }
+		this.dictUtil.run();
+	}
 
-    /**
-     * 根据ID修改字典项
-     *
-     * @param dictItemParam dictItemParam
-     */
-    @Override
-    @Transactional
-    public void updateById(DictItemParam dictItemParam) {
-        DictItemDO t = new DictItemDO();
-        BeanUtils.copyProperties(dictItemParam, t);
-        this.dictItemMapper.updateById(t);
+	/**
+	 * 根据ID修改字典项
+	 *
+	 * @param dictItemParam dictItemParam
+	 */
+	@Override
+	@Transactional
+	public void updateById(DictItemParam dictItemParam) {
+		DictItemDO t = new DictItemDO();
+		BeanUtils.copyProperties(dictItemParam, t);
+		this.dictItemMapper.updateById(t);
 
-        this.dictUtil.run();
-    }
+		this.dictUtil.run();
+	}
 
-    /**
-     * 根据ID删除字典项
-     *
-     * @param id id
-     */
-    @Override
-    @Transactional
-    public void deleteById(Long id) {
-        // 逻辑删除
-        this.dictItemMapper.disableById(id);
+	/**
+	 * 根据ID删除字典项
+	 *
+	 * @param id id
+	 */
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		// 逻辑删除
+		this.dictItemMapper.disableById(id);
 
-        this.dictUtil.run();
-    }
+		this.dictUtil.run();
+	}
 
-    /**
-     * 分页查询字典项列表
-     *
-     * @param pageParam pageParam
-     * @return r
-     */
-    @Override
-    public PageVO<DictItemVO> page(DictItemPageParam pageParam) {
-        IPage<DictItemVO> result = this.dictItemMapper
-                .page(new Page<>(pageParam.getCurrent(), pageParam.getSize()), pageParam);
-        return new PageVO<>(result.getTotal(), result.getRecords());
-    }
+	/**
+	 * 分页查询字典项列表
+	 *
+	 * @param pageParam pageParam
+	 * @return r
+	 */
+	@Override
+	public PageVO<DictItemVO> page(DictItemPageParam pageParam) {
+		IPage<DictItemVO> result = this.dictItemMapper
+				.page(new Page<>(pageParam.getCurrent(), pageParam.getSize()), pageParam);
+		return new PageVO<>(result.getTotal(), result.getRecords());
+	}
 
-    /**
-     * 根据 typeCode 查询字典项列表
-     *
-     * @param typeCode typeCode
-     * @return r
-     */
-    @Override
-    public List<DictItemVO> listAllByTypeCode(String typeCode) {
-        return this.dictItemMapper.listAllByTypeCode(typeCode);
-    }
+	/**
+	 * 根据 typeCode 查询字典项列表
+	 *
+	 * @param typeCode typeCode
+	 * @return r
+	 */
+	@Override
+	public List<DictItemVO> listAllByTypeCode(String typeCode) {
+		return this.dictItemMapper.listAllByTypeCode(typeCode);
+	}
 }

@@ -7,42 +7,42 @@ package com.keqi.knife4j.core.response;
  */
 public class ResultEntity {
 
-    private Integer code;
+	private Integer code;
 
-    private String message;
+	private String message;
 
-    private Object data;
+	private Object data;
 
-    public ResultEntity() {
-    }
+	public ResultEntity() {
+	}
 
-    public ResultEntity(Integer code, String message, Object data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
+	public ResultEntity(Integer code, String message, Object data) {
+		this.code = code;
+		this.message = message;
+		this.data = data;
+	}
 
-    public Integer getCode() {
-        return code;
-    }
+	public Integer getCode() {
+		return code;
+	}
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
+	public void setCode(Integer code) {
+		this.code = code;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public Object getData() {
-        return data;
-    }
+	public Object getData() {
+		return data;
+	}
 
-    public void setData(Object data) {
-        this.data = data;
-    }
+	public void setData(Object data) {
+		this.data = data;
+	}
 }

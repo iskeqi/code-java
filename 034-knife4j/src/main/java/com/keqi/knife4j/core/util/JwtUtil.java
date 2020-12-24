@@ -16,40 +16,40 @@ import java.util.Map;
  */
 public class JwtUtil {
 
-    private static final String secret = "1O!dZ@%YXsvOaKHC";
+	private static final String secret = "1O!dZ@%YXsvOaKHC";
 
-    /**
-     * 生成token
-     *
-     * @param claims         claims
-     * @param expirationDate expirationDate
-     * @return r
-     */
-    public static String generateToken(Map<String, Object> claims, Date expirationDate) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
-                .compact();
-    }
+	/**
+	 * 生成token
+	 *
+	 * @param claims         claims
+	 * @param expirationDate expirationDate
+	 * @return r
+	 */
+	public static String generateToken(Map<String, Object> claims, Date expirationDate) {
+		return Jwts.builder()
+				.setClaims(claims)
+				.setExpiration(expirationDate)
+				.signWith(SignatureAlgorithm.HS512, secret)
+				.compact();
+	}
 
-    /**
-     * 解析token
-     *
-     * @param accessToken accessToken
-     * @return r
-     */
-    public static LoginUserBO resolveToken(String accessToken) {
-        Claims body;
-        try {
-            body = Jwts.parser().setSigningKey(secret)
-                    .parseClaimsJws(accessToken)
-                    .getBody();
-        } catch (Exception e) {
-            // 秘钥被篡改/过期等等时，解析就会抛出异常
-            return null;
-        }
-        // 换成LoginUserBo对象
-        return BeanUtil.mapToBean(body, LoginUserBO.class, true);
-    }
+	/**
+	 * 解析token
+	 *
+	 * @param accessToken accessToken
+	 * @return r
+	 */
+	public static LoginUserBO resolveToken(String accessToken) {
+		Claims body;
+		try {
+			body = Jwts.parser().setSigningKey(secret)
+					.parseClaimsJws(accessToken)
+					.getBody();
+		} catch (Exception e) {
+			// 秘钥被篡改/过期等等时，解析就会抛出异常
+			return null;
+		}
+		// 换成LoginUserBo对象
+		return BeanUtil.mapToBean(body, LoginUserBO.class, true);
+	}
 }

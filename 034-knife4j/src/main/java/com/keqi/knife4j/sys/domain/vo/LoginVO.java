@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LoginVO {
 
-    @ApiModelProperty(value = "登录返回token", example = "eyJhbJ9.eyJpXhwIjE4NDAwfQ.7B7yP9bqhMjQ")
-    private String accessToken;
+	@ApiModelProperty(value = "登录返回token", example = "eyJhbJ9.eyJpXhwIjE4NDAwfQ.7B7yP9bqhMjQ")
+	private String accessToken;
 }

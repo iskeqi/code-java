@@ -1,5 +1,6 @@
 package com.keqi.knife4j.sys.util;
 
+import cn.hutool.core.collection.CollUtil;
 import com.keqi.knife4j.sys.domain.vo.DictItemVO;
 import com.keqi.knife4j.sys.mapper.DictItemMapper;
 import org.springframework.boot.CommandLineRunner;
@@ -36,12 +37,11 @@ public class DictUtil implements CommandLineRunner {
 			String itemCode = t.getItemCode();
 
 			List<DictItemVO> list = dictTypeMap.get(typeCode);
-			if (list == null || list.size() == 0) {
+			if (CollUtil.isEmpty(list)) {
 				list = new ArrayList<>();
 				dictTypeMap.put(typeCode, list);
-			} else {
-				list.add(t);
 			}
+			list.add(t);
 
 			dictItemMap.put(itemCode, t);
 		}

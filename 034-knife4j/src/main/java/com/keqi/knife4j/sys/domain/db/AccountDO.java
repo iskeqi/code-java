@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
-    * 用户表
-    */
+ * 用户表
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
@@ -18,27 +18,27 @@ import lombok.NoArgsConstructor;
 @TableName(value = "sys_account")
 public class AccountDO extends BaseDO {
 
-    /**
-     * 用户名
-     */
-    @TableField(value = "account")
-    private String account;
+	/**
+	 * 用户名
+	 */
+	@TableField(value = "account")
+	private String account;
 
-    /**
-     * 姓名
-     */
-    @TableField(value = "nick_name")
-    private String nickName;
+	/**
+	 * 姓名
+	 */
+	@TableField(value = "nick_name")
+	private String nickName;
 
-    /**
-     * 岗位
-     */
-    @TableField(value = "post")
-    private String post;
+	/**
+	 * 岗位
+	 */
+	@TableField(value = "post")
+	private String post;
 
-    /**
-     * 密码
-     */
-    @TableField(value = "`password`")
-    private String password;
+	/**
+	 * 密码
+	 */
+	@TableField(value = "`password`")
+	private String password;
 }

@@ -13,61 +13,61 @@ import java.time.LocalDateTime;
  */
 public class QueryBaseParam {
 
-    /**
-     * 当前页数（最小为1）（命名和 MyBatisPlus 保持一致）
-     */
-    protected int current = 1;
+	/**
+	 * 当前页数（最小为1）（命名和 MyBatisPlus 保持一致）
+	 */
+	protected int current = 1;
 
-    /**
-     * 每页大小（最大为50）（命名和 MyBatisPlus 保持一致）
-     */
-    protected int size = 10;
+	/**
+	 * 每页大小（最大为50）（命名和 MyBatisPlus 保持一致）
+	 */
+	protected int size = 10;
 
-    /**
-     * 搜索字段名称
-     */
-    protected String searchName;
+	/**
+	 * 搜索字段名称
+	 */
+	protected String searchName;
 
-    /**
-     * 搜索字段值
-     */
-    protected String searchValue;
+	/**
+	 * 搜索字段值
+	 */
+	protected String searchValue;
 
-    /**
-     * 开始日期
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    protected LocalDate beginDate;
+	/**
+	 * 开始日期
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	protected LocalDate beginDate;
 
-    /**
-     * 结束日期
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    protected LocalDate endDate;
+	/**
+	 * 结束日期
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	protected LocalDate endDate;
 
-    /**
-     * 开始时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    protected LocalDateTime beginTime;
+	/**
+	 * 开始时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	protected LocalDateTime beginTime;
 
-    /**
-     * 结束时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    protected LocalDateTime endTime;
+	/**
+	 * 结束时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	protected LocalDateTime endTime;
 
-    /**
-     * 排序字段
-     */
-    protected String orderFiled;
+	/**
+	 * 排序字段
+	 */
+	protected String orderFiled;
 
-    /**
-     * 排序类型（升序：asc，降序：desc）
-     */
-    protected String orderType;
+	/**
+	 * 排序类型（升序：asc，降序：desc）
+	 */
+	protected String orderType;
 }

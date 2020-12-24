@@ -6,22 +6,22 @@ import org.apache.ibatis.annotations.Param;
 
 public interface AccountMapper extends BaseMapper<AccountDO> {
 
-    /**
-     * 根据用户名查询用户信息
-     *
-     * @param account account
-     * @return r
-     */
-    AccountDO getByAccount(@Param("account") String account);
+	/**
+	 * 根据用户名查询用户信息
+	 *
+	 * @param account account
+	 * @return r
+	 */
+	AccountDO getByAccount(@Param("account") String account);
 
-    /**
-     * 根据id修改密码
-     *
-     * @param newPassword newPassword
-     * @param id          id
-     * @return r
-     */
-    int updatePasswordById(@Param("newPassword") String newPassword, @Param("id") Long id);
+	/**
+	 * 根据id修改密码
+	 *
+	 * @param newPassword newPassword
+	 * @param id          id
+	 * @return r
+	 */
+	int updatePasswordById(@Param("newPassword") String newPassword, @Param("id") Long id);
 
 
 }

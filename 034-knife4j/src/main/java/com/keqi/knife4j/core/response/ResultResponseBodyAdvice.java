@@ -21,22 +21,22 @@ import java.lang.reflect.Type;
 @ControllerAdvice(basePackages = CommonConstant.ROOT_PACKAGE_NAME)
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
-    @Override
-    public boolean supports(MethodParameter methodParameter, Class aClass) {
-        return true;
-    }
+	@Override
+	public boolean supports(MethodParameter methodParameter, Class aClass) {
+		return true;
+	}
 
-    @Override
-    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        // 获取 Controler 中方法的返回值类型对应的 Class 反射对象
-        Type type = methodParameter.getGenericParameterType();
+	@Override
+	public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+		// 获取 Controler 中方法的返回值类型对应的 Class 反射对象
+		Type type = methodParameter.getGenericParameterType();
 
-        if (String.class == type || ResultEntity.class == type) {
-            return o;
-        } else if (void.class == type) {
-            return ResultEntityBuilder.success();
-        } else {
-            return ResultEntityBuilder.success(o);
-        }
-    }
+		if (String.class == type || ResultEntity.class == type) {
+			return o;
+		} else if (void.class == type) {
+			return ResultEntityBuilder.success();
+		} else {
+			return ResultEntityBuilder.success(o);
+		}
+	}
 }

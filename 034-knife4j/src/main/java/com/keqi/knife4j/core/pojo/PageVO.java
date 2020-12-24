@@ -9,31 +9,31 @@ import java.util.List;
  */
 public class PageVO<T> {
 
-    private long total;
+	private long total;
 
-    private List<T> records;
+	private List<T> records;
 
-    public PageVO() {
-    }
+	public PageVO() {
+	}
 
-    public PageVO(long total, List<T> records) {
-        this.total = total;
-        this.records = records;
-    }
+	public PageVO(long total, List<T> records) {
+		this.total = total;
+		this.records = records;
+	}
 
-    public long getTotal() {
-        return total;
-    }
+	public long getTotal() {
+		return total;
+	}
 
-    public void setTotal(long total) {
-        this.total = total;
-    }
+	public void setTotal(long total) {
+		this.total = total;
+	}
 
-    public List<T> getRecords() {
-        return records;
-    }
+	public List<T> getRecords() {
+		return records;
+	}
 
-    public void setRecords(List<T> records) {
-        this.records = records;
-    }
+	public void setRecords(List<T> records) {
+		this.records = records;
+	}
 }

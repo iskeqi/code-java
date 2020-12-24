@@ -15,29 +15,28 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableSwagger2WebMvc
 public class Knife4jConfiguration {
 
-    /**
-     * 如果对项目中的接口进行分组，拷贝多份即可
-     *
-     * @return r
-     */
-    @Bean
-    public Docket sys() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .useDefaultResponseMessages(false) // 关闭 swagger 默认响应状态码
-                .groupName("接口文档") // 指定模块名称
-                .apiInfo(systemMangerInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage(CommonConstant.ROOT_PACKAGE_NAME)) // 扫描指定包路径下的接口
-                .paths(PathSelectors.any())
-                .build();
-    }
+	/**
+	 * 如果对项目中的接口进行分组，拷贝多份即可
+	 *
+	 * @return r
+	 */
+	@Bean
+	public Docket sys() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.useDefaultResponseMessages(false) // 关闭 swagger 默认响应状态码
+				.groupName("接口文档") // 指定模块名称
+				.apiInfo(systemMangerInfo())
+				.select()
+				.apis(RequestHandlerSelectors.basePackage(CommonConstant.ROOT_PACKAGE_NAME)) // 扫描指定包路径下的接口
+				.paths(PathSelectors.any())
+				.build();
+	}
 
-    private ApiInfo systemMangerInfo() {
-        return new ApiInfoBuilder()
-                .title("接口文档")
-                .description("接口文档")
-                .termsOfServiceUrl("http://localhost:9090/knife4j")
-                .version("1.0")
-                .build();
-    }
+	private ApiInfo systemMangerInfo() {
+		return new ApiInfoBuilder()
+				.title("接口文档")
+				.description("接口文档")
+				.version("1.0")
+				.build();
+	}
 }

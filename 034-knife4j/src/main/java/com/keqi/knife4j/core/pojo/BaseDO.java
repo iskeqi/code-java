@@ -18,12 +18,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BaseDO {
 
-    @TableId(value = "id", type = IdType.AUTO)
-    protected Long id;
+	@TableId(value = "id", type = IdType.AUTO)
+	protected Long id;
 
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
-    protected LocalDateTime createTime;
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
+	protected LocalDateTime createTime;
 
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    protected LocalDateTime updateTime;
+	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+	protected LocalDateTime updateTime;
 }
