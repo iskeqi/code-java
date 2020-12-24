@@ -3,11 +3,12 @@ package com.keqi.knife4j.sys.controller;
 import cn.hutool.core.io.IoUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
+import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
+import com.github.xiaoymin.knife4j.annotations.DynamicResponseParameters;
 import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.core.pojo.CommonConstant;
 import com.keqi.knife4j.core.util.CommonUtil;
 import com.keqi.knife4j.sys.domain.db.UploadFileDO;
-import com.keqi.knife4j.sys.domain.vo.UploadFileVO;
 import com.keqi.knife4j.sys.service.UploadFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,6 +28,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Api(tags = "3. 文件管理")
@@ -39,9 +42,12 @@ public class UploadFileController {
 
 	@ApiOperation(value = "3.1 私有文件上传", notes = "通过此接口上传的文件，下载时需要鉴权")
 	@ApiOperationSupport(order = 1)
+	@DynamicResponseParameters(properties = {
+			@DynamicParameter(name = "id", value = "文件ID", example = "28")
+	})
 	@ResponseBody
 	@PostMapping("/sys/uploadFile/privateFileUpload")
-	public UploadFileVO privateFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+	public Map<String, Object> privateFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE;
 		// 相对路径
@@ -64,7 +70,10 @@ public class UploadFileController {
 		t.setType(file.getContentType());
 		this.uploadFileService.insert(t);
 
-		return new UploadFileVO(t.getId());
+		Map<String, Object> result = new HashMap<>();
+		result.put("id", t.getId());
+
+		return result;
 	}
 
 	@ApiOperation(value = "3.2 私有文件下载", notes = "此接口只能下载到通过私有文件上传接口上传的文件")
@@ -115,9 +124,12 @@ public class UploadFileController {
 
 	@ApiOperation(value = "3.4 公开文件上传", notes = "通过此接口上传的文件，下载时无需鉴权，可以直接通过返回的 URL 路径访问")
 	@ApiOperationSupport(order = 4)
+	@DynamicResponseParameters(properties = {
+			@DynamicParameter(name = "path", value = "文件路径", example = "/publicFile/2020-12-24/image/png/ff289c4e-8547-4abf-a90a-ead4139a3b0ca.png")
+	})
 	@ResponseBody
 	@PostMapping("/sys/uploadFile/publicFileUpload")
-	public UploadFileVO publicFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+	public Map<String, Object> publicFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
 		// 相对路径
@@ -133,7 +145,10 @@ public class UploadFileController {
 		}
 		file.transferTo(f);
 
-		return new UploadFileVO("/publicFile/" + relativePath + name);
+		Map<String, Object> result = new HashMap<>();
+		result.put("path", "/publicFile/" + relativePath + name);
+
+		return result;
 	}
 
 }
