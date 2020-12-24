@@ -106,6 +106,7 @@ public class UploadFileController {
 	@ApiOperation(value = "3.3 私有文件删除", notes = "此接口只能删除通过私有文件上传接口上传的文件")
 	@ApiOperationSupport(order = 3)
 	@ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
+	@ResponseBody
 	@PostMapping("/sys/uploadFile/deleteById")
 	public void deleteById(@RequestParam Long id) {
 		UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
