@@ -10,7 +10,7 @@
 
 - JSR303：Java EE 和 Java SE 中用于 JavaBean 验证的 Java API 规范（仅仅是规范，并不提供具体实现）
 - Hibernate-Validator：Hibernate 组织提供的一个 JSR303 规范的实现
-- Spring-Validator：Spring 框架提供的一个 JSR303 规范的实现
+- Spring-Validator：Spring 框架基于 Hibernate-Validator 封装的，结合了 AOP 来校验参数，避免手动去调用 JSR303 API 来校验参数
 
 ## 使用 @Valid 注解和 @Validated 注解的区别
 
