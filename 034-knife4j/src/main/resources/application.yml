@@ -1,7 +1,20 @@
-# 配置文件上传路径
-upload-file-path:
-    linux: /knife4j-upload-file
-    windows: E:/knife4j-upload-file/
+# 配置端口号和应用路径
+server:
+    port: 9090
+    servlet:
+        context-path: /knife4j
+
+# 配置数据源信息
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: 123456
+        url: jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: root
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
 
 # 开启 knife4j 增强功能
 knife4j:
@@ -25,20 +38,3 @@ mybatis-plus:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
         type-aliases-package: com.keqi.knife4j.core.typeHandler
 
-# 配置端口号和应用路径
-server:
-    port: 9090
-    servlet:
-        context-path: /knife4j
-
-# 配置数据源信息
-spring:
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        password: 123456
-        url: jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
-        username: root
-    servlet:
-        multipart:
-            max-file-size: 20MB
-            max-request-size: 30MB

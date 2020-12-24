@@ -1,10 +1,13 @@
 package com.keqi.knife4j.core.config;
 
+import com.keqi.knife4j.core.pojo.CommonConstant;
+import com.keqi.knife4j.core.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -44,8 +47,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns(knife4jPaths)
                 // 放行登录接口请求路径
                 .excludePathPatterns("/sys/auth/login")
-                // 放行根据文件路径下载文件请求路径
-                .excludePathPatterns("/upload-file-path/**");
+                // 放行公开文件请求路径
+                .excludePathPatterns("/publicFile/**");
     }
 
     /**
@@ -61,6 +64,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .maxAge(3600)
                 .allowedHeaders("*");
+    }
+
+    /**
+     * 添加静态资源映射路径（不会响应到默认的 4 个静态资源映射）
+     *
+     * @param registry registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 配置对外公开的文件映射路径
+        String filePath = "file:" + CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
+        registry.addResourceHandler("/publicFile/**").addResourceLocations(filePath);
     }
 }
 
