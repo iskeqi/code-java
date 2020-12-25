@@ -1,11 +1,5 @@
 # 线上服务器开发联调测试环境
 
-# 配置端口号和应用路径
-server:
-    port: 9090
-    servlet:
-        context-path: /knife4j
-
 # 配置数据源信息
 spring:
     datasource:
