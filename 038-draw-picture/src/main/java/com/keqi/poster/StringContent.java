@@ -6,7 +6,6 @@ import java.awt.*;
  * 待写进图片上的文本字符串内容
  */
 public class StringContent {
-
 	/**
 	 * 文本内容使用的字体
 	 */
