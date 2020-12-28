@@ -2,8 +2,11 @@ package com.keqi.knife4j.core.config;
 
 import com.keqi.knife4j.core.pojo.CommonConstant;
 import com.keqi.knife4j.core.util.CommonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.Formatter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -18,11 +21,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	private final HandlerInterceptor securityInterceptor;
+	@Autowired
+	private HandlerInterceptor securityInterceptor;
 
-	public WebMvcConfig(@Qualifier("securityInterceptor") HandlerInterceptor securityInterceptor) {
-		this.securityInterceptor = securityInterceptor;
-	}
+	@Autowired
+	@Qualifier("localDateFormatter")
+	private Formatter localDateFormatter;
+
+	@Autowired
+	@Qualifier("localDateTimeFormatter")
+	private Formatter localDateTimeFormatter;
 
 	/**
 	 * 注册拦截器对象
@@ -76,6 +84,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		// 配置对外公开的文件映射路径
 		String filePath = "file:" + CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
 		registry.addResourceHandler("/publicFile/**").addResourceLocations(filePath);
+	}
+
+	/**
+	 * 添加 Formatter 对象
+	 *
+	 * @param registry registry
+	 */
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addFormatter(localDateFormatter);
+		registry.addFormatter(localDateTimeFormatter);
 	}
 }
 

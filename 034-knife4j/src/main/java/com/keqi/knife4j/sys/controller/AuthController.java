@@ -2,6 +2,7 @@ package com.keqi.knife4j.sys.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
+import com.keqi.knife4j.core.aspect.RequiresPermissions;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.service.AccountService;
 import io.swagger.annotations.Api;
@@ -29,6 +30,7 @@ public class AuthController {
 			@ApiImplicitParam(name = "account", value = "账号", example = "admin", required = true),
 			@ApiImplicitParam(name = "password", value = "密码", example = "123456", required = true)
 	})
+	@RequiresPermissions({"login", "auth"})
 	@GetMapping("/sys/auth/login")
 	public LoginVO login(
 			@Size(min = 2, max = 10, message = "用户名长度必须在2-10个字符之间") @RequestParam String account,
