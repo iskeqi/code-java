@@ -413,7 +413,7 @@ public class PosterImageUtil {
 		list.add(new PosterImage(content1, content1Data()));
 		list.add(new PosterImage(content2, content2EnglishData()));
 		list.add(new PosterImage(content3, content3Data()));
-		list.add(new PosterImage(footer, headData()));
+		list.add(new PosterImage(footer, new ArrayList<>()));
 
 		BufferedImage bufferedImage = drawPosterImage(list);
 		ImageIO.write(bufferedImage, "png", new File("E:\\draw-picture\\poster.png"));
