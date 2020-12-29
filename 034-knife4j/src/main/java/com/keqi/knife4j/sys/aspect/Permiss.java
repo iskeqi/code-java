@@ -1,4 +1,4 @@
-package com.keqi.knife4j.core.aspect;
+package com.keqi.knife4j.sys.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

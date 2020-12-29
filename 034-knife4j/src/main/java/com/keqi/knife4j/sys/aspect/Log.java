@@ -1,4 +1,4 @@
-package com.keqi.knife4j.core.aspect;
+package com.keqi.knife4j.sys.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Log {
 
-	String[] value();
+	String value();
 }
