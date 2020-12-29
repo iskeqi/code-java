@@ -1,4 +1,4 @@
-package com.keqi.knife4j.core.constraint;
+package com.keqi.knife4j.sys.constraint;
 
 import com.keqi.knife4j.sys.util.DictUtil;
 

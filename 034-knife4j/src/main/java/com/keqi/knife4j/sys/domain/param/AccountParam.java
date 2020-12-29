@@ -1,6 +1,6 @@
 package com.keqi.knife4j.sys.domain.param;
 
-import com.keqi.knife4j.core.constraint.TypeCode;
+import com.keqi.knife4j.sys.constraint.TypeCode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

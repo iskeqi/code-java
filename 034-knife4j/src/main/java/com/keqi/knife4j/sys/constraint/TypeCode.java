@@ -1,4 +1,4 @@
-package com.keqi.knife4j.core.constraint;
+package com.keqi.knife4j.sys.constraint;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
