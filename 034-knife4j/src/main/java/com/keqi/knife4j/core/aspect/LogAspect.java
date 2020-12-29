@@ -37,10 +37,10 @@ public class LogAspect {
 		// 通过 JoinPoint 对象获取到方法上的注解及其属性
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
-		RequiresPermissions requiresPermissions = method.getAnnotation(RequiresPermissions.class);
-		String[] permissions = requiresPermissions.value();
+		Log log = method.getAnnotation(Log.class);
+		// 根据实际需要设计日志操作记录表，并入库
 
 		LoginUserBO loginUserBO = Auth.getLoginUserBO();
-		// 记录此次操作日志
+		// 记录此次操作日志（开启一个新线程，执行入库操作）
 	}
 }
