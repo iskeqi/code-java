@@ -36,7 +36,7 @@ public class PermissAspect {
 
 		// 从loginUserBO 对象中取出当前登录用户拥有的权限列表，判断是否全部满足 permiss 注解中指定的权限列表
 		// 满足则通过，不满足则直接抛异常，以中断当前请求
-		// throw new BusinessException("无操作权限");
+		// throw new BusinessException("您无此操作权限");
 		String[] permissions = permiss.value();
 		LoginUserBO loginUserBO = Auth.getLoginUserBO();
 	}
