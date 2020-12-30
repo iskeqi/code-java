@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -91,16 +92,16 @@ public class UploadFileController {
 		response.setCharacterEncoding(request.getCharacterEncoding());
 		response.setContentType("application/octet-stream");
 
-		FileInputStream fileInputStream = new FileInputStream(new File(path));
+		BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(new File(path)));
 
 		// 截取出 name 属性 [37,length-1) 位置的字符串，文件的真正命名
 		String fileName = URLEncoder.encode(uploadFileDO.getName().substring(37), request.getCharacterEncoding());
 
 		response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-		IoUtil.copy(fileInputStream, response.getOutputStream());
+		IoUtil.copy(inputStream, response.getOutputStream());
 		response.flushBuffer();
 
-		fileInputStream.close();
+		inputStream.close();
 	}
 
 	@ApiOperation(value = "3.3 私有文件删除", notes = "此接口只能删除通过私有文件上传接口上传的文件")
