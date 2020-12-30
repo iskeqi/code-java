@@ -32,11 +32,4 @@ public @interface TypeCode {
 	 * @return r
 	 */
 	String value();
-
-	/**
-	 * 接收的值中是否会有多个 itemCode（如："zhhb,zhyq" 的格式）
-	 *
-	 * @return r
-	 */
-	boolean multiple() default false;
 }

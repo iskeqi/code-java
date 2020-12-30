@@ -15,7 +15,6 @@ import javax.validation.ConstraintValidatorContext;
 public class TypeCodeValidator implements ConstraintValidator<TypeCode, String> {
 
 	private String typeCode;
-	private boolean multiple;
 
 	/**
 	 * 初始化方法，一般用来设置注解中指定的值
@@ -26,8 +25,6 @@ public class TypeCodeValidator implements ConstraintValidator<TypeCode, String> 
 	public void initialize(TypeCode typeCode) {
 		// 获取注解上方的 value 属性值
 		this.typeCode = typeCode.value();
-		// 获取注解上方的 multiple 属性值
-		this.multiple = typeCode.multiple();
 	}
 
 	/**
@@ -40,14 +37,7 @@ public class TypeCodeValidator implements ConstraintValidator<TypeCode, String> 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		// 如果通过 typeCode 和 itemCode 没有查询到对应的 itemValue ，则证明此 itemCode 为非法参数
-
-		if (StrUtil.isEmpty(value)) {
-			// 允许 value 的值为 null 和 ""
-			return true;
-		}
-
-		if (this.multiple) {
-			// 多个 itemCode
+		if (StrUtil.isNotBlank(value)) {
 			String[] split = value.split(",");
 			for (String t : split) {
 				DictItemVO dictItem = DictUtil.getDictItem(typeCode, t);
@@ -55,10 +45,7 @@ public class TypeCodeValidator implements ConstraintValidator<TypeCode, String> 
 					return false;
 				}
 			}
-			return true;
 		}
-
-		// 单个 itemCode
-		return DictUtil.getItemName(typeCode, value) != null;
+		return true;
 	}
 }
