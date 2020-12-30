@@ -1,5 +1,9 @@
 # 项目说明文档
 
+## 待做事项
+
+- 使用 freemarker 模板一键生成 controller/service/domain/mapper 文件，更加的省事
+
 ## 部署说明
 
 项目打成单独 jar 包后，使用 java -jar 命令启动即可。
