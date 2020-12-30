@@ -14,7 +14,7 @@ public class FileTest {
 
 	private static void createFiles() throws IOException {
 		// 创建文件
-		File file = new File("E:/KEQI/code-java/039-core-java/io/src/main/resources/c/a.txt");
+		File file = new File("E:/KEQI/code-java/039-core-java/io/src/main/resources/c/", "a.txt");
 
 		if (!file.exists()) {
 			// 如果文件不存在，则创建此文件（如果当时的目录不存在时，就无法创建）
