@@ -52,17 +52,19 @@ public class UploadFileController {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE;
 		// 相对路径
-		String relativePath = LocalDate.now() + "/" + file.getContentType() + "/";
+		String relativePath = LocalDate.now() + "/" + file.getContentType();
 		// 全路径
 		String fullPath = basePath + relativePath;
 		// 对用户上传过来的文件使用UUID进行重命名，下载时截取掉UUID这段名称即可
 		String name = UUID.randomUUID().toString() + file.getOriginalFilename();
 
-		File f = new File(fullPath, name);
-		if (!f.exists()) {
-			f.mkdirs();
+		// 先创建好路径
+		File path = new File(fullPath);
+		if (!path.exists()) {
+			path.mkdirs();
 		}
-		file.transferTo(f);
+		// 保存文件到硬盘中的指定文件中
+		file.transferTo(new File(fullPath, name));
 
 		UploadFileDO t = new UploadFileDO();
 		t.setName(name);
@@ -141,11 +143,13 @@ public class UploadFileController {
 		// 对用户上传过来的文件使用UUID进行重命名，下载时截取掉UUID这段名称即可
 		String name = UUID.randomUUID().toString() + file.getOriginalFilename();
 
+		// 先创建好路径
 		File path = new File(fullPath);
 		if (!path.exists()) {
 			path.mkdirs();
 		}
-		file.transferTo(new File(path, name));
+		// 保存文件到硬盘中的指定文件中
+		file.transferTo(new File(fullPath, name));
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("path", "/publicFile/" + relativePath + name);
