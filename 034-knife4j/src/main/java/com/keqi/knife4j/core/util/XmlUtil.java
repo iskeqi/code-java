@@ -5,12 +5,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * XML 工具类，使用 jackson-dataformat-xml 封装
  *
  * @author keqi
  */
+@Slf4j
 public class XmlUtil {
 
 	private static final ObjectMapper objectMapper;
@@ -35,7 +37,7 @@ public class XmlUtil {
 		try {
 			json = objectMapper.writeValueAsString(value);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.info(e.getMessage(), e);
 		}
 		return json;
 	}
@@ -53,7 +55,7 @@ public class XmlUtil {
 		try {
 			t = objectMapper.readValue(content, valueType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.info(e.getMessage(), e);
 		}
 		return t;
 	}
@@ -71,7 +73,7 @@ public class XmlUtil {
 		try {
 			t = objectMapper.readValue(content, valueTypeRef);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.info(e.getMessage(), e);
 		}
 		return t;
 	}

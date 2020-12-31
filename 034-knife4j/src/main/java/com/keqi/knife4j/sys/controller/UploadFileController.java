@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ import java.util.UUID;
 
 @Api(tags = "3. 文件管理")
 @ApiSupport(order = 3)
+@Slf4j
 @AllArgsConstructor
 @Controller
 public class UploadFileController {
@@ -48,7 +50,7 @@ public class UploadFileController {
 	})
 	@ResponseBody
 	@PostMapping("/sys/uploadFile/privateFileUpload")
-	public Map<String, Object> privateFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+	public Map<String, Object> privateFileUpload(@RequestParam("file") MultipartFile file) {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE;
 		// 相对路径
@@ -64,7 +66,13 @@ public class UploadFileController {
 			path.mkdirs();
 		}
 		// 保存文件到硬盘中的指定文件中
-		file.transferTo(new File(fullPath, name));
+		try {
+			file.transferTo(new File(fullPath, name));
+		} catch (IOException e) {
+			// 打印异常栈信息至日志文件中
+			log.info(e.getMessage(), e);
+			throw new BusinessException("文件上传失败");
+		}
 
 		UploadFileDO t = new UploadFileDO();
 		t.setName(name);
@@ -133,7 +141,7 @@ public class UploadFileController {
 	})
 	@ResponseBody
 	@PostMapping("/sys/uploadFile/publicFileUpload")
-	public Map<String, Object> publicFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+	public Map<String, Object> publicFileUpload(@RequestParam("file") MultipartFile file) {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
 		// 相对路径
@@ -149,7 +157,12 @@ public class UploadFileController {
 			path.mkdirs();
 		}
 		// 保存文件到硬盘中的指定文件中
-		file.transferTo(new File(fullPath, name));
+		try {
+			file.transferTo(new File(fullPath, name));
+		} catch (IOException e) {
+			log.info(e.getMessage(), e);
+			throw new BusinessException("文件上传失败");
+		}
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("path", "/publicFile/" + relativePath + name);

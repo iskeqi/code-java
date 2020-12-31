@@ -2,6 +2,7 @@ package com.keqi.knife4j.core.exception;
 
 import com.keqi.knife4j.core.response.ResultEntity;
 import com.keqi.knife4j.core.response.ResultEntityBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,6 +18,7 @@ import javax.validation.ConstraintViolationException;
  *
  * @author keqi
  */
+@Slf4j
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
@@ -98,7 +100,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Throwable.class)
 	public ResultEntity handleException(Throwable e) {
 		// 未知异常，打印异常栈信息便于排查问题
-		e.printStackTrace();
+		log.info(e.getMessage(), e);
 		return ResultEntityBuilder.failure(e.getMessage());
 	}
 

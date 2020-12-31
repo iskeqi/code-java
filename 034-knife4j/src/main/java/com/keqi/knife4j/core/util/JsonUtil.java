@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * JSON 工具类，使用 jackson-bind 封装
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author keqi
  */
+@Slf4j
 public class JsonUtil {
 
 	private static final ObjectMapper objectMapper;
@@ -32,7 +34,7 @@ public class JsonUtil {
 		try {
 			json = objectMapper.writeValueAsString(value);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.info(e.getMessage(), e);
 		}
 		return json;
 	}
@@ -50,7 +52,7 @@ public class JsonUtil {
 		try {
 			t = objectMapper.readValue(content, valueType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.info(e.getMessage(), e);
 		}
 		return t;
 	}
@@ -68,7 +70,7 @@ public class JsonUtil {
 		try {
 			t = objectMapper.readValue(content, valueTypeRef);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.info(e.getMessage(), e);
 		}
 		return t;
 	}
