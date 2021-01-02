@@ -6,6 +6,7 @@ public class EnumTest {
 
 	@Test
 	public void test() {
+		java.lang.Enum obj;
 		System.out.println(DataSourceTypeEnum.MASTER);
 	}
 
