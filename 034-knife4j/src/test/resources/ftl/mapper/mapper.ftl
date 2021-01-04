@@ -12,9 +12,9 @@ public interface ${tableNameHump}Mapper extends BaseMapper<${tableNameHump}DO> {
 	/**
      * 分页查询${tableComment}列表
      *
-     * @param page page
+     * @param pageParam pageParam
      * @return r
      */
-	IPage<${tableNameHump}VO> page(@Param("page") IPage<?> page, @Param("param") ${tableNameHump}PageParam param);
+	IPage<${tableNameHump}VO> page(@Param("page") IPage<?> page, @Param("pageParam") ${tableNameHump}PageParam pageParam);
 
 }

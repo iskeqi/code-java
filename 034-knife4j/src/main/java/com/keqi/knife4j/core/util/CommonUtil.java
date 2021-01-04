@@ -106,4 +106,20 @@ public class CommonUtil {
 	public static void main(String[] args) {
 		System.out.println(encryptedPassword("admin", "123456"));
 	}
+
+	/**
+	 * 获取异常信息字符串
+	 *
+	 * @param e e
+	 * @return r
+	 */
+	public static String getExceptionStr(Throwable e) {
+		StackTraceElement[] stackTrace = e.getStackTrace();
+		StringBuilder str = new StringBuilder(e.toString() + "\n");
+		for (StackTraceElement t : stackTrace) {
+			str.append("\t" + "at ").append(t.getClassName()).append(".").append(t.getMethodName())
+					.append("(").append(t.getFileName()).append(":").append(t.getLineNumber()).append(")").append("\n");
+		}
+		return str.toString();
+	}
 }
