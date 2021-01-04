@@ -5,8 +5,6 @@ import cn.hutool.crypto.SecureUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.boot.system.ApplicationHome;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
@@ -81,15 +79,6 @@ public class CommonUtil {
 	}
 
 	/**
-	 * 获取当前线程对应的 HttpServletRequest 对象
-	 *
-	 * @return r
-	 */
-	public static HttpServletRequest getCurrentRequest() {
-		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-	}
-
-	/**
 	 * 获取指定 JoinPoint 对象上的指定注解对象
 	 *
 	 * @param joinPoint       joinPoint
@@ -105,21 +94,5 @@ public class CommonUtil {
 
 	public static void main(String[] args) {
 		System.out.println(encryptedPassword("admin", "123456"));
-	}
-
-	/**
-	 * 获取异常信息字符串
-	 *
-	 * @param e e
-	 * @return r
-	 */
-	public static String getExceptionStr(Throwable e) {
-		StackTraceElement[] stackTrace = e.getStackTrace();
-		StringBuilder str = new StringBuilder(e.toString() + "\n");
-		for (StackTraceElement t : stackTrace) {
-			str.append("\t" + "at ").append(t.getClassName()).append(".").append(t.getMethodName())
-					.append("(").append(t.getFileName()).append(":").append(t.getLineNumber()).append(")").append("\n");
-		}
-		return str.toString();
 	}
 }
