@@ -32,23 +32,23 @@ public class Generate {
 		List<TemplateBO> list = new ArrayList<>();
 
 
-		TemplateBO templateBO1 = new TemplateBO();
-		templateBO1.setTableName("sys_project"); // 表名
-		templateBO1.setTableNameHump("Project"); // 去掉前缀转驼峰，并大写首字母
-		templateBO1.setTableNameHumpLetter("project"); // 去掉前缀转驼峰，并小写首字母
-		templateBO1.setTableComment("项目"); // 表注释并去掉最后的"表"字
-		templateBO1.setSubPackageName("sys"); // 所属子包名
+		TemplateBO templateBO = new TemplateBO();
+		templateBO.setTableName("sys_project"); // 表名
+		templateBO.setTableNameHump("Project"); // 去掉前缀转驼峰，并大写首字母
+		templateBO.setTableNameHumpLetter("project"); // 去掉前缀转驼峰，并小写首字母
+		templateBO.setTableComment("项目"); // 表注释并去掉最后的"表"字
+		templateBO.setSubPackageName("sys"); // 所属子包名
 		// 指定生成文件所在的目录
-		templateBO1.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
+		templateBO.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
 		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
-		templateBO1.setType(3);
+		templateBO.setType(3);
 
-		templateBO1.setBasePackageName("com.keqi.knife4j");
-		templateBO1.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		templateBO1.setUrl("jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
-		templateBO1.setUsername("root");
-		templateBO1.setPassword("123456");
-		list.add(templateBO1);
+		templateBO.setBasePackageName("com.keqi.knife4j");
+		templateBO.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		templateBO.setUrl("jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
+		templateBO.setUsername("root");
+		templateBO.setPassword("123456");
+		list.add(templateBO);
 
 
 		for (TemplateBO t : list) {
