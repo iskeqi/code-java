@@ -11,4 +11,8 @@
     </#if>
 </#list>
     </resultMap>
+
+    <sql id="Base_Column_List">
+
+    </sql>
 </mapper>

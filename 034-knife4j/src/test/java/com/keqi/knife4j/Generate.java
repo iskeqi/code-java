@@ -29,34 +29,45 @@ public class Generate {
 
 	public static void main(String[] args) throws Exception {
 		Generate generate = new Generate();
-		generate.test();
+		List<TemplateBO> list = new ArrayList<>();
+
+
+		TemplateBO templateBO1 = new TemplateBO();
+		templateBO1.setTableName("sys_project"); // 表名
+		templateBO1.setTableNameHump("Project"); // 去掉前缀转驼峰，并大写首字母
+		templateBO1.setTableNameHumpLetter("project"); // 去掉前缀转驼峰，并小写首字母
+		templateBO1.setTableComment("项目"); // 表注释并去掉最后的"表"字
+		templateBO1.setSubPackageName("sys"); // 所属子包名
+		// 指定生成文件所在的目录
+		templateBO1.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
+		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
+		templateBO1.setType(1);
+
+		templateBO1.setBasePackageName("com.keqi.knife4j");
+		templateBO1.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		templateBO1.setUrl("jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
+		templateBO1.setUsername("root");
+		templateBO1.setPassword("123456");
+		list.add(templateBO1);
+
+
+		for (TemplateBO t : list) {
+			generate.test(t);
+		}
 	}
 
-	public void test() throws Exception {
-		TemplateBO templateBO = new TemplateBO();
-
-		// 需要选择性修改的表
-		templateBO.setTableName("sys_project");
-		templateBO.setTableNameHump("Project"); // 去掉前缀转驼峰，并大写首字母
-		templateBO.setTableNameHumpLetter("project"); // 去掉前缀转驼峰，并小写首字母
-		templateBO.setTableComment("项目");
-		templateBO.setSubPackageName("sys");
-
-		templateBO.setBasePackageName("com.keqi.knife4j");
-
-		String path = "E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys";
-
-		String driverClassName = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true";
-		String username = "root";
-		String password = "123456";
-
+	/**
+	 * 生成代码
+	 *
+	 * @throws Exception exception
+	 */
+	public void test(TemplateBO templateBO) throws Exception {
 		//================================读数据库获取表的字段以及注释等信息================================//
-		Class.forName(driverClassName);
-		Connection connection = DriverManager.getConnection(url, username, password);
+		Class.forName(templateBO.getDriverClassName());
+		Connection connection = DriverManager.getConnection(templateBO.getUrl(), templateBO.getUsername(), templateBO.getPassword());
 		DatabaseMetaData metaData = connection.getMetaData();
 		// 从 url 中截取到 DB 名称（示例：jdbc:mysql://10.10.20.200:3306/api-hu?useUnicode=true）
-		String dbName = url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
+		String dbName = templateBO.getUrl().substring(templateBO.getUrl().lastIndexOf('/') + 1, templateBO.getUrl().indexOf('?'));
 		// catalog 参数指的是 DB 名称，如果不指定，则会把 DBMS 中的所有 DB 的所有表都读取出来
 		ResultSet tables = metaData.getTables(dbName, null, templateBO.getTableName(), new String[]{"TABLE"});
 		// 遍历所有表
@@ -98,6 +109,9 @@ public class Generate {
 			t.setColumnTypeJava(typeMap.get(columnType));
 			t.setColumnNameHumpLetter(StrUtil.toCamelCase(columnName));
 		}
+		if (templateBO.getType() == 1) {
+			templateBO.setPageFlag(true);
+		}
 		Map<String, Object> obj = BeanUtil.beanToMap(templateBO);
 		List<Map<String, Object>> columnList = new ArrayList<>();
 		for (ColumnBO t : templateBO.getColumnList()) {
@@ -114,49 +128,53 @@ public class Generate {
 				ResourceUtils.getURL("classpath:").getPath() + "/ftl"));
 
 		// xxxDO.java
-		File doFile = new File(path + "/domain/db", templateBO.getTableNameHump() + "DO.java");
+		File doFile = new File(templateBO.getPath() + "/domain/db", templateBO.getTableNameHump() + "DO.java");
 		Template doTemplate = configuration.getTemplate("domain/db/do.ftl");
 		doTemplate.process(obj, new FileWriter(doFile));
 
 		// xxxMapper.java
-		File mapperFile = new File(path + "/mapper", templateBO.getTableNameHump() + "Mapper.java");
+		File mapperFile = new File(templateBO.getPath() + "/mapper", templateBO.getTableNameHump() + "Mapper.java");
 		Template mapperTemplate = configuration.getTemplate("mapper/mapper.ftl");
 		mapperTemplate.process(obj, new FileWriter(mapperFile));
 
 		// xxxMapper.xml
-		File mapperXMLFile = new File(path + "/mapper", templateBO.getTableNameHump() + "Mapper.xml");
+		File mapperXMLFile = new File(templateBO.getPath() + "/mapper", templateBO.getTableNameHump() + "Mapper.xml");
 		Template mapperXMLTemplate = configuration.getTemplate("mapper/mapper_xml.ftl");
 		mapperXMLTemplate.process(obj, new FileWriter(mapperXMLFile));
 
-		// xxxParam.java
-		File paramFile = new File(path + "/domain/param", templateBO.getTableNameHump() + "Param.java");
-		Template paramTemplate = configuration.getTemplate("domain/param/param.ftl");
-		paramTemplate.process(obj, new FileWriter(paramFile));
+		if (templateBO.getType() == 1 || templateBO.getType() == 2) {
+			// xxxParam.java
+			File paramFile = new File(templateBO.getPath() + "/domain/param", templateBO.getTableNameHump() + "Param.java");
+			Template paramTemplate = configuration.getTemplate("domain/param/param.ftl");
+			paramTemplate.process(obj, new FileWriter(paramFile));
 
-		// xxxPageParam.java
-		File pageParamFile = new File(path + "/domain/param", templateBO.getTableNameHump() + "PageParam.java");
-		Template pageParamTemplate = configuration.getTemplate("domain/param/pageParam.ftl");
-		pageParamTemplate.process(obj, new FileWriter(pageParamFile));
+			// xxxVO.java
+			File voFile = new File(templateBO.getPath() + "/domain/vo", templateBO.getTableNameHump() + "VO.java");
+			Template voTemplate = configuration.getTemplate("domain/vo/vo.ftl");
+			voTemplate.process(obj, new FileWriter(voFile));
+		}
 
-		// xxxVO.java
-		File voFile = new File(path + "/domain/vo", templateBO.getTableNameHump() + "VO.java");
-		Template voTemplate = configuration.getTemplate("domain/vo/vo.ftl");
-		voTemplate.process(obj, new FileWriter(voFile));
+		if (templateBO.getType() == 1) {
+			// xxxPageParam.java
+			File pageParamFile = new File(templateBO.getPath() + "/domain/param", templateBO.getTableNameHump() + "PageParam.java");
+			Template pageParamTemplate = configuration.getTemplate("domain/param/pageParam.ftl");
+			pageParamTemplate.process(obj, new FileWriter(pageParamFile));
 
-		// xxxControler.java
-		File controllerFile = new File(path + "/controller", templateBO.getTableNameHump() + "Controller.java");
-		Template controllerTemplate = configuration.getTemplate("controller/controller.ftl");
-		controllerTemplate.process(obj, new FileWriter(controllerFile));
+			// xxxControler.java
+			File controllerFile = new File(templateBO.getPath() + "/controller", templateBO.getTableNameHump() + "Controller.java");
+			Template controllerTemplate = configuration.getTemplate("controller/controller.ftl");
+			controllerTemplate.process(obj, new FileWriter(controllerFile));
 
-		// xxxService.java
-		File serviceFile = new File(path + "/service", templateBO.getTableNameHump() + "Service.java");
-		Template serviceTemplate = configuration.getTemplate("service/service.ftl");
-		serviceTemplate.process(obj, new FileWriter(serviceFile));
+			// xxxService.java
+			File serviceFile = new File(templateBO.getPath() + "/service", templateBO.getTableNameHump() + "Service.java");
+			Template serviceTemplate = configuration.getTemplate("service/service.ftl");
+			serviceTemplate.process(obj, new FileWriter(serviceFile));
 
-		// xxxServiceImpl.java
-		File serviceImplFile = new File(path + "/service/impl", templateBO.getTableNameHump() + "ServiceImpl.java");
-		Template serviceImplTemplate = configuration.getTemplate("service/impl/serviceImpl.ftl");
-		serviceImplTemplate.process(obj, new FileWriter(serviceImplFile));
+			// xxxServiceImpl.java
+			File serviceImplFile = new File(templateBO.getPath() + "/service/impl", templateBO.getTableNameHump() + "ServiceImpl.java");
+			Template serviceImplTemplate = configuration.getTemplate("service/impl/serviceImpl.ftl");
+			serviceImplTemplate.process(obj, new FileWriter(serviceImplFile));
+		}
 	}
 
 	@Data
@@ -190,6 +208,27 @@ public class Generate {
 
 		// 是否包含了BigDecimal类型的属性
 		private Boolean hasBigDecimal;
+
+		// 是否需要在Mapper中生成分页信息
+		private Boolean pageFlag;
+
+		// 类型
+		private Integer type;
+
+		// 驱动名称
+		private String driverClassName;
+
+		// 数据库连接URL
+		private String url;
+
+		// 用户名
+		private String username;
+
+		// 密码
+		private String password;
+
+		// path
+		private String path;
 
 		// 表中的多个列
 		private List<ColumnBO> columnList;
