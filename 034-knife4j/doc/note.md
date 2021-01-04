@@ -2,7 +2,8 @@
 
 ## 待做事项
 
-- 使用 freemarker 模板一键生成 controller/service/domain/mapper 文件，更加的省事
+- 防止重复提交
+- 防止XSS攻击
 
 ## 部署说明
 
