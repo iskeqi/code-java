@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface ${tableNameHump}Mapper extends BaseMapper<${tableNameHump}DO> {
 
-<#if pageFlag ??>
+<#if pageFlag == true>
 	/**
      * 分页查询${tableComment}列表
      *

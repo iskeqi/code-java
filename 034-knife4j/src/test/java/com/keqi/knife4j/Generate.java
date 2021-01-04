@@ -41,7 +41,7 @@ public class Generate {
 		// 指定生成文件所在的目录
 		templateBO1.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
 		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
-		templateBO1.setType(1);
+		templateBO1.setType(3);
 
 		templateBO1.setBasePackageName("com.keqi.knife4j");
 		templateBO1.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -109,9 +109,7 @@ public class Generate {
 			t.setColumnTypeJava(typeMap.get(columnType));
 			t.setColumnNameHumpLetter(StrUtil.toCamelCase(columnName));
 		}
-		if (templateBO.getType() == 1) {
-			templateBO.setPageFlag(true);
-		}
+		templateBO.setPageFlag(templateBO.getType() == 1);
 		Map<String, Object> obj = BeanUtil.beanToMap(templateBO);
 		List<Map<String, Object>> columnList = new ArrayList<>();
 		for (ColumnBO t : templateBO.getColumnList()) {

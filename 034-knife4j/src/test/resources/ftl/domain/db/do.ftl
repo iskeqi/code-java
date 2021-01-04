@@ -21,12 +21,22 @@ import java.time.LocalDate;
 /**
  * ${tableComment}表
  */
+<#if pageFlag == true>
 @EqualsAndHashCode(callSuper = true)
+</#if>
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "${tableName}")
-public class ${tableNameHump}DO extends BaseDO {
+public class ${tableNameHump}DO <#if pageFlag == true> extends BaseDO </#if>{
+
+<#if pageFlag == false>
+	/**
+	 * ${tableComment}ID
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
+</#if>
 
 <#list columnList as column>
 <#if column.columnNameHumpLetter != "id" && column.columnNameHumpLetter != "createTime" && column.columnNameHumpLetter != "updateTime">
@@ -36,6 +46,20 @@ public class ${tableNameHump}DO extends BaseDO {
 	@TableField(value = "${column.columnName}")
 	private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
+<#elseif pageFlag == false && column.columnNameHumpLetter == "createTime">
+	/**
+	 * ${column.columnComment}
+	 */
+	@TableField(value = "${column.columnName}")
+	private LocalDateTime createTime;
+
+<#elseif pageFlag == false && column.columnNameHumpLetter == "updateTime">
+	/**
+	 * ${column.columnComment}
+	 */
+	@TableField(value = "${column.columnName}")
+	private LocalDateTime updateTime;
 </#if>
 </#list>
+
 }
