@@ -5,12 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.keqi</groupId>
-    <artifactId>hutool</artifactId>
+    <artifactId>008-hutool</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>hutool-core</module>
+        <module>hutool-http</module>
     </modules>
 
     <properties>
