@@ -1,4 +1,4 @@
-package ${packageName}.domain.vo;
+package ${basePackageName}.${subPackageName}.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class ${tableNameHump}VO {
 
 <#list columnList as column>
     @ApiModelProperty(value = "${column.columnComment}", example = "", required = true)
-    private ${column.columnTypeJava} ${column.columnNameHump};
+    private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
 </#list>
 }

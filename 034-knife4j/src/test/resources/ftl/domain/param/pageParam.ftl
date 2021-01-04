@@ -1,4 +1,4 @@
-package ${packageName}.domain.param;
+package ${basePackageName}.${subPackageName}.domain.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

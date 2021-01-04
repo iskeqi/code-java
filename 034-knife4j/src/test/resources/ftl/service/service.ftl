@@ -1,9 +1,9 @@
-package ${packageName}.service;
+package ${basePackageName}.${subPackageName}.service;
 
 import ${basePackageName}.core.pojo.PageVO;
-import ${packageName}.domain.param.${tableNameHump}PageParam;
-import ${packageName}.domain.param.${tableNameHump}Param;
-import ${packageName}.domain.vo.${tableNameHump}VO;
+import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}PageParam;
+import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}Param;
+import ${basePackageName}.${subPackageName}.domain.vo.${tableNameHump}VO;
 
 public interface ${tableNameHump}Service {
 

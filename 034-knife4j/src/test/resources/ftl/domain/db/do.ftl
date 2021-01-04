@@ -1,4 +1,4 @@
-package ${packageName}.domain.db;
+package ${basePackageName}.${subPackageName}.domain.db;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -29,12 +29,12 @@ import java.time.LocalDate;
 public class ${tableNameHump}DO extends BaseDO {
 
 <#list columnList as column>
-<#if column.columnNameHump != "id" && column.columnNameHump != "createTime" && column.columnNameHump != "updateTime">
+<#if column.columnNameHumpLetter != "id" && column.columnNameHumpLetter != "createTime" && column.columnNameHumpLetter != "updateTime">
 	/**
 	 * ${column.columnComment}
 	 */
 	@TableField(value = "${column.columnName}")
-	private ${column.columnTypeJava} ${column.columnNameHump};
+	private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
 </#if>
 </#list>

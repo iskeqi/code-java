@@ -1,12 +1,12 @@
-package ${packageName}.controller;
+package ${basePackageName}.${subPackageName}.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
-import com.keqi.knife4j.core.pojo.PageVO;
-import ${packageName}.domain.param.${tableNameHump}PageParam;
-import ${packageName}.domain.param.${tableNameHump}Param;
-import ${packageName}.domain.vo.${tableNameHump}VO;
-import ${packageName}.service.${tableNameHump}Service;
+import ${basePackageName}.core.pojo.PageVO;
+import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}PageParam;
+import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}Param;
+import ${basePackageName}.${subPackageName}.domain.vo.${tableNameHump}VO;
+import ${basePackageName}.${subPackageName}.service.${tableNameHump}Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package ${packageName}.domain.param;
+package ${basePackageName}.${subPackageName}.domain.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class ${tableNameHump}Param {
 
 <#list columnList as column>
     @ApiModelProperty(value = "${column.columnComment}", example = "", required = true)
-    private ${column.columnTypeJava} ${column.columnNameHump};
+    private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
 </#list>
 }

@@ -1,13 +1,13 @@
-package ${packageName}.service.impl;
+package ${basePackageName}.${subPackageName}.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${basePackageName}.core.pojo.PageVO;
-import ${packageName}.domain.param.${tableNameHump}PageParam;
-import ${packageName}.domain.param.${tableNameHump}Param;
-import ${packageName}.domain.vo.${tableNameHump}VO;
-import ${packageName}.mapper.${tableNameHump}Mapper;
-import ${packageName}.service.${tableNameHump}Service;
+import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}PageParam;
+import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}Param;
+import ${basePackageName}.${subPackageName}.domain.vo.${tableNameHump}VO;
+import ${basePackageName}.${subPackageName}.mapper.${tableNameHump}Mapper;
+import ${basePackageName}.${subPackageName}.service.${tableNameHump}Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,7 +59,9 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	 */
 	@Override
 	public PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam pageParam) {
+		Page<${tableNameHump}VO> page = new Page<>(pageParam.getCurrent(), pageParam.getSize());
+		IPage<${tableNameHump}VO> result = this.${tableNameHumpLetter}Mapper.page(page, pageParam);
 
-		return null;
+		return new PageVO<>(result.getTotal(), result.getRecords());
 	}
 }
