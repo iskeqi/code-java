@@ -1,6 +1,7 @@
 package com.keqi.knife4j.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,11 +12,13 @@ import com.keqi.knife4j.core.pojo.PageVO;
 import com.keqi.knife4j.core.util.CommonUtil;
 import com.keqi.knife4j.core.util.JwtUtil;
 import com.keqi.knife4j.sys.domain.db.AccountDO;
+import com.keqi.knife4j.sys.domain.db.AccountRoleDO;
 import com.keqi.knife4j.sys.domain.param.AccountPageParam;
 import com.keqi.knife4j.sys.domain.param.AccountParam;
 import com.keqi.knife4j.sys.domain.vo.AccountVO;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.mapper.AccountMapper;
+import com.keqi.knife4j.sys.mapper.AccountRoleMapper;
 import com.keqi.knife4j.sys.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -30,6 +35,7 @@ import java.util.Objects;
 public class AccountServiceImpl implements AccountService {
 
 	private final AccountMapper accountMapper;
+	private final AccountRoleMapper accountRoleMapper;
 
 	/**
 	 * 登录
@@ -69,12 +75,24 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public void insert(AccountParam accountParam) {
+		// 新增用户记录
 		AccountDO accountDO = new AccountDO();
 		BeanUtil.copyProperties(accountParam, accountDO);
-
 		accountDO.setPassword(CommonUtil.encryptedPassword(accountDO.getAccount(), accountDO.getPassword()));
-
 		this.accountMapper.insert(accountDO);
+
+		// 新增用户-角色关联记录
+		List<Long> roleIdList = accountParam.getRoleIdList();
+		if (CollUtil.isNotEmpty(roleIdList)) {
+			List<AccountRoleDO> list = new ArrayList<>();
+			for (Long roleId : roleIdList) {
+				AccountRoleDO t = new AccountRoleDO();
+				t.setRoleId(roleId);
+				t.setAccountId(accountDO.getId());
+				list.add(t);
+			}
+			this.accountRoleMapper.insertList(list);
+		}
 	}
 
 	/**
@@ -107,11 +125,25 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public void updateById(AccountParam accountParam) {
-
+		// 修改用户记录
 		AccountDO accountDO = new AccountDO();
 		BeanUtil.copyProperties(accountParam, accountDO);
-
 		this.accountMapper.updateById(accountDO);
+
+		// 新增用户-角色关联记录
+		List<Long> roleIdList = accountParam.getRoleIdList();
+		if (CollUtil.isNotEmpty(roleIdList)) {
+			this.accountRoleMapper.deleteByAccountId(accountParam.getId());
+
+			List<AccountRoleDO> list = new ArrayList<>();
+			for (Long roleId : roleIdList) {
+				AccountRoleDO t = new AccountRoleDO();
+				t.setRoleId(roleId);
+				t.setAccountId(accountParam.getId());
+				list.add(t);
+			}
+			this.accountRoleMapper.insertList(list);
+		}
 	}
 
 	/**
@@ -122,6 +154,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
+		this.accountRoleMapper.deleteByAccountId(id);
 		this.accountMapper.deleteById(id);
 	}
 
