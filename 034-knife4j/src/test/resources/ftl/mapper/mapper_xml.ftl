@@ -11,7 +11,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-
+        <!--@mbg.generated-->
     </sql>
 
 <#if pageFlag == true>

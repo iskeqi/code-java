@@ -29,7 +29,20 @@
     <update id="updatePasswordById">
         update sys_account
         set `password`=#{newPassword},
-        update_time=now()
+            update_time=now()
         where id = #{id}
     </update>
+
+    <resultMap id="AccountVO" type="com.keqi.knife4j.sys.domain.vo.AccountVO">
+        <id column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="post" property="post"/>
+    </resultMap>
+    <select id="page" resultMap="AccountVO">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account
+        order by update_time desc
+    </select>
 </mapper>

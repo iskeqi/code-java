@@ -2,13 +2,18 @@ package com.keqi.knife4j.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.keqi.knife4j.core.auth.Auth;
 import com.keqi.knife4j.core.auth.LoginUserBO;
 import com.keqi.knife4j.core.exception.BusinessException;
+import com.keqi.knife4j.core.pojo.PageVO;
 import com.keqi.knife4j.core.util.CommonUtil;
 import com.keqi.knife4j.core.util.JwtUtil;
 import com.keqi.knife4j.sys.domain.db.AccountDO;
+import com.keqi.knife4j.sys.domain.param.AccountPageParam;
 import com.keqi.knife4j.sys.domain.param.AccountParam;
+import com.keqi.knife4j.sys.domain.vo.AccountVO;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.mapper.AccountMapper;
 import com.keqi.knife4j.sys.service.AccountService;
@@ -92,5 +97,45 @@ public class AccountServiceImpl implements AccountService {
 		} else {
 			throw new BusinessException("请输入正确的密码");
 		}
+	}
+
+	/**
+	 * 根据ID修改用户
+	 *
+	 * @param accountParam accountParam
+	 */
+	@Override
+	@Transactional
+	public void updateById(AccountParam accountParam) {
+
+		AccountDO accountDO = new AccountDO();
+		BeanUtil.copyProperties(accountParam, accountDO);
+
+		this.accountMapper.updateById(accountDO);
+	}
+
+	/**
+	 * 根据ID删除用户
+	 *
+	 * @param id id
+	 */
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		this.accountMapper.deleteById(id);
+	}
+
+	/**
+	 * 分页查询用户列表
+	 *
+	 * @param pageParam pageParam
+	 * @return r
+	 */
+	@Override
+	public PageVO<AccountVO> page(AccountPageParam pageParam) {
+		Page<AccountVO> page = new Page<>(pageParam.getCurrent(), pageParam.getSize());
+		IPage<AccountVO> result = this.accountMapper.page(page, pageParam);
+
+		return new PageVO<>(result.getTotal(), result.getRecords());
 	}
 }

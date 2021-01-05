@@ -27,6 +27,4 @@ public class AccountRoleDO {
 	 */
 	@TableField(value = "role_id")
 	private Long roleId;
-
-
 }

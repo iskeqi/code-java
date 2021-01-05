@@ -27,6 +27,4 @@ public class RoleMenuDO {
 	 */
 	@TableField(value = "menu_id")
 	private Long menuId;
-
-
 }

@@ -1,7 +1,11 @@
 package com.keqi.knife4j.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.keqi.knife4j.sys.domain.db.AccountDO;
+import com.keqi.knife4j.sys.domain.param.AccountPageParam;
+import com.keqi.knife4j.sys.domain.vo.AccountVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface AccountMapper extends BaseMapper<AccountDO> {
@@ -23,5 +27,12 @@ public interface AccountMapper extends BaseMapper<AccountDO> {
 	 */
 	int updatePasswordById(@Param("newPassword") String newPassword, @Param("id") Long id);
 
-
+	/**
+	 * 分页查询用户列表
+	 *
+	 * @param page      page
+	 * @param pageParam pageParam
+	 * @return r
+	 */
+	IPage<AccountVO> page(@Param("page") Page<AccountVO> page, @Param("pageParam") AccountPageParam pageParam);
 }
