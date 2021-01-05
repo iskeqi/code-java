@@ -33,15 +33,15 @@ public class Generate {
 
 
 		TemplateBO templateBO = new TemplateBO();
-		templateBO.setTableName("sys_project"); // 表名
-		templateBO.setTableNameHump("Project"); // 去掉前缀转驼峰，并大写首字母
-		templateBO.setTableNameHumpLetter("project"); // 去掉前缀转驼峰，并小写首字母
-		templateBO.setTableComment("项目"); // 表注释并去掉最后的"表"字
+		templateBO.setTableName("sys_role"); // 表名
+		templateBO.setTableNameHump("Role"); // 去掉前缀转驼峰，并大写首字母
+		templateBO.setTableNameHumpLetter("role"); // 去掉前缀转驼峰，并小写首字母
+		templateBO.setTableComment("角色"); // 表注释并去掉最后的"表"字
 		templateBO.setSubPackageName("sys"); // 所属子包名
 		// 指定生成文件所在的目录
 		templateBO.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
 		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
-		templateBO.setType(3);
+		templateBO.setType(1);
 
 		templateBO.setBasePackageName("com.keqi.knife4j");
 		templateBO.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -50,6 +50,60 @@ public class Generate {
 		templateBO.setPassword("123456");
 		list.add(templateBO);
 
+
+		TemplateBO templateBO1 = new TemplateBO();
+		templateBO1.setTableName("sys_menu"); // 表名
+		templateBO1.setTableNameHump("Menu"); // 去掉前缀转驼峰，并大写首字母
+		templateBO1.setTableNameHumpLetter("menu"); // 去掉前缀转驼峰，并小写首字母
+		templateBO1.setTableComment("菜单"); // 表注释并去掉最后的"表"字
+		templateBO1.setSubPackageName("sys"); // 所属子包名
+		// 指定生成文件所在的目录
+		templateBO1.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
+		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
+		templateBO1.setType(1);
+
+		templateBO1.setBasePackageName("com.keqi.knife4j");
+		templateBO1.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		templateBO1.setUrl("jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
+		templateBO1.setUsername("root");
+		templateBO1.setPassword("123456");
+		list.add(templateBO1);
+
+		TemplateBO templateBO2 = new TemplateBO();
+		templateBO2.setTableName("sys_role_menu"); // 表名
+		templateBO2.setTableNameHump("RoleMenu"); // 去掉前缀转驼峰，并大写首字母
+		templateBO2.setTableNameHumpLetter("roleMenu"); // 去掉前缀转驼峰，并小写首字母
+		templateBO2.setTableComment("角色-菜单"); // 表注释并去掉最后的"表"字
+		templateBO2.setSubPackageName("sys"); // 所属子包名
+		// 指定生成文件所在的目录
+		templateBO2.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
+		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
+		templateBO2.setType(3);
+
+		templateBO2.setBasePackageName("com.keqi.knife4j");
+		templateBO2.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		templateBO2.setUrl("jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
+		templateBO2.setUsername("root");
+		templateBO2.setPassword("123456");
+		list.add(templateBO2);
+
+		TemplateBO templateBO3 = new TemplateBO();
+		templateBO3.setTableName("sys_account_role"); // 表名
+		templateBO3.setTableNameHump("AccountRole"); // 去掉前缀转驼峰，并大写首字母
+		templateBO3.setTableNameHumpLetter("accountRole"); // 去掉前缀转驼峰，并小写首字母
+		templateBO3.setTableComment("用户-角色"); // 表注释并去掉最后的"表"字
+		templateBO3.setSubPackageName("sys"); // 所属子包名
+		// 指定生成文件所在的目录
+		templateBO3.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
+		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
+		templateBO3.setType(3);
+
+		templateBO3.setBasePackageName("com.keqi.knife4j");
+		templateBO3.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		templateBO3.setUrl("jdbc:mysql://120.25.26.123:3306/knife4j?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
+		templateBO3.setUsername("root");
+		templateBO3.setPassword("123456");
+		list.add(templateBO3);
 
 		for (TemplateBO t : list) {
 			generate.test(t);

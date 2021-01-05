@@ -39,27 +39,27 @@ public class ${tableNameHump}DO <#if pageFlag == true> extends BaseDO </#if>{
 </#if>
 
 <#list columnList as column>
-<#if column.columnNameHumpLetter != "id" && column.columnNameHumpLetter != "createTime" && column.columnNameHumpLetter != "updateTime">
+    <#if column.columnNameHumpLetter != "id" && column.columnNameHumpLetter != "createTime" && column.columnNameHumpLetter != "updateTime">
 	/**
 	 * ${column.columnComment}
 	 */
 	@TableField(value = "${column.columnName}")
 	private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
-<#elseif pageFlag == false && column.columnNameHumpLetter == "createTime">
+    <#elseif pageFlag == false && column.columnNameHumpLetter == "createTime">
 	/**
 	 * ${column.columnComment}
 	 */
 	@TableField(value = "${column.columnName}")
 	private LocalDateTime createTime;
 
-<#elseif pageFlag == false && column.columnNameHumpLetter == "updateTime">
+    <#elseif pageFlag == false && column.columnNameHumpLetter == "updateTime">
 	/**
 	 * ${column.columnComment}
 	 */
 	@TableField(value = "${column.columnName}")
 	private LocalDateTime updateTime;
-</#if>
+    </#if>
 </#list>
 
 }

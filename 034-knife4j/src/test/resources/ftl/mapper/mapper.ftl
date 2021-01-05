@@ -13,11 +13,11 @@ public interface ${tableNameHump}Mapper extends BaseMapper<${tableNameHump}DO> {
 
 <#if pageFlag == true>
 	/**
-     * 分页查询${tableComment}列表
-     *
-     * @param pageParam pageParam
-     * @return r
-     */
+	 * 分页查询${tableComment}列表
+	 *
+	 * @param pageParam pageParam
+	 * @return r
+	 */
 	IPage<${tableNameHump}VO> page(@Param("page") IPage<${tableNameHump}VO> page, @Param("pageParam") ${tableNameHump}PageParam pageParam);
 </#if>
 
