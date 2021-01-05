@@ -17,18 +17,6 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,
-        name,
-        url,
-        icon,
-        type,
-        permiss,
-        order_num,
-        parent_id,
-        create_time,
-        update_time
+        id, name, url, icon, type, permiss, order_num, parent_id, create_time, update_time
     </sql>
-
-    <select id="page" resultType="com.keqi.knife4j.sys.domain.vo.MenuVO">
-    </select>
 </mapper>

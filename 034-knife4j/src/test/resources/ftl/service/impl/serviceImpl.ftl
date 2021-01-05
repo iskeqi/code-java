@@ -1,8 +1,10 @@
 package ${basePackageName}.${subPackageName}.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${basePackageName}.core.pojo.PageVO;
+import ${basePackageName}.${subPackageName}.domain.db.${tableNameHump}DO;
 import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}PageParam;
 import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}Param;
 import ${basePackageName}.${subPackageName}.domain.vo.${tableNameHump}VO;
@@ -26,7 +28,10 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	@Override
 	@Transactional
 	public void insert(${tableNameHump}Param ${tableNameHumpLetter}Param) {
+		${tableNameHump}DO t = new ${tableNameHump}DO();
+		BeanUtil.copyProperties(${tableNameHumpLetter}Param, t);
 
+		this.${tableNameHumpLetter}Mapper.insert(t);
 	}
 
 	/**
@@ -37,7 +42,10 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	@Override
 	@Transactional
 	public void updateById(${tableNameHump}Param ${tableNameHumpLetter}Param) {
+		${tableNameHump}DO t = new ${tableNameHump}DO();
+		BeanUtil.copyProperties(${tableNameHumpLetter}Param, t);
 
+		this.${tableNameHumpLetter}Mapper.updateById(t);
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
-
+		this.${tableNameHumpLetter}Mapper.deleteById(id);
 	}
 
 	/**

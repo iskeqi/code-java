@@ -1,8 +1,10 @@
 package com.keqi.knife4j.sys.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.keqi.knife4j.core.pojo.PageVO;
+import com.keqi.knife4j.sys.domain.db.RoleDO;
 import com.keqi.knife4j.sys.domain.param.RolePageParam;
 import com.keqi.knife4j.sys.domain.param.RoleParam;
 import com.keqi.knife4j.sys.domain.vo.RoleVO;
@@ -26,7 +28,10 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	@Transactional
 	public void insert(RoleParam roleParam) {
+		RoleDO t = new RoleDO();
+		BeanUtil.copyProperties(roleParam, t);
 
+		this.roleMapper.insert(t);
 	}
 
 	/**
@@ -37,7 +42,10 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	@Transactional
 	public void updateById(RoleParam roleParam) {
+		RoleDO t = new RoleDO();
+		BeanUtil.copyProperties(roleParam, t);
 
+		this.roleMapper.updateById(t);
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
-
+		this.roleMapper.deleteById(id);
 	}
 
 	/**

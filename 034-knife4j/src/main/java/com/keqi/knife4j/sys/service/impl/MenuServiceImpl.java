@@ -1,11 +1,8 @@
 package com.keqi.knife4j.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.keqi.knife4j.core.pojo.PageVO;
-import com.keqi.knife4j.sys.domain.param.MenuPageParam;
+import cn.hutool.core.bean.BeanUtil;
+import com.keqi.knife4j.sys.domain.db.MenuDO;
 import com.keqi.knife4j.sys.domain.param.MenuParam;
-import com.keqi.knife4j.sys.domain.vo.MenuVO;
 import com.keqi.knife4j.sys.mapper.MenuMapper;
 import com.keqi.knife4j.sys.service.MenuService;
 import lombok.AllArgsConstructor;
@@ -26,7 +23,10 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	@Transactional
 	public void insert(MenuParam menuParam) {
+		MenuDO t = new MenuDO();
+		BeanUtil.copyProperties(menuParam, t);
 
+		this.menuMapper.insert(t);
 	}
 
 	/**
@@ -37,7 +37,10 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	@Transactional
 	public void updateById(MenuParam menuParam) {
+		MenuDO t = new MenuDO();
+		BeanUtil.copyProperties(menuParam, t);
 
+		this.menuMapper.updateById(t);
 	}
 
 	/**
@@ -48,20 +51,7 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
-
+		this.menuMapper.deleteById(id);
 	}
 
-	/**
-	 * 分页查询菜单列表
-	 *
-	 * @param pageParam pageParam
-	 * @return r
-	 */
-	@Override
-	public PageVO<MenuVO> page(MenuPageParam pageParam) {
-		Page<MenuVO> page = new Page<>(pageParam.getCurrent(), pageParam.getSize());
-		IPage<MenuVO> result = this.menuMapper.page(page, pageParam);
-
-		return new PageVO<>(result.getTotal(), result.getRecords());
-	}
 }
