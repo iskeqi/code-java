@@ -83,12 +83,22 @@ public class GlobalExceptionHandler {
 	/**
 	 * 自定义异常
 	 *
-	 * @param exception BusinessException
+	 * @param e BusinessException
 	 * @return r
 	 */
 	@ExceptionHandler(value = BusinessException.class)
-	public ResultEntity jsonErrorHandler(BusinessException exception) {
-		return ResultEntityBuilder.failure(exception.getMessage());
+	public ResultEntity jsonErrorHandler(BusinessException e) {
+		return ResultEntityBuilder.failure(e.getMessage());
+	}
+
+	/**
+	 * 未登录异常
+	 *
+	 * @return r
+	 */
+	@ExceptionHandler(value = NoAuthException.class)
+	public ResultEntity jsonErrorHandler() {
+		return ResultEntityBuilder.noAuth();
 	}
 
 	/**

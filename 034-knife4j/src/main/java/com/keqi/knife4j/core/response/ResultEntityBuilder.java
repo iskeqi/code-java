@@ -52,29 +52,10 @@ public class ResultEntityBuilder {
 	/**
 	 * 操作失败
 	 *
-	 * @return r
-	 */
-	public static ResultEntity failure() {
-		return new ResultEntity(failureCode, failureMsg, null);
-	}
-
-	/**
-	 * 操作失败
-	 *
 	 * @param msg msg
 	 * @return r
 	 */
 	public static ResultEntity failure(String msg) {
 		return new ResultEntity(failureCode, msg, null);
-	}
-
-	/**
-	 * 操作失败
-	 *
-	 * @param throwable throwable
-	 * @return r
-	 */
-	public static ResultEntity failure(Throwable throwable) {
-		return new ResultEntity(failureCode, failureMsg, throwable);
 	}
 }

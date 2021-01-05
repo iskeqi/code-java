@@ -2,7 +2,7 @@ package com.keqi.knife4j.core.interceptor;
 
 import com.keqi.knife4j.core.auth.Auth;
 import com.keqi.knife4j.core.auth.LoginUserBO;
-import com.keqi.knife4j.core.exception.BusinessException;
+import com.keqi.knife4j.core.exception.NoAuthException;
 import com.keqi.knife4j.core.pojo.CommonConstant;
 import com.keqi.knife4j.core.util.JwtUtil;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 			Auth.setLoginUserBO(loginUserBO);
 			return true;
 		} else {
-			throw new BusinessException("当前操作用户未登录");
+			throw new NoAuthException();
 		}
 	}
 
