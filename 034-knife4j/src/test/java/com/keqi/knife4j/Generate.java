@@ -41,6 +41,8 @@ public class Generate {
 		templateBO.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
 		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
 		templateBO.setType(1);
+		// controller 在 swagger 中的排序
+		templateBO.setSort(7);
 
 		templateBO.setBasePackageName("com.keqi.knife4j");
 		templateBO.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -229,6 +231,8 @@ public class Generate {
 		// 表中的多个列
 		private List<ColumnBO> columnList;
 
+		// controller 在 swagger 中的排序
+		private Integer sort;
 	}
 
 	@Data
