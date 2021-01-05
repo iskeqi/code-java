@@ -12,6 +12,7 @@
     <modules>
         <module>hutool-core</module>
         <module>hutool-http</module>
+        <module>hutool-cache</module>
     </modules>
 
     <properties>
