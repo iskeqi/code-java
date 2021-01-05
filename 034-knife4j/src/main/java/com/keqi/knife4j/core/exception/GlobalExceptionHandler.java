@@ -102,7 +102,7 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * 这个异常必须要放在最后，开发阶段直接把异常信息显示在页面上，更方便调试程序
+	 * 这个异常必须要放在最后
 	 *
 	 * @param e Throwable
 	 * @return r
