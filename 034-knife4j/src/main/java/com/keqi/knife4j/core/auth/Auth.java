@@ -17,16 +17,9 @@ public class Auth {
 
 	private static final ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<>();
 
-	/**
-	 * 获取当前线程操作用户登录名
-	 * <bind name="loginAccount" value="@com.keqi.knife4j.core.auth.Auth@getLoginAccount()"/>
-	 *
-	 * @return r
-	 */
 	public static String getLoginAccount() {
 		return getLoginUserBO() == null ? null : getLoginUserBO().getAccount();
 	}
-
 
 	public static String getLoginAccountName() {
 		return getLoginUserBO() == null ? null : getLoginUserBO().getNickName();
@@ -48,7 +41,6 @@ public class Auth {
 		}
 		return (LoginUserBO) stringObjectMap.get(CommonConstant.LOGIN_USER);
 	}
-
 
 	/**
 	 * 设置当前登录用户信息

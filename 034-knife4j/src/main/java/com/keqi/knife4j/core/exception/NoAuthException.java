@@ -9,12 +9,5 @@ import java.io.Serializable;
  */
 public class NoAuthException extends RuntimeException implements Serializable {
 
-	private static final long serialVersionUID = -3046894916822410577L;
-
-	/**
-	 * 创建异常对象
-	 */
-	public NoAuthException() {
-		super();
-	}
+	private static final long serialVersionUID = 9205040918500095861L;
 }

@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class BusinessException extends RuntimeException implements Serializable {
 
-	private static final long serialVersionUID = -3046894916874710577L;
+	private static final long serialVersionUID = 3079094397328685938L;
 
 	/**
 	 * 创建异常对象(必须指定异常信息，故在此处屏蔽了空的构造函数)

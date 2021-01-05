@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
 	 * @return r
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResultEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+	public ResultEntity methodArgumentNotValidException(MethodArgumentNotValidException e) {
 		StringBuilder errorMsg = new StringBuilder();
 		for (ObjectError allError : e.getBindingResult().getAllErrors()) {
 			errorMsg.append(allError.getDefaultMessage()).append(",");
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
 	 * @return r
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResultEntity handleConstraintViolationException(ConstraintViolationException e) {
+	public ResultEntity constraintViolationException(ConstraintViolationException e) {
 		StringBuilder errorMsg = new StringBuilder();
 		for (ConstraintViolation<?> constraintViolation : e.getConstraintViolations()) {
 			errorMsg.append(constraintViolation.getMessage()).append(",");
@@ -70,7 +70,7 @@ public class GlobalExceptionHandler {
 	 * @return r
 	 */
 	@ExceptionHandler(value = BindException.class)
-	public ResultEntity errorHandler(BindException e) {
+	public ResultEntity bindException(BindException e) {
 		StringBuilder errorMsg = new StringBuilder();
 		for (ObjectError allError : e.getBindingResult().getAllErrors()) {
 			errorMsg.append(allError.getDefaultMessage()).append(",");
@@ -87,7 +87,7 @@ public class GlobalExceptionHandler {
 	 * @return r
 	 */
 	@ExceptionHandler(value = BusinessException.class)
-	public ResultEntity jsonErrorHandler(BusinessException e) {
+	public ResultEntity businessException(BusinessException e) {
 		return ResultEntityBuilder.failure(e.getMessage());
 	}
 
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
 	 * @return r
 	 */
 	@ExceptionHandler(value = NoAuthException.class)
-	public ResultEntity jsonErrorHandler() {
+	public ResultEntity noAuthException() {
 		return ResultEntityBuilder.noAuth();
 	}
 
@@ -108,7 +108,7 @@ public class GlobalExceptionHandler {
 	 * @return r
 	 */
 	@ExceptionHandler(Throwable.class)
-	public ResultEntity handleException(Throwable e) {
+	public ResultEntity throwable(Throwable e) {
 		// 未知异常，打印异常栈信息便于排查问题
 		log.info(e.getMessage(), e);
 		return ResultEntityBuilder.failure(e.getMessage());

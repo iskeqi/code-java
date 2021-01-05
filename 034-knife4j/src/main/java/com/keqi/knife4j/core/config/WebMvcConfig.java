@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Autowired
+	@Qualifier("securityInterceptor")
 	private HandlerInterceptor securityInterceptor;
 
 	@Autowired
@@ -75,7 +76,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	}
 
 	/**
-	 * 添加静态资源映射路径（不会响应到默认的 4 个静态资源映射）
+	 * 添加静态资源映射路径（不会影响到默认的 4 个静态资源映射）
 	 *
 	 * @param registry registry
 	 */
