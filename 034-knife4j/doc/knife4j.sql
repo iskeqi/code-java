@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 05/01/2021 18:06:17
+ Date: 06/01/2021 16:09:47
 */
 
 SET NAMES utf8mb4;
@@ -27,16 +27,17 @@ CREATE TABLE `sys_account`  (
   `nick_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `post` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '岗位',
   `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
+  `salt` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '盐',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_account`(`account`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_account
 -- ----------------------------
-INSERT INTO `sys_account` VALUES (1, 'admin', '系统管理员', 'manager', '7c705886f552f568826c12bb53b326c5594be799a9e64296ff59002275734449', '2020-12-02 20:15:58', '2020-12-02 20:16:01');
+INSERT INTO `sys_account` VALUES (1, 'admin', '系统管理员', 'post_manager', '1c32348656773f210dd547bef145c3ba', 'yss17vhtbx7jzd3uvd1q', '2020-12-02 20:15:58', '2020-12-02 20:16:01');
 
 -- ----------------------------
 -- Table structure for sys_account_role
@@ -79,15 +80,16 @@ CREATE TABLE `sys_dict_item`  (
 -- ----------------------------
 -- Records of sys_dict_item
 -- ----------------------------
-INSERT INTO `sys_dict_item` VALUES (5, 'post', '岗位', 'java', 'Java后端开发工程师', 1, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
-INSERT INTO `sys_dict_item` VALUES (6, 'post', '岗位', 'web', 'Web前端开发工程师', 2, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
-INSERT INTO `sys_dict_item` VALUES (7, 'post', '岗位', 'product', '产品经理', 3, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
-INSERT INTO `sys_dict_item` VALUES (8, 'post', '岗位', 'ios', 'IOS开发工程师', 4, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
-INSERT INTO `sys_dict_item` VALUES (9, 'post', '岗位', 'android', 'android开发工程师', 5, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
-INSERT INTO `sys_dict_item` VALUES (10, 'gender', '性别', 'man', '男', 1, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 11:35:44');
-INSERT INTO `sys_dict_item` VALUES (11, 'gender', '性别', 'women', '女', 2, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
-INSERT INTO `sys_dict_item` VALUES (12, 'gender', '性别', 'unknown', '未知', 3, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
-INSERT INTO `sys_dict_item` VALUES (14, 'post', '岗位', 'manger', '系统管理员', 6, NULL, NULL, 0, '2020-12-24 17:22:03', '2020-12-24 17:22:03');
+INSERT INTO `sys_dict_item` VALUES (5, 'post', '岗位', 'post:java', 'Java后端开发工程师', 1, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
+INSERT INTO `sys_dict_item` VALUES (6, 'post', '岗位', 'post:web', 'Web前端开发工程师', 2, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
+INSERT INTO `sys_dict_item` VALUES (7, 'post', '岗位', 'post:product', '产品经理', 3, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
+INSERT INTO `sys_dict_item` VALUES (8, 'post', '岗位', 'post:ios', 'IOS开发工程师', 4, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
+INSERT INTO `sys_dict_item` VALUES (9, 'post', '岗位', 'post:android', 'android开发工程师', 5, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
+INSERT INTO `sys_dict_item` VALUES (10, 'gender', '性别', 'gender:man', '男', 1, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 11:35:44');
+INSERT INTO `sys_dict_item` VALUES (11, 'gender', '性别', 'gender:women', '女', 2, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
+INSERT INTO `sys_dict_item` VALUES (12, 'gender', '性别', 'gender:unknown', '未知', 3, NULL, NULL, 0, '2020-12-04 10:49:30', '2020-12-04 10:49:30');
+INSERT INTO `sys_dict_item` VALUES (14, 'post', '岗位', 'post:manger', '系统管理员', 6, NULL, NULL, 0, '2020-12-24 17:22:03', '2020-12-24 17:22:03');
+INSERT INTO `sys_dict_item` VALUES (17, 'configType', '参数配置类型', 'configType:xtnz', '系统内置', 1, NULL, NULL, 0, '2021-01-06 15:01:30', '2021-01-06 15:01:28');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -106,24 +108,23 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_permiss`(`permiss`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '系统管理', '', 'el-icon-eleme', 'C', 'system', 2, 0, '2021-01-05 14:12:28', '2021-01-05 14:16:52');
-INSERT INTO `sys_menu` VALUES (2, '用户管理', '/account', 'el-icon-eleme', 'M', 'system:account', 1, 1, '2021-01-05 15:44:02', '2021-01-05 15:44:02');
-INSERT INTO `sys_menu` VALUES (3, '角色管理', '/role', 'el-icon-eleme', 'M', 'system:role', 2, 1, '2021-01-05 15:44:22', '2021-01-05 15:44:22');
-INSERT INTO `sys_menu` VALUES (4, '菜单管理', '/menu', 'el-icon-eleme', 'M', 'system:menu', 3, 1, '2021-01-05 15:44:39', '2021-01-05 15:44:39');
-INSERT INTO `sys_menu` VALUES (5, '新增', '', 'el-icon-eleme', 'B', 'system:account:create', 1, 2, '2021-01-05 15:46:15', '2021-01-05 15:46:15');
-INSERT INTO `sys_menu` VALUES (7, '新增', '', 'el-icon-eleme', 'B', 'system:role:create', 1, 3, '2021-01-05 15:48:11', '2021-01-05 15:48:11');
-INSERT INTO `sys_menu` VALUES (8, '删除', '', 'el-icon-eleme', 'B', 'system:account:deleteById', 2, 2, '2021-01-05 15:48:22', '2021-01-05 15:48:22');
-INSERT INTO `sys_menu` VALUES (9, '删除', '', 'el-icon-eleme', 'B', 'system:role:deleteById', 2, 3, '2021-01-05 15:48:29', '2021-01-05 15:48:29');
-INSERT INTO `sys_menu` VALUES (11, '修改', '', 'el-icon-eleme', 'B', 'system:account:updateById', 3, 2, '2021-01-05 15:48:22', '2021-01-05 15:48:22');
-INSERT INTO `sys_menu` VALUES (12, '查询', '', 'el-icon-eleme', 'B', 'system:account:page', 4, 2, '2021-01-05 15:48:22', '2021-01-05 15:48:22');
-INSERT INTO `sys_menu` VALUES (13, '修改', '', 'el-icon-eleme', 'B', 'system:role:updateById', 3, 3, '2021-01-05 15:48:29', '2021-01-05 15:48:29');
-INSERT INTO `sys_menu` VALUES (14, '查询', '', 'el-icon-eleme', 'B', 'system:role:page', 4, 3, '2021-01-05 15:48:29', '2021-01-05 15:48:29');
-INSERT INTO `sys_menu` VALUES (16, '工时统计', '', 'el-icon-eleme', 'C', 'gstj', 1, 0, '2021-01-05 14:12:28', '2021-01-05 14:16:52');
+INSERT INTO `sys_menu` VALUES (1, '系统管理', NULL, NULL, 'C', 'system', 2, 0, '2021-01-05 14:12:28', '2021-01-05 14:16:52');
+INSERT INTO `sys_menu` VALUES (2, '用户管理', NULL, NULL, 'M', 'system:account', 1, 1, '2021-01-05 15:44:02', '2021-01-05 15:44:02');
+INSERT INTO `sys_menu` VALUES (3, '角色管理', NULL, NULL, 'M', 'system:role', 2, 1, '2021-01-05 15:44:22', '2021-01-05 15:44:22');
+INSERT INTO `sys_menu` VALUES (4, '菜单管理', NULL, NULL, 'M', 'system:menu', 3, 1, '2021-01-05 15:44:39', '2021-01-05 15:44:39');
+INSERT INTO `sys_menu` VALUES (5, '新增', NULL, NULL, 'B', 'system:account:create', 1, 2, '2021-01-05 15:46:15', '2021-01-05 15:46:15');
+INSERT INTO `sys_menu` VALUES (7, '新增', NULL, NULL, 'B', 'system:role:create', 1, 3, '2021-01-05 15:48:11', '2021-01-05 15:48:11');
+INSERT INTO `sys_menu` VALUES (8, '删除', NULL, NULL, 'B', 'system:account:deleteById', 2, 2, '2021-01-05 15:48:22', '2021-01-05 15:48:22');
+INSERT INTO `sys_menu` VALUES (9, '删除', NULL, NULL, 'B', 'system:role:deleteById', 2, 3, '2021-01-05 15:48:29', '2021-01-05 15:48:29');
+INSERT INTO `sys_menu` VALUES (11, '修改', NULL, NULL, 'B', 'system:account:updateById', 3, 2, '2021-01-05 15:48:22', '2021-01-05 15:48:22');
+INSERT INTO `sys_menu` VALUES (12, '查询', NULL, NULL, 'B', 'system:account:page', 4, 2, '2021-01-05 15:48:22', '2021-01-05 15:48:22');
+INSERT INTO `sys_menu` VALUES (13, '修改', NULL, NULL, 'B', 'system:role:updateById', 3, 3, '2021-01-05 15:48:29', '2021-01-05 15:48:29');
+INSERT INTO `sys_menu` VALUES (14, '查询', NULL, NULL, 'B', 'system:role:page', 4, 3, '2021-01-05 15:48:29', '2021-01-05 15:48:29');
 
 -- ----------------------------
 -- Table structure for sys_oper_log
@@ -150,6 +151,26 @@ CREATE TABLE `sys_oper_log`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for sys_param_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_param_config`;
+CREATE TABLE `sys_param_config`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '参数配置ID',
+  `param_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `param_key` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '键名',
+  `param_value` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '键值',
+  `param_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型（dictType：configType）',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_param_config
+-- ----------------------------
+INSERT INTO `sys_param_config` VALUES (1, '首页LOGO', 'main-logo', '/adfa/dfad/a.png', 'configType:xtnz', '2021-01-06 15:35:13', '2021-01-06 15:35:13');
+
+-- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
@@ -160,7 +181,7 @@ CREATE TABLE `sys_role`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_name`(`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -196,7 +217,6 @@ INSERT INTO `sys_role_menu` VALUES (1, 11);
 INSERT INTO `sys_role_menu` VALUES (1, 12);
 INSERT INTO `sys_role_menu` VALUES (1, 13);
 INSERT INTO `sys_role_menu` VALUES (1, 14);
-INSERT INTO `sys_role_menu` VALUES (1, 16);
 
 -- ----------------------------
 -- Table structure for sys_upload_file
