@@ -23,9 +23,4 @@ public class LoginUserBO {
 	 * 登录用户账号名
 	 */
 	private String account;
-
-	/**
-	 * 登录用户姓名
-	 */
-	private String nickName;
 }

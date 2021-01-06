@@ -17,29 +17,36 @@ public class Auth {
 
 	private static final ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<>();
 
-	public static String getLoginAccount() {
-		return getLoginUserBO() == null ? null : getLoginUserBO().getAccount();
-	}
-
-	public static String getLoginAccountName() {
-		return getLoginUserBO() == null ? null : getLoginUserBO().getNickName();
-	}
-
-	public static Long getLoginAccountId() {
-		return getLoginUserBO() == null ? null : getLoginUserBO().getId();
-	}
-
 	/**
-	 * 获取当前登录用户登录信息
+	 * 获取当前登录用户ID
 	 *
 	 * @return r
 	 */
-	public static LoginUserBO getLoginUserBO() {
+	public static Long getLoginAccountId() {
+		return getLoginUserBO().getId();
+	}
+
+	/**
+	 * 获取当前登录用户账号
+	 *
+	 * @return r
+	 */
+	public static String getLoginAccount() {
+		return getLoginUserBO().getAccount();
+	}
+
+	/**
+	 * 获取当前登录用户信息
+	 *
+	 * @return r
+	 */
+	private static LoginUserBO getLoginUserBO() {
 		Map<String, Object> stringObjectMap = threadLocal.get();
-		if (Objects.isNull(stringObjectMap)) {
-			return null;
+		Object obj;
+		if (stringObjectMap == null || (obj = stringObjectMap.get(CommonConstant.LOGIN_USER)) == null) {
+			throw new RuntimeException("当前线程未存储登录用户信息");
 		}
-		return (LoginUserBO) stringObjectMap.get(CommonConstant.LOGIN_USER);
+		return (LoginUserBO) obj;
 	}
 
 	/**

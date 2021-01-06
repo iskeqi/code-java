@@ -76,7 +76,7 @@ public class LogAspect {
 		String uri = request.getRequestURI();
 		String type = request.getMethod();
 		String param = JsonUtil.writeValueAsString(request.getParameterMap());
-		String createBy = Auth.getLoginAccountName();
+		String createBy = Auth.getLoginAccount();
 
 		// 开启一个新的线程插入操作记录至 DB 中
 		ThreadUtil.execute(() -> {

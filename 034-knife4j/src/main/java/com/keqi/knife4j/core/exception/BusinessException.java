@@ -3,7 +3,7 @@ package com.keqi.knife4j.core.exception;
 import java.io.Serializable;
 
 /**
- * 自定义异常类
+ * 业务异常类（当校验用户输入不合法时，通过抛出此异常给用户界面作为提示信息）
  *
  * @author keqi
  */

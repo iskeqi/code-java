@@ -128,6 +128,8 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	public void updateById(AccountParam accountParam) {
 		// 修改用户记录
+		accountParam.setAccount(null); // 不允许修改
+		accountParam.setPassword(null); // 不允许通过此接口修改密码
 		AccountDO accountDO = new AccountDO();
 		BeanUtil.copyProperties(accountParam, accountDO);
 		this.accountMapper.updateById(accountDO);
