@@ -132,11 +132,13 @@ public class AccountServiceImpl implements AccountService {
 		BeanUtil.copyProperties(accountParam, accountDO);
 		this.accountMapper.updateById(accountDO);
 
-		// 新增用户-角色关联记录
+		// 修改用户-角色关联记录
 		List<Long> roleIdList = accountParam.getRoleIdList();
 		if (CollUtil.isNotEmpty(roleIdList)) {
+			// 先删除
 			this.accountRoleMapper.deleteByAccountId(accountParam.getId());
 
+			// 再增加
 			List<AccountRoleDO> list = new ArrayList<>();
 			for (Long roleId : roleIdList) {
 				AccountRoleDO t = new AccountRoleDO();
