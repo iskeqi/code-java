@@ -21,8 +21,10 @@ import java.time.LocalDate;
 public class ${tableNameHump}Param {
 
 <#list columnList as column>
+    <#if column.columnNameHumpLetter != "createTime" && column.columnNameHumpLetter != "updateTime">
     @ApiModelProperty(value = "${column.columnComment}", example = "", required = true)
     private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
+    </#if>
 </#list>
 }

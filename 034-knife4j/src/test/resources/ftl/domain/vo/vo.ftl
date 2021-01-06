@@ -21,7 +21,7 @@ import java.time.LocalDate;
 public class ${tableNameHump}VO {
 
 <#list columnList as column>
-    @ApiModelProperty(value = "${column.columnComment}", example = "", required = true)
+    @ApiModelProperty(value = "${column.columnComment}", example = "")
     private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
 </#list>

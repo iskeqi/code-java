@@ -29,7 +29,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @TableName(value = "${tableName}")
 public class ${tableNameHump}DO <#if pageFlag == true> extends BaseDO </#if>{
-
 <#if pageFlag == false>
 	/**
 	 * ${tableComment}ID
@@ -61,5 +60,4 @@ public class ${tableNameHump}DO <#if pageFlag == true> extends BaseDO </#if>{
 	private LocalDateTime updateTime;
     </#if>
 </#list>
-
 }

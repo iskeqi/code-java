@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "${sort}. ${tableComment}管理")
@@ -24,14 +25,14 @@ public class ${tableNameHump}Controller {
 	@ApiOperation(value = "${sort}.1 新增${tableComment}")
 	@ApiOperationSupport(order = 1, ignoreParameters = "${tableNameHumpLetter}Param.id")
 	@PostMapping("/sys/${tableNameHumpLetter}/create")
-	public void create(@RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
+	public void create(@Validated @RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
 		this.${tableNameHumpLetter}Service.insert(${tableNameHumpLetter}Param);
 	}
 
 	@ApiOperation(value = "${sort}.2 根据ID修改${tableComment}")
 	@ApiOperationSupport(order = 2)
 	@PostMapping("/sys/${tableNameHumpLetter}/updateById")
-	public void updateById(@RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
+	public void updateById(@Validated @RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
 		this.${tableNameHumpLetter}Service.updateById(${tableNameHumpLetter}Param);
 	}
 

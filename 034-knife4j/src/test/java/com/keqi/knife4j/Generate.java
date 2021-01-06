@@ -32,10 +32,10 @@ public class Generate {
 		List<TemplateBO> list = new ArrayList<>();
 
 		TemplateBO templateBO = new TemplateBO();
-		templateBO.setTableName("sys_rsole"); // 表名
-		templateBO.setTableNameHump("Role"); // 去掉前缀转驼峰，并大写首字母
-		templateBO.setTableNameHumpLetter("role"); // 去掉前缀转驼峰，并小写首字母
-		templateBO.setTableComment("角色"); // 表注释并去掉最后的"表"字
+		templateBO.setTableName("sys_param_config"); // 表名
+		templateBO.setTableNameHump("ParamConfig"); // 去掉前缀转驼峰，并大写首字母
+		templateBO.setTableNameHumpLetter("paramConfig"); // 去掉前缀转驼峰，并小写首字母
+		templateBO.setTableComment("参数配置"); // 表注释并去掉最后的"表"字
 		templateBO.setSubPackageName("sys"); // 所属子包名
 		// 指定生成文件所在的目录
 		templateBO.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
