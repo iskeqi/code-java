@@ -33,9 +33,9 @@ public class AccountController {
 	}
 
 	@ApiOperation(value = "5.2 根据ID修改用户")
-	@ApiOperationSupport(order = 2)
+	@ApiOperationSupport(order = 2, ignoreParameters = {"accountParam.account", "accountParam.password"})
 	@PostMapping("/sys/account/updateById")
-	public void updateById(@RequestBody AccountParam accountParam) {
+	public void updateById(@Validated @RequestBody AccountParam accountParam) {
 		this.accountService.updateById(accountParam);
 	}
 
