@@ -15,10 +15,6 @@ spring:
 # 开启 knife4j 增强功能
 knife4j:
     enable: true
-    basic:
-        enable: false
-        username: admin
-        password: 123456
 
 # 配置日志文件
 logging:

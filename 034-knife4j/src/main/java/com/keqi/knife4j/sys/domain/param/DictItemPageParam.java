@@ -1,14 +1,17 @@
 package com.keqi.knife4j.sys.domain.param;
 
+import com.keqi.knife4j.core.pojo.PageParam;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DictItemPageParam {
+public class DictItemPageParam extends PageParam {
 
 	@ApiModelProperty(value = "字典类型编码")
 	private String typeCode;
@@ -21,10 +24,4 @@ public class DictItemPageParam {
 
 	@ApiModelProperty(value = "字典项值")
 	private String itemName;
-
-	@ApiModelProperty(value = "前页数", example = "1", required = true)
-	protected int current = 1;
-
-	@ApiModelProperty(value = "每页大小", example = "10", required = true)
-	protected int size = 10;
 }

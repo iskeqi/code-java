@@ -1,18 +1,12 @@
 package ${basePackageName}.${subPackageName}.domain.param;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
+import ${basePackageName}.core.pojo.PageParam;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ${tableNameHump}PageParam {
-
-	@ApiModelProperty(value = "前页数", example = "1", required = true)
-	protected int current = 1;
-
-	@ApiModelProperty(value = "每页大小", example = "10", required = true)
-	protected int size = 10;
+public class ${tableNameHump}PageParam extends PageParam {
 }
