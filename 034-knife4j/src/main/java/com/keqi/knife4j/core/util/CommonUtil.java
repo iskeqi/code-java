@@ -17,8 +17,6 @@ import java.lang.reflect.Method;
  */
 public class CommonUtil {
 
-	private static final String secret = "12O!dZ@%YXsvOaKHC";
-
 	/**
 	 * 请求通过反向代理之后，可能包含请求客户端真实IP的HTTP HEADER
 	 * 如果后续扩展，有其他可能包含IP的HTTP HEADER，加到这里即可
@@ -44,12 +42,12 @@ public class CommonUtil {
 	}
 
 	/**
-	 * 加密密码(登录时，也需要时候用此逻辑)
+	 * 加密密码(登录时，也需要使用用此逻辑)
 	 *
 	 * @return r
 	 */
-	public static String encryptedPassword(String username, String password) {
-		return SecureUtil.sha256(SecureUtil.md5(username + secret + password));
+	public static String encryptedPassword(String password, String salt) {
+		return SecureUtil.md5(SecureUtil.sha256(password + salt));
 	}
 
 
@@ -93,6 +91,8 @@ public class CommonUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(encryptedPassword("admin", "123456"));
+
+
+		System.out.println(encryptedPassword("123456", "yss17vhtbx7jzd3uvd1q"));
 	}
 }

@@ -3,6 +3,7 @@ package com.keqi.knife4j.sys.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.keqi.knife4j.core.auth.Auth;
@@ -47,7 +48,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public LoginVO login(String account, String password) {
 		AccountDO accountDO = this.accountMapper.getByAccount(account);
-		String passwordEncry = CommonUtil.encryptedPassword(account, password);
+		String passwordEncry = CommonUtil.encryptedPassword(password, accountDO.getSalt());
 
 		if (Objects.isNull(accountDO) || !Objects.equals(passwordEncry, accountDO.getPassword())) {
 			throw new BusinessException("用户名或密码错误");
@@ -78,7 +79,8 @@ public class AccountServiceImpl implements AccountService {
 		// 新增用户记录
 		AccountDO accountDO = new AccountDO();
 		BeanUtil.copyProperties(accountParam, accountDO);
-		accountDO.setPassword(CommonUtil.encryptedPassword(accountDO.getAccount(), accountDO.getPassword()));
+		accountDO.setSalt(RandomUtil.randomString(20));
+		accountDO.setPassword(CommonUtil.encryptedPassword(accountDO.getPassword(), accountDO.getSalt()));
 		this.accountMapper.insert(accountDO);
 
 		// 新增用户-角色关联记录
@@ -107,11 +109,11 @@ public class AccountServiceImpl implements AccountService {
 		Long id = Auth.getLoginAccountId();
 		AccountDO accountDO = this.accountMapper.selectById(id);
 
-		if (CommonUtil.encryptedPassword(
-				accountDO.getAccount(), password).equals(accountDO.getPassword())) {
+		if (CommonUtil.encryptedPassword(password, accountDO.getSalt())
+				.equals(accountDO.getPassword())) {
 			// 密码正确，修改密码
 			this.accountMapper.updatePasswordById(
-					CommonUtil.encryptedPassword(accountDO.getAccount(), newPassword), id);
+					CommonUtil.encryptedPassword(newPassword, accountDO.getSalt()), id);
 		} else {
 			throw new BusinessException("请输入正确的密码");
 		}

@@ -41,4 +41,10 @@ public class AccountDO extends BaseDO {
 	 */
 	@TableField(value = "`password`")
 	private String password;
+
+	/**
+	 * 盐
+	 */
+	@TableField(value = "`salt`")
+	private String salt;
 }
