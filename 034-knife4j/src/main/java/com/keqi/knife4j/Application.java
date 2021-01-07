@@ -11,9 +11,13 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) throws UnknownHostException {
+	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		log.debug("API 文档地址：http://{}:9090/knife4j/doc.html", InetAddress.getLocalHost().getHostAddress());
+		try {
+			log.debug("API 文档地址：http://{}:9090/knife4j/doc.html", InetAddress.getLocalHost().getHostAddress());
+		} catch (UnknownHostException e) {
+			log.debug(e.getMessage(), e);
+		}
 	}
 
 }
