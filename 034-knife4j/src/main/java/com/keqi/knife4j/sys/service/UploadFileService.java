@@ -4,7 +4,6 @@ import com.keqi.knife4j.sys.domain.db.UploadFileDO;
 
 public interface UploadFileService {
 
-
 	/**
 	 * 增加
 	 *
@@ -26,4 +25,12 @@ public interface UploadFileService {
 	 * @param id id
 	 */
 	void deleteById(Long id);
+
+	/**
+	 * 根据 id 获取文件名称（去除了 UUID 前缀的文件名）
+	 *
+	 * @param id id
+	 * @return r
+	 */
+	String getSimpleNameById(Long id);
 }
