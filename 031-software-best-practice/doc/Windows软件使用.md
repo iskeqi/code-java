@@ -4,17 +4,20 @@
 
 ## Windows 使用最佳实践
 
-- 直接使用 Windows10 最新的企业版，通过产品秘钥激活，网上可以搜索到
+- 直接使用 Windows10 最新的企业版，通过产品秘钥激活，直接使用 itellyou 新版网站上推荐的版本下载即可
 - 可以利用 Windows10 的沙箱机制来，安全某个没使用过的软件
-- Windows 10 作为一个开发机器，仅仅在 C 盘安装 JDK 和 Maven 即可，其它工具一律安装在 Linux 系统上
-- 到底需不需要在 C 盘安装 Maven ，存在疑虑，直接使用 IntelliJ IDEA 内置的 Maven 工具足够了。默认的 setting.xml 和 repository 也已经是在默认的位置上。
+- Windows 10 作为一个开发机器，仅仅在 C 盘安装 JDK 、Maven、Git 即可，其它工具一律安装在 Linux 系统上
+- 在 C 盘安装 Maven ，拷贝一个 setting.xml 到 .m2 目录下，并在 IDEA 中配置下即可
 - 使用 VMware Workstation Pro 作为虚拟机软件，安装 Linux 系统来做实验。不适用内置的 ubuntu 子系统，因为不好用。
 
 ## 开发工具
 
+- JDK
+- Maven
+- Git
 - IntelliJ IDEA
 - Visual Studio Code
-- Navicat/DataGrip
+- Navicat
 - Final Shell
 - Redis Desktop Manager
 - Postman
@@ -24,7 +27,7 @@
 - 网易邮箱大师
 - 坚果云
 - 火绒安全软件
-- 搜狗输入法、Windows 内置输入法
+- 搜狗输入法
 - 火萤酱
 - WinRAR
 - Typora
@@ -33,17 +36,18 @@
 - XMind ZEN
 - 福昕阅读器
 - Snipaste
-- Office Tool Plus
+- Office Tool Plus 安装 office 2019 专业增强版
+- wps 政府专用版
 - Dynamic theme
 - Screen To Gif
 - 滴答清单、Microsoft To Do
-- XMind、MindMaster、幕布、百度脑图、XMind Zen
-- 万彩办公大师
 - ProcessOn
-- 迅雷/Motrix
+- 迅雷
+- 百度网盘
+- HWIDGEN 激活 windows
 ## 笔记软件
 
-- 印象笔记、OneNote、思否、羽雀
+- 羽雀
 
   
 
