@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class GeTuiUtil {
 
-	private static String appId = "2Dh5TCOEvB8nTHkOOhw046";
-	private static String appKey = "9L6Q7pWhnvAdNT9YMssYX4";
-	private static String masterSecret = "sJxVEDDtNR7p3Zars2tIf7";
+	private static String appId = "Hp9glhGl5M6ZyjXAjHjWa8";
+	private static String appKey = "OhRnNLAAf4A6N9xnRFrVP3";
+	private static String masterSecret = "iZagrIzmXa50vZnGHGAXB1";
 	private static String host = "http://api.getui.com/apiex.htm";
 
 	/**
