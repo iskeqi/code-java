@@ -3,7 +3,16 @@ package com.keqi.exception;
 public class Main {
 
     public static void main(String[] args) {
-        组装异常栈信息字符串并打印至控制台中();
+        String s = null;
+        try {
+            int length = s.length();
+        } catch (RuntimeException e) {
+            System.out.println(e.toString());
+            e.printStackTrace();
+        }
+
+
+        // 组装异常栈信息字符串并打印至控制台中();
     }
 
     private static void 组装异常栈信息字符串并打印至控制台中() {
