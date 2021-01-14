@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "4. 用户管理")
 @ApiSupport(order = 4)
@@ -27,23 +24,23 @@ public class AccountController {
 
 	@ApiOperation(value = "4.1 新增用户")
 	@ApiOperationSupport(order = 1, ignoreParameters = "accountParam.id")
-	@PostMapping("/sys/account/create")
+	@PostMapping("/sys/account")
 	public void create(@Validated @RequestBody AccountParam accountParam) {
 		this.accountService.insert(accountParam);
 	}
 
-	@ApiOperation(value = "5.2 根据ID修改用户")
+	@ApiOperation(value = "5.2 修改用户")
 	@ApiOperationSupport(order = 2, ignoreParameters = {"accountParam.account", "accountParam.password"})
-	@PostMapping("/sys/account/updateById")
+	@PutMapping("/sys/account")
 	public void updateById(@Validated @RequestBody AccountParam accountParam) {
 		this.accountService.updateById(accountParam);
 	}
 
-	@ApiOperation(value = "5.3 根据ID删除用户")
+	@ApiOperation(value = "5.3 删除用户")
 	@ApiOperationSupport(order = 3)
 	@ApiImplicitParam(name = "id", value = "用户ID", example = "1", required = true)
-	@PostMapping("/sys/account/deleteById")
-	public void deleteById(@RequestParam Long id) {
+	@DeleteMapping("/sys/account/{id}")
+	public void deleteById(@PathVariable Long id) {
 		this.accountService.deleteById(id);
 	}
 
