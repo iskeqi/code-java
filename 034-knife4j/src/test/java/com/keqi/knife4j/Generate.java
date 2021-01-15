@@ -39,8 +39,9 @@ public class Generate {
 		templateBO.setSubPackageName("sys"); // 所属子包名
 		// 指定生成文件所在的目录
 		templateBO.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
-		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml
-		templateBO.setType(1);
+		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml，
+		// 4：生成 controller/service/serviceImpl/param/vo
+		templateBO.setType(4);
 		// controller 在 swagger 中的排序
 		templateBO.setSort(7);
 
@@ -125,22 +126,24 @@ public class Generate {
 		configuration.setDirectoryForTemplateLoading(new File(
 				ResourceUtils.getURL("classpath:").getPath() + "/ftl"));
 
-		// xxxDO.java
-		File doFile = new File(templateBO.getPath() + "/domain/db", templateBO.getTableNameHump() + "DO.java");
-		Template doTemplate = configuration.getTemplate("domain/db/do.ftl");
-		doTemplate.process(obj, new FileWriter(doFile));
+		if (templateBO.getType() != 4) {
+			// xxxDO.java
+			File doFile = new File(templateBO.getPath() + "/domain/db", templateBO.getTableNameHump() + "DO.java");
+			Template doTemplate = configuration.getTemplate("domain/db/do.ftl");
+			doTemplate.process(obj, new FileWriter(doFile));
 
-		// xxxMapper.java
-		File mapperFile = new File(templateBO.getPath() + "/mapper", templateBO.getTableNameHump() + "Mapper.java");
-		Template mapperTemplate = configuration.getTemplate("mapper/mapper.ftl");
-		mapperTemplate.process(obj, new FileWriter(mapperFile));
+			// xxxMapper.java
+			File mapperFile = new File(templateBO.getPath() + "/mapper", templateBO.getTableNameHump() + "Mapper.java");
+			Template mapperTemplate = configuration.getTemplate("mapper/mapper.ftl");
+			mapperTemplate.process(obj, new FileWriter(mapperFile));
 
-		// xxxMapper.xml
-		File mapperXMLFile = new File(templateBO.getPath() + "/mapper", templateBO.getTableNameHump() + "Mapper.xml");
-		Template mapperXMLTemplate = configuration.getTemplate("mapper/mapper_xml.ftl");
-		mapperXMLTemplate.process(obj, new FileWriter(mapperXMLFile));
+			// xxxMapper.xml
+			File mapperXMLFile = new File(templateBO.getPath() + "/mapper", templateBO.getTableNameHump() + "Mapper.xml");
+			Template mapperXMLTemplate = configuration.getTemplate("mapper/mapper_xml.ftl");
+			mapperXMLTemplate.process(obj, new FileWriter(mapperXMLFile));
+		}
 
-		if (templateBO.getType() == 1 || templateBO.getType() == 2) {
+		if (templateBO.getType() == 1 || templateBO.getType() == 2 || templateBO.getType() == 4) {
 			// xxxParam.java
 			File paramFile = new File(templateBO.getPath() + "/domain/param", templateBO.getTableNameHump() + "Param.java");
 			Template paramTemplate = configuration.getTemplate("domain/param/param.ftl");
@@ -152,7 +155,7 @@ public class Generate {
 			voTemplate.process(obj, new FileWriter(voFile));
 		}
 
-		if (templateBO.getType() == 1) {
+		if (templateBO.getType() == 1 || templateBO.getType() == 4) {
 			// xxxPageParam.java
 			File pageParamFile = new File(templateBO.getPath() + "/domain/param", templateBO.getTableNameHump() + "PageParam.java");
 			Template pageParamTemplate = configuration.getTemplate("domain/param/pageParam.ftl");
