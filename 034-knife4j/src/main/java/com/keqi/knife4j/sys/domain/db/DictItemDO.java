@@ -1,22 +1,27 @@
 package com.keqi.knife4j.sys.domain.db;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.keqi.knife4j.core.pojo.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * 系统管理-字典表
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_dict_item")
-public class DictItemDO extends BaseDO {
+public class DictItemDO {
+
+	/**
+	 * 字典项id
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
+	protected Long id;
 
 	/**
 	 * 字典类型编码
@@ -43,26 +48,8 @@ public class DictItemDO extends BaseDO {
 	private String itemName;
 
 	/**
-	 * 字典项排序
+	 * 排序字段
 	 */
-	@TableField(value = "item_sort")
-	private Integer itemSort;
-
-	/**
-	 * 字典项备注字段
-	 */
-	@TableField(value = "item_remark")
-	private String itemRemark;
-
-	/**
-	 * 字典项样式属性(备用字段)
-	 */
-	@TableField(value = "item_css")
-	private String itemCss;
-
-	/**
-	 * 逻辑删除字段（0 未删除，1 已删除）
-	 */
-	@TableField(value = "is_deleted")
-	private Integer deleted;
+	@TableField(value = "order_num")
+	private Integer orderNum;
 }

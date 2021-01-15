@@ -25,13 +25,7 @@ public class DictItemParam {
 	@ApiModelProperty(value = "字典项值", example = "男", required = true)
 	private String itemName;
 
-	@ApiModelProperty(value = "字典项排序", example = "1", required = true)
-	private Integer itemSort;
-
-	@ApiModelProperty(value = "字典项备注字段")
-	private String itemRemark;
-
-	@ApiModelProperty(value = "字典项样式属性(备用字段)")
-	private String itemCss;
+	@ApiModelProperty(value = "排序字段", example = "1", required = true)
+	private Integer orderNum;
 
 }

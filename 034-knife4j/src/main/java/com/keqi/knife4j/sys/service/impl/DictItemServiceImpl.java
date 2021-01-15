@@ -62,8 +62,7 @@ public class DictItemServiceImpl implements DictItemService {
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
-		// 逻辑删除
-		this.dictItemMapper.disableById(id);
+		this.dictItemMapper.deleteById(id);
 
 		this.dictUtil.run();
 	}

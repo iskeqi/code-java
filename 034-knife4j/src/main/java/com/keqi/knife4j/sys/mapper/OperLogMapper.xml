@@ -13,12 +13,12 @@
         <result column="content_type" property="contentType"/>
         <result column="param" property="param"/>
         <result column="result" property="result"/>
-        <result column="is_success" property="success"/>
+        <result column="success" property="success"/>
         <result column="create_by" property="createBy"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, `name`, `method`, `type`, url, ip, content_type, param, `result`, is_success, create_by, create_time
+        id, `name`, `method`, `type`, url, ip, content_type, param, `result`, success, create_by, create_time
     </sql>
 </mapper>

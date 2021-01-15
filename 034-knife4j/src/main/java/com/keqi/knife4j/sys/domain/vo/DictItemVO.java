@@ -27,13 +27,4 @@ public class DictItemVO {
 
 	@ApiModelProperty(value = "字典项值", example = "男")
 	private String itemName;
-
-	@ApiModelProperty(value = "字典项排序", example = "1")
-	private Integer itemSort;
-
-	@ApiModelProperty(value = "字典项备注字段", example = "备注")
-	private String itemRemark;
-
-	@ApiModelProperty(value = "字典项样式属性(备用字段)", example = "备用字段")
-	private String itemCss;
 }

@@ -37,19 +37,9 @@ public interface DictItemMapper extends BaseMapper<DictItemDO> {
 	IPage<DictItemVO> page(@Param("dictItemDOPage") Page<DictItemDO> dictItemDOPage, @Param("pageParam") DictItemPageParam pageParam);
 
 	/**
-	 * 逻辑删除字典项
-	 *
-	 * @param id id
-	 * @return r
-	 */
-	int disableById(Long id);
-
-	/**
 	 * 一次性查询出所有字典项数据
 	 *
 	 * @return r
 	 */
 	List<DictItemVO> listAll();
-
-
 }

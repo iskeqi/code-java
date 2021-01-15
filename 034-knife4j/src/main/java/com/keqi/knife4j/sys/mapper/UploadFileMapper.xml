@@ -9,20 +9,20 @@
         <result column="path" property="path"/>
         <result column="type" property="type"/>
         <result column="size" property="size"/>
-        <result column="is_deleted" property="deleted"/>
+        <result column="deleted" property="deleted"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, `name`, `path`, `type`, `size`, is_deleted, create_time, update_time
+        id, `name`, `path`, `type`, `size`, deleted, create_time, update_time
     </sql>
 
     <select id="getById" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from sys_upload_file
-        where is_deleted = 0
+        where deleted = 0
         and id = #{id}
     </select>
 </mapper>

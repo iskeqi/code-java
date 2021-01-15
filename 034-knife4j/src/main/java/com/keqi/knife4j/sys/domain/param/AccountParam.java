@@ -1,6 +1,5 @@
 package com.keqi.knife4j.sys.domain.param;
 
-import com.keqi.knife4j.sys.constraint.TypeCode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,10 +25,6 @@ public class AccountParam {
 	@Size(min = 2, max = 5, message = "姓名长度必须在2-5个字符之间")
 	@NotNull
 	private String nickName;
-
-	@ApiModelProperty(value = "岗位", example = "java", required = true)
-	@TypeCode("post")
-	private String post;
 
 	@ApiModelProperty(value = "密码", example = "123456", required = true)
 	@Size(min = 6, max = 20, message = "密码长度必须在6-20个字符之间")

@@ -18,7 +18,4 @@ public class AccountVO {
 
 	@ApiModelProperty(value = "姓名", example = "杰克")
 	private String nickName;
-
-	@ApiModelProperty(value = "岗位", example = "java")
-	private String post;
 }

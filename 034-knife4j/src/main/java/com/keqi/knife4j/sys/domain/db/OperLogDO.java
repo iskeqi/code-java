@@ -75,7 +75,7 @@ public class OperLogDO {
 	/**
 	 * 是否操作成功（0 成功，1 失败）
 	 */
-	@TableField(value = "is_success")
+	@TableField(value = "success")
 	private Integer success;
 
 	/**

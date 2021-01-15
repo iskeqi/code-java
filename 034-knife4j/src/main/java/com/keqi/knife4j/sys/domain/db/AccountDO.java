@@ -31,12 +31,6 @@ public class AccountDO extends BaseDO {
 	private String nickName;
 
 	/**
-	 * 岗位
-	 */
-	@TableField(value = "post")
-	private String post;
-
-	/**
 	 * 密码
 	 */
 	@TableField(value = "`password`")
