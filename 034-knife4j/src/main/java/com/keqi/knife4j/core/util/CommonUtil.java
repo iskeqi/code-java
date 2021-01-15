@@ -1,7 +1,8 @@
 package com.keqi.knife4j.core.util;
 
+import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
+import com.keqi.knife4j.core.exception.BusinessException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.boot.system.ApplicationHome;
@@ -9,6 +10,8 @@ import org.springframework.boot.system.ApplicationHome;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 公共工具类（不知道怎么分类就放在这里）
@@ -47,9 +50,17 @@ public class CommonUtil {
 	 * @return r
 	 */
 	public static String encryptedPassword(String password, String salt) {
-		return SecureUtil.md5(SecureUtil.sha256(password + salt));
+		String result;
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			byte[] bytes = md5.digest((password + salt + password).getBytes());
+			MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+			result = HexUtil.encodeHexStr(sha256.digest(bytes));
+		} catch (NoSuchAlgorithmException e) {
+			throw new BusinessException("无此加密算法");
+		}
+		return result;
 	}
-
 
 	/**
 	 * 获取请求客户端的真实IP地址
@@ -88,11 +99,5 @@ public class CommonUtil {
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
 		return method.getAnnotation(annotationClass);
-	}
-
-	public static void main(String[] args) {
-
-
-		System.out.println(encryptedPassword("123456", "yss17vhtbx7jzd3uvd1q"));
 	}
 }
