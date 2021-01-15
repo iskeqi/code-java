@@ -36,7 +36,7 @@ public class Knife4jConfiguration {
 		return new ApiInfoBuilder()
 				.title("接口文档")
 				.description("接口文档")
-				.version("1.0")
+				.version("0.0.1")
 				.build();
 	}
 }
