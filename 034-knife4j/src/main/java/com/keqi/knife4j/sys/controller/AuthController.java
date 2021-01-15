@@ -26,8 +26,8 @@ public class AuthController {
 	@ApiOperation(value = "1.1 登录")
 	@ApiOperationSupport(order = 1)
 	@PostMapping("/sys/auth/login")
-	public LoginVO login(@Validated @RequestBody LoginParam loginParam) {
-		return this.accountService.login(loginParam.getAccount(), loginParam.getPassword());
+	public LoginVO login(@Validated @RequestBody LoginParam param) {
+		return this.accountService.login(param.getAccount(), param.getPassword());
 	}
 
 	@ApiOperation(value = "1.2 修改密码")

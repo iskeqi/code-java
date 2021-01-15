@@ -24,17 +24,17 @@ public class DictItemController {
 	private final DictItemService dictItemService;
 
 	@ApiOperation(value = "2.1 新增字典项")
-	@ApiOperationSupport(order = 1, ignoreParameters = "dictItemParam.id")
+	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/dictItem")
-	public void create(@RequestBody DictItemParam dictItemParam) {
-		this.dictItemService.insert(dictItemParam);
+	public void create(@RequestBody DictItemParam param) {
+		this.dictItemService.insert(param);
 	}
 
 	@ApiOperation(value = "2.2 修改字典项")
 	@ApiOperationSupport(order = 2)
 	@PutMapping("/sys/dictItem")
-	public void updateById(@RequestBody DictItemParam dictItemParam) {
-		this.dictItemService.updateById(dictItemParam);
+	public void updateById(@RequestBody DictItemParam param) {
+		this.dictItemService.updateById(param);
 	}
 
 	@ApiOperation(value = "2.3 删除字典项")
@@ -48,8 +48,8 @@ public class DictItemController {
 	@ApiOperation(value = "2.4 分页查询字典项列表")
 	@ApiOperationSupport(order = 4)
 	@PostMapping("/sys/dictItem/page")
-	public PageVO<DictItemVO> page(@RequestBody DictItemPageParam pageParam) {
-		return this.dictItemService.page(pageParam);
+	public PageVO<DictItemVO> page(@RequestBody DictItemPageParam param) {
+		return this.dictItemService.page(param);
 	}
 
 	@ApiOperation(value = "2.5 根据 typeCode 查询字典项列表")

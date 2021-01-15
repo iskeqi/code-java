@@ -7,7 +7,7 @@ public interface OperLogService {
 	/**
 	 * 新增操作日志记录
 	 *
-	 * @param operLogParam operLogParam
+	 * @param param param
 	 */
-	void insert(OperLogParam operLogParam);
+	void insert(OperLogParam param);
 }

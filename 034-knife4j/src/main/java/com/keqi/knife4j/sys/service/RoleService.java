@@ -10,16 +10,16 @@ public interface RoleService {
 	/**
 	 * 新增角色
 	 *
-	 * @param roleParam roleParam
+	 * @param param param
 	 */
-	void insert(RoleParam roleParam);
+	void insert(RoleParam param);
 
 	/**
-	 * 根据ID修改角色
+	 * 修改角色
 	 *
-	 * @param roleParam roleParam
+	 * @param param param
 	 */
-	void updateById(RoleParam roleParam);
+	void updateById(RoleParam param);
 
 	/**
 	 * 根据ID删除角色
@@ -31,8 +31,8 @@ public interface RoleService {
 	/**
 	 * 分页查询角色列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
-	PageVO<RoleVO> page(RolePageParam pageParam);
+	PageVO<RoleVO> page(RolePageParam param);
 }

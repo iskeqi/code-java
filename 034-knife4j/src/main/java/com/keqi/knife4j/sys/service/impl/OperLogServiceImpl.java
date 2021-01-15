@@ -18,13 +18,13 @@ public class OperLogServiceImpl implements OperLogService {
 	/**
 	 * 新增操作日志记录
 	 *
-	 * @param operLogParam operLogParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void insert(OperLogParam operLogParam) {
+	public void insert(OperLogParam param) {
 		OperLogDO t = new OperLogDO();
-		BeanUtil.copyProperties(operLogParam, t);
+		BeanUtil.copyProperties(param, t);
 
 		this.operLogMapper.insert(t);
 	}

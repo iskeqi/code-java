@@ -20,9 +20,9 @@ public interface AccountService {
 	/**
 	 * 新增用户
 	 *
-	 * @param accountParam accountParam
+	 * @param param param
 	 */
-	void insert(AccountParam accountParam);
+	void insert(AccountParam param);
 
 	/**
 	 * 修改密码
@@ -33,14 +33,14 @@ public interface AccountService {
 	void updatePassword(String password, String newPassword);
 
 	/**
-	 * 根据ID修改用户
+	 * 修改用户
 	 *
-	 * @param accountParam accountParam
+	 * @param param param
 	 */
-	void updateById(AccountParam accountParam);
+	void updateById(AccountParam param);
 
 	/**
-	 * 根据ID删除用户
+	 * 删除用户
 	 *
 	 * @param id id
 	 */
@@ -49,8 +49,8 @@ public interface AccountService {
 	/**
 	 * 分页查询用户列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
-	PageVO<AccountVO> page(AccountPageParam pageParam);
+	PageVO<AccountVO> page(AccountPageParam param);
 }

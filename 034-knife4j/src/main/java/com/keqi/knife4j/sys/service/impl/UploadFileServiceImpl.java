@@ -26,7 +26,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 	}
 
 	/**
-	 * 根据 id 获取对象
+	 * 获取对象
 	 *
 	 * @param id id
 	 * @return r
@@ -37,7 +37,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 	}
 
 	/**
-	 * 根据 id 删除文件
+	 * 删除文件
 	 *
 	 * @param id id
 	 */

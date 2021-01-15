@@ -12,19 +12,19 @@ public interface DictItemService {
 	/**
 	 * 新增字典项
 	 *
-	 * @param dictItemParam dictItemParam
+	 * @param param param
 	 */
-	void insert(DictItemParam dictItemParam);
+	void insert(DictItemParam param);
 
 	/**
-	 * 根据ID修改字典项
+	 * 修改字典项
 	 *
-	 * @param dictItemParam dictItemParam
+	 * @param param param
 	 */
-	void updateById(DictItemParam dictItemParam);
+	void updateById(DictItemParam param);
 
 	/**
-	 * 根据ID删除字典项
+	 * 删除字典项
 	 *
 	 * @param id id
 	 */
@@ -33,10 +33,10 @@ public interface DictItemService {
 	/**
 	 * 分页查询字典项列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
-	PageVO<DictItemVO> page(DictItemPageParam pageParam);
+	PageVO<DictItemVO> page(DictItemPageParam param);
 
 	/**
 	 * 根据 typeCode 查询字典项列表

@@ -23,17 +23,17 @@ public class AccountController {
 	private final AccountService accountService;
 
 	@ApiOperation(value = "4.1 新增用户")
-	@ApiOperationSupport(order = 1, ignoreParameters = "accountParam.id")
+	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/account")
-	public void create(@Validated @RequestBody AccountParam accountParam) {
-		this.accountService.insert(accountParam);
+	public void create(@Validated @RequestBody AccountParam param) {
+		this.accountService.insert(param);
 	}
 
 	@ApiOperation(value = "5.2 修改用户")
-	@ApiOperationSupport(order = 2, ignoreParameters = {"accountParam.account", "accountParam.password"})
+	@ApiOperationSupport(order = 2, ignoreParameters = {"param.account", "param.password"})
 	@PutMapping("/sys/account")
-	public void updateById(@Validated @RequestBody AccountParam accountParam) {
-		this.accountService.updateById(accountParam);
+	public void updateById(@Validated @RequestBody AccountParam param) {
+		this.accountService.updateById(param);
 	}
 
 	@ApiOperation(value = "5.3 删除用户")
@@ -47,7 +47,7 @@ public class AccountController {
 	@ApiOperation(value = "5.4 分页查询用户列表")
 	@ApiOperationSupport(order = 4)
 	@PostMapping("/sys/account/page")
-	public PageVO<AccountVO> page(@RequestBody AccountPageParam pageParam) {
-		return this.accountService.page(pageParam);
+	public PageVO<AccountVO> page(@RequestBody AccountPageParam param) {
+		return this.accountService.page(param);
 	}
 }

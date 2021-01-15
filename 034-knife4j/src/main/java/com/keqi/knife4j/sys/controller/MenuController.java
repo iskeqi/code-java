@@ -23,17 +23,17 @@ public class MenuController {
 	private final MenuService menuService;
 
 	@ApiOperation(value = "6.1 新增菜单")
-	@ApiOperationSupport(order = 1, ignoreParameters = "menuParam.id")
+	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/menu")
-	public void create(@RequestBody MenuParam menuParam) {
-		this.menuService.insert(menuParam);
+	public void create(@RequestBody MenuParam param) {
+		this.menuService.insert(param);
 	}
 
 	@ApiOperation(value = "6.2 修改菜单")
 	@ApiOperationSupport(order = 2)
 	@PutMapping("/sys/menu")
-	public void updateById(@RequestBody MenuParam menuParam) {
-		this.menuService.updateById(menuParam);
+	public void updateById(@RequestBody MenuParam param) {
+		this.menuService.updateById(param);
 	}
 
 	@ApiOperation(value = "6.3 删除菜单")

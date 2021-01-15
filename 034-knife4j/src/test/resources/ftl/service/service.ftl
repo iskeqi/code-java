@@ -10,19 +10,19 @@ public interface ${tableNameHump}Service {
 	/**
 	 * 新增${tableComment}
 	 *
-	 * @param ${tableNameHumpLetter}Param ${tableNameHumpLetter}Param
+	 * @param param param
 	 */
-	void insert(${tableNameHump}Param ${tableNameHumpLetter}Param);
+	void insert(${tableNameHump}Param param);
 
 	/**
-	 * 根据ID修改${tableComment}
+	 * 修改${tableComment}
 	 *
-	 * @param ${tableNameHumpLetter}Param ${tableNameHumpLetter}Param
+	 * @param param param
 	 */
-	void updateById(${tableNameHump}Param ${tableNameHumpLetter}Param);
+	void updateById(${tableNameHump}Param param);
 
 	/**
-	 * 根据ID删除${tableComment}
+	 * 删除${tableComment}
 	 *
 	 * @param id id
 	 */
@@ -31,8 +31,8 @@ public interface ${tableNameHump}Service {
 	/**
 	 * 分页查询${tableComment}列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
-	PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam pageParam);
+	PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam param);
 }

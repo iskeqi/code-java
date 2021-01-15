@@ -30,23 +30,23 @@ public class RoleServiceImpl implements RoleService {
 	/**
 	 * 新增角色
 	 *
-	 * @param roleParam roleParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void insert(RoleParam roleParam) {
+	public void insert(RoleParam param) {
 		RoleDO roleDO = new RoleDO();
-		BeanUtil.copyProperties(roleParam, roleDO);
+		BeanUtil.copyProperties(param, roleDO);
 		this.roleMapper.insert(roleDO);
 
 		// 新增角色-菜单关联记录
-		List<Long> menuIdList = roleParam.getMenuIdList();
+		List<Long> menuIdList = param.getMenuIdList();
 		if (CollUtil.isNotEmpty(menuIdList)) {
 			List<RoleMenuDO> list = new ArrayList<>();
 			for (Long menuId : menuIdList) {
 				RoleMenuDO t = new RoleMenuDO();
 				t.setMenuId(menuId);
-				t.setRoleId(roleParam.getId());
+				t.setRoleId(param.getId());
 				list.add(t);
 			}
 			this.roleMenuMapper.insertList(list);
@@ -54,27 +54,27 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/**
-	 * 根据ID修改角色
+	 * 修改角色
 	 *
-	 * @param roleParam roleParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void updateById(RoleParam roleParam) {
+	public void updateById(RoleParam param) {
 		RoleDO roleDO = new RoleDO();
-		BeanUtil.copyProperties(roleParam, roleDO);
+		BeanUtil.copyProperties(param, roleDO);
 		this.roleMapper.updateById(roleDO);
 
 		// 新增角色-菜单关联记录
-		List<Long> menuIdList = roleParam.getMenuIdList();
+		List<Long> menuIdList = param.getMenuIdList();
 		if (CollUtil.isNotEmpty(menuIdList)) {
-			this.roleMenuMapper.deleteByRoleId(roleParam.getId());
+			this.roleMenuMapper.deleteByRoleId(param.getId());
 
 			List<RoleMenuDO> list = new ArrayList<>();
 			for (Long menuId : menuIdList) {
 				RoleMenuDO t = new RoleMenuDO();
 				t.setMenuId(menuId);
-				t.setRoleId(roleParam.getId());
+				t.setRoleId(param.getId());
 				list.add(t);
 			}
 			this.roleMenuMapper.insertList(list);
@@ -82,7 +82,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	/**
-	 * 根据ID删除角色
+	 * 删除角色
 	 *
 	 * @param id id
 	 */
@@ -96,13 +96,13 @@ public class RoleServiceImpl implements RoleService {
 	/**
 	 * 分页查询角色列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
 	@Override
-	public PageVO<RoleVO> page(RolePageParam pageParam) {
-		Page<RoleVO> page = new Page<>(pageParam.getCurrent(), pageParam.getSize());
-		IPage<RoleVO> result = this.roleMapper.page(page, pageParam);
+	public PageVO<RoleVO> page(RolePageParam param) {
+		Page<RoleVO> page = new Page<>(param.getCurrent(), param.getSize());
+		IPage<RoleVO> result = this.roleMapper.page(page, param);
 
 		return new PageVO<>(result.getTotal(), result.getRecords());
 	}

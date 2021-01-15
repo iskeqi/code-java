@@ -24,33 +24,33 @@ public class ParamConfigServiceImpl implements ParamConfigService {
 	/**
 	 * 新增参数配置
 	 *
-	 * @param paramConfigParam paramConfigParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void insert(ParamConfigParam paramConfigParam) {
+	public void insert(ParamConfigParam param) {
 		ParamConfigDO t = new ParamConfigDO();
-		BeanUtil.copyProperties(paramConfigParam, t);
+		BeanUtil.copyProperties(param, t);
 
 		this.paramConfigMapper.insert(t);
 	}
 
 	/**
-	 * 根据ID修改参数配置
+	 * 修改参数配置
 	 *
-	 * @param paramConfigParam paramConfigParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void updateById(ParamConfigParam paramConfigParam) {
+	public void updateById(ParamConfigParam param) {
 		ParamConfigDO t = new ParamConfigDO();
-		BeanUtil.copyProperties(paramConfigParam, t);
+		BeanUtil.copyProperties(param, t);
 
 		this.paramConfigMapper.updateById(t);
 	}
 
 	/**
-	 * 根据ID删除参数配置
+	 * 删除参数配置
 	 *
 	 * @param id id
 	 */
@@ -63,13 +63,13 @@ public class ParamConfigServiceImpl implements ParamConfigService {
 	/**
 	 * 分页查询参数配置列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
 	@Override
-	public PageVO<ParamConfigVO> page(ParamConfigPageParam pageParam) {
-		Page<ParamConfigVO> page = new Page<>(pageParam.getCurrent(), pageParam.getSize());
-		IPage<ParamConfigVO> result = this.paramConfigMapper.page(page, pageParam);
+	public PageVO<ParamConfigVO> page(ParamConfigPageParam param) {
+		Page<ParamConfigVO> page = new Page<>(param.getCurrent(), param.getSize());
+		IPage<ParamConfigVO> result = this.paramConfigMapper.page(page, param);
 		for (ParamConfigVO t : result.getRecords()) {
 			t.setParamTypeName(DictUtil.getItemName(t.getParamType()));
 		}

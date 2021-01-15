@@ -15,10 +15,10 @@ public interface ${tableNameHump}Mapper extends BaseMapper<${tableNameHump}DO> {
 	/**
 	 * 分页查询${tableComment}列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
-	IPage<${tableNameHump}VO> page(@Param("page") IPage<${tableNameHump}VO> page, @Param("pageParam") ${tableNameHump}PageParam pageParam);
+	IPage<${tableNameHump}VO> page(@Param("page") IPage<${tableNameHump}VO> page, @Param("param") ${tableNameHump}PageParam param);
 </#if>
 
 }

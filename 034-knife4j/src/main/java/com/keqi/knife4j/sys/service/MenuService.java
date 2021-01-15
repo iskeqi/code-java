@@ -10,19 +10,19 @@ public interface MenuService {
 	/**
 	 * 新增菜单
 	 *
-	 * @param menuParam menuParam
+	 * @param param param
 	 */
-	void insert(MenuParam menuParam);
+	void insert(MenuParam param);
 
 	/**
-	 * 根据ID修改菜单
+	 * 修改菜单
 	 *
-	 * @param menuParam menuParam
+	 * @param param param
 	 */
-	void updateById(MenuParam menuParam);
+	void updateById(MenuParam param);
 
 	/**
-	 * 根据ID删除菜单
+	 * 删除菜单
 	 *
 	 * @param id id
 	 */

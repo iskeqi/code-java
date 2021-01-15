@@ -23,17 +23,17 @@ public class ${tableNameHump}Controller {
 	private final ${tableNameHump}Service ${tableNameHumpLetter}Service;
 
 	@ApiOperation(value = "${sort}.1 新增${tableComment}")
-	@ApiOperationSupport(order = 1, ignoreParameters = "${tableNameHumpLetter}Param.id")
+	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/${tableNameHumpLetter}")
-	public void create(@Validated @RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
-		this.${tableNameHumpLetter}Service.insert(${tableNameHumpLetter}Param);
+	public void create(@Validated @RequestBody ${tableNameHump}Param param) {
+		this.${tableNameHumpLetter}Service.insert(param);
 	}
 
 	@ApiOperation(value = "${sort}.2 修改${tableComment}")
 	@ApiOperationSupport(order = 2)
 	@PutMapping("/sys/${tableNameHumpLetter}")
-	public void updateById(@Validated @RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
-		this.${tableNameHumpLetter}Service.updateById(${tableNameHumpLetter}Param);
+	public void updateById(@Validated @RequestBody ${tableNameHump}Param param) {
+		this.${tableNameHumpLetter}Service.updateById(param);
 	}
 
 	@ApiOperation(value = "${sort}.3 删除${tableComment}")
@@ -47,7 +47,7 @@ public class ${tableNameHump}Controller {
 	@ApiOperation(value = "${sort}.4 分页查询${tableComment}列表")
 	@ApiOperationSupport(order = 4)
 	@PostMapping("/sys/${tableNameHumpLetter}/page")
-	public PageVO<${tableNameHump}VO> page(@RequestBody ${tableNameHump}PageParam pageParam) {
-		return this.${tableNameHumpLetter}Service.page(pageParam);
+	public PageVO<${tableNameHump}VO> page(@RequestBody ${tableNameHump}PageParam param) {
+		return this.${tableNameHumpLetter}Service.page(param);
 	}
 }

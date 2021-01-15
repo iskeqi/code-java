@@ -10,19 +10,19 @@ public interface ParamConfigService {
 	/**
 	 * 新增参数配置
 	 *
-	 * @param paramConfigParam paramConfigParam
+	 * @param param param
 	 */
-	void insert(ParamConfigParam paramConfigParam);
+	void insert(ParamConfigParam param);
 
 	/**
-	 * 根据ID修改参数配置
+	 * 修改参数配置
 	 *
-	 * @param paramConfigParam paramConfigParam
+	 * @param param param
 	 */
-	void updateById(ParamConfigParam paramConfigParam);
+	void updateById(ParamConfigParam param);
 
 	/**
-	 * 根据ID删除参数配置
+	 * 删除参数配置
 	 *
 	 * @param id id
 	 */
@@ -31,8 +31,8 @@ public interface ParamConfigService {
 	/**
 	 * 分页查询参数配置列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
-	PageVO<ParamConfigVO> page(ParamConfigPageParam pageParam);
+	PageVO<ParamConfigVO> page(ParamConfigPageParam param);
 }

@@ -23,33 +23,33 @@ public class MenuServiceImpl implements MenuService {
 	/**
 	 * 新增菜单
 	 *
-	 * @param menuParam menuParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void insert(MenuParam menuParam) {
+	public void insert(MenuParam param) {
 		MenuDO t = new MenuDO();
-		BeanUtil.copyProperties(menuParam, t);
+		BeanUtil.copyProperties(param, t);
 
 		this.menuMapper.insert(t);
 	}
 
 	/**
-	 * 根据ID修改菜单
+	 * 修改菜单
 	 *
-	 * @param menuParam menuParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void updateById(MenuParam menuParam) {
+	public void updateById(MenuParam param) {
 		MenuDO t = new MenuDO();
-		BeanUtil.copyProperties(menuParam, t);
+		BeanUtil.copyProperties(param, t);
 
 		this.menuMapper.updateById(t);
 	}
 
 	/**
-	 * 根据ID删除菜单
+	 * 删除菜单
 	 *
 	 * @param id id
 	 */

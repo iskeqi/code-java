@@ -23,17 +23,17 @@ public class ParamConfigController {
 	private final ParamConfigService paramConfigService;
 
 	@ApiOperation(value = "7.1 新增参数配置")
-	@ApiOperationSupport(order = 1, ignoreParameters = "paramConfigParam.id")
+	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/paramConfig")
-	public void create(@Validated @RequestBody ParamConfigParam paramConfigParam) {
-		this.paramConfigService.insert(paramConfigParam);
+	public void create(@Validated @RequestBody ParamConfigParam param) {
+		this.paramConfigService.insert(param);
 	}
 
 	@ApiOperation(value = "7.2 修改参数配置")
 	@ApiOperationSupport(order = 2)
 	@PutMapping("/sys/paramConfig")
-	public void updateById(@Validated @RequestBody ParamConfigParam paramConfigParam) {
-		this.paramConfigService.updateById(paramConfigParam);
+	public void updateById(@Validated @RequestBody ParamConfigParam param) {
+		this.paramConfigService.updateById(param);
 	}
 
 	@ApiOperation(value = "7.3 删除参数配置")
@@ -47,7 +47,7 @@ public class ParamConfigController {
 	@ApiOperation(value = "7.4 分页查询参数配置列表")
 	@ApiOperationSupport(order = 4)
 	@PostMapping("/sys/paramConfig/page")
-	public PageVO<ParamConfigVO> page(@RequestBody ParamConfigPageParam pageParam) {
-		return this.paramConfigService.page(pageParam);
+	public PageVO<ParamConfigVO> page(@RequestBody ParamConfigPageParam param) {
+		return this.paramConfigService.page(param);
 	}
 }

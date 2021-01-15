@@ -27,35 +27,35 @@ public class DictItemServiceImpl implements DictItemService {
 	/**
 	 * 新增字典项
 	 *
-	 * @param dictItemParam dictItemParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void insert(DictItemParam dictItemParam) {
+	public void insert(DictItemParam param) {
 		DictItemDO t = new DictItemDO();
-		BeanUtils.copyProperties(dictItemParam, t);
+		BeanUtils.copyProperties(param, t);
 		this.dictItemMapper.insert(t);
 
 		this.dictUtil.run();
 	}
 
 	/**
-	 * 根据ID修改字典项
+	 * 修改字典项
 	 *
-	 * @param dictItemParam dictItemParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void updateById(DictItemParam dictItemParam) {
+	public void updateById(DictItemParam param) {
 		DictItemDO t = new DictItemDO();
-		BeanUtils.copyProperties(dictItemParam, t);
+		BeanUtils.copyProperties(param, t);
 		this.dictItemMapper.updateById(t);
 
 		this.dictUtil.run();
 	}
 
 	/**
-	 * 根据ID删除字典项
+	 * 删除字典项
 	 *
 	 * @param id id
 	 */
@@ -71,13 +71,13 @@ public class DictItemServiceImpl implements DictItemService {
 	/**
 	 * 分页查询字典项列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
 	@Override
-	public PageVO<DictItemVO> page(DictItemPageParam pageParam) {
+	public PageVO<DictItemVO> page(DictItemPageParam param) {
 		IPage<DictItemVO> result = this.dictItemMapper
-				.page(new Page<>(pageParam.getCurrent(), pageParam.getSize()), pageParam);
+				.page(new Page<>(param.getCurrent(), param.getSize()), param);
 		return new PageVO<>(result.getTotal(), result.getRecords());
 	}
 

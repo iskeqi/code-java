@@ -71,20 +71,20 @@ public class AccountServiceImpl implements AccountService {
 	/**
 	 * 新增用户
 	 *
-	 * @param accountParam accountParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void insert(AccountParam accountParam) {
+	public void insert(AccountParam param) {
 		// 新增用户记录
 		AccountDO accountDO = new AccountDO();
-		BeanUtil.copyProperties(accountParam, accountDO);
+		BeanUtil.copyProperties(param, accountDO);
 		accountDO.setSalt(RandomUtil.randomString(20));
 		accountDO.setPassword(CommonUtil.encryptedPassword(accountDO.getPassword(), accountDO.getSalt()));
 		this.accountMapper.insert(accountDO);
 
 		// 新增用户-角色关联记录
-		List<Long> roleIdList = accountParam.getRoleIdList();
+		List<Long> roleIdList = param.getRoleIdList();
 		if (CollUtil.isNotEmpty(roleIdList)) {
 			List<AccountRoleDO> list = new ArrayList<>();
 			for (Long roleId : roleIdList) {
@@ -120,32 +120,32 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	/**
-	 * 根据ID修改用户
+	 * 修改用户
 	 *
-	 * @param accountParam accountParam
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void updateById(AccountParam accountParam) {
+	public void updateById(AccountParam param) {
 		// 修改用户记录
-		accountParam.setAccount(null); // 不允许修改
-		accountParam.setPassword(null); // 不允许通过此接口修改密码
+		param.setAccount(null); // 不允许修改
+		param.setPassword(null); // 不允许通过此接口修改密码
 		AccountDO accountDO = new AccountDO();
-		BeanUtil.copyProperties(accountParam, accountDO);
+		BeanUtil.copyProperties(param, accountDO);
 		this.accountMapper.updateById(accountDO);
 
 		// 修改用户-角色关联记录
-		List<Long> roleIdList = accountParam.getRoleIdList();
+		List<Long> roleIdList = param.getRoleIdList();
 		if (CollUtil.isNotEmpty(roleIdList)) {
 			// 先删除
-			this.accountRoleMapper.deleteByAccountId(accountParam.getId());
+			this.accountRoleMapper.deleteByAccountId(param.getId());
 
 			// 再增加
 			List<AccountRoleDO> list = new ArrayList<>();
 			for (Long roleId : roleIdList) {
 				AccountRoleDO t = new AccountRoleDO();
 				t.setRoleId(roleId);
-				t.setAccountId(accountParam.getId());
+				t.setAccountId(param.getId());
 				list.add(t);
 			}
 			this.accountRoleMapper.insertList(list);
@@ -153,7 +153,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	/**
-	 * 根据ID删除用户
+	 * 删除用户
 	 *
 	 * @param id id
 	 */
@@ -167,13 +167,13 @@ public class AccountServiceImpl implements AccountService {
 	/**
 	 * 分页查询用户列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
 	@Override
-	public PageVO<AccountVO> page(AccountPageParam pageParam) {
-		Page<AccountVO> page = new Page<>(pageParam.getCurrent(), pageParam.getSize());
-		IPage<AccountVO> result = this.accountMapper.page(page, pageParam);
+	public PageVO<AccountVO> page(AccountPageParam param) {
+		Page<AccountVO> page = new Page<>(param.getCurrent(), param.getSize());
+		IPage<AccountVO> result = this.accountMapper.page(page, param);
 
 		return new PageVO<>(result.getTotal(), result.getRecords());
 	}

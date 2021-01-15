@@ -23,33 +23,33 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	/**
 	 * 新增${tableComment}
 	 *
-	 * @param ${tableNameHumpLetter}Param ${tableNameHumpLetter}Param
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void insert(${tableNameHump}Param ${tableNameHumpLetter}Param) {
+	public void insert(${tableNameHump}Param param) {
 		${tableNameHump}DO t = new ${tableNameHump}DO();
-		BeanUtil.copyProperties(${tableNameHumpLetter}Param, t);
+		BeanUtil.copyProperties(param, t);
 
 		this.${tableNameHumpLetter}Mapper.insert(t);
 	}
 
 	/**
-	 * 根据ID修改${tableComment}
+	 * 修改${tableComment}
 	 *
-	 * @param ${tableNameHumpLetter}Param ${tableNameHumpLetter}Param
+	 * @param param param
 	 */
 	@Override
 	@Transactional
-	public void updateById(${tableNameHump}Param ${tableNameHumpLetter}Param) {
+	public void updateById(${tableNameHump}Param param) {
 		${tableNameHump}DO t = new ${tableNameHump}DO();
-		BeanUtil.copyProperties(${tableNameHumpLetter}Param, t);
+		BeanUtil.copyProperties(param, t);
 
 		this.${tableNameHumpLetter}Mapper.updateById(t);
 	}
 
 	/**
-	 * 根据ID删除${tableComment}
+	 * 删除${tableComment}
 	 *
 	 * @param id id
 	 */
@@ -62,13 +62,13 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	/**
 	 * 分页查询${tableComment}列表
 	 *
-	 * @param pageParam pageParam
+	 * @param param param
 	 * @return r
 	 */
 	@Override
-	public PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam pageParam) {
-		Page<${tableNameHump}VO> page = new Page<>(pageParam.getCurrent(), pageParam.getSize());
-		IPage<${tableNameHump}VO> result = this.${tableNameHumpLetter}Mapper.page(page, pageParam);
+	public PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam param) {
+		Page<${tableNameHump}VO> page = new Page<>(param.getCurrent(), param.getSize());
+		IPage<${tableNameHump}VO> result = this.${tableNameHumpLetter}Mapper.page(page, param);
 
 		return new PageVO<>(result.getTotal(), result.getRecords());
 	}
