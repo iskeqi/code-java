@@ -16,10 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -118,8 +115,8 @@ public class UploadFileController {
 	@ApiOperationSupport(order = 3)
 	@ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
 	@ResponseBody
-	@PostMapping("/sys/uploadFile/deleteById")
-	public void deleteById(@RequestParam Long id) {
+	@DeleteMapping("/sys/uploadFile/{id}")
+	public void deleteById(@PathVariable Long id) {
 		UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
 		if (uploadFileDO == null) {
 			throw new BusinessException("文件不存在");

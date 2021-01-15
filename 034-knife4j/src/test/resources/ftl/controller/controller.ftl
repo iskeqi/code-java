@@ -24,23 +24,23 @@ public class ${tableNameHump}Controller {
 
 	@ApiOperation(value = "${sort}.1 新增${tableComment}")
 	@ApiOperationSupport(order = 1, ignoreParameters = "${tableNameHumpLetter}Param.id")
-	@PostMapping("/sys/${tableNameHumpLetter}/create")
+	@PostMapping("/sys/${tableNameHumpLetter}")
 	public void create(@Validated @RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
 		this.${tableNameHumpLetter}Service.insert(${tableNameHumpLetter}Param);
 	}
 
-	@ApiOperation(value = "${sort}.2 根据ID修改${tableComment}")
+	@ApiOperation(value = "${sort}.2 修改${tableComment}")
 	@ApiOperationSupport(order = 2)
-	@PostMapping("/sys/${tableNameHumpLetter}/updateById")
+	@PutMapping("/sys/${tableNameHumpLetter}")
 	public void updateById(@Validated @RequestBody ${tableNameHump}Param ${tableNameHumpLetter}Param) {
 		this.${tableNameHumpLetter}Service.updateById(${tableNameHumpLetter}Param);
 	}
 
-	@ApiOperation(value = "${sort}.3 根据ID删除${tableComment}")
+	@ApiOperation(value = "${sort}.3 删除${tableComment}")
 	@ApiOperationSupport(order = 3)
 	@ApiImplicitParam(name = "id", value = "${tableComment}ID", example = "1", required = true)
-	@PostMapping("/sys/${tableNameHumpLetter}/deleteById")
-	public void deleteById(@RequestParam Long id) {
+	@DeleteMapping("/sys/${tableNameHumpLetter}/{id}")
+	public void deleteById(@PathVariable Long id) {
 		this.${tableNameHumpLetter}Service.deleteById(id);
 	}
 

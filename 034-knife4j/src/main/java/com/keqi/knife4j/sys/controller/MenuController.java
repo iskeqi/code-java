@@ -10,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,23 +24,23 @@ public class MenuController {
 
 	@ApiOperation(value = "6.1 新增菜单")
 	@ApiOperationSupport(order = 1, ignoreParameters = "menuParam.id")
-	@PostMapping("/sys/menu/create")
+	@PostMapping("/sys/menu")
 	public void create(@RequestBody MenuParam menuParam) {
 		this.menuService.insert(menuParam);
 	}
 
-	@ApiOperation(value = "6.2 根据ID修改菜单")
+	@ApiOperation(value = "6.2 修改菜单")
 	@ApiOperationSupport(order = 2)
-	@PostMapping("/sys/menu/updateById")
+	@PutMapping("/sys/menu")
 	public void updateById(@RequestBody MenuParam menuParam) {
 		this.menuService.updateById(menuParam);
 	}
 
-	@ApiOperation(value = "6.3 根据ID删除菜单")
+	@ApiOperation(value = "6.3 删除菜单")
 	@ApiOperationSupport(order = 3)
 	@ApiImplicitParam(name = "id", value = "菜单ID", example = "1", required = true)
-	@PostMapping("/sys/menu/deleteById")
-	public void deleteById(@RequestParam Long id) {
+	@DeleteMapping("/sys/menu/{id}")
+	public void deleteById(@PathVariable Long id) {
 		this.menuService.deleteById(id);
 	}
 

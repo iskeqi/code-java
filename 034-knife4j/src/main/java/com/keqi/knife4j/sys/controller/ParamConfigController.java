@@ -24,23 +24,23 @@ public class ParamConfigController {
 
 	@ApiOperation(value = "7.1 新增参数配置")
 	@ApiOperationSupport(order = 1, ignoreParameters = "paramConfigParam.id")
-	@PostMapping("/sys/paramConfig/create")
+	@PostMapping("/sys/paramConfig")
 	public void create(@Validated @RequestBody ParamConfigParam paramConfigParam) {
 		this.paramConfigService.insert(paramConfigParam);
 	}
 
-	@ApiOperation(value = "7.2 根据ID修改参数配置")
+	@ApiOperation(value = "7.2 修改参数配置")
 	@ApiOperationSupport(order = 2)
-	@PostMapping("/sys/paramConfig/updateById")
+	@PutMapping("/sys/paramConfig")
 	public void updateById(@Validated @RequestBody ParamConfigParam paramConfigParam) {
 		this.paramConfigService.updateById(paramConfigParam);
 	}
 
-	@ApiOperation(value = "7.3 根据ID删除参数配置")
+	@ApiOperation(value = "7.3 删除参数配置")
 	@ApiOperationSupport(order = 3)
 	@ApiImplicitParam(name = "id", value = "参数配置ID", example = "1", required = true)
-	@PostMapping("/sys/paramConfig/deleteById")
-	public void deleteById(@RequestParam Long id) {
+	@DeleteMapping("/sys/paramConfig/{id}")
+	public void deleteById(@PathVariable Long id) {
 		this.paramConfigService.deleteById(id);
 	}
 

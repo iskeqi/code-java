@@ -23,23 +23,23 @@ public class RoleController {
 
 	@ApiOperation(value = "5.1 新增角色")
 	@ApiOperationSupport(order = 1, ignoreParameters = "roleParam.id")
-	@PostMapping("/sys/role/create")
+	@PostMapping("/sys/role")
 	public void create(@RequestBody RoleParam roleParam) {
 		this.roleService.insert(roleParam);
 	}
 
-	@ApiOperation(value = "5.2 根据ID修改角色")
+	@ApiOperation(value = "5.2 修改角色")
 	@ApiOperationSupport(order = 2)
-	@PostMapping("/sys/role/updateById")
+	@PutMapping("/sys/role")
 	public void updateById(@RequestBody RoleParam roleParam) {
 		this.roleService.updateById(roleParam);
 	}
 
-	@ApiOperation(value = "5.3 根据ID删除角色")
+	@ApiOperation(value = "5.3 删除角色")
 	@ApiOperationSupport(order = 3)
 	@ApiImplicitParam(name = "id", value = "角色ID", example = "1", required = true)
-	@PostMapping("/sys/role/deleteById")
-	public void deleteById(@RequestParam Long id) {
+	@DeleteMapping("/sys/role/{id}")
+	public void deleteById(@PathVariable Long id) {
 		this.roleService.deleteById(id);
 	}
 
