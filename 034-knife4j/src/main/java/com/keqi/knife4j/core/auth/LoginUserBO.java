@@ -1,17 +1,10 @@
 package com.keqi.knife4j.core.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * 登录用户信息实体类
  *
  * @author keqi
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class LoginUserBO {
 
 	/**
@@ -23,4 +16,28 @@ public class LoginUserBO {
 	 * 登录用户账号名
 	 */
 	private String account;
+
+	public LoginUserBO() {
+	}
+
+	public LoginUserBO(Long id, String account) {
+		this.id = id;
+		this.account = account;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
 }

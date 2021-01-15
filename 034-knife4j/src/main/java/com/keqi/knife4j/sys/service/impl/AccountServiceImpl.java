@@ -56,16 +56,14 @@ public class AccountServiceImpl implements AccountService {
 
 		// 生成 JWT 字符串
 		LoginUserBO loginUserBO = new LoginUserBO();
-		BeanUtil.copyProperties(accountDO, loginUserBO);
+		loginUserBO.setId(accountDO.getId());
+		loginUserBO.setAccount(accountDO.getAccount());
 
 		// 设置过期时间为第二天的凌晨 2 点钟
 		LocalDateTime expirationDate = LocalDate.now().plusDays(1).atTime(2, 0, 0);
 		String accessToken = JwtUtil.generateToken(BeanUtil.beanToMap(loginUserBO), DateUtil.date(expirationDate));
 
-		LoginVO loginVO = new LoginVO();
-		loginVO.setAccessToken(accessToken);
-
-		return loginVO;
+		return new LoginVO(accessToken);
 	}
 
 	/**

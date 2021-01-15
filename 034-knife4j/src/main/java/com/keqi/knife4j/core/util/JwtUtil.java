@@ -50,6 +50,6 @@ public class JwtUtil {
 			return null;
 		}
 		// 换成LoginUserBO对象
-		return BeanUtil.mapToBean(body, LoginUserBO.class, true);
+		return BeanUtil.toBean(body, LoginUserBO.class);
 	}
 }
