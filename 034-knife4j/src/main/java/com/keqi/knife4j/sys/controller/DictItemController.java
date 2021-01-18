@@ -26,7 +26,7 @@ public class DictItemController {
 	@ApiOperation(value = "2.1 新增字典项")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/dictItem")
-	public void create(@RequestBody DictItemParam param) {
+	public void insert(@RequestBody DictItemParam param) {
 		this.dictItemService.insert(param);
 	}
 
@@ -54,7 +54,7 @@ public class DictItemController {
 
 	@ApiOperation(value = "2.5 根据 typeCode 查询字典项列表")
 	@ApiOperationSupport(order = 5)
-	@ApiImplicitParam(name = "typeCode", value = "字典类型Code", example = "gender", required = true)
+	@ApiImplicitParam(name = "typeCode", value = "字典类型Code", example = "configType", required = true)
 	@PostMapping("/sys/dictItem/listAllByTypeCode")
 	public List<DictItemVO> listAllByTypeCode(@RequestParam String typeCode) {
 		return this.dictItemService.listAllByTypeCode(typeCode);

@@ -24,7 +24,7 @@ public class RoleController {
 	@ApiOperation(value = "5.1 新增角色")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/role")
-	public void create(@RequestBody RoleParam param) {
+	public void insert(@RequestBody RoleParam param) {
 		this.roleService.insert(param);
 	}
 

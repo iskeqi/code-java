@@ -25,7 +25,7 @@ public class MenuController {
 	@ApiOperation(value = "6.1 新增菜单")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/menu")
-	public void create(@RequestBody MenuParam param) {
+	public void insert(@RequestBody MenuParam param) {
 		this.menuService.insert(param);
 	}
 

@@ -1,6 +1,8 @@
 package com.keqi.knife4j.core.config;
 
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.keqi.knife4j.core.pojo.CommonConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -15,6 +17,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableSwagger2WebMvc
 public class Knife4jConfiguration {
 
+	@Autowired
+	private OpenApiExtensionResolver openApiExtensionResolver;
+
 	/**
 	 * 如果对项目中的接口进行分组，拷贝多份即可
 	 *
@@ -22,14 +27,16 @@ public class Knife4jConfiguration {
 	 */
 	@Bean
 	public Docket sys() {
+		String groupName = "接口文档";
 		return new Docket(DocumentationType.SWAGGER_2)
 				.useDefaultResponseMessages(false) // 关闭 swagger 默认响应状态码
-				.groupName("接口文档") // 指定模块名称
+				.groupName(groupName) // 指定模块名称
 				.apiInfo(systemMangerInfo())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage(CommonConstant.ROOT_PACKAGE_NAME)) // 扫描指定包路径下的接口
 				.paths(PathSelectors.any())
-				.build();
+				.build()
+				.extensions(openApiExtensionResolver.buildExtensions(groupName));
 	}
 
 	private ApiInfo systemMangerInfo() {

@@ -25,7 +25,7 @@ public class ${tableNameHump}Controller {
 	@ApiOperation(value = "${sort}.1 新增${tableComment}")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/${tableNameHumpLetter}")
-	public void create(@Validated @RequestBody ${tableNameHump}Param param) {
+	public void insert(@Validated @RequestBody ${tableNameHump}Param param) {
 		this.${tableNameHumpLetter}Service.insert(param);
 	}
 

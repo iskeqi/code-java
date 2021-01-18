@@ -25,7 +25,7 @@ public class ParamConfigController {
 	@ApiOperation(value = "7.1 新增参数配置")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/paramConfig")
-	public void create(@Validated @RequestBody ParamConfigParam param) {
+	public void insert(@Validated @RequestBody ParamConfigParam param) {
 		this.paramConfigService.insert(param);
 	}
 

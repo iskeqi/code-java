@@ -25,7 +25,7 @@ public class AccountController {
 	@ApiOperation(value = "4.1 新增用户")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/account")
-	public void create(@Validated @RequestBody AccountParam param) {
+	public void insert(@Validated @RequestBody AccountParam param) {
 		this.accountService.insert(param);
 	}
 
