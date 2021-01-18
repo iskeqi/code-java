@@ -6,7 +6,7 @@ import com.keqi.knife4j.sys.domain.param.MenuParam;
 import com.keqi.knife4j.sys.domain.vo.MenuVO;
 import com.keqi.knife4j.sys.mapper.MenuMapper;
 import com.keqi.knife4j.sys.service.MenuService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-@AllArgsConstructor
 @Service
 public class MenuServiceImpl implements MenuService {
 
-	private final MenuMapper menuMapper;
+	@Autowired
+	private MenuMapper menuMapper;
 
 	/**
 	 * 新增菜单

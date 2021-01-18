@@ -10,16 +10,16 @@ import com.keqi.knife4j.sys.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "5. 角色管理")
 @ApiSupport(order = 5)
-@AllArgsConstructor
 @RestController
 public class RoleController {
 
-	private final RoleService roleService;
+	@Autowired
+	private RoleService roleService;
 
 	@ApiOperation(value = "5.1 新增角色")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")

@@ -1,22 +1,27 @@
 package com.keqi.knife4j.sys.domain.db;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.keqi.knife4j.core.pojo.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * 菜单表
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_menu")
-public class MenuDO extends BaseDO {
+public class MenuDO {
+
+	/**
+	 * 菜单id
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
 
 	/**
 	 * 名称

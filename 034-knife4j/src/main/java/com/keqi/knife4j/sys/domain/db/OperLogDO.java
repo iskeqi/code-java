@@ -82,7 +82,7 @@ public class OperLogDO {
 	 * 创建人员
 	 */
 	@TableField(value = "create_by")
-	private String createBy;
+	private Long createBy;
 
 	/**
 	 * 创建时间

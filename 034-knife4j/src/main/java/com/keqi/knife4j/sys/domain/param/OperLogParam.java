@@ -62,7 +62,7 @@ public class OperLogParam {
 	/**
 	 * 创建人员
 	 */
-	private String createBy;
+	private Long createBy;
 
 	/**
 	 * 创建时间

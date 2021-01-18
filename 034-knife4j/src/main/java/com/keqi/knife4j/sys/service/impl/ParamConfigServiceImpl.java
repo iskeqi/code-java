@@ -11,15 +11,15 @@ import com.keqi.knife4j.sys.domain.vo.ParamConfigVO;
 import com.keqi.knife4j.sys.mapper.ParamConfigMapper;
 import com.keqi.knife4j.sys.service.ParamConfigService;
 import com.keqi.knife4j.sys.util.DictUtil;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@AllArgsConstructor
 @Service
 public class ParamConfigServiceImpl implements ParamConfigService {
 
-	private final ParamConfigMapper paramConfigMapper;
+	@Autowired
+	private ParamConfigMapper paramConfigMapper;
 
 	/**
 	 * 新增参数配置

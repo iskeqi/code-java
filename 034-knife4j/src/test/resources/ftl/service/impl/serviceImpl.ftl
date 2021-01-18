@@ -10,15 +10,15 @@ import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}Param;
 import ${basePackageName}.${subPackageName}.domain.vo.${tableNameHump}VO;
 import ${basePackageName}.${subPackageName}.mapper.${tableNameHump}Mapper;
 import ${basePackageName}.${subPackageName}.service.${tableNameHump}Service;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@AllArgsConstructor
 @Service
 public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 
-	private final ${tableNameHump}Mapper ${tableNameHumpLetter}Mapper;
+	@Autowired
+	private ${tableNameHump}Mapper ${tableNameHumpLetter}Mapper;
 
 	/**
 	 * 新增${tableComment}

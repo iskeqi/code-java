@@ -10,17 +10,17 @@ import com.keqi.knife4j.sys.service.ParamConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "7. 参数配置管理")
 @ApiSupport(order = 7)
-@AllArgsConstructor
 @RestController
 public class ParamConfigController {
 
-	private final ParamConfigService paramConfigService;
+	@Autowired
+	private ParamConfigService paramConfigService;
 
 	@ApiOperation(value = "7.1 新增参数配置")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")

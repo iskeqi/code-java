@@ -4,15 +4,15 @@ import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.sys.domain.db.UploadFileDO;
 import com.keqi.knife4j.sys.mapper.UploadFileMapper;
 import com.keqi.knife4j.sys.service.UploadFileService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@AllArgsConstructor
 @Service
 public class UploadFileServiceImpl implements UploadFileService {
 
-	private final UploadFileMapper uploadFileMapper;
+	@Autowired
+	private UploadFileMapper uploadFileMapper;
 
 	/**
 	 * 增加

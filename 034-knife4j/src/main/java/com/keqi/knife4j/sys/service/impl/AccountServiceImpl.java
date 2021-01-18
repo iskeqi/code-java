@@ -21,7 +21,7 @@ import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.mapper.AccountMapper;
 import com.keqi.knife4j.sys.mapper.AccountRoleMapper;
 import com.keqi.knife4j.sys.service.AccountService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +31,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@AllArgsConstructor
 @Service
 public class AccountServiceImpl implements AccountService {
 
-	private final AccountMapper accountMapper;
-	private final AccountRoleMapper accountRoleMapper;
+	@Autowired
+	private AccountMapper accountMapper;
+	@Autowired
+	private AccountRoleMapper accountRoleMapper;
 
 	/**
 	 * 登录

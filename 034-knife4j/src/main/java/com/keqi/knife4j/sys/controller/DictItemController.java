@@ -10,18 +10,18 @@ import com.keqi.knife4j.sys.service.DictItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Api(tags = "2. 字典项管理")
 @ApiSupport(order = 2)
-@AllArgsConstructor
 @RestController
 public class DictItemController {
 
-	private final DictItemService dictItemService;
+	@Autowired
+	private DictItemService dictItemService;
 
 	@ApiOperation(value = "2.1 新增字典项")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")

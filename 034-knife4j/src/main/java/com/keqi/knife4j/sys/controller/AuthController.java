@@ -8,7 +8,7 @@ import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.service.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "1. 登录管理")
 @ApiSupport(order = 1)
 @Validated
-@AllArgsConstructor
 @RestController
 public class AuthController {
 
-	private final AccountService accountService;
+	@Autowired
+	private AccountService accountService;
 
 	@ApiOperation(value = "1.1 登录")
 	@ApiOperationSupport(order = 1)

@@ -10,17 +10,17 @@ import com.keqi.knife4j.sys.service.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "4. 用户管理")
 @ApiSupport(order = 4)
-@AllArgsConstructor
 @RestController
 public class AccountController {
 
-	private final AccountService accountService;
+	@Autowired
+	private AccountService accountService;
 
 	@ApiOperation(value = "4.1 新增用户")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")

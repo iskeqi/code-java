@@ -10,19 +10,20 @@ import com.keqi.knife4j.sys.domain.vo.DictItemVO;
 import com.keqi.knife4j.sys.mapper.DictItemMapper;
 import com.keqi.knife4j.sys.service.DictItemService;
 import com.keqi.knife4j.sys.util.DictUtil;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Service
 public class DictItemServiceImpl implements DictItemService {
 
-	private final DictItemMapper dictItemMapper;
-	private final DictUtil dictUtil;
+	@Autowired
+	private DictItemMapper dictItemMapper;
+	@Autowired
+	private DictUtil dictUtil;
 
 	/**
 	 * 新增字典项

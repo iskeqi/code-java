@@ -10,17 +10,17 @@ import ${basePackageName}.${subPackageName}.service.${tableNameHump}Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "${sort}. ${tableComment}管理")
 @ApiSupport(order = ${sort})
-@AllArgsConstructor
 @RestController
 public class ${tableNameHump}Controller {
 
-	private final ${tableNameHump}Service ${tableNameHumpLetter}Service;
+	@Autowired
+	private ${tableNameHump}Service ${tableNameHumpLetter}Service;
 
 	@ApiOperation(value = "${sort}.1 新增${tableComment}")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")

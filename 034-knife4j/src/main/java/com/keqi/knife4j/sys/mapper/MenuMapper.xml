@@ -12,13 +12,11 @@
         <result column="permiss" property="permiss"/>
         <result column="order_num" property="orderNum"/>
         <result column="parent_id" property="parentId"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, name, url, icon, type, permiss, order_num, parent_id, create_time, update_time
+        id, name, url, icon, type, permiss, order_num, parent_id
     </sql>
 
     <resultMap id="MenuVO" type="com.keqi.knife4j.sys.domain.vo.MenuVO">

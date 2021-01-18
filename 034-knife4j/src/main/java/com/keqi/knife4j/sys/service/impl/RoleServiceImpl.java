@@ -13,19 +13,20 @@ import com.keqi.knife4j.sys.domain.vo.RoleVO;
 import com.keqi.knife4j.sys.mapper.RoleMapper;
 import com.keqi.knife4j.sys.mapper.RoleMenuMapper;
 import com.keqi.knife4j.sys.service.RoleService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Service
 public class RoleServiceImpl implements RoleService {
 
-	private final RoleMapper roleMapper;
-	private final RoleMenuMapper roleMenuMapper;
+	@Autowired
+	private RoleMapper roleMapper;
+	@Autowired
+	private RoleMenuMapper roleMenuMapper;
 
 	/**
 	 * 新增角色

@@ -13,8 +13,8 @@ import com.keqi.knife4j.sys.service.UploadFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,11 +34,11 @@ import java.util.UUID;
 @Api(tags = "3. 文件管理")
 @ApiSupport(order = 3)
 @Slf4j
-@AllArgsConstructor
 @Controller
 public class UploadFileController {
 
-	private final UploadFileService uploadFileService;
+	@Autowired
+	private UploadFileService uploadFileService;
 
 	@ApiOperation(value = "3.1 私有文件上传", notes = "通过此接口上传的文件，下载时需要鉴权")
 	@ApiOperationSupport(order = 1)
