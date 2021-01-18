@@ -111,6 +111,7 @@ public class GlobalExceptionHandler {
 	public ResultEntity throwable(Throwable e) {
 		// 未知异常，打印异常栈信息便于排查问题
 		log.error(e.getMessage(), e);
+		// 开发阶段，直接将异常信息通过接口响应出去，便于排查问题
 		return ResultEntityBuilder.failure(e.toString());
 	}
 
