@@ -22,7 +22,7 @@ public class ParamConfigParam {
     @ApiModelProperty(value = "键值", example = "/adfa/dfad/a.png")
     private String paramValue;
 
-    @ApiModelProperty(value = "类型（dictType：configType）", example = "configType_xtnz")
+    @ApiModelProperty(value = "类型（typeCode：configType）", example = "configType_xtnz")
     private String paramType;
 
 }

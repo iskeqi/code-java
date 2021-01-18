@@ -39,7 +39,7 @@ public class ParamConfigDO  extends BaseDO {
 	private String paramValue;
 
 	/**
-	 * 类型（dictType：configType）
+	 * 类型（typeCode：configType）
 	 */
 	@TableField(value = "param_type")
 	private String paramType;

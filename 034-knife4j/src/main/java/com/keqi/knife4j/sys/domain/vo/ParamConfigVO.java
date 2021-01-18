@@ -24,10 +24,10 @@ public class ParamConfigVO {
     @ApiModelProperty(value = "键值", example = "/adfa/dfad/a.png")
     private String paramValue;
 
-    @ApiModelProperty(value = "类型（dictType：configType）", example = "configType_xtnz")
+    @ApiModelProperty(value = "类型（typeCode：configType）", example = "configType_xtnz")
     private String paramType;
 
-    @ApiModelProperty(value = "类型（dictType：configType）", example = "系统内置")
+    @ApiModelProperty(value = "类型（typeCode：configType）", example = "系统内置")
     private String paramTypeName;
 
     @ApiModelProperty(value = "创建时间", example = "2020-12-12 12:12:12")

@@ -27,7 +27,7 @@ public @interface TypeCode {
 	Class<? extends Payload>[] payload() default {};
 
 	/**
-	 * 指定 dictType 的值
+	 * 指定 typeCode 的值
 	 *
 	 * @return r
 	 */

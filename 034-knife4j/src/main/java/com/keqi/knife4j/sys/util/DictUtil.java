@@ -16,8 +16,8 @@ import java.util.*;
 @Component
 public class DictUtil implements CommandLineRunner {
 
-	private static Map<String, List<DictItemVO>> dictTypeMap;
-	private static Map<String, DictItemVO> dictItemMap;
+	private static Map<String, List<DictItemVO>> typeMap;
+	private static Map<String, DictItemVO> itemMap;
 
 	private final DictItemMapper dictItemMapper;
 
@@ -27,8 +27,8 @@ public class DictUtil implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		dictTypeMap = new HashMap<>();
-		dictItemMap = new HashMap<>();
+		typeMap = new HashMap<>();
+		itemMap = new HashMap<>();
 
 		List<DictItemVO> dictItemVOS = this.dictItemMapper.listAll();
 
@@ -36,14 +36,14 @@ public class DictUtil implements CommandLineRunner {
 			String typeCode = t.getTypeCode();
 			String itemCode = t.getItemCode();
 
-			List<DictItemVO> list = dictTypeMap.get(typeCode);
+			List<DictItemVO> list = typeMap.get(typeCode);
 			if (CollUtil.isEmpty(list)) {
 				list = new ArrayList<>();
-				dictTypeMap.put(typeCode, list);
+				typeMap.put(typeCode, list);
 			}
 			list.add(t);
 
-			dictItemMap.put(itemCode, t);
+			itemMap.put(itemCode, t);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class DictUtil implements CommandLineRunner {
 	 * @return r
 	 */
 	public static List<DictItemVO> listDictItem(String typeCode) {
-		return dictTypeMap.get(typeCode);
+		return typeMap.get(typeCode);
 	}
 
 
@@ -66,7 +66,7 @@ public class DictUtil implements CommandLineRunner {
 	 * @return r
 	 */
 	public static DictItemVO getDictItem(String typeCode, String itemCode) {
-		List<DictItemVO> dictItemVOS = dictTypeMap.get(typeCode);
+		List<DictItemVO> dictItemVOS = typeMap.get(typeCode);
 		for (DictItemVO t : dictItemVOS) {
 			if (Objects.equals(itemCode, t.getItemCode())) {
 				return t;
@@ -94,7 +94,7 @@ public class DictUtil implements CommandLineRunner {
 	 * @return r
 	 */
 	public static String getItemName(String itemCode) {
-		DictItemVO dictItemVO = dictItemMap.get(itemCode);
+		DictItemVO dictItemVO = itemMap.get(itemCode);
 		return dictItemVO == null ? null : dictItemVO.getItemName();
 	}
 
@@ -103,7 +103,7 @@ public class DictUtil implements CommandLineRunner {
 	 *
 	 * @return r
 	 */
-	public static Map<String, List<DictItemVO>> getDictTypeMap() {
-		return dictTypeMap;
+	public static Map<String, List<DictItemVO>> getTypeMap() {
+		return typeMap;
 	}
 }
