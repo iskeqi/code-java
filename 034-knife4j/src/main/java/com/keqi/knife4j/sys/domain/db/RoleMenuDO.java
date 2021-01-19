@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
  * 角色-菜单表
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "sys_role_menu")
 public class RoleMenuDO {
 

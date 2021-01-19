@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AccountVO {
 
 	@ApiModelProperty(value = "用户ID", example = "1")

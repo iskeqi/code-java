@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "sys_role")
 public class RoleDO extends BaseDO {
 

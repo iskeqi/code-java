@@ -1,16 +1,12 @@
 package com.keqi.knife4j.sys.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 系统管理-字典表
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class DictItemVO {
 
 	@ApiModelProperty(value = "字典记录主键", example = "1")

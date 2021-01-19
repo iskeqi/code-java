@@ -4,16 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 系统管理-字典表
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "sys_dict_item")
 public class DictItemDO {
 

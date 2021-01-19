@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ParamConfigParam {
 
     @ApiModelProperty(value = "参数配置ID", example = "1", required = true)

@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class MenuVO {
 
 	@ApiModelProperty(value = "菜单权限ID", example = "1")

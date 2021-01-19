@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
  * 操作日志记录
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class OperLogParam {
 
 	/**

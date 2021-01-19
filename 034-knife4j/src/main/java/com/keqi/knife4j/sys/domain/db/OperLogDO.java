@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
  * 操作日志记录表
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "sys_oper_log")
 public class OperLogDO {
 	/**

@@ -1,17 +1,13 @@
 package com.keqi.knife4j.sys.domain.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AccountParam {
 
 	@ApiModelProperty(value = "用户ID", example = "1", required = true)

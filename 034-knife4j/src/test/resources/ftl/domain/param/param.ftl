@@ -16,8 +16,6 @@ import java.time.LocalDate;
 </#if>
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ${tableNameHump}Param {
 
 <#list columnList as column>

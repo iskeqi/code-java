@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Size;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class LoginParam {
 
 	@ApiModelProperty(name = "account", value = "账号", example = "admin", required = true)

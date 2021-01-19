@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class RoleParam {
 
 	@ApiModelProperty(value = "角色ID", example = "1", required = true)

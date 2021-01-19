@@ -25,8 +25,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 </#if>
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "${tableName}")
 public class ${tableNameHump}DO <#if pageFlag == true> extends BaseDO </#if>{
 <#if pageFlag == false>

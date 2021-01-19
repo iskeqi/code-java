@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
  * 菜单表
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "sys_menu")
 public class MenuDO {
 

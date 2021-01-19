@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Size;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UpdatePasswordParam {
 
 	@ApiModelProperty(name = "password", value = "原密码", example = "123456", required = true)

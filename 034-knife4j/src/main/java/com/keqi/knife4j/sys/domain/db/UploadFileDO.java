@@ -3,18 +3,14 @@ package com.keqi.knife4j.sys.domain.db;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.keqi.knife4j.core.pojo.BaseDO;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * 文件表
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "sys_upload_file")
 public class UploadFileDO extends BaseDO {
 

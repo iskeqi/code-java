@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ParamConfigVO {
 
     @ApiModelProperty(value = "参数配置ID", example = "1")

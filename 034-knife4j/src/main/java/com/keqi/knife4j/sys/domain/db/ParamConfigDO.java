@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "sys_param_config")
 public class ParamConfigDO  extends BaseDO {
 

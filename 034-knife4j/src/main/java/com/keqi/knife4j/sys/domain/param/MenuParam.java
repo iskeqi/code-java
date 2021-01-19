@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class MenuParam {
 
 	@ApiModelProperty(value = "菜单权限ID", example = "1", required = true)

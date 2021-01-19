@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class DictItemPageParam extends PageParam {
 
 	@ApiModelProperty(value = "字典类型编码")
