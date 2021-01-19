@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.keqi.knife4j.sys.mapper.ParamConfigMapper">
     <resultMap id="BaseResultMap" type="com.keqi.knife4j.sys.domain.db.ParamConfigDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_param_config-->
         <id column="id" property="id"/>
         <result column="param_name" property="paramName"/>
         <result column="param_key" property="paramKey"/>
@@ -13,13 +15,7 @@
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id,
-        param_name,
-        param_key,
-        param_value,
-        param_type,
-        create_time,
-        update_time
+        id, param_name, param_key, param_value, param_type, create_time, update_time
     </sql>
 
     <resultMap id="ParamConfigVO" type="com.keqi.knife4j.sys.domain.vo.ParamConfigVO">
