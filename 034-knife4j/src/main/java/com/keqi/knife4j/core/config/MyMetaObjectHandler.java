@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * 自动填充字段配置类（无需在增加和修改时，手动更新 createTime 和 updateTime 字段）
- * 如果 DO实体类中没有此字段或者设置 @TableField 注解的 fill 属性，此处的自动填充逻辑不会被执行
+ * 如果 DO实体类中没有此字段或者未设置 @TableField 注解的 fill 属性，此处的自动填充逻辑不会被执行
  *
  * @author keqi
  */
