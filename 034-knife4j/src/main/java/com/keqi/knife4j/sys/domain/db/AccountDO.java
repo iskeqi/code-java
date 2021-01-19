@@ -1,22 +1,27 @@
 package com.keqi.knife4j.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.keqi.knife4j.core.pojo.BaseDO;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /**
  * 用户表
  */
-@EqualsAndHashCode(callSuper = true)
+/*@EqualsAndHashCode(callSuper = true)*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_account")
-public class AccountDO extends BaseDO {
+public class AccountDO /*extends BaseDO*/ {
+
+	@TableId(value = "id", type = IdType.AUTO)
+	protected Long id;
+
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
+	protected LocalDateTime createTime;
 
 	/**
 	 * 用户名

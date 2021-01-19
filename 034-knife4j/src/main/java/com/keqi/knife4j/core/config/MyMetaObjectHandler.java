@@ -16,12 +16,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
 	@Override
 	public void insertFill(MetaObject metaObject) {
-		this.setFieldValByName("createTime", LocalDateTime.now(), metaObject);
-		this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+		this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+		this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
 	}
 
 	@Override
 	public void updateFill(MetaObject metaObject) {
-		this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+		this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
 	}
 }
