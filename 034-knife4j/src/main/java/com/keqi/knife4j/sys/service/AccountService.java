@@ -3,6 +3,7 @@ package com.keqi.knife4j.sys.service;
 import com.keqi.knife4j.core.pojo.PageVO;
 import com.keqi.knife4j.sys.domain.param.AccountPageParam;
 import com.keqi.knife4j.sys.domain.param.AccountParam;
+import com.keqi.knife4j.sys.domain.vo.AccountDetailVO;
 import com.keqi.knife4j.sys.domain.vo.AccountVO;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 
@@ -53,4 +54,12 @@ public interface AccountService {
 	 * @return r
 	 */
 	PageVO<AccountVO> page(AccountPageParam param);
+
+	/**
+	 * 获取登录用户信息
+	 *
+	 * @return r
+	 */
+	AccountDetailVO getLoginUserInfo();
+
 }

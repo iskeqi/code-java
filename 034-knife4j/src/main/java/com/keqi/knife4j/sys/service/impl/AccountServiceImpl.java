@@ -16,6 +16,7 @@ import com.keqi.knife4j.sys.domain.db.AccountDO;
 import com.keqi.knife4j.sys.domain.db.AccountRoleDO;
 import com.keqi.knife4j.sys.domain.param.AccountPageParam;
 import com.keqi.knife4j.sys.domain.param.AccountParam;
+import com.keqi.knife4j.sys.domain.vo.AccountDetailVO;
 import com.keqi.knife4j.sys.domain.vo.AccountVO;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.mapper.AccountMapper;
@@ -175,5 +176,16 @@ public class AccountServiceImpl implements AccountService {
 		IPage<AccountVO> result = this.accountMapper.page(page, param);
 
 		return new PageVO<>(result.getTotal(), result.getRecords());
+	}
+
+	/**
+	 * 获取登录用户信息
+	 *
+	 * @return r
+	 */
+	@Override
+	public AccountDetailVO getLoginUserInfo() {
+		AccountDO accountDO = this.accountMapper.selectById(Auth.getLoginAccountId());
+		return BeanUtil.copyProperties(accountDO, AccountDetailVO.class);
 	}
 }

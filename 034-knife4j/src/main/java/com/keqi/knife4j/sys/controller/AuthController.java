@@ -4,6 +4,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.keqi.knife4j.sys.domain.param.LoginParam;
 import com.keqi.knife4j.sys.domain.param.UpdatePasswordParam;
+import com.keqi.knife4j.sys.domain.vo.AccountDetailVO;
 import com.keqi.knife4j.sys.domain.vo.LoginVO;
 import com.keqi.knife4j.sys.service.AccountService;
 import io.swagger.annotations.Api;
@@ -35,5 +36,19 @@ public class AuthController {
 	@PostMapping("/sys/auth/updatePassword")
 	public void updatePassword(@Validated @RequestBody UpdatePasswordParam param) {
 		this.accountService.updatePassword(param.getPassword(), param.getNewPassword());
+	}
+
+	@ApiOperation(value = "1.3 获取登录用户信息")
+	@ApiOperationSupport(order = 3)
+	@PostMapping("/sys/auth/getLoginUserInfo")
+	public AccountDetailVO getLoginUserInfo() {
+		return this.accountService.getLoginUserInfo();
+	}
+
+	@ApiOperation(value = "1.4 注销")
+	@ApiOperationSupport(order = 4)
+	@PostMapping("/sys/auth/logout")
+	public void logout() {
+
 	}
 }
