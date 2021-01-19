@@ -28,8 +28,7 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	@Transactional
 	public void insert(MenuParam param) {
-		MenuDO t = new MenuDO();
-		BeanUtil.copyProperties(param, t);
+		MenuDO t = BeanUtil.copyProperties(param, MenuDO.class);
 
 		this.menuMapper.insert(t);
 	}
@@ -42,8 +41,7 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	@Transactional
 	public void updateById(MenuParam param) {
-		MenuDO t = new MenuDO();
-		BeanUtil.copyProperties(param, t);
+		MenuDO t = BeanUtil.copyProperties(param, MenuDO.class);
 
 		this.menuMapper.updateById(t);
 	}

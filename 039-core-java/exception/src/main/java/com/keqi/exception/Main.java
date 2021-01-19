@@ -49,6 +49,7 @@ public class Main {
 
         // 未经捕获的异常抛在当前线程的整个方法调用栈中没有被处理时，会导致当前线程直接结束，进入到终止状态！！！！！
         Runnable runnable = new Runnable() {
+            @Override
             public void run() {
                 throw new RuntimeException();
             }

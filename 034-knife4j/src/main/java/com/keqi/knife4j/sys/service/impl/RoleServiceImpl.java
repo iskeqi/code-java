@@ -36,8 +36,8 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	@Transactional
 	public void insert(RoleParam param) {
-		RoleDO roleDO = new RoleDO();
-		BeanUtil.copyProperties(param, roleDO);
+		RoleDO roleDO = BeanUtil.copyProperties(param, RoleDO.class);
+
 		this.roleMapper.insert(roleDO);
 
 		// 新增角色-菜单关联记录
@@ -62,8 +62,8 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	@Transactional
 	public void updateById(RoleParam param) {
-		RoleDO roleDO = new RoleDO();
-		BeanUtil.copyProperties(param, roleDO);
+		RoleDO roleDO = BeanUtil.copyProperties(param, RoleDO.class);
+
 		this.roleMapper.updateById(roleDO);
 
 		// 新增角色-菜单关联记录

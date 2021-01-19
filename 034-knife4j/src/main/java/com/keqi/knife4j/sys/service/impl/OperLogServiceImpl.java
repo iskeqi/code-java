@@ -23,8 +23,8 @@ public class OperLogServiceImpl implements OperLogService {
 	@Override
 	@Transactional
 	public void insert(OperLogParam param) {
-		OperLogDO t = new OperLogDO();
-		BeanUtil.copyProperties(param, t);
+		OperLogDO t = BeanUtil.copyProperties(param, OperLogDO.class);
+
 
 		this.operLogMapper.insert(t);
 	}

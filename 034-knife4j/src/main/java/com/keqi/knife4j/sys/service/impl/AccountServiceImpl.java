@@ -76,8 +76,9 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	public void insert(AccountParam param) {
 		// 新增用户记录
-		AccountDO accountDO = new AccountDO();
-		BeanUtil.copyProperties(param, accountDO);
+		AccountDO accountDO = BeanUtil.copyProperties(param, AccountDO.class);
+
+
 		accountDO.setSalt(RandomUtil.randomString(20));
 		accountDO.setPassword(CommonUtil.encryptedPassword(accountDO.getPassword(), accountDO.getSalt()));
 		this.accountMapper.insert(accountDO);
@@ -129,8 +130,7 @@ public class AccountServiceImpl implements AccountService {
 		// 修改用户记录
 		param.setAccount(null); // 不允许修改
 		param.setPassword(null); // 不允许通过此接口修改密码
-		AccountDO accountDO = new AccountDO();
-		BeanUtil.copyProperties(param, accountDO);
+		AccountDO accountDO = BeanUtil.copyProperties(param, AccountDO.class);
 		this.accountMapper.updateById(accountDO);
 
 		// 修改用户-角色关联记录
