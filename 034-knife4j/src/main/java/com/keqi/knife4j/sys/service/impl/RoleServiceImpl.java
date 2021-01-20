@@ -2,8 +2,8 @@ package com.keqi.knife4j.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageSerializable;
 import com.keqi.knife4j.core.pojo.PageVO;
 import com.keqi.knife4j.sys.domain.db.RoleDO;
 import com.keqi.knife4j.sys.domain.db.RoleMenuDO;
@@ -102,9 +102,9 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	@Override
 	public PageVO<RoleVO> page(RolePageParam param) {
-		Page<RoleVO> page = new Page<>(param.getCurrent(), param.getSize());
-		IPage<RoleVO> result = this.roleMapper.page(page, param);
+		PageHelper.startPage(param.getPageNum(), param.getPageSize());
+		List<RoleVO> result = this.roleMapper.page(param);
 
-		return new PageVO<>(result.getTotal(), result.getRecords());
+		return new PageVO<>(new PageSerializable<>(result).getTotal(), result);
 	}
 }

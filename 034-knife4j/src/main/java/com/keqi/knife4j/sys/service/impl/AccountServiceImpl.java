@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageSerializable;
 import com.keqi.knife4j.core.auth.Auth;
 import com.keqi.knife4j.core.auth.LoginUserBO;
 import com.keqi.knife4j.core.exception.BusinessException;
@@ -172,10 +172,10 @@ public class AccountServiceImpl implements AccountService {
 	 */
 	@Override
 	public PageVO<AccountVO> page(AccountPageParam param) {
-		Page<AccountVO> page = new Page<>(param.getCurrent(), param.getSize());
-		IPage<AccountVO> result = this.accountMapper.page(page, param);
+		PageHelper.startPage(param.getPageNum(), param.getPageSize());
+		List<AccountVO> result = this.accountMapper.page(param);
 
-		return new PageVO<>(result.getTotal(), result.getRecords());
+		return new PageVO<>(new PageSerializable<>(result).getTotal(), result);
 	}
 
 	/**

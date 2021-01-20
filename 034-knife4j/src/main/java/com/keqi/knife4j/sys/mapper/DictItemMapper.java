@@ -1,12 +1,9 @@
 package com.keqi.knife4j.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.keqi.knife4j.sys.domain.db.DictItemDO;
 import com.keqi.knife4j.sys.domain.param.DictItemPageParam;
 import com.keqi.knife4j.sys.domain.vo.DictItemVO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,11 +27,10 @@ public interface DictItemMapper extends BaseMapper<DictItemDO> {
 	/**
 	 * 分页查询字典项列表
 	 *
-	 * @param dictItemDOPage dictItemDOPage
 	 * @param pageParam      pageParam
 	 * @return r
 	 */
-	IPage<DictItemVO> page(@Param("dictItemDOPage") Page<DictItemDO> dictItemDOPage, @Param("pageParam") DictItemPageParam pageParam);
+	List<DictItemVO> page(DictItemPageParam pageParam);
 
 	/**
 	 * 一次性查询出所有字典项数据

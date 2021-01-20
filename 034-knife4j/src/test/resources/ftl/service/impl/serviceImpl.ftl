@@ -1,8 +1,8 @@
 package ${basePackageName}.${subPackageName}.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageSerializable;
 import ${basePackageName}.core.pojo.PageVO;
 import ${basePackageName}.${subPackageName}.domain.db.${tableNameHump}DO;
 import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}PageParam;
@@ -13,6 +13,8 @@ import ${basePackageName}.${subPackageName}.service.${tableNameHump}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
@@ -63,9 +65,9 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	 */
 	@Override
 	public PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam param) {
-		Page<${tableNameHump}VO> page = new Page<>(param.getCurrent(), param.getSize());
-		IPage<${tableNameHump}VO> result = this.${tableNameHumpLetter}Mapper.page(page, param);
+		PageHelper.startPage(param.getPageNum(), param.getPageSize());
+		List<${tableNameHump}VO> result = this.deptMapper.page(param);
 
-		return new PageVO<>(result.getTotal(), result.getRecords());
+		return new PageVO<>(new PageSerializable<>(result).getTotal(), result);
 	}
 }

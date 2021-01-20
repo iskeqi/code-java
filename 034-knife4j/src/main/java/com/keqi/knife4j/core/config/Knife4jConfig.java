@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 @Configuration
 @EnableSwagger2WebMvc
-public class Knife4jConfiguration {
+public class Knife4jConfig {
 
 	@Autowired
 	private OpenApiExtensionResolver openApiExtensionResolver;

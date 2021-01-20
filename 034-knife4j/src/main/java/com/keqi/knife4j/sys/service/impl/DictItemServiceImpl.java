@@ -1,7 +1,7 @@
 package com.keqi.knife4j.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageSerializable;
 import com.keqi.knife4j.core.pojo.PageVO;
 import com.keqi.knife4j.sys.domain.db.DictItemDO;
 import com.keqi.knife4j.sys.domain.param.DictItemPageParam;
@@ -76,9 +76,10 @@ public class DictItemServiceImpl implements DictItemService {
 	 */
 	@Override
 	public PageVO<DictItemVO> page(DictItemPageParam param) {
-		IPage<DictItemVO> result = this.dictItemMapper
-				.page(new Page<>(param.getCurrent(), param.getSize()), param);
-		return new PageVO<>(result.getTotal(), result.getRecords());
+		PageHelper.startPage(param.getPageNum(), param.getPageSize());
+		List<DictItemVO> result = this.dictItemMapper.page(param);
+
+		return new PageVO<>(new PageSerializable<>(result).getTotal(), result);
 	}
 
 	/**

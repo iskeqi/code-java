@@ -1,13 +1,13 @@
 package ${basePackageName}.${subPackageName}.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import ${basePackageName}.${subPackageName}.domain.db.${tableNameHump}DO;
 <#if pageFlag ??>
 import ${basePackageName}.${subPackageName}.domain.param.${tableNameHump}PageParam;
 import ${basePackageName}.${subPackageName}.domain.vo.${tableNameHump}VO;
 </#if>
-import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ${tableNameHump}Mapper extends BaseMapper<${tableNameHump}DO> {
 
@@ -18,7 +18,7 @@ public interface ${tableNameHump}Mapper extends BaseMapper<${tableNameHump}DO> {
 	 * @param param param
 	 * @return r
 	 */
-	IPage<${tableNameHump}VO> page(@Param("page") IPage<${tableNameHump}VO> page, @Param("param") ${tableNameHump}PageParam param);
+	List<${tableNameHump}VO> page(${tableNameHump}PageParam param);
 </#if>
 
 }

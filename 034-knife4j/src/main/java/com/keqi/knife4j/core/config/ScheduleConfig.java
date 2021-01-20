@@ -15,7 +15,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 @Configuration
 @EnableScheduling // 必须加上此注解，否则定时任务不会开启
 @Slf4j
-public class ScheduleConfiguration implements SchedulingConfigurer {
+public class ScheduleConfig implements SchedulingConfigurer {
 
 	// 给ScheduledTaskRegistrar对象注入一个ThreadPoolTaskScheduler对象，就拥有了使用线程池来执行定时任务的能力
 	@Override

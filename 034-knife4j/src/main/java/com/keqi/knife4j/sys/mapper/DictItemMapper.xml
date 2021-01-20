@@ -43,24 +43,24 @@
         <include refid="Base_Column_List"/>
         from sys_dict_item
         <where>
-            <if test="pageParam.typeCode != null and pageParam.typeCode != ''">
+            <if test="typeCode != null and typeCode != ''">
                 and
-                type_code like concat('%', replace(replace(#{pageParam.typeCode}, '%', '/%'), '_', '/_'), '%') escape
+                type_code like concat('%', replace(replace(#{typeCode}, '%', '/%'), '_', '/_'), '%') escape
                         '/'
             </if>
-            <if test="pageParam.typeName != null and pageParam.typeName != ''">
+            <if test="typeName != null and typeName != ''">
                 and type_name like
-                    concat('%', replace(replace(#{pageParam.typeName}, '%', '/%'), '_', '/_'), '%') escape
+                    concat('%', replace(replace(#{typeName}, '%', '/%'), '_', '/_'), '%') escape
                         '/'
             </if>
-            <if test="pageParam.itemCode != null and pageParam.itemCode != ''">
+            <if test="itemCode != null and itemCode != ''">
                 and item_code like
-                    concat('%', replace(replace(#{pageParam.itemCode}, '%', '/%'), '_', '/_'), '%') escape
+                    concat('%', replace(replace(#{itemCode}, '%', '/%'), '_', '/_'), '%') escape
                         '/'
             </if>
-            <if test="pageParam.itemName != null and pageParam.itemName != ''">
+            <if test="itemName != null and itemName != ''">
                 and item_name like
-                    concat('%', replace(replace(#{pageParam.itemName}, '%', '/%'), '_', '/_'), '%') escape
+                    concat('%', replace(replace(#{itemName}, '%', '/%'), '_', '/_'), '%') escape
                     '/'
             </if>
         </where>

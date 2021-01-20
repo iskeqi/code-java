@@ -5,27 +5,27 @@ import io.swagger.annotations.ApiModelProperty;
 public class PageParam {
 
 	@ApiModelProperty(value = "前页数", example = "1", required = true)
-	protected int current = 1;
+	protected int pageNum = 1;
 
 	@ApiModelProperty(value = "每页大小", example = "10", required = true)
-	protected int size = 10;
+	protected int pageSize = 10;
 
 	public PageParam() {
 	}
 
-	public int getCurrent() {
-		return current;
+	public int getPageNum() {
+		return pageNum;
 	}
 
-	public void setCurrent(int current) {
-		this.current = current;
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 
-	public int getSize() {
-		return size;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 }
