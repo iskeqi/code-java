@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDateTime;
 
 /**
- * 自动填充字段配置类（无需再增加和修改时，手动更新 createTime 和 updateTime 字段信息）（如果操作的表没有此字段，也不会有影响）
+ * 自动填充字段配置类（无需在增加和修改时，手动更新 createTime 和 updateTime 字段）
+ * 如果 DO实体类中没有此字段或者未设置 @TableField 注解的 fill 属性，此处的自动填充逻辑不会被执行
  *
  * @author keqi
  */
@@ -16,12 +17,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
 	@Override
 	public void insertFill(MetaObject metaObject) {
-		this.setFieldValByName("createTime", LocalDateTime.now(), metaObject);
-		this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+		this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+		this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
 	}
 
 	@Override
 	public void updateFill(MetaObject metaObject) {
-		this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+		this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
 	}
 }
