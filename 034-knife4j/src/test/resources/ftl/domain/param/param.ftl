@@ -1,9 +1,7 @@
 package ${basePackageName}.${subPackageName}.domain.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 <#if hasBigDecimal ??>
 import java.math.BigDecimal;
