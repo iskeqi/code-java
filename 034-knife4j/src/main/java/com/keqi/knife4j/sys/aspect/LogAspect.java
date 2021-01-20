@@ -17,7 +17,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 
 /**
  * `@Log` 注解切面类
@@ -87,7 +86,6 @@ public class LogAspect {
 			OperLogParam t = new OperLogParam();
 
 			t.setCreateBy(createBy);
-			t.setCreateTime(LocalDateTime.now());
 			t.setIp(ip);
 			t.setUrl(uri);
 			t.setType(type);
@@ -105,7 +103,9 @@ public class LogAspect {
 
 			// 设置请求参数
 			if ("application/json".equals(contentType)) {
-				t.setParam(JsonUtil.writeValueAsString(joinPoint.getArgs()[0]));
+				String jsonParam = joinPoint.getArgs().length == 0 ? null
+						: JsonUtil.writeValueAsString(joinPoint.getArgs()[0]);
+				t.setParam(jsonParam);
 			} else {
 				t.setParam(param);
 			}

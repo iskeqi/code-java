@@ -2,11 +2,7 @@ package ${basePackageName}.${subPackageName}.domain.db;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import ${basePackageName}.core.pojo.BaseDO;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 <#if hasBigDecimal ??>
 import java.math.BigDecimal;
@@ -21,19 +17,9 @@ import java.time.LocalDate;
 /**
  * ${tableComment}表
  */
-<#if pageFlag == true>
-@EqualsAndHashCode(callSuper = true)
-</#if>
 @Data
 @TableName(value = "${tableName}")
-public class ${tableNameHump}DO <#if pageFlag == true> extends BaseDO </#if>{
-<#if pageFlag == false>
-	/**
-	 * ${tableComment}ID
-	 */
-	@TableId(value = "id", type = IdType.AUTO)
-	private Long id;
-</#if>
+public class ${tableNameHump}DO {
 
 <#list columnList as column>
     <#if column.columnNameHumpLetter != "id" && column.columnNameHumpLetter != "createTime" && column.columnNameHumpLetter != "updateTime">
@@ -43,18 +29,25 @@ public class ${tableNameHump}DO <#if pageFlag == true> extends BaseDO </#if>{
 	@TableField(value = "${column.columnName}")
 	private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
-    <#elseif pageFlag == false && column.columnNameHumpLetter == "createTime">
+	<#elseif column.columnNameHumpLetter == "id">
+	/**
+	 * ${tableComment}id
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
+
+    <#elseif column.columnNameHumpLetter == "createTime">
 	/**
 	 * ${column.columnComment}
 	 */
-	@TableField(value = "${column.columnName}")
+	@TableField(value = "${column.columnName}", fill = FieldFill.INSERT)
 	private LocalDateTime createTime;
 
-    <#elseif pageFlag == false && column.columnNameHumpLetter == "updateTime">
+    <#elseif column.columnNameHumpLetter == "updateTime">
 	/**
 	 * ${column.columnComment}
 	 */
-	@TableField(value = "${column.columnName}")
+	@TableField(value = "${column.columnName}", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
     </#if>
 </#list>

@@ -1,18 +1,22 @@
 package com.keqi.knife4j.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.keqi.knife4j.core.pojo.BaseDO;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * 文件表
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName(value = "sys_upload_file")
-public class UploadFileDO extends BaseDO {
+public class UploadFileDO {
+
+	/**
+	 * 文件id
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
 
 	/**
 	 * 文件名称
@@ -43,4 +47,16 @@ public class UploadFileDO extends BaseDO {
 	 */
 	@TableField(value = "deleted")
 	private Integer deleted;
+
+	/**
+	 * 创建时间
+	 */
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
+	private LocalDateTime createTime;
+
+	/**
+	 * 修改时间
+	 */
+	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+	private LocalDateTime updateTime;
 }

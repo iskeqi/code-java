@@ -1,22 +1,22 @@
 package com.keqi.knife4j.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.keqi.knife4j.core.pojo.BaseDO;
-import lombok.AllArgsConstructor;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 /**
  * 参数配置表
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName(value = "sys_param_config")
-public class ParamConfigDO  extends BaseDO {
+public class ParamConfigDO {
+
+	/**
+	 * 参数配置id
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
 
 	/**
 	 * 名称
@@ -42,4 +42,15 @@ public class ParamConfigDO  extends BaseDO {
 	@TableField(value = "param_type")
 	private String paramType;
 
+	/**
+	 * 创建时间
+	 */
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
+	private LocalDateTime createTime;
+
+	/**
+	 * 修改时间
+	 */
+	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+	private LocalDateTime updateTime;
 }

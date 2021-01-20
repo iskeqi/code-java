@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${basePackageName}.${subPackageName}.mapper.${tableNameHump}Mapper">
     <resultMap id="BaseResultMap" type="${basePackageName}.${subPackageName}.domain.db.${tableNameHump}DO">
+        <!--@mbg.generated-->
+        <!--@Table ${tableName}-->
         <id column="id" property="id"/>
 <#list columnList as column>
     <#if column.columnNameHumpLetter != "id">
@@ -12,9 +14,7 @@
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        <#list columnList as column>
-        ${column.columnName}<#sep>,
-        </#list>
+        <#list columnList as column>${column.columnName}<#sep>,</#list>
     </sql>
 
 <#if pageFlag == true>

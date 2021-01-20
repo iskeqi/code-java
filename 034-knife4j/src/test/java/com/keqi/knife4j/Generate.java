@@ -32,18 +32,18 @@ public class Generate {
 		List<TemplateBO> list = new ArrayList<>();
 
 		TemplateBO templateBO = new TemplateBO();
-		templateBO.setTableName("sys_param_config"); // 表名
-		templateBO.setTableNameHump("ParamConfig"); // 去掉前缀转驼峰，并大写首字母
-		templateBO.setTableNameHumpLetter("paramConfig"); // 去掉前缀转驼峰，并小写首字母
-		templateBO.setTableComment("参数配置"); // 表注释并去掉最后的"表"字
+		templateBO.setTableName("sys_dept"); // 表名
+		templateBO.setTableNameHump("Dept"); // 去掉前缀转驼峰，并大写首字母
+		templateBO.setTableNameHumpLetter("dept"); // 去掉前缀转驼峰，并小写首字母
+		templateBO.setTableComment("部门"); // 表注释并去掉最后的"表"字
 		templateBO.setSubPackageName("sys"); // 所属子包名
 		// 指定生成文件所在的目录
 		templateBO.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
 		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml，
 		// 4：生成 controller/service/serviceImpl/param/vo
-		templateBO.setType(4);
+		templateBO.setType(1);
 		// controller 在 swagger 中的排序
-		templateBO.setSort(7);
+		templateBO.setSort(8);
 
 		templateBO.setBasePackageName("com.keqi.knife4j");
 		templateBO.setDriverClassName("com.mysql.cj.jdbc.Driver");

@@ -29,8 +29,6 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	@Transactional
 	public void insert(${tableNameHump}Param param) {
 		${tableNameHump}DO t = BeanUtil.copyProperties(param, ${tableNameHump}DO.class);
-
-
 		this.${tableNameHumpLetter}Mapper.insert(t);
 	}
 
@@ -43,8 +41,6 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	@Transactional
 	public void updateById(${tableNameHump}Param param) {
 		${tableNameHump}DO t = BeanUtil.copyProperties(param, ${tableNameHump}DO.class);
-
-
 		this.${tableNameHumpLetter}Mapper.updateById(t);
 	}
 

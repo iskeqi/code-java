@@ -1,21 +1,22 @@
 package com.keqi.knife4j.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.keqi.knife4j.core.pojo.BaseDO;
-import lombok.AllArgsConstructor;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /**
  * 角色表
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName(value = "sys_role")
-public class RoleDO extends BaseDO {
+public class RoleDO {
 
+	/**
+	 * 角色id
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
 
 	/**
 	 * 角色名称
@@ -23,5 +24,15 @@ public class RoleDO extends BaseDO {
 	@TableField(value = "name")
 	private String name;
 
+	/**
+	 * 创建时间
+	 */
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
+	private LocalDateTime createTime;
 
+	/**
+	 * 修改时间
+	 */
+	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+	private LocalDateTime updateTime;
 }

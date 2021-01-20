@@ -1,12 +1,7 @@
 package com.keqi.knife4j.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName(value = "sys_oper_log")
 public class OperLogDO {
+
 	/**
 	 * 日志主键
 	 */
@@ -85,6 +81,6 @@ public class OperLogDO {
 	/**
 	 * 创建时间
 	 */
-	@TableField(value = "create_time")
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
 	private LocalDateTime createTime;
 }
