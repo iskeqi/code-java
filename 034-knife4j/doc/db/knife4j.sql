@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 18/01/2021 11:22:33
+ Date: 20/01/2021 21:03:02
 */
 
 SET NAMES utf8mb4;
@@ -31,12 +31,13 @@ CREATE TABLE `sys_account`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_account
 -- ----------------------------
 INSERT INTO `sys_account` VALUES (1, 'admin', '系统管理员', 'post:manager', '262c72308d35e4fdd32c27330efaaa0f3592ef6ee092c3027bf162aac28a2b90', 'yss17vhtbx7jzd3uvd1q', '2020-12-02 20:15:58', '2020-12-02 20:16:01');
+INSERT INTO `sys_account` VALUES (6, 'jack', '杰克', NULL, 'e72559c512fd35eb4d02026a8d828c1f4155313a886049a01abb768b0f5badc8', 'f91wzbhmhbh5jtdyfbbl', '2021-01-19 21:23:40', NULL);
 
 -- ----------------------------
 -- Table structure for sys_account_role
@@ -54,6 +55,57 @@ CREATE TABLE `sys_account_role`  (
 -- ----------------------------
 -- Records of sys_account_role
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_dept
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dept`;
+CREATE TABLE `sys_dept`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
+  `parent_id` bigint NULL DEFAULT 0 COMMENT '父部门id',
+  `ancestors` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '祖级列表',
+  `dept_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '部门名称',
+  `order_num` int NULL DEFAULT 0 COMMENT '显示顺序',
+  `leader` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '负责人',
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 200 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_dept
+-- ----------------------------
+INSERT INTO `sys_dept` VALUES (201, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:09', '', '2021-01-20 14:16:09');
+INSERT INTO `sys_dept` VALUES (202, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:09', '', '2021-01-20 14:16:09');
+INSERT INTO `sys_dept` VALUES (203, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:10', '', '2021-01-20 14:16:10');
+INSERT INTO `sys_dept` VALUES (204, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:10', '', '2021-01-20 14:16:10');
+INSERT INTO `sys_dept` VALUES (205, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:10', '', '2021-01-20 14:16:10');
+INSERT INTO `sys_dept` VALUES (206, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:11', '', '2021-01-20 14:16:11');
+INSERT INTO `sys_dept` VALUES (207, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:11', '', '2021-01-20 14:16:11');
+INSERT INTO `sys_dept` VALUES (208, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:11', '', '2021-01-20 14:16:11');
+INSERT INTO `sys_dept` VALUES (209, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:11', '', '2021-01-20 14:16:11');
+INSERT INTO `sys_dept` VALUES (210, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:11', '', '2021-01-20 14:16:11');
+INSERT INTO `sys_dept` VALUES (211, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:12', '', '2021-01-20 14:16:12');
+INSERT INTO `sys_dept` VALUES (212, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:12', '', '2021-01-20 14:16:12');
+INSERT INTO `sys_dept` VALUES (213, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:12', '', '2021-01-20 14:16:12');
+INSERT INTO `sys_dept` VALUES (214, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:12', '', '2021-01-20 14:16:12');
+INSERT INTO `sys_dept` VALUES (215, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:12', '', '2021-01-20 14:16:12');
+INSERT INTO `sys_dept` VALUES (216, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:12', '', '2021-01-20 14:16:12');
+INSERT INTO `sys_dept` VALUES (217, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:13', '', '2021-01-20 14:16:13');
+INSERT INTO `sys_dept` VALUES (218, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:13', '', '2021-01-20 14:16:13');
+INSERT INTO `sys_dept` VALUES (219, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:13', '', '2021-01-20 14:16:13');
+INSERT INTO `sys_dept` VALUES (220, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:13', '', '2021-01-20 14:16:13');
+INSERT INTO `sys_dept` VALUES (221, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:13', '', '2021-01-20 14:16:13');
+INSERT INTO `sys_dept` VALUES (222, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:13', '', '2021-01-20 14:16:13');
+INSERT INTO `sys_dept` VALUES (223, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:14', '', '2021-01-20 14:16:14');
+INSERT INTO `sys_dept` VALUES (224, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:14', '', '2021-01-20 14:16:14');
+INSERT INTO `sys_dept` VALUES (225, 0, '', '', 0, '', '', '', '', '', '', '2021-01-20 14:16:14', '', '2021-01-20 14:16:14');
 
 -- ----------------------------
 -- Table structure for sys_dict_item
@@ -127,7 +179,7 @@ CREATE TABLE `sys_param_config`  (
   `param_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
   `param_key` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '键名',
   `param_value` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '键值',
-  `param_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型（typeCode：configType）',
+  `param_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型（dictType：configType）',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
