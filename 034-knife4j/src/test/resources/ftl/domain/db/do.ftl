@@ -1,7 +1,6 @@
 package ${basePackageName}.${subPackageName}.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 <#if hasBigDecimal ??>

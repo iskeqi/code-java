@@ -14,7 +14,7 @@
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        <#list columnList as column>${column.columnName}<#sep>,</#list>
+        <#list columnList as column>${column.columnName}<#sep>, </#list>
     </sql>
 
 <#if pageFlag == true>

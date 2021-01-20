@@ -7,6 +7,5 @@ import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
 public class ${tableNameHump}PageParam extends PageParam {
 }
