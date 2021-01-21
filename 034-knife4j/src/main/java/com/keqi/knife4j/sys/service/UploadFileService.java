@@ -1,6 +1,7 @@
 package com.keqi.knife4j.sys.service;
 
 import com.keqi.knife4j.sys.domain.db.UploadFileDO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UploadFileService {
 
@@ -33,4 +34,20 @@ public interface UploadFileService {
 	 * @return r
 	 */
 	String getSimpleNameById(Long id);
+
+	/**
+	 * 私有文件上传
+	 *
+	 * @param file file
+	 * @return r
+	 */
+	Long privateFileUpload(MultipartFile file);
+
+	/**
+	 * 公开文件上传
+	 *
+	 * @param file file
+	 * @return r
+	 */
+	String publicFileUpload(MultipartFile file);
 }
