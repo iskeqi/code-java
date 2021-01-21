@@ -9,6 +9,8 @@ import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.core.pojo.CommonConstant;
 import com.keqi.knife4j.core.util.CommonUtil;
 import com.keqi.knife4j.sys.domain.db.UploadFileDO;
+import com.keqi.knife4j.sys.domain.vo.PrivateFileUploadVO;
+import com.keqi.knife4j.sys.domain.vo.PublicFileUploadVO;
 import com.keqi.knife4j.sys.service.UploadFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -24,8 +26,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 @Api(tags = "3. 文件管理")
 @ApiSupport(order = 3)
@@ -42,12 +42,8 @@ public class UploadFileController {
 	})
 	@ResponseBody
 	@PostMapping("/sys/uploadFile/privateFileUpload")
-	public Map<String, Object> privateFileUpload(@RequestParam("file") MultipartFile file) {
-		Long id = this.uploadFileService.privateFileUpload(file);
-
-		Map<String, Object> result = new HashMap<>();
-		result.put("id", id);
-		return result;
+	public PrivateFileUploadVO privateFileUpload(@RequestParam("file") MultipartFile file) {
+		return this.uploadFileService.privateFileUpload(file);
 	}
 
 	@ApiOperation(value = "3.2 私有文件下载", notes = "此接口只能下载到通过私有文件上传接口上传的文件")
@@ -88,17 +84,10 @@ public class UploadFileController {
 
 	@ApiOperation(value = "3.4 公开文件上传", notes = "通过此接口上传的文件，下载时无需鉴权，可以直接通过返回的 URL 路径访问")
 	@ApiOperationSupport(order = 4)
-	@DynamicResponseParameters(properties = {
-			@DynamicParameter(name = "path", value = "文件路径", example = "/publicFile/2020-12-24/image/png/ff289c4e-8547-4abf-a90a-ead4139a3b0ca.png")
-	})
 	@ResponseBody
 	@PostMapping("/sys/uploadFile/publicFileUpload")
-	public Map<String, Object> publicFileUpload(@RequestParam("file") MultipartFile file) {
-		String path = this.uploadFileService.publicFileUpload(file);
-
-		Map<String, Object> result = new HashMap<>();
-		result.put("path", "/publicFile/" + path);
-		return result;
+	public PublicFileUploadVO publicFileUpload(@RequestParam("file") MultipartFile file) {
+		return this.uploadFileService.publicFileUpload(file);
 	}
 
 }

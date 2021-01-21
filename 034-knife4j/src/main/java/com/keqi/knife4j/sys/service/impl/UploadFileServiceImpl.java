@@ -4,6 +4,8 @@ import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.core.pojo.CommonConstant;
 import com.keqi.knife4j.core.util.CommonUtil;
 import com.keqi.knife4j.sys.domain.db.UploadFileDO;
+import com.keqi.knife4j.sys.domain.vo.PrivateFileUploadVO;
+import com.keqi.knife4j.sys.domain.vo.PublicFileUploadVO;
 import com.keqi.knife4j.sys.mapper.UploadFileMapper;
 import com.keqi.knife4j.sys.service.UploadFileService;
 import lombok.extern.slf4j.Slf4j;
@@ -91,7 +93,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 	 * @return r
 	 */
 	@Override
-	public Long privateFileUpload(MultipartFile file) {
+	public PrivateFileUploadVO privateFileUpload(MultipartFile file) {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE;
 		// 相对路径
@@ -122,7 +124,9 @@ public class UploadFileServiceImpl implements UploadFileService {
 		t.setType(file.getContentType());
 		this.insert(t);
 
-		return t.getId();
+		PrivateFileUploadVO vo = new PrivateFileUploadVO();
+		vo.setId(t.getId());
+		return vo;
 	}
 
 	/**
@@ -132,7 +136,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 	 * @return r
 	 */
 	@Override
-	public String publicFileUpload(MultipartFile file) {
+	public PublicFileUploadVO publicFileUpload(MultipartFile file) {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
 		// 相对路径
@@ -155,6 +159,8 @@ public class UploadFileServiceImpl implements UploadFileService {
 			throw new BusinessException("文件上传失败");
 		}
 
-		return relativePath + name;
+		PublicFileUploadVO vo = new PublicFileUploadVO();
+		vo.setPath(relativePath + name);
+		return vo;
 	}
 }
