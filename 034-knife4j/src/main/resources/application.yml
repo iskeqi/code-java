@@ -1,7 +1,7 @@
 # 公共环境配置可以放在此文件中
 spring:
     profiles:
-        active: @profileActive@
+        active: local-dev
 
 # 配置端口号和应用路径
 server:
