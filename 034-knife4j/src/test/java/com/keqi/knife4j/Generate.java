@@ -7,6 +7,7 @@ import freemarker.template.Template;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.junit.jupiter.api.Test;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -27,7 +28,8 @@ import java.util.Map;
  */
 public class Generate {
 
-	public static void main(String[] args) throws Exception {
+	@Test
+	public void test() throws Exception {
 		Generate generate = new Generate();
 		List<TemplateBO> list = new ArrayList<>();
 
