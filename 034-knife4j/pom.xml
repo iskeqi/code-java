@@ -139,15 +139,15 @@
             <properties>
                 <profileActive>local-dev</profileActive>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
         <profile>
             <id>server-dev</id>
             <properties>
                 <profileActive>server-dev</profileActive>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
     </profiles>
 
