@@ -40,7 +40,8 @@ public class Generate {
 		templateBO.setTableComment("部门"); // 表注释并去掉最后的"表"字
 		templateBO.setSubPackageName("sys"); // 所属子包名
 		// 指定生成文件所在的目录
-		templateBO.setPath("E:/KEQI/code-java/034-knife4j/src/main/java/com/keqi/knife4j/sys");
+		String rootPath = System.getProperty("user.dir");
+		templateBO.setPath(rootPath + "/src/main/java/com/keqi/knife4j/sys");
 		// 1：全部生成，2：生成 do/mapper/mapper_xml/param/vo，3：生成 do/mapper/mapper_xml，
 		// 4：生成 controller/service/serviceImpl/param/vo
 		templateBO.setType(1);
