@@ -9,6 +9,14 @@ import com.keqi.knife4j.sys.domain.vo.LoginVO;
 
 public interface AccountService {
 
+	void insert(AccountParam param);
+
+	void updateById(AccountParam param);
+
+	void deleteById(Long id);
+
+	PageVO<AccountVO> page(AccountPageParam param);
+
 	/**
 	 * 登录
 	 *
@@ -19,41 +27,12 @@ public interface AccountService {
 	LoginVO login(String account, String password);
 
 	/**
-	 * 新增用户
-	 *
-	 * @param param param
-	 */
-	void insert(AccountParam param);
-
-	/**
 	 * 修改密码
 	 *
 	 * @param password    password
 	 * @param newPassword newPassword
 	 */
 	void updatePassword(String password, String newPassword);
-
-	/**
-	 * 修改用户
-	 *
-	 * @param param param
-	 */
-	void updateById(AccountParam param);
-
-	/**
-	 * 删除用户
-	 *
-	 * @param id id
-	 */
-	void deleteById(Long id);
-
-	/**
-	 * 分页查询用户列表
-	 *
-	 * @param param param
-	 * @return r
-	 */
-	PageVO<AccountVO> page(AccountPageParam param);
 
 	/**
 	 * 获取登录用户信息

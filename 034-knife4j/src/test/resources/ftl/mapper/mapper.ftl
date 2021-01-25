@@ -12,12 +12,6 @@ import java.util.List;
 public interface ${tableNameHump}Mapper extends BaseMapper<${tableNameHump}DO> {
 
 <#if pageFlag == true>
-	/**
-	 * 分页查询${tableComment}列表
-	 *
-	 * @param param param
-	 * @return r
-	 */
 	List<${tableNameHump}VO> page(${tableNameHump}PageParam param);
 </#if>
 

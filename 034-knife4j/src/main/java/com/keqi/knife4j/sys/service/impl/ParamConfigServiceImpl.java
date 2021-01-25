@@ -23,11 +23,6 @@ public class ParamConfigServiceImpl implements ParamConfigService {
 	@Autowired
 	private ParamConfigMapper paramConfigMapper;
 
-	/**
-	 * 新增参数配置
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void insert(ParamConfigParam param) {
@@ -37,11 +32,6 @@ public class ParamConfigServiceImpl implements ParamConfigService {
 		this.paramConfigMapper.insert(t);
 	}
 
-	/**
-	 * 修改参数配置
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void updateById(ParamConfigParam param) {
@@ -51,23 +41,12 @@ public class ParamConfigServiceImpl implements ParamConfigService {
 		this.paramConfigMapper.updateById(t);
 	}
 
-	/**
-	 * 删除参数配置
-	 *
-	 * @param id id
-	 */
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
 		this.paramConfigMapper.deleteById(id);
 	}
 
-	/**
-	 * 分页查询参数配置列表
-	 *
-	 * @param param param
-	 * @return r
-	 */
 	@Override
 	public PageVO<ParamConfigVO> page(ParamConfigPageParam param) {
 		PageHelper.startPage(param.getPageNum(), param.getPageSize());

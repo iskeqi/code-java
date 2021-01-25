@@ -20,11 +20,6 @@ public class MenuServiceImpl implements MenuService {
 	@Autowired
 	private MenuMapper menuMapper;
 
-	/**
-	 * 新增菜单
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void insert(MenuParam param) {
@@ -33,11 +28,6 @@ public class MenuServiceImpl implements MenuService {
 		this.menuMapper.insert(t);
 	}
 
-	/**
-	 * 修改菜单
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void updateById(MenuParam param) {
@@ -46,11 +36,6 @@ public class MenuServiceImpl implements MenuService {
 		this.menuMapper.updateById(t);
 	}
 
-	/**
-	 * 删除菜单
-	 *
-	 * @param id id
-	 */
 	@Override
 	@Transactional
 	public void deleteById(Long id) {

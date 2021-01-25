@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface AccountMapper extends BaseMapper<AccountDO> {
 
+	List<AccountVO> page(AccountPageParam pageParam);
+
 	/**
 	 * 根据用户名查询用户信息
 	 *
@@ -26,12 +28,4 @@ public interface AccountMapper extends BaseMapper<AccountDO> {
 	 * @return r
 	 */
 	int updatePasswordById(@Param("newPassword") String newPassword, @Param("id") Long id);
-
-	/**
-	 * 分页查询用户列表
-	 *
-	 * @param pageParam pageParam
-	 * @return r
-	 */
-	List<AccountVO> page(AccountPageParam pageParam);
 }

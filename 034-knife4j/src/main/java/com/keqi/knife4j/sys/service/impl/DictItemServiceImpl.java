@@ -25,11 +25,6 @@ public class DictItemServiceImpl implements DictItemService {
 	@Autowired
 	private DictUtil dictUtil;
 
-	/**
-	 * 新增字典项
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void insert(DictItemParam param) {
@@ -40,11 +35,6 @@ public class DictItemServiceImpl implements DictItemService {
 		this.dictUtil.run();
 	}
 
-	/**
-	 * 修改字典项
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void updateById(DictItemParam param) {
@@ -55,11 +45,6 @@ public class DictItemServiceImpl implements DictItemService {
 		this.dictUtil.run();
 	}
 
-	/**
-	 * 删除字典项
-	 *
-	 * @param id id
-	 */
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
@@ -68,12 +53,6 @@ public class DictItemServiceImpl implements DictItemService {
 		this.dictUtil.run();
 	}
 
-	/**
-	 * 分页查询字典项列表
-	 *
-	 * @param param param
-	 * @return r
-	 */
 	@Override
 	public PageVO<DictItemVO> page(DictItemPageParam param) {
 		PageHelper.startPage(param.getPageNum(), param.getPageSize());

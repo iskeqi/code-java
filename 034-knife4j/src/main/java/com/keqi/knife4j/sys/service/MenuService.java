@@ -7,25 +7,10 @@ import java.util.List;
 
 public interface MenuService {
 
-	/**
-	 * 新增菜单
-	 *
-	 * @param param param
-	 */
 	void insert(MenuParam param);
 
-	/**
-	 * 修改菜单
-	 *
-	 * @param param param
-	 */
 	void updateById(MenuParam param);
 
-	/**
-	 * 删除菜单
-	 *
-	 * @param id id
-	 */
 	void deleteById(Long id);
 
 	/**

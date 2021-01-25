@@ -9,12 +9,6 @@ import java.util.List;
 
 public interface ParamConfigMapper extends BaseMapper<ParamConfigDO> {
 
-	/**
-	 * 分页查询参数配置列表
-	 *
-	 * @param pageParam pageParam
-	 * @return r
-	 */
 	List<ParamConfigVO> page(ParamConfigPageParam pageParam);
 
 }

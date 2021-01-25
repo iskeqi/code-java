@@ -28,11 +28,6 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleMenuMapper roleMenuMapper;
 
-	/**
-	 * 新增角色
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void insert(RoleParam param) {
@@ -54,11 +49,6 @@ public class RoleServiceImpl implements RoleService {
 		}
 	}
 
-	/**
-	 * 修改角色
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void updateById(RoleParam param) {
@@ -82,11 +72,6 @@ public class RoleServiceImpl implements RoleService {
 		}
 	}
 
-	/**
-	 * 删除角色
-	 *
-	 * @param id id
-	 */
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
@@ -94,12 +79,6 @@ public class RoleServiceImpl implements RoleService {
 		this.roleMapper.deleteById(id);
 	}
 
-	/**
-	 * 分页查询角色列表
-	 *
-	 * @param param param
-	 * @return r
-	 */
 	@Override
 	public PageVO<RoleVO> page(RolePageParam param) {
 		PageHelper.startPage(param.getPageNum(), param.getPageSize());

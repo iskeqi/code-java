@@ -26,33 +26,12 @@ public class UploadFileServiceImpl implements UploadFileService {
 	@Autowired
 	private UploadFileMapper uploadFileMapper;
 
-	/**
-	 * 增加
-	 *
-	 * @param t t
-	 */
 	@Override
 	@Transactional
 	public void insert(UploadFileDO t) {
 		this.uploadFileMapper.insert(t);
 	}
 
-	/**
-	 * 获取对象
-	 *
-	 * @param id id
-	 * @return r
-	 */
-	@Override
-	public UploadFileDO getById(Long id) {
-		return this.uploadFileMapper.getById(id);
-	}
-
-	/**
-	 * 删除文件
-	 *
-	 * @param id id
-	 */
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
@@ -69,6 +48,17 @@ public class UploadFileServiceImpl implements UploadFileService {
 		}
 
 		this.uploadFileMapper.deleteById(id);
+	}
+
+	/**
+	 * 获取对象
+	 *
+	 * @param id id
+	 * @return r
+	 */
+	@Override
+	public UploadFileDO getById(Long id) {
+		return this.uploadFileMapper.getById(id);
 	}
 
 	/**

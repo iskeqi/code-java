@@ -22,11 +22,6 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 	@Autowired
 	private ${tableNameHump}Mapper ${tableNameHumpLetter}Mapper;
 
-	/**
-	 * 新增${tableComment}
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void insert(${tableNameHump}Param param) {
@@ -34,11 +29,6 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 		this.${tableNameHumpLetter}Mapper.insert(t);
 	}
 
-	/**
-	 * 修改${tableComment}
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void updateById(${tableNameHump}Param param) {
@@ -46,23 +36,12 @@ public class ${tableNameHump}ServiceImpl implements ${tableNameHump}Service {
 		this.${tableNameHumpLetter}Mapper.updateById(t);
 	}
 
-	/**
-	 * 删除${tableComment}
-	 *
-	 * @param id id
-	 */
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
 		this.${tableNameHumpLetter}Mapper.deleteById(id);
 	}
 
-	/**
-	 * 分页查询${tableComment}列表
-	 *
-	 * @param param param
-	 * @return r
-	 */
 	@Override
 	public PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam param) {
 		PageHelper.startPage(param.getPageNum(), param.getPageSize());

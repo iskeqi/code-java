@@ -9,33 +9,12 @@ import java.util.List;
 
 public interface DictItemService {
 
-	/**
-	 * 新增字典项
-	 *
-	 * @param param param
-	 */
 	void insert(DictItemParam param);
 
-	/**
-	 * 修改字典项
-	 *
-	 * @param param param
-	 */
 	void updateById(DictItemParam param);
 
-	/**
-	 * 删除字典项
-	 *
-	 * @param id id
-	 */
 	void deleteById(Long id);
 
-	/**
-	 * 分页查询字典项列表
-	 *
-	 * @param param param
-	 * @return r
-	 */
 	PageVO<DictItemVO> page(DictItemPageParam param);
 
 	/**
