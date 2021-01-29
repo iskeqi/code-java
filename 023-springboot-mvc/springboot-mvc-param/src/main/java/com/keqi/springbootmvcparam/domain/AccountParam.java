@@ -34,4 +34,7 @@ public class AccountParam {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime localDateTime;
+
+	// 测试Boolean类型
+	private Boolean success;
 }
