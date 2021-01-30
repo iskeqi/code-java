@@ -1,5 +1,3 @@
-package com.keqi.knife4j;
-
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import freemarker.template.Configuration;
