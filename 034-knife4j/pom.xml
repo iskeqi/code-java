@@ -24,7 +24,6 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <knife4j-project-version>${project.version}</knife4j-project-version>
     </properties>
 
     <dependencyManagement>
@@ -32,12 +31,12 @@
             <dependency>
                 <groupId>com.keqi</groupId>
                 <artifactId>knife4j-core</artifactId>
-                <version>${knife4j-project-version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.keqi</groupId>
                 <artifactId>knife4j-sys</artifactId>
-                <version>${knife4j-project-version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
