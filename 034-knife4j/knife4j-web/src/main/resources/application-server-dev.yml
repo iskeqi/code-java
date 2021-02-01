@@ -12,9 +12,7 @@ spring:
             max-file-size: 20MB
             max-request-size: 30MB
     redis:
-        host: 120.25.26.123
-        port: 6379
-        password: 123456
+        url: redis://user:123456@120.25.26.123:6379
 
 # 开启 knife4j 增强功能
 knife4j:
