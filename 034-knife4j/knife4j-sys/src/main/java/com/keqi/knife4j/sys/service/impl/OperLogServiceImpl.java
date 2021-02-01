@@ -15,11 +15,6 @@ public class OperLogServiceImpl implements OperLogService {
 	@Autowired
 	private OperLogMapper operLogMapper;
 
-	/**
-	 * 新增操作日志记录
-	 *
-	 * @param param param
-	 */
 	@Override
 	@Transactional
 	public void insert(OperLogParam param) {

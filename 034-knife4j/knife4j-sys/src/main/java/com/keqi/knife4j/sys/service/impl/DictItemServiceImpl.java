@@ -61,12 +61,6 @@ public class DictItemServiceImpl implements DictItemService {
 		return new PageVO<>(new PageSerializable<>(result).getTotal(), result);
 	}
 
-	/**
-	 * 根据 typeCode 查询字典项列表
-	 *
-	 * @param typeCode typeCode
-	 * @return r
-	 */
 	@Override
 	public List<DictItemVO> selectByTypeCode(String typeCode) {
 		return this.dictItemMapper.selectByTypeCode(typeCode);

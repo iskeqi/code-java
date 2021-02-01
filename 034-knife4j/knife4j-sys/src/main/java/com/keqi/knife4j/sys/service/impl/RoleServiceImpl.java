@@ -32,10 +32,8 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional
 	public void insert(RoleParam param) {
 		RoleDO roleDO = BeanUtil.copyProperties(param, RoleDO.class);
-
 		this.roleMapper.insert(roleDO);
 
-		// 新增角色-菜单关联记录
 		List<Long> menuIdList = param.getMenuIdList();
 		if (CollUtil.isNotEmpty(menuIdList)) {
 			List<RoleMenuDO> list = new ArrayList<>();
@@ -55,8 +53,6 @@ public class RoleServiceImpl implements RoleService {
 		RoleDO roleDO = BeanUtil.copyProperties(param, RoleDO.class);
 
 		this.roleMapper.updateById(roleDO);
-
-		// 新增角色-菜单关联记录
 		List<Long> menuIdList = param.getMenuIdList();
 		if (CollUtil.isNotEmpty(menuIdList)) {
 			this.roleMenuMapper.deleteByRoleId(param.getId());

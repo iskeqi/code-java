@@ -27,8 +27,6 @@ public class ParamConfigServiceImpl implements ParamConfigService {
 	@Transactional
 	public void insert(ParamConfigParam param) {
 		ParamConfigDO t = BeanUtil.copyProperties(param, ParamConfigDO.class);
-
-
 		this.paramConfigMapper.insert(t);
 	}
 
@@ -36,8 +34,6 @@ public class ParamConfigServiceImpl implements ParamConfigService {
 	@Transactional
 	public void updateById(ParamConfigParam param) {
 		ParamConfigDO t = BeanUtil.copyProperties(param, ParamConfigDO.class);
-
-
 		this.paramConfigMapper.updateById(t);
 	}
 

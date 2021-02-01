@@ -43,14 +43,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public void insert(AccountParam param) {
-		// 新增用户记录
 		AccountDO accountDO = BeanUtil.copyProperties(param, AccountDO.class);
-
 		accountDO.setSalt(RandomUtil.randomString(20));
 		accountDO.setPassword(CommonUtil.encryptedPassword(accountDO.getPassword(), accountDO.getSalt()));
 		this.accountMapper.insert(accountDO);
 
-		// 新增用户-角色关联记录
 		List<Long> roleIdList = param.getRoleIdList();
 		if (CollUtil.isNotEmpty(roleIdList)) {
 			List<AccountRoleDO> list = new ArrayList<>();
@@ -67,19 +64,15 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional
 	public void updateById(AccountParam param) {
-		// 修改用户记录
 		param.setAccount(null); // 不允许修改
 		param.setPassword(null); // 不允许通过此接口修改密码
 		AccountDO accountDO = BeanUtil.copyProperties(param, AccountDO.class);
 		this.accountMapper.updateById(accountDO);
 
-		// 修改用户-角色关联记录
 		List<Long> roleIdList = param.getRoleIdList();
 		if (CollUtil.isNotEmpty(roleIdList)) {
-			// 先删除
 			this.accountRoleMapper.deleteByAccountId(param.getId());
 
-			// 再增加
 			List<AccountRoleDO> list = new ArrayList<>();
 			for (Long roleId : roleIdList) {
 				AccountRoleDO t = new AccountRoleDO();
@@ -138,7 +131,6 @@ public class AccountServiceImpl implements AccountService {
 
 		if (CommonUtil.encryptedPassword(password, accountDO.getSalt())
 				.equals(accountDO.getPassword())) {
-			// 密码正确，修改密码
 			this.accountMapper.updatePasswordById(
 					CommonUtil.encryptedPassword(newPassword, accountDO.getSalt()), id);
 		} else {

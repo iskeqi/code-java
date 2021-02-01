@@ -58,25 +58,19 @@ public class UploadFileServiceImpl implements UploadFileService {
 	 */
 	@Override
 	public PrivateFileUploadVO privateFileUpload(MultipartFile file) {
-		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE;
-		// 相对路径
 		String relativePath = LocalDate.now() + File.separator + file.getContentType() + File.separator;
-		// 全路径
 		String fullPath = basePath + relativePath;
-		// 对用户上传过来的文件使用UUID进行重命名，下载时截取掉UUID这段名称即可
 		String name = UUID.randomUUID().toString().replace("-", "") + "-" + file.getOriginalFilename();
 
-		// 先创建好路径
 		File path = new File(fullPath);
 		if (!path.exists()) {
 			path.mkdirs();
 		}
-		// 保存文件到硬盘中的指定文件中
+
 		try {
 			file.transferTo(new File(fullPath, name));
 		} catch (IOException e) {
-			// 打印异常栈信息至日志文件中
 			log.info(e.getMessage(), e);
 			throw new BusinessException("文件上传失败");
 		}
@@ -93,29 +87,18 @@ public class UploadFileServiceImpl implements UploadFileService {
 		return vo;
 	}
 
-	/**
-	 * 公开文件上传
-	 *
-	 * @param file file
-	 * @return r
-	 */
 	@Override
 	public PublicFileUploadVO publicFileUpload(MultipartFile file) {
-		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
-		// 相对路径
 		String relativePath = LocalDate.now() + File.separator + file.getContentType() + File.separator;
-		// 全路径
 		String fullPath = basePath + relativePath;
-		// 对用户上传过来的文件使用UUID进行重命名，下载时截取掉UUID这段名称即可
 		String name = UUID.randomUUID().toString() + file.getOriginalFilename();
 
-		// 先创建好路径
 		File path = new File(fullPath);
 		if (!path.exists()) {
 			path.mkdirs();
 		}
-		// 保存文件到硬盘中的指定文件中
+
 		try {
 			file.transferTo(new File(fullPath, name));
 		} catch (IOException e) {

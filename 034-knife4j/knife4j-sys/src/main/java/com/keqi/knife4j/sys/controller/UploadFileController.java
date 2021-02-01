@@ -57,7 +57,6 @@ public class UploadFileController {
 
 		BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(path));
 
-		// 截取出 name 属性 [37,length-1) 位置的字符串，文件的真正命名
 		String fileName = URLEncoder.encode(uploadFileDO.getName().substring(name.indexOf("-") + 1), request.getCharacterEncoding());
 
 		response.setHeader("Content-disposition", "attachment;filename=" + fileName);
