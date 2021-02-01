@@ -34,8 +34,8 @@ public class UploadFileServiceImpl implements UploadFileService {
 
 	@Override
 	@Transactional
-	public void deleteById(Long id) {
-		UploadFileDO uploadFileDO = this.getById(id);
+	public void deleteByName(String name) {
+		UploadFileDO uploadFileDO = this.uploadFileMapper.selectByName(name);
 		if (uploadFileDO == null) {
 			throw new BusinessException("文件不存在");
 		}
@@ -47,33 +47,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 			throw new BusinessException("文件删除失败");
 		}
 
-		this.uploadFileMapper.deleteById(id);
-	}
-
-	/**
-	 * 获取对象
-	 *
-	 * @param id id
-	 * @return r
-	 */
-	@Override
-	public UploadFileDO getById(Long id) {
-		return this.uploadFileMapper.getById(id);
-	}
-
-	/**
-	 * 根据 id 获取文件名称（去除了 UUID 前缀的文件名）
-	 *
-	 * @param id id
-	 * @return r
-	 */
-	@Override
-	public String getSimpleNameById(Long id) {
-		UploadFileDO t = this.uploadFileMapper.getById(id);
-		if (t == null) {
-			throw new BusinessException("不存在此文件");
-		}
-		return t.getName().substring(37);
+		this.uploadFileMapper.deleteById(uploadFileDO.getId());
 	}
 
 	/**
@@ -87,11 +61,11 @@ public class UploadFileServiceImpl implements UploadFileService {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE;
 		// 相对路径
-		String relativePath = LocalDate.now() + "/" + file.getContentType();
+		String relativePath = LocalDate.now() + File.separator + file.getContentType() + File.separator;
 		// 全路径
 		String fullPath = basePath + relativePath;
 		// 对用户上传过来的文件使用UUID进行重命名，下载时截取掉UUID这段名称即可
-		String name = UUID.randomUUID().toString() + file.getOriginalFilename();
+		String name = UUID.randomUUID().toString().replace("-", "") + "-" + file.getOriginalFilename();
 
 		// 先创建好路径
 		File path = new File(fullPath);
@@ -115,7 +89,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 		this.insert(t);
 
 		PrivateFileUploadVO vo = new PrivateFileUploadVO();
-		vo.setId(t.getId());
+		vo.setName(name);
 		return vo;
 	}
 
@@ -130,7 +104,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 		// 基础路径
 		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
 		// 相对路径
-		String relativePath = LocalDate.now() + "/" + file.getContentType();
+		String relativePath = LocalDate.now() + File.separator + file.getContentType() + File.separator;
 		// 全路径
 		String fullPath = basePath + relativePath;
 		// 对用户上传过来的文件使用UUID进行重命名，下载时截取掉UUID这段名称即可
@@ -152,5 +126,10 @@ public class UploadFileServiceImpl implements UploadFileService {
 		PublicFileUploadVO vo = new PublicFileUploadVO();
 		vo.setPath(relativePath + name);
 		return vo;
+	}
+
+	@Override
+	public UploadFileDO getByName(String name) {
+		return this.uploadFileMapper.selectByName(name);
 	}
 }

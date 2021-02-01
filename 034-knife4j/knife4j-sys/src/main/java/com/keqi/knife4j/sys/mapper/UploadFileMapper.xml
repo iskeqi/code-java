@@ -18,11 +18,19 @@
         id, `name`, `path`, `type`, `size`, deleted, create_time, update_time
     </sql>
 
-    <select id="getById" resultMap="BaseResultMap">
+    <select id="selectById" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from sys_upload_file
         where deleted = 0
         and id = #{id}
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_upload_file
+        where deleted = 0
+        and name = #{name}
     </select>
 </mapper>

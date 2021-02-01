@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
 
@@ -43,10 +42,10 @@ public class UploadFileController {
 
 	@ApiOperation(value = "3.2 私有文件下载", notes = "此接口只能下载到通过私有文件上传接口上传的文件")
 	@ApiOperationSupport(order = 2)
-	@ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
-	@GetMapping("/sys/uploadFile/downloadById")
-	public void downloadById(HttpServletRequest request, HttpServletResponse response, @RequestParam Long id) throws Exception {
-		UploadFileDO uploadFileDO = this.uploadFileService.getById(id);
+	@ApiImplicitParam(name = "name", value = "文件名称", example = "94a1679b62ea46ca82216d026f00b5b6-Java开发手册（嵩山版）.pdf", required = true)
+	@GetMapping("/sys/uploadFile/downloadByName")
+	public void downloadByName(HttpServletRequest request, HttpServletResponse response, @RequestParam String name) throws Exception {
+		UploadFileDO uploadFileDO = this.uploadFileService.getByName(name);
 		if (uploadFileDO == null) {
 			throw new BusinessException("文件不存在");
 		}
@@ -56,10 +55,10 @@ public class UploadFileController {
 		response.setCharacterEncoding(request.getCharacterEncoding());
 		response.setContentType("application/octet-stream");
 
-		BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(new File(path)));
+		BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(path));
 
 		// 截取出 name 属性 [37,length-1) 位置的字符串，文件的真正命名
-		String fileName = URLEncoder.encode(uploadFileDO.getName().substring(37), request.getCharacterEncoding());
+		String fileName = URLEncoder.encode(uploadFileDO.getName().substring(name.indexOf("-") + 1), request.getCharacterEncoding());
 
 		response.setHeader("Content-disposition", "attachment;filename=" + fileName);
 		IoUtil.copy(inputStream, response.getOutputStream());
@@ -70,11 +69,11 @@ public class UploadFileController {
 
 	@ApiOperation(value = "3.3 私有文件删除", notes = "此接口只能删除通过私有文件上传接口上传的文件")
 	@ApiOperationSupport(order = 3)
-	@ApiImplicitParam(name = "id", value = "文件ID", example = "1", required = true)
+	@ApiImplicitParam(name = "name", value = "文件名称", example = "94a1679b62ea46ca82216d026f00b5b6-Java开发手册（嵩山版）.pdf", required = true)
 	@ResponseBody
-	@DeleteMapping("/sys/uploadFile/{id}")
-	public void deleteById(@PathVariable Long id) {
-		this.uploadFileService.deleteById(id);
+	@DeleteMapping("/sys/uploadFile/{name}")
+	public void deleteByName(@PathVariable String name) {
+		this.uploadFileService.deleteByName(name);
 	}
 
 	@ApiOperation(value = "3.4 公开文件上传", notes = "通过此接口上传的文件，下载时无需鉴权，可以直接通过返回的 URL 路径访问")
