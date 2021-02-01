@@ -45,7 +45,7 @@ public class UploadFileController {
 	@ApiImplicitParam(name = "name", value = "文件名称", example = "94a1679b62ea46ca82216d026f00b5b6-Java开发手册（嵩山版）.pdf", required = true)
 	@GetMapping("/sys/uploadFile/downloadByName")
 	public void downloadByName(HttpServletRequest request, HttpServletResponse response, @RequestParam String name) throws Exception {
-		UploadFileDO uploadFileDO = this.uploadFileService.getByName(name);
+		UploadFileDO uploadFileDO = this.uploadFileService.selectByName(name);
 		if (uploadFileDO == null) {
 			throw new BusinessException("文件不存在");
 		}

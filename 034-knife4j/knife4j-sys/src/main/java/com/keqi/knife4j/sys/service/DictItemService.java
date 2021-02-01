@@ -17,11 +17,5 @@ public interface DictItemService {
 
 	PageVO<DictItemVO> page(DictItemPageParam param);
 
-	/**
-	 * 根据 typeCode 查询字典项列表
-	 *
-	 * @param typeCode typeCode
-	 * @return r
-	 */
-	List<DictItemVO> listAllByTypeCode(String typeCode);
+	List<DictItemVO> selectByTypeCode(String typeCode);
 }

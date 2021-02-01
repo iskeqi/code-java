@@ -17,28 +17,9 @@ public interface AccountService {
 
 	PageVO<AccountVO> page(AccountPageParam param);
 
-	/**
-	 * 登录
-	 *
-	 * @param account  account
-	 * @param password password
-	 * @return r
-	 */
 	LoginVO login(String account, String password);
 
-	/**
-	 * 修改密码
-	 *
-	 * @param password    password
-	 * @param newPassword newPassword
-	 */
 	void updatePassword(String password, String newPassword);
 
-	/**
-	 * 获取登录用户信息
-	 *
-	 * @return r
-	 */
-	AccountDetailVO getLoginUserInfo();
-
+	AccountDetailVO selectLoginUserInfo();
 }

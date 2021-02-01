@@ -106,16 +106,9 @@ public class AccountServiceImpl implements AccountService {
 		return new PageVO<>(new PageSerializable<>(result).getTotal(), result);
 	}
 
-	/**
-	 * 登录
-	 *
-	 * @param account  account
-	 * @param password password
-	 * @return r
-	 */
 	@Override
 	public LoginVO login(String account, String password) {
-		AccountDO accountDO = this.accountMapper.getByAccount(account);
+		AccountDO accountDO = this.accountMapper.selectByAccount(account);
 		if (Objects.isNull(accountDO)) {
 			throw new BusinessException("用户名不存在");
 		}
@@ -137,12 +130,6 @@ public class AccountServiceImpl implements AccountService {
 		return new LoginVO(accessToken);
 	}
 
-	/**
-	 * 修改密码
-	 *
-	 * @param password    password
-	 * @param newPassword newPassword
-	 */
 	@Override
 	@Transactional
 	public void updatePassword(String password, String newPassword) {
@@ -159,13 +146,8 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 
-	/**
-	 * 获取登录用户信息
-	 *
-	 * @return r
-	 */
 	@Override
-	public AccountDetailVO getLoginUserInfo() {
+	public AccountDetailVO selectLoginUserInfo() {
 		AccountDO accountDO = this.accountMapper.selectById(Auth.getLoginAccountId());
 		return BeanUtil.copyProperties(accountDO, AccountDetailVO.class);
 	}

@@ -129,7 +129,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 	}
 
 	@Override
-	public UploadFileDO getByName(String name) {
+	public UploadFileDO selectByName(String name) {
 		return this.uploadFileMapper.selectByName(name);
 	}
 }

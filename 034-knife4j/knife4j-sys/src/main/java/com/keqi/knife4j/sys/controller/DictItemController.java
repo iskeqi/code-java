@@ -57,6 +57,6 @@ public class DictItemController {
 	@ApiImplicitParam(name = "typeCode", value = "字典类型Code", example = "configType", required = true)
 	@PostMapping("/sys/dictItem/listAllByTypeCode")
 	public List<DictItemVO> listAllByTypeCode(@RequestParam String typeCode) {
-		return this.dictItemService.listAllByTypeCode(typeCode);
+		return this.dictItemService.selectByTypeCode(typeCode);
 	}
 }

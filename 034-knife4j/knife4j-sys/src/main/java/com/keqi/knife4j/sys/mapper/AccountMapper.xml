@@ -17,7 +17,7 @@
         id, account, nick_name, `password`, salt, create_time, update_time
     </sql>
 
-    <select id="getByAccount" resultMap="BaseResultMap">
+    <select id="selectByAccount" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from sys_account
@@ -26,8 +26,8 @@
 
     <update id="updatePasswordById">
         update sys_account
-        set `password`=#{newPassword},
-            update_time=now()
+        set `password`=#{password},
+        update_time=now()
         where id = #{id}
     </update>
 

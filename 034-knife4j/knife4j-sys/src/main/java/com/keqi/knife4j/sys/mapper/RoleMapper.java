@@ -9,12 +9,6 @@ import java.util.List;
 
 public interface RoleMapper extends BaseMapper<RoleDO> {
 
-	/**
-	 * 分页查询角色列表
-	 *
-	 * @param pageParam pageParam
-	 * @return r
-	 */
 	List<RoleVO> page(RolePageParam pageParam);
 
 }

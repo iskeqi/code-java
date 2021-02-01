@@ -30,7 +30,7 @@ public class DictUtil implements CommandLineRunner {
 		typeMap = new HashMap<>();
 		itemMap = new HashMap<>();
 
-		List<DictItemVO> dictItemVOS = this.dictItemMapper.listAll();
+		List<DictItemVO> dictItemVOS = this.dictItemMapper.selectAll();
 
 		for (DictItemVO t : dictItemVOS) {
 			String typeCode = t.getTypeCode();

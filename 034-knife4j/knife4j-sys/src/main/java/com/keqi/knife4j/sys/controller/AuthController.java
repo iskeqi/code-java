@@ -42,7 +42,7 @@ public class AuthController {
 	@ApiOperationSupport(order = 3)
 	@PostMapping("/sys/auth/getLoginUserInfo")
 	public AccountDetailVO getLoginUserInfo() {
-		return this.accountService.getLoginUserInfo();
+		return this.accountService.selectLoginUserInfo();
 	}
 
 	@ApiOperation(value = "1.4 注销")

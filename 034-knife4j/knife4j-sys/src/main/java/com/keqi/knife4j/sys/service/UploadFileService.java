@@ -11,21 +11,9 @@ public interface UploadFileService {
 
 	void deleteByName(String name);
 
-	/**
-	 * 私有文件上传
-	 *
-	 * @param file file
-	 * @return r
-	 */
 	PrivateFileUploadVO privateFileUpload(MultipartFile file);
 
-	/**
-	 * 公开文件上传
-	 *
-	 * @param file file
-	 * @return r
-	 */
 	PublicFileUploadVO publicFileUpload(MultipartFile file);
 
-	UploadFileDO getByName(String name);
+	UploadFileDO selectByName(String name);
 }

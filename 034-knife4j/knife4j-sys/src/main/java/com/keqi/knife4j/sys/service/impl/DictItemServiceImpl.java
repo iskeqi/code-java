@@ -68,7 +68,7 @@ public class DictItemServiceImpl implements DictItemService {
 	 * @return r
 	 */
 	@Override
-	public List<DictItemVO> listAllByTypeCode(String typeCode) {
-		return this.dictItemMapper.listAllByTypeCode(typeCode);
+	public List<DictItemVO> selectByTypeCode(String typeCode) {
+		return this.dictItemMapper.selectByTypeCode(typeCode);
 	}
 }
