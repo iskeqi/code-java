@@ -1,5 +1,6 @@
 package com.keqi.knife4j.core.auth;
 
+import com.keqi.knife4j.core.exception.NoAuthException;
 import com.keqi.knife4j.core.pojo.CommonConstant;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +45,7 @@ public class Auth {
 		Map<String, Object> stringObjectMap = threadLocal.get();
 		Object obj;
 		if (stringObjectMap == null || (obj = stringObjectMap.get(CommonConstant.LOGIN_USER)) == null) {
-			throw new RuntimeException("当前线程未存储登录用户信息");
+			throw new NoAuthException();
 		}
 		return (LoginUserBO) obj;
 	}

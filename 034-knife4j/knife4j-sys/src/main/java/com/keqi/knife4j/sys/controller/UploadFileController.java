@@ -3,8 +3,6 @@ package com.keqi.knife4j.sys.controller;
 import cn.hutool.core.io.IoUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
-import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
-import com.github.xiaoymin.knife4j.annotations.DynamicResponseParameters;
 import com.keqi.knife4j.core.exception.BusinessException;
 import com.keqi.knife4j.core.pojo.CommonConstant;
 import com.keqi.knife4j.core.util.CommonUtil;
@@ -37,9 +35,6 @@ public class UploadFileController {
 
 	@ApiOperation(value = "3.1 私有文件上传", notes = "通过此接口上传的文件，下载时需要鉴权")
 	@ApiOperationSupport(order = 1)
-	@DynamicResponseParameters(properties = {
-			@DynamicParameter(name = "id", value = "文件ID", example = "28")
-	})
 	@ResponseBody
 	@PostMapping("/sys/uploadFile/privateFileUpload")
 	public PrivateFileUploadVO privateFileUpload(@RequestParam("file") MultipartFile file) {
