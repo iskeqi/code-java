@@ -24,7 +24,6 @@ public class MenuServiceImpl implements MenuService {
 	@Transactional
 	public void insert(MenuParam param) {
 		MenuDO t = BeanUtil.copyProperties(param, MenuDO.class);
-
 		this.menuMapper.insert(t);
 	}
 
@@ -32,7 +31,6 @@ public class MenuServiceImpl implements MenuService {
 	@Transactional
 	public void updateById(MenuParam param) {
 		MenuDO t = BeanUtil.copyProperties(param, MenuDO.class);
-
 		this.menuMapper.updateById(t);
 	}
 
@@ -42,15 +40,9 @@ public class MenuServiceImpl implements MenuService {
 		this.menuMapper.deleteById(id);
 	}
 
-	/**
-	 * 根据 accountId 查询用户拥有的菜单列表
-	 *
-	 * @param accountId accountId
-	 * @return r
-	 */
 	@Override
-	public List<MenuVO> queryTheCurrentUserMenuList(Long accountId) {
-		return this.assembleTreeList(this.menuMapper.listByAccountId(accountId), 0L);
+	public List<MenuVO> selectMenusByAccountId(Long accountId) {
+		return this.assembleTreeList(this.menuMapper.selectByAccountId(accountId), 0L);
 	}
 
 	/**

@@ -29,7 +29,7 @@
         <result column="order_num" property="orderNum"/>
         <result column="parent_id" property="parentId"/>
     </resultMap>
-    <select id="listByAccountId" resultMap="MenuVO">
+    <select id="selectByAccountId" resultMap="MenuVO">
         select t3.id,
                t3.name,
                t3.url,

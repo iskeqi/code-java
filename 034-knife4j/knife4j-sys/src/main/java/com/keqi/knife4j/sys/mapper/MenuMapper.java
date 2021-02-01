@@ -8,11 +8,5 @@ import java.util.List;
 
 public interface MenuMapper extends BaseMapper<MenuDO> {
 
-	/**
-	 * 查询指定 accountId 拥有的菜单列表
-	 *
-	 * @param accountId accountId
-	 * @return r
-	 */
-	List<MenuVO> listByAccountId(Long accountId);
+	List<MenuVO> selectByAccountId(Long accountId);
 }

@@ -13,11 +13,5 @@ public interface MenuService {
 
 	void deleteById(Long id);
 
-	/**
-	 * 根据 accountId 查询用户拥有的菜单列表
-	 *
-	 * @param accountId accountId
-	 * @return r
-	 */
-	List<MenuVO> queryTheCurrentUserMenuList(Long accountId);
+	List<MenuVO> selectMenusByAccountId(Long accountId);
 }

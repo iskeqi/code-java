@@ -46,8 +46,8 @@ public class MenuController {
 
 	@ApiOperation(value = "6.4 查询当前用户菜单列表")
 	@ApiOperationSupport(order = 4)
-	@PostMapping("/sys/menu/queryTheCurrentUserMenuList")
-	public List<MenuVO> queryTheCurrentUserMenuList() {
-		return this.menuService.queryTheCurrentUserMenuList(Auth.getLoginAccountId());
+	@PostMapping("/sys/menu/selectMenusByAccountId")
+	public List<MenuVO> selectMenusByAccountId() {
+		return this.menuService.selectMenusByAccountId(Auth.getLoginAccountId());
 	}
 }
