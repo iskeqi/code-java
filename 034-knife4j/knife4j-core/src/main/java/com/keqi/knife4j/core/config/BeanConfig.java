@@ -9,14 +9,12 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.Formatter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * 各种需要通过声明 Bean 对象的方式提交对象到 IOC 容器中的对象
@@ -34,46 +32,6 @@ public class BeanConfig {
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
-	}
-
-	/**
-	 * 使用表单提交参数和响应结果时，会调用此对象的方法对 LocalDate 类型的参数进行序列化和反序列化
-	 *
-	 * @return r
-	 */
-	@Bean("localDateFormatter")
-	public Formatter<LocalDate> localDateFormatter() {
-		return new Formatter<LocalDate>() {
-			@Override
-			public String print(LocalDate object, Locale locale) {
-				return object.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			}
-
-			@Override
-			public LocalDate parse(String text, Locale locale) {
-				return LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			}
-		};
-	}
-
-	/**
-	 * 使用表单提交参数和响应结果时，会调用此对象的方法对 LocalDateTime 类型的参数进行序列化和反序列化
-	 *
-	 * @return r
-	 */
-	@Bean("localDateTimeFormatter")
-	public Formatter<LocalDateTime> localDateTimeFormatter() {
-		return new Formatter<LocalDateTime>() {
-			@Override
-			public String print(LocalDateTime object, Locale locale) {
-				return object.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			}
-
-			@Override
-			public LocalDateTime parse(String text, Locale locale) {
-				return LocalDateTime.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			}
-		};
 	}
 
 	/**
