@@ -47,15 +47,15 @@ public class DictItemController {
 
 	@ApiOperation(value = "2.4 分页查询字典项列表")
 	@ApiOperationSupport(order = 4)
-	@PostMapping("/sys/dictItem/page")
-	public PageVO<DictItemVO> page(@RequestBody DictItemPageParam param) {
+	@GetMapping("/sys/dictItem/page")
+	public PageVO<DictItemVO> page(DictItemPageParam param) {
 		return this.dictItemService.page(param);
 	}
 
 	@ApiOperation(value = "2.5 根据 typeCode 查询字典项列表")
 	@ApiOperationSupport(order = 5)
 	@ApiImplicitParam(name = "typeCode", value = "字典类型Code", example = "configType", required = true)
-	@PostMapping("/sys/dictItem/listAllByTypeCode")
+	@GetMapping("/sys/dictItem/listAllByTypeCode")
 	public List<DictItemVO> listAllByTypeCode(@RequestParam String typeCode) {
 		return this.dictItemService.selectByTypeCode(typeCode);
 	}

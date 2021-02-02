@@ -46,8 +46,8 @@ public class ParamConfigController {
 
 	@ApiOperation(value = "7.4 分页查询参数配置列表")
 	@ApiOperationSupport(order = 4)
-	@PostMapping("/sys/paramConfig/page")
-	public PageVO<ParamConfigVO> page(@RequestBody ParamConfigPageParam param) {
+	@GetMapping("/sys/paramConfig/page")
+	public PageVO<ParamConfigVO> page(ParamConfigPageParam param) {
 		return this.paramConfigService.page(param);
 	}
 }

@@ -45,8 +45,8 @@ public class RoleController {
 
 	@ApiOperation(value = "5.4 分页查询角色列表")
 	@ApiOperationSupport(order = 4)
-	@PostMapping("/sys/role/page")
-	public PageVO<RoleVO> page(@RequestBody RolePageParam param) {
+	@GetMapping("/sys/role/page")
+	public PageVO<RoleVO> page(RolePageParam param) {
 		return this.roleService.page(param);
 	}
 }

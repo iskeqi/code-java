@@ -11,9 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "1. 登录管理")
 @ApiSupport(order = 1)
@@ -40,7 +38,7 @@ public class AuthController {
 
 	@ApiOperation(value = "1.3 获取登录用户信息")
 	@ApiOperationSupport(order = 3)
-	@PostMapping("/sys/auth/getLoginUserInfo")
+	@GetMapping("/sys/auth/getLoginUserInfo")
 	public AccountDetailVO getLoginUserInfo() {
 		return this.accountService.selectLoginUserInfo();
 	}

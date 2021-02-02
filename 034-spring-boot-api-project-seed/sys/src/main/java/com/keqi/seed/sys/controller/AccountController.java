@@ -46,8 +46,8 @@ public class AccountController {
 
 	@ApiOperation(value = "5.4 分页查询用户列表")
 	@ApiOperationSupport(order = 4)
-	@PostMapping("/sys/account/page")
-	public PageVO<AccountVO> page(@RequestBody AccountPageParam param) {
+	@GetMapping("/sys/account/page")
+	public PageVO<AccountVO> page(AccountPageParam param) {
 		return this.accountService.page(param);
 	}
 }
