@@ -1,10 +1,15 @@
 package com.keqi.seed.core.auth;
 
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /**
  * 登录用户信息实体类
  *
  * @author keqi
  */
+@Data
 public class LoginUserBO {
 
 	/**
@@ -17,27 +22,13 @@ public class LoginUserBO {
 	 */
 	private String account;
 
-	public LoginUserBO() {
-	}
+	/**
+	 * token 到期时间
+	 */
+	private LocalDateTime expirationDate;
 
-	public LoginUserBO(Long id, String account) {
-		this.id = id;
-		this.account = account;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
+	/**
+	 * accessToken
+	 */
+	private String accessToken;
 }
