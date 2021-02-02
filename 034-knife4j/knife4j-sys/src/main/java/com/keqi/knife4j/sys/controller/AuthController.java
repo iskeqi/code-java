@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Api(tags = "1. 登录管理")
 @ApiSupport(order = 1)
 @Validated
@@ -51,9 +48,7 @@ public class AuthController {
 	@ApiOperation(value = "1.4 注销")
 	@ApiOperationSupport(order = 4)
 	@PostMapping("/sys/auth/logout")
-	public void logout(Integer age, LocalDate createDate, LocalDateTime createTime) {
-		System.out.println(age);
-		System.out.println(createDate);
-		System.out.println(createTime);
+	public void logout() {
+
 	}
 }
