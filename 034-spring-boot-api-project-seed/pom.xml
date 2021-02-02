@@ -6,9 +6,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>knife4j-core</module>
-        <module>knife4j-sys</module>
-        <module>knife4j-web</module>
+        <module>core</module>
+        <module>sys</module>
+        <module>web</module>
     </modules>
 
     <parent>
@@ -19,7 +19,7 @@
     </parent>
 
     <groupId>com.keqi</groupId>
-    <artifactId>034-knife4j</artifactId>
+    <artifactId>034-spring-boot-api-project-seed</artifactId>
     <version>0.0.1</version>
 
     <properties>
@@ -30,12 +30,12 @@
         <dependencies>
             <dependency>
                 <groupId>com.keqi</groupId>
-                <artifactId>knife4j-core</artifactId>
+                <artifactId>core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.keqi</groupId>
-                <artifactId>knife4j-sys</artifactId>
+                <artifactId>sys</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
