@@ -1,4 +1,4 @@
-package com.keqi.getui;
+package com.keqi.getui.notification;
 
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.ListMessage;

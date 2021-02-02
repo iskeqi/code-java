@@ -1,4 +1,4 @@
-package com.keqi.getui;
+package com.keqi.getui.notification;
 
 import java.util.ArrayList;
 import java.util.List;
