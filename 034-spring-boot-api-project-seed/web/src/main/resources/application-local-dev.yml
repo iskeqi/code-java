@@ -38,5 +38,5 @@ logging:
 mybatis-plus:
     config-location:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-        type-aliases-package: com.keqi.knife4j.core.typeHandler
+        type-aliases-package: com.keqi.seed.core.typeHandler
 

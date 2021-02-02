@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.seed.sys.mapper.DictItemMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.seed.sys.domain.db.DictItemDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_dict_item-->
+        <id column="id" property="id"/>
+        <result column="type_code" property="typeCode"/>
+        <result column="type_name" property="typeName"/>
+        <result column="item_code" property="itemCode"/>
+        <result column="item_name" property="itemName"/>
+        <result column="order_num" property="orderNum"/>
+    </resultMap>
+
+    <resultMap id="DictItemVO" type="com.keqi.seed.sys.domain.vo.DictItemVO">
+        <id column="id" property="id"/>
+        <result column="type_code" property="typeCode"/>
+        <result column="type_name" property="typeName"/>
+        <result column="item_code" property="itemCode"/>
+        <result column="item_name" property="itemName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, type_code, type_name, item_code, item_name, order_num
+    </sql>
+
+    <select id="selectTypeCodeList" resultType="java.lang.String">
+        select distinct type_code
+        from sys_dict_item
+    </select>
+
+    <select id="selectByTypeCode" resultMap="DictItemVO">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dict_item
+        where type_code = #{typeCode}
+        order by order_num
+    </select>
+
+    <select id="page" resultMap="DictItemVO">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dict_item
+        <where>
+            <if test="typeCode != null and typeCode != ''">
+                and
+                type_code like concat('%', replace(replace(#{typeCode}, '%', '/%'), '_', '/_'), '%') escape
+                        '/'
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name like
+                    concat('%', replace(replace(#{typeName}, '%', '/%'), '_', '/_'), '%') escape
+                        '/'
+            </if>
+            <if test="itemCode != null and itemCode != ''">
+                and item_code like
+                    concat('%', replace(replace(#{itemCode}, '%', '/%'), '_', '/_'), '%') escape
+                        '/'
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and item_name like
+                    concat('%', replace(replace(#{itemName}, '%', '/%'), '_', '/_'), '%') escape
+                    '/'
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAll" resultMap="DictItemVO">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dict_item
+        order by type_code, order_num
+    </select>
+</mapper>
