@@ -29,4 +29,9 @@ public class LoginUserBO {
 	 * token
 	 */
 	private String token;
+
+	/**
+	 * 登录设备类型
+	 */
+	private String devType;
 }

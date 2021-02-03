@@ -16,6 +16,7 @@ import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.db.AccountRoleDO;
 import com.keqi.seed.sys.domain.param.AccountPageParam;
 import com.keqi.seed.sys.domain.param.AccountParam;
+import com.keqi.seed.sys.domain.param.LoginParam;
 import com.keqi.seed.sys.domain.vo.AccountDetailVO;
 import com.keqi.seed.sys.domain.vo.AccountVO;
 import com.keqi.seed.sys.domain.vo.LoginVO;
@@ -105,26 +106,29 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public LoginVO login(String account, String password) {
-        AccountDO accountDO = this.accountMapper.selectByAccount(account);
+    public LoginVO login(LoginParam param) {
+        AccountDO accountDO = this.accountMapper.selectByAccount(param.getAccount());
         if (Objects.isNull(accountDO)) {
             throw new BusinessException("用户名不存在");
         }
 
-        String passwordEncry = CommonUtil.encryptedPassword(password, accountDO.getSalt());
+        String passwordEncry = CommonUtil.encryptedPassword(param.getPassword(), accountDO.getSalt());
         if (!Objects.equals(passwordEncry, accountDO.getPassword())) {
             throw new BusinessException("密码错误");
         }
 
         // token 有效期为 14 天
         long expirationTime = System.currentTimeMillis() + 1209600000;
-        String token = UUID.randomUUID().toString().replace("-", "");
+        String token = UUID.randomUUID().toString().replace("-", "")  + param.getDevType();
 
         LoginUserBO loginUserBO = new LoginUserBO();
         loginUserBO.setId(accountDO.getId());
         loginUserBO.setAccount(accountDO.getAccount());
         loginUserBO.setExpirationTime(expirationTime);
         loginUserBO.setToken(token);
+        loginUserBO.setDevType(param.getDevType());
+
+        String o = (String) stringRedisTemplate.opsForHash().get(CommonConstant.ACCOUNT_LOGIN_INFO, accountDO.getAccount() + param.getDevType());
 
         stringRedisTemplate.execute(new SessionCallback<Object>() {
             @Override
@@ -132,9 +136,16 @@ public class AccountServiceImpl implements AccountService {
                 StringRedisTemplate template = (StringRedisTemplate) operations;
                 template.multi();
 
+                if (o != null) {
+                    // 当前用户已登录，强制下线
+                    LoginUserBO t = JsonUtil.readValue(o, LoginUserBO.class);
+                    template.opsForHash().delete(CommonConstant.UUID_LOGIN_INFO, t.getToken());
+                    template.opsForHash().delete(CommonConstant.ACCOUNT_LOGIN_INFO, t.getAccount() + t.getDevType());
+                }
+
                 String loginInfo = JsonUtil.writeValueAsString(loginUserBO);
                 template.opsForHash().put(CommonConstant.UUID_LOGIN_INFO, token, loginInfo);
-                template.opsForHash().put(CommonConstant.ACCOUNT_ID_LOGIN_INFO, String.valueOf(accountDO.getId()), loginInfo);
+                template.opsForHash().put(CommonConstant.ACCOUNT_LOGIN_INFO, accountDO.getAccount() + param.getDevType(), loginInfo);
 
                 return template.exec();
             }

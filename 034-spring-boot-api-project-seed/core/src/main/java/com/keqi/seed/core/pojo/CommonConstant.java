@@ -40,5 +40,15 @@ public final class CommonConstant {
 	/**
 	 * Redis 中存储用户的登录信息的 hash，key 为 accountId
 	 */
-	public static final String ACCOUNT_ID_LOGIN_INFO = "loginInfo:accountId";
+	public static final String ACCOUNT_LOGIN_INFO = "loginInfo:account";
+
+	/**
+	 * 登录设备类型-web
+	 */
+	public static final String DEV_TYPE_WEB = "web";
+
+	/**
+	 * 登录设备类型-mobile
+	 */
+	public static final String DEV_TYPE_MOBILE = "mobile";
 }

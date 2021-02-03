@@ -50,7 +50,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
                     template.multi();
 
                     template.opsForHash().delete(CommonConstant.UUID_LOGIN_INFO, loginUserBO.getToken());
-                    template.opsForHash().delete(CommonConstant.ACCOUNT_ID_LOGIN_INFO, String.valueOf(loginUserBO.getId()));
+                    template.opsForHash().delete(CommonConstant.ACCOUNT_LOGIN_INFO, loginUserBO.getAccount() + loginUserBO.getDevType());
 
                     return template.exec();
                 }
