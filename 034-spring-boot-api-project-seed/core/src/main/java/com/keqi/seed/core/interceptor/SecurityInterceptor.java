@@ -38,6 +38,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
         String accountInfo = (String) stringRedisTemplate.opsForHash().get(CommonConstant.UUID_LOGIN_INFO, token);
         if (StrUtil.isBlank(accountInfo)) {
+            // 去 set 中找，存在则是被其它用户挤下线的
             throw new NoAuthException();
         }
 

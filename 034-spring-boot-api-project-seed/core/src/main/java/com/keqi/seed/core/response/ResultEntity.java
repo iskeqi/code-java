@@ -7,7 +7,7 @@ package com.keqi.seed.core.response;
  */
 public class ResultEntity {
 
-	private Integer code;
+	private Integer status;
 
 	private String message;
 
@@ -16,18 +16,18 @@ public class ResultEntity {
 	public ResultEntity() {
 	}
 
-	public ResultEntity(Integer code, String message, Object data) {
-		this.code = code;
+	public ResultEntity(Integer status, String message, Object data) {
+		this.status = status;
 		this.message = message;
 		this.data = data;
 	}
 
-	public Integer getCode() {
-		return code;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setCode(Integer code) {
-		this.code = code;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getMessage() {

@@ -141,6 +141,8 @@ public class AccountServiceImpl implements AccountService {
                     LoginUserBO t = JsonUtil.readValue(o, LoginUserBO.class);
                     template.opsForHash().delete(CommonConstant.UUID_LOGIN_INFO, t.getToken());
                     template.opsForHash().delete(CommonConstant.ACCOUNT_LOGIN_INFO, t.getAccount() + t.getDevType());
+
+                    // 将当前 token 存储到 set 中
                 }
 
                 String loginInfo = JsonUtil.writeValueAsString(loginUserBO);
