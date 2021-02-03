@@ -2,8 +2,6 @@ package com.keqi.seed.core.auth;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 /**
  * 登录用户信息实体类
  *
@@ -13,7 +11,7 @@ import java.time.LocalDateTime;
 public class LoginUserBO {
 
 	/**
-	 * 用户ID
+	 * 用户id
 	 */
 	private Long id;
 
@@ -25,10 +23,10 @@ public class LoginUserBO {
 	/**
 	 * token 到期时间
 	 */
-	private LocalDateTime expirationDate;
+	private Long expirationTime;
 
 	/**
-	 * accessToken
+	 * token
 	 */
-	private String accessToken;
+	private String token;
 }

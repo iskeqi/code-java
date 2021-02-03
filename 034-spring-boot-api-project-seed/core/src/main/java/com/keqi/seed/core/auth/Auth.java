@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author keqi
  */
 @Component
-public class Auth {
+public final class Auth {
 
 	private static final ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<>();
 

@@ -8,6 +8,7 @@ import com.github.pagehelper.PageSerializable;
 import com.keqi.seed.core.auth.Auth;
 import com.keqi.seed.core.auth.LoginUserBO;
 import com.keqi.seed.core.exception.BusinessException;
+import com.keqi.seed.core.pojo.CommonConstant;
 import com.keqi.seed.core.pojo.PageVO;
 import com.keqi.seed.core.util.CommonUtil;
 import com.keqi.seed.core.util.JsonUtil;
@@ -20,7 +21,6 @@ import com.keqi.seed.sys.domain.vo.AccountVO;
 import com.keqi.seed.sys.domain.vo.LoginVO;
 import com.keqi.seed.sys.mapper.AccountMapper;
 import com.keqi.seed.sys.mapper.AccountRoleMapper;
-import com.keqi.seed.sys.pojo.SysConstant;
 import com.keqi.seed.sys.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -30,8 +30,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -118,31 +116,31 @@ public class AccountServiceImpl implements AccountService {
             throw new BusinessException("密码错误");
         }
 
-        LocalDateTime expirationDate = LocalDate.now().plusDays(14).atTime(2, 0, 0);
-        String accessToken = UUID.randomUUID().toString();
+        // token 有效期为 14 天
+        long expirationTime = System.currentTimeMillis() + 1209600000;
+        String token = UUID.randomUUID().toString().replace("-", "");
 
         LoginUserBO loginUserBO = new LoginUserBO();
         loginUserBO.setId(accountDO.getId());
         loginUserBO.setAccount(accountDO.getAccount());
-        loginUserBO.setExpirationDate(expirationDate);
-        loginUserBO.setAccessToken(accessToken);
+        loginUserBO.setExpirationTime(expirationTime);
+        loginUserBO.setToken(token);
 
         stringRedisTemplate.execute(new SessionCallback<Object>() {
             @Override
             public <K, V> Object execute(RedisOperations<K, V> operations) throws DataAccessException {
-                operations.multi();
-
                 StringRedisTemplate template = (StringRedisTemplate) operations;
-                template.opsForHash().put(SysConstant.UUID_LOGIN_INFO, accessToken,
-                        JsonUtil.writeValueAsString(loginUserBO));
-                template.opsForHash().put(SysConstant.ACCOUNT_ID_LOGIN_INFO, String.valueOf(accountDO.getId()),
-                        JsonUtil.writeValueAsString(loginUserBO));
+                template.multi();
 
-                return operations.exec();
+                String loginInfo = JsonUtil.writeValueAsString(loginUserBO);
+                template.opsForHash().put(CommonConstant.UUID_LOGIN_INFO, token, loginInfo);
+                template.opsForHash().put(CommonConstant.ACCOUNT_ID_LOGIN_INFO, String.valueOf(accountDO.getId()), loginInfo);
+
+                return template.exec();
             }
         });
 
-        return new LoginVO(accessToken);
+        return new LoginVO(token);
     }
 
     @Override

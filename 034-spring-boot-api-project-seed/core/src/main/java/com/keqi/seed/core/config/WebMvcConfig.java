@@ -6,6 +6,7 @@ import com.keqi.seed.core.converter.MyStringToNumberConverterFactory;
 import com.keqi.seed.core.interceptor.SecurityInterceptor;
 import com.keqi.seed.core.pojo.CommonConstant;
 import com.keqi.seed.core.util.CommonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -20,6 +21,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private SecurityInterceptor securityInterceptor;
 
     /**
      * 注册拦截器对象
@@ -39,14 +43,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 "/error"
         };
 
-        registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/**")
+        registry.addInterceptor(securityInterceptor).addPathPatterns("/**")
                 // 放行 knife4j 路径
                 .excludePathPatterns(knife4jPaths)
                 // 放行登录接口请求路径
                 .excludePathPatterns("/sys/auth/login")
                 // 放行公开文件请求路径
-                .excludePathPatterns("/publicFile/**")
-                .excludePathPatterns("/sys/auth/logout");
+                .excludePathPatterns("/publicFile/**");
     }
 
     /**

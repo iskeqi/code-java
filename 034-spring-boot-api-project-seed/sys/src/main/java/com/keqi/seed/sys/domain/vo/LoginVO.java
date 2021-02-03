@@ -5,20 +5,20 @@ import io.swagger.annotations.ApiModelProperty;
 public class LoginVO {
 
 	@ApiModelProperty(value = "登录返回token", example = "eyJhbJ9.eyJpXhwIjE4NDAwfQ.7B7yP9bqhMjQ")
-	private String accessToken;
+	private String token;
 
 	public LoginVO() {
 	}
 
-	public LoginVO(String accessToken) {
-		this.accessToken = accessToken;
+	public LoginVO(String token) {
+		this.token = token;
 	}
 
-	public String getAccessToken() {
-		return accessToken;
+	public String getToken() {
+		return token;
 	}
 
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
+	public void settoken(String token) {
+		this.token = token;
 	}
 }

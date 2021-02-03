@@ -15,7 +15,7 @@ public final class CommonConstant {
 	/**
 	 * token 名称
 	 */
-	public static final String ACCESS_TOKEN = "accessToken";
+	public static final String TOKEN = "token";
 
 	/**
 	 * 项目根包名
@@ -31,4 +31,14 @@ public final class CommonConstant {
 	 * 公开文件上传根路径
 	 */
 	public static final String UPLOAD_FILE_PUBLIC_FILE = "/uploadFile/publicFile/";
+
+	/**
+	 * Redis 中存储用户的登录信息的 hash，key 为 uuid
+	 */
+	public static final String UUID_LOGIN_INFO = "loginInfo:uuid";
+
+	/**
+	 * Redis 中存储用户的登录信息的 hash，key 为 accountId
+	 */
+	public static final String ACCOUNT_ID_LOGIN_INFO = "loginInfo:accountId";
 }

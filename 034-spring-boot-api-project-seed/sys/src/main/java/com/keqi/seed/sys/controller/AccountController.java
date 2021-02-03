@@ -19,35 +19,35 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AccountController {
 
-	@Autowired
-	private AccountService accountService;
+    @Autowired
+    private AccountService accountService;
 
-	@ApiOperation(value = "4.1 新增用户")
-	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
-	@PostMapping("/sys/account")
-	public void insert(@Validated @RequestBody AccountParam param) {
-		this.accountService.insert(param);
-	}
+    @ApiOperation(value = "4.1 新增用户")
+    @ApiOperationSupport(order = 1, ignoreParameters = "param.id")
+    @PostMapping("/sys/account")
+    public void insert(@Validated @RequestBody AccountParam param) {
+        this.accountService.insert(param);
+    }
 
-	@ApiOperation(value = "5.2 修改用户")
-	@ApiOperationSupport(order = 2, ignoreParameters = {"param.account", "param.password"})
-	@PutMapping("/sys/account")
-	public void updateById(@Validated @RequestBody AccountParam param) {
-		this.accountService.updateById(param);
-	}
+    @ApiOperation(value = "5.2 修改用户")
+    @ApiOperationSupport(order = 2, ignoreParameters = {"param.account", "param.password"})
+    @PutMapping("/sys/account")
+    public void updateById(@Validated @RequestBody AccountParam param) {
+        this.accountService.updateById(param);
+    }
 
-	@ApiOperation(value = "5.3 删除用户")
-	@ApiOperationSupport(order = 3)
-	@ApiImplicitParam(name = "id", value = "用户ID", example = "1", required = true)
-	@DeleteMapping("/sys/account/{id}")
-	public void deleteById(@PathVariable Long id) {
-		this.accountService.deleteById(id);
-	}
+    @ApiOperation(value = "5.3 删除用户")
+    @ApiOperationSupport(order = 3)
+    @ApiImplicitParam(name = "id", value = "用户ID", example = "1", required = true)
+    @DeleteMapping("/sys/account/{id}")
+    public void deleteById(@PathVariable Long id) {
+        this.accountService.deleteById(id);
+    }
 
-	@ApiOperation(value = "5.4 分页查询用户列表")
-	@ApiOperationSupport(order = 4)
-	@GetMapping("/sys/account/page")
-	public PageVO<AccountVO> page(AccountPageParam param) {
-		return this.accountService.page(param);
-	}
+    @ApiOperation(value = "5.4 分页查询用户列表")
+    @ApiOperationSupport(order = 4)
+    @GetMapping("/sys/account/page")
+    public PageVO<AccountVO> page(AccountPageParam param) {
+        return this.accountService.page(param);
+    }
 }
