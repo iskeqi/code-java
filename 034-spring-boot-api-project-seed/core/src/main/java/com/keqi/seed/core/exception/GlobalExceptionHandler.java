@@ -3,6 +3,7 @@ package com.keqi.seed.core.exception;
 import com.keqi.seed.core.response.ResultEntity;
 import com.keqi.seed.core.response.ResultEntityBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,6 +23,9 @@ import javax.validation.ConstraintViolationException;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
+
+    @Value("${spring.profiles.active:local-dev}")
+    private String active;
 
     /**
      * 使用 @Validated 校验方法参数中的 @RequestBody 修饰的实体类，抛出的是这种异常
@@ -98,7 +102,17 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = NoAuthException.class)
     public ResultEntity noAuthException() {
-        return ResultEntityBuilder.noAuth();
+        return ResultEntityBuilder.noAuth(null);
+    }
+
+    /**
+     * 已下线异常
+     *
+     * @return r
+     */
+    @ExceptionHandler(value = OfflineException.class)
+    public ResultEntity offlineException(OfflineException e) {
+        return ResultEntityBuilder.noAuth(e.getMessage());
     }
 
     /**
@@ -111,6 +125,12 @@ public class GlobalExceptionHandler {
     public ResultEntity throwable(Throwable e) {
         // 未知异常，打印异常栈信息便于排查问题
         log.error(e.getMessage(), e);
+
+        if ("prod".equals(active)) {
+            // 邮件、微信、钉钉通知相关责任人
+            return ResultEntityBuilder.failure("服务器有点累，请联系系统管理员");
+        }
+
         // 开发阶段，直接将异常信息通过接口响应出去，便于排查问题
         return ResultEntityBuilder.failure(e.toString());
     }

@@ -13,7 +13,7 @@
 
     <properties>
         <p6spy.version>3.8.7</p6spy.version>
-        <knife4j-spring-boot-starter.version>2.0.7</knife4j-spring-boot-starter.version>
+        <knife4j-spring-boot-starter.version>2.0.8</knife4j-spring-boot-starter.version>
         <hutool-core.version>5.5.0</hutool-core.version>
         <jjwt.version>0.9.0</jjwt.version>
         <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>

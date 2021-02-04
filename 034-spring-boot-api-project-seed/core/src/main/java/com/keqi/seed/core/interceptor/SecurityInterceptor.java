@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.keqi.seed.core.auth.Auth;
 import com.keqi.seed.core.auth.LoginUserBO;
 import com.keqi.seed.core.exception.NoAuthException;
+import com.keqi.seed.core.exception.OfflineException;
 import com.keqi.seed.core.pojo.CommonConstant;
 import com.keqi.seed.core.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,11 @@ public class SecurityInterceptor implements HandlerInterceptor {
         String accountInfo = (String) stringRedisTemplate.opsForHash().get(CommonConstant.UUID_LOGIN_INFO, token);
         if (StrUtil.isBlank(accountInfo)) {
             // 去 set 中找，存在则是被其它用户挤下线的
+            Boolean member = stringRedisTemplate.opsForSet().isMember(CommonConstant.UUID_LOGOUT_INFO, token);
+            if (member) {
+                stringRedisTemplate.opsForSet().remove(CommonConstant.UUID_LOGOUT_INFO, token);
+                throw new OfflineException("当前账号已在其它设备上登录");
+            }
             throw new NoAuthException();
         }
 
@@ -58,7 +64,6 @@ public class SecurityInterceptor implements HandlerInterceptor {
             });
             throw new NoAuthException();
         }
-
 
         // 设置当前操作用户信息到当前线程对象中
         Auth.setLoginUserBO(loginUserBO);

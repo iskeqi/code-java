@@ -47,6 +47,6 @@ public class AuthController {
 	@ApiOperationSupport(order = 4)
 	@PostMapping("/sys/auth/logout")
 	public void logout() {
-
+		throw new RuntimeException();
 	}
 }

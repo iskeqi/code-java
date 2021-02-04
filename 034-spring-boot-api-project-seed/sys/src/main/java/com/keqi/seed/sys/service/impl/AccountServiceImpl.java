@@ -137,12 +137,11 @@ public class AccountServiceImpl implements AccountService {
                 template.multi();
 
                 if (o != null) {
-                    // 当前用户已登录，强制下线
+                    // 强制下线
                     LoginUserBO t = JsonUtil.readValue(o, LoginUserBO.class);
                     template.opsForHash().delete(CommonConstant.UUID_LOGIN_INFO, t.getToken());
                     template.opsForHash().delete(CommonConstant.ACCOUNT_LOGIN_INFO, t.getAccount() + t.getDevType());
-
-                    // 将当前 token 存储到 set 中
+                    template.opsForSet().add(CommonConstant.UUID_LOGOUT_INFO, t.getToken());
                 }
 
                 String loginInfo = JsonUtil.writeValueAsString(loginUserBO);
