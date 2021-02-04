@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.github.pagehelper.PageInterceptor;
-import com.keqi.seed.core.pojo.CommonConstant;
+import com.keqi.seed.core.pojo.CoreConstant;
 import org.apache.ibatis.reflection.MetaObject;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  * @author keqi
  */
 @EnableTransactionManagement
-@MapperScan(CommonConstant.ROOT_PACKAGE_NAME + ".**.mapper")
+@MapperScan(CoreConstant.ROOT_PACKAGE_NAME + ".**.mapper")
 @Configuration
 public class MyBatisPlusConfig implements MetaObjectHandler {
 
@@ -52,7 +52,7 @@ public class MyBatisPlusConfig implements MetaObjectHandler {
 	}
 
 	/**
-	 * MyBatisPlus 分页插件配置
+	 * MyBatisPlus 分页插件配置（不推荐使用）
 	 */
 	@Bean
 	public MybatisPlusInterceptor mybatisPlusInterceptor() {
@@ -62,7 +62,7 @@ public class MyBatisPlusConfig implements MetaObjectHandler {
 	}
 
 	/**
-	 * PageHelper 的分页插件配置
+	 * PageHelper 的分页插件配置（推荐使用）
 	 * <p>
 	 * (在 MyBatisPlus 的高版本中两个分页插件同时存在，也不会冲突，
 	 * 但是要求导入的是 pagehelper 依赖，不是 pagehelper-spring-boot-starter 依赖)

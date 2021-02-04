@@ -15,7 +15,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 /**
- * 全局异常处理器
+ * 全局异常处理器(SpringMVC 中此类可以存在多个，可根据实际情况进行扩展)
  *
  * @author keqi
  */

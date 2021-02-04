@@ -1,5 +1,6 @@
 package com.keqi.seed.core.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -34,10 +35,12 @@ public class XmlUtil {
 	 */
 	public static String writeValueAsString(Object value) {
 		String json = null;
-		try {
-			json = objectMapper.writeValueAsString(value);
-		} catch (JsonProcessingException e) {
-			log.info(e.getMessage(), e);
+		if (value != null) {
+			try {
+				json = objectMapper.writeValueAsString(value);
+			} catch (JsonProcessingException e) {
+				log.info(e.getMessage(), e);
+			}
 		}
 		return json;
 	}
@@ -52,10 +55,12 @@ public class XmlUtil {
 	 */
 	public static <T> T readValue(String content, Class<T> valueType) {
 		T t = null;
-		try {
-			t = objectMapper.readValue(content, valueType);
-		} catch (JsonProcessingException e) {
-			log.info(e.getMessage(), e);
+		if (StrUtil.isNotBlank(content)) {
+			try {
+				t = objectMapper.readValue(content, valueType);
+			} catch (JsonProcessingException e) {
+				log.info(e.getMessage(), e);
+			}
 		}
 		return t;
 	}
@@ -70,10 +75,12 @@ public class XmlUtil {
 	 */
 	public static <T> T readValue(String content, TypeReference<T> valueTypeRef) {
 		T t = null;
-		try {
-			t = objectMapper.readValue(content, valueTypeRef);
-		} catch (JsonProcessingException e) {
-			log.info(e.getMessage(), e);
+		if (StrUtil.isNotBlank(content)) {
+			try {
+				t = objectMapper.readValue(content, valueTypeRef);
+			} catch (JsonProcessingException e) {
+				log.info(e.getMessage(), e);
+			}
 		}
 		return t;
 	}

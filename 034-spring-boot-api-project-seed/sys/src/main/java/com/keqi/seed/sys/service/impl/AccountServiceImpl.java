@@ -6,7 +6,6 @@ import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageSerializable;
 import com.keqi.seed.core.pojo.PageVO;
-import com.keqi.seed.core.util.CommonUtil;
 import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.db.AccountRoleDO;
 import com.keqi.seed.sys.domain.param.AccountPageParam;
@@ -15,6 +14,7 @@ import com.keqi.seed.sys.domain.vo.AccountVO;
 import com.keqi.seed.sys.mapper.AccountMapper;
 import com.keqi.seed.sys.mapper.AccountRoleMapper;
 import com.keqi.seed.sys.service.AccountService;
+import com.keqi.seed.sys.util.SysUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
     public void insert(AccountParam param) {
         AccountDO accountDO = BeanUtil.copyProperties(param, AccountDO.class);
         accountDO.setSalt(RandomUtil.randomString(20));
-        accountDO.setPassword(CommonUtil.encryptedPassword(accountDO.getPassword(), accountDO.getSalt()));
+        accountDO.setPassword(SysUtil.encryptedPassword(accountDO.getPassword(), accountDO.getSalt()));
         this.accountMapper.insert(accountDO);
 
         List<Long> roleIdList = param.getRoleIdList();

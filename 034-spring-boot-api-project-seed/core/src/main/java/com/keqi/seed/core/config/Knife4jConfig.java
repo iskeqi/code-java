@@ -1,7 +1,7 @@
 package com.keqi.seed.core.config;
 
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
-import com.keqi.seed.core.pojo.CommonConstant;
+import com.keqi.seed.core.pojo.CoreConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ public class Knife4jConfig {
                 .groupName(groupName) // 指定模块名称
                 .apiInfo(systemMangerInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(CommonConstant.ROOT_PACKAGE_NAME)) // 扫描指定包路径下的接口
+                .apis(RequestHandlerSelectors.basePackage(CoreConstant.ROOT_PACKAGE_NAME)) // 扫描指定包路径下的接口
                 .paths(PathSelectors.any())
                 .build()
                 .extensions(openApiExtensionResolver.buildExtensions(groupName));

@@ -4,7 +4,7 @@ import com.keqi.seed.core.converter.MyStringToLocalDateConverter;
 import com.keqi.seed.core.converter.MyStringToLocalDateTimeConverter;
 import com.keqi.seed.core.converter.MyStringToNumberConverterFactory;
 import com.keqi.seed.core.interceptor.SecurityInterceptor;
-import com.keqi.seed.core.pojo.CommonConstant;
+import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +38,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 "/webjars/**",
                 "/swagger-resources/**",
                 "/swagger-ui.html/**",
-                "/v2/**",
+                "/v2/api-docs",
                 "/favicon.ico",
                 "/error"
         };
@@ -75,7 +75,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 配置对外公开的文件映射路径
-        String filePath = "file:" + CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
+        String filePath = "file:" + CommonUtil.getApplicationHomeAbsolutePath() + CoreConstant.UPLOAD_FILE_PUBLIC_FILE;
         registry.addResourceHandler("/publicFile/**").addResourceLocations(filePath);
     }
 

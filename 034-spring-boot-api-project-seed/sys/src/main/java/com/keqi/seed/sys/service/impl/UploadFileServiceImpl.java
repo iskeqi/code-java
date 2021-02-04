@@ -1,7 +1,7 @@
 package com.keqi.seed.sys.service.impl;
 
 import com.keqi.seed.core.exception.BusinessException;
-import com.keqi.seed.core.pojo.CommonConstant;
+import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.CommonUtil;
 import com.keqi.seed.sys.domain.db.UploadFileDO;
 import com.keqi.seed.sys.domain.vo.PrivateFileUploadVO;
@@ -39,7 +39,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 		if (uploadFileDO == null) {
 			throw new BusinessException("文件不存在");
 		}
-		String path = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE
+		String path = CommonUtil.getApplicationHomeAbsolutePath() + CoreConstant.UPLOAD_FILE_PRIVATE_FILE
 				+ uploadFileDO.getPath() + uploadFileDO.getName();
 
 		File file = new File(path);
@@ -58,7 +58,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 	 */
 	@Override
 	public PrivateFileUploadVO privateFileUpload(MultipartFile file) {
-		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE;
+		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CoreConstant.UPLOAD_FILE_PRIVATE_FILE;
 		String relativePath = LocalDate.now() + File.separator + file.getContentType() + File.separator;
 		String fullPath = basePath + relativePath;
 		String name = UUID.randomUUID().toString().replace("-", "") + "-" + file.getOriginalFilename();
@@ -89,7 +89,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 
 	@Override
 	public PublicFileUploadVO publicFileUpload(MultipartFile file) {
-		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PUBLIC_FILE;
+		String basePath = CommonUtil.getApplicationHomeAbsolutePath() + CoreConstant.UPLOAD_FILE_PUBLIC_FILE;
 		String relativePath = LocalDate.now() + File.separator + file.getContentType() + File.separator;
 		String fullPath = basePath + relativePath;
 		String name = UUID.randomUUID().toString() + file.getOriginalFilename();

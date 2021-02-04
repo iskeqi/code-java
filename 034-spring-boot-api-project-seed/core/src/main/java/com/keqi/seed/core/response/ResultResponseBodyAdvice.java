@@ -1,6 +1,6 @@
 package com.keqi.seed.core.response;
 
-import com.keqi.seed.core.pojo.CommonConstant;
+import com.keqi.seed.core.pojo.CoreConstant;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
  *
  * @author keqi
  */
-@ControllerAdvice(basePackages = CommonConstant.ROOT_PACKAGE_NAME)
+@ControllerAdvice(basePackages = CoreConstant.ROOT_PACKAGE_NAME)
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
 	@Override

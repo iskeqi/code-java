@@ -1,14 +1,20 @@
 package com.keqi.seed.core.interceptor;
 
 import org.springframework.lang.Nullable;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 认证拦截器接口
+ *
+ * 子类需实现此接口中的方法实现认证拦截功能
+ *
+ * @author keqi
+ */
 public interface SecurityInterceptorService {
 
     boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler);
 
-    void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView);
+    void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex);
 }

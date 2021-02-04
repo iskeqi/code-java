@@ -1,33 +1,16 @@
 package com.keqi.seed.core.util;
 
-import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.StrUtil;
-import com.keqi.seed.core.exception.BusinessException;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.boot.system.ApplicationHome;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
- * 公共工具类（不知道怎么分类就放在这里）
+ * 公共工具类
  *
  * @author keqi
  */
 public class CommonUtil {
-
-	/**
-	 * 请求通过反向代理之后，可能包含请求客户端真实IP的HTTP HEADER
-	 * 如果后续扩展，有其他可能包含IP的HTTP HEADER，加到这里即可
-	 */
-	private static final String[] POSSIBLE_HEADERS = {
-			"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP",
-			"WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"
-	};
 
 	/**
 	 * 动态获取到 jar 包所在的绝对目录
@@ -44,23 +27,15 @@ public class CommonUtil {
 		return applicationHome.getDir().getAbsolutePath();
 	}
 
+
 	/**
-	 * 加密密码(登录时，也需要使用用此逻辑)
-	 *
-	 * @return r
+	 * 请求通过反向代理之后，可能包含请求客户端真实IP的HTTP HEADER
+	 * 如果后续扩展，有其他可能包含IP的HTTP HEADER，加到这里即可
 	 */
-	public static String encryptedPassword(String password, String salt) {
-		String result;
-		try {
-			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			byte[] bytes = md5.digest((password + salt + password).getBytes());
-			MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-			result = HexUtil.encodeHexStr(sha256.digest(bytes));
-		} catch (NoSuchAlgorithmException e) {
-			throw new BusinessException("无此加密算法");
-		}
-		return result;
-	}
+	private static final String[] POSSIBLE_HEADERS = {
+			"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP",
+			"WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"
+	};
 
 	/**
 	 * 获取请求客户端的真实IP地址
@@ -85,19 +60,5 @@ public class CommonUtil {
 			return "127.0.0.1";
 		}
 		return ip;
-	}
-
-	/**
-	 * 获取指定 JoinPoint 对象上的指定注解对象
-	 *
-	 * @param joinPoint       joinPoint
-	 * @param annotationClass annotationClass
-	 * @param <T>             r
-	 * @return r
-	 */
-	public static <T extends Annotation> T getAnnotation(JoinPoint joinPoint, Class<T> annotationClass) {
-		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-		Method method = methodSignature.getMethod();
-		return method.getAnnotation(annotationClass);
 	}
 }

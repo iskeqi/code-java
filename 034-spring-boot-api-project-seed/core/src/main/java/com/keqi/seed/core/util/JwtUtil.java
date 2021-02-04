@@ -48,7 +48,6 @@ public class JwtUtil {
             // 秘钥被篡改/过期等等时，解析就会抛出异常
             return null;
         }
-        // 换成LoginUserBO对象
         return BeanUtil.toBean(body, clazz);
     }
 }

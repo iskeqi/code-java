@@ -4,7 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.keqi.seed.core.exception.BusinessException;
-import com.keqi.seed.core.pojo.CommonConstant;
+import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.CommonUtil;
 import com.keqi.seed.sys.domain.db.UploadFileDO;
 import com.keqi.seed.sys.domain.vo.PrivateFileUploadVO;
@@ -49,7 +49,7 @@ public class UploadFileController {
 		if (uploadFileDO == null) {
 			throw new BusinessException("文件不存在");
 		}
-		String path = CommonUtil.getApplicationHomeAbsolutePath() + CommonConstant.UPLOAD_FILE_PRIVATE_FILE
+		String path = CommonUtil.getApplicationHomeAbsolutePath() + CoreConstant.UPLOAD_FILE_PRIVATE_FILE
 				+ uploadFileDO.getPath() + uploadFileDO.getName();
 
 		response.setCharacterEncoding(request.getCharacterEncoding());

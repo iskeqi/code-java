@@ -1,20 +1,20 @@
 package com.keqi.seed.sys.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.keqi.seed.core.auth.Auth;
-import com.keqi.seed.core.auth.LoginUserBO;
+import com.keqi.seed.sys.pojo.Auth;
+import com.keqi.seed.sys.pojo.LoginUserBO;
 import com.keqi.seed.core.exception.NoAuthException;
 import com.keqi.seed.core.exception.OfflineException;
 import com.keqi.seed.core.interceptor.SecurityInterceptorService;
-import com.keqi.seed.core.pojo.CommonConstant;
+import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.JsonUtil;
+import com.keqi.seed.sys.pojo.SysConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,17 +27,17 @@ public class SecurityInterceptorServiceImpl implements SecurityInterceptorServic
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String token = request.getHeader(CommonConstant.TOKEN);
+        String token = request.getHeader(CoreConstant.TOKEN);
         if (StrUtil.isBlank(token)) {
             throw new NoAuthException();
         }
 
-        String accountInfo = (String) stringRedisTemplate.opsForHash().get(CommonConstant.UUID_LOGIN_INFO, token);
+        String accountInfo = (String) stringRedisTemplate.opsForHash().get(SysConstant.UUID_LOGIN_INFO, token);
         if (StrUtil.isBlank(accountInfo)) {
             // 去 set 中找，存在则是被其它用户挤下线的
-            Boolean member = stringRedisTemplate.opsForSet().isMember(CommonConstant.UUID_LOGOUT_INFO, token);
+            Boolean member = stringRedisTemplate.opsForSet().isMember(SysConstant.UUID_LOGOUT_INFO, token);
             if (member) {
-                stringRedisTemplate.opsForSet().remove(CommonConstant.UUID_LOGOUT_INFO, token);
+                stringRedisTemplate.opsForSet().remove(SysConstant.UUID_LOGOUT_INFO, token);
                 throw new OfflineException("当前账号已在其它设备上登录");
             }
             throw new NoAuthException();
@@ -51,8 +51,8 @@ public class SecurityInterceptorServiceImpl implements SecurityInterceptorServic
                     StringRedisTemplate template = (StringRedisTemplate) redisOperations;
                     template.multi();
 
-                    template.opsForHash().delete(CommonConstant.UUID_LOGIN_INFO, loginUserBO.getToken());
-                    template.opsForHash().delete(CommonConstant.ACCOUNT_LOGIN_INFO, loginUserBO.getAccount() + loginUserBO.getDevType());
+                    template.opsForHash().delete(SysConstant.UUID_LOGIN_INFO, loginUserBO.getToken());
+                    template.opsForHash().delete(SysConstant.ACCOUNT_LOGIN_INFO, loginUserBO.getAccount() + loginUserBO.getDevType());
 
                     return template.exec();
                 }
@@ -61,12 +61,13 @@ public class SecurityInterceptorServiceImpl implements SecurityInterceptorServic
         }
 
         // 设置当前操作用户信息到当前线程对象中
-        Auth.setLoginUserBO(loginUserBO);
+        Auth.setLoginAccountId(loginUserBO.getId());
         return true;
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        Auth.setLoginUserBO(null);
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        Auth.setLoginAccountId(null);
     }
+
 }

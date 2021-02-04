@@ -13,24 +13,23 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
  * @author keqi
  */
 @Configuration
-@EnableScheduling // 必须加上此注解，否则定时任务不会开启
+@EnableScheduling
 @Slf4j
 public class ScheduleConfig implements SchedulingConfigurer {
 
-	// 给ScheduledTaskRegistrar对象注入一个ThreadPoolTaskScheduler对象，就拥有了使用线程池来执行定时任务的能力
-	@Override
-	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
 
-		// ThreadPoolTaskScheduler对象核心配置
-		taskScheduler.setPoolSize(4);
-		taskScheduler.setWaitForTasksToCompleteOnShutdown(true);
-		taskScheduler.setThreadNamePrefix("schedule");
-		taskScheduler.setRemoveOnCancelPolicy(true);
-		taskScheduler.setErrorHandler(t -> log.error("Error occurs", t));
-		taskScheduler.initialize(); // 这行代码不能少
+        // ThreadPoolTaskScheduler对象核心配置
+        ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+        taskScheduler.setPoolSize(8);
+        taskScheduler.setWaitForTasksToCompleteOnShutdown(true);
+        taskScheduler.setThreadNamePrefix("schedule");
+        taskScheduler.setRemoveOnCancelPolicy(true);
+        taskScheduler.setErrorHandler(t -> log.error("Error occurs", t));
+        taskScheduler.initialize(); // 这行代码不能少
 
-		// 向 ScheduledTaskRegistrar 对象中注册 ThreadPoolTaskScheduler 对象
-		taskRegistrar.setTaskScheduler(taskScheduler);
-	}
+        // 向 ScheduledTaskRegistrar 对象中注册 ThreadPoolTaskScheduler 对象
+        taskRegistrar.setTaskScheduler(taskScheduler);
+    }
 }

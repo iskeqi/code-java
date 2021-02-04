@@ -1,7 +1,7 @@
 package com.keqi.seed.sys.aspect;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.keqi.seed.core.auth.Auth;
+import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.core.util.CommonUtil;
 import com.keqi.seed.core.util.JsonUtil;
 import com.keqi.seed.sys.domain.param.OperLogParam;
@@ -11,12 +11,14 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 
 /**
  * `@Log` 注解切面类
@@ -79,7 +81,9 @@ public class LogAspect {
 
 		// 开启一个新的线程插入操作记录至 DB 中
 		ThreadUtil.execute(() -> {
-			Log log = CommonUtil.getAnnotation(joinPoint, Log.class);
+			MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+			Method method = methodSignature.getMethod();
+			Log log = method.getAnnotation(Log.class);
 			String className = joinPoint.getTarget().getClass().getName();
 			String methodName = joinPoint.getSignature().getName();
 

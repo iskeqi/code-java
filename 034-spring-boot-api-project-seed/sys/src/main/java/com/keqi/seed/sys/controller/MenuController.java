@@ -2,7 +2,7 @@ package com.keqi.seed.sys.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
-import com.keqi.seed.core.auth.Auth;
+import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.sys.domain.param.MenuParam;
 import com.keqi.seed.sys.domain.vo.MenuVO;
 import com.keqi.seed.sys.service.MenuService;

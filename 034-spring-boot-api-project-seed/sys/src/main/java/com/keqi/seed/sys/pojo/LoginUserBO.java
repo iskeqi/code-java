@@ -1,4 +1,4 @@
-package com.keqi.seed.core.auth;
+package com.keqi.seed.sys.pojo;
 
 import lombok.Data;
 
