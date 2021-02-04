@@ -37,7 +37,6 @@ public class Knife4jConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .extensions(openApiExtensionResolver.buildExtensions(groupName));
-
     }
 
     private ApiInfo systemMangerInfo() {

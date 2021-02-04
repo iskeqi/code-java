@@ -6,7 +6,7 @@ import com.keqi.seed.sys.domain.param.LoginParam;
 import com.keqi.seed.sys.domain.param.UpdatePasswordParam;
 import com.keqi.seed.sys.domain.vo.AccountDetailVO;
 import com.keqi.seed.sys.domain.vo.LoginVO;
-import com.keqi.seed.sys.service.AccountService;
+import com.keqi.seed.sys.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +20,27 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
 	@Autowired
-	private AccountService accountService;
+	private AuthService authService;
 
 	@ApiOperation(value = "1.1 登录")
 	@ApiOperationSupport(order = 1)
 	@PostMapping("/sys/auth/login")
 	public LoginVO login(@Validated @RequestBody LoginParam param) {
-		return this.accountService.login(param);
+		return this.authService.login(param);
 	}
 
 	@ApiOperation(value = "1.2 修改密码")
 	@ApiOperationSupport(order = 2)
 	@PostMapping("/sys/auth/updatePassword")
 	public void updatePassword(@Validated @RequestBody UpdatePasswordParam param) {
-		this.accountService.updatePassword(param.getPassword(), param.getNewPassword());
+		this.authService.updatePassword(param.getPassword(), param.getNewPassword());
 	}
 
 	@ApiOperation(value = "1.3 获取登录用户信息")
 	@ApiOperationSupport(order = 3)
 	@GetMapping("/sys/auth/getLoginUserInfo")
 	public AccountDetailVO getLoginUserInfo() {
-		return this.accountService.selectLoginUserInfo();
+		return this.authService.selectLoginUserInfo();
 	}
 
 	@ApiOperation(value = "1.4 注销")

@@ -46,14 +46,4 @@ public final class CommonConstant {
 	 * Redis 中存储被挤下线用户 token 的 set，元素中存储的是 token
 	 */
 	public static final String UUID_LOGOUT_INFO = "loginInfo:logout";
-
-	/**
-	 * 登录设备类型-web
-	 */
-	public static final String DEV_TYPE_WEB = "web";
-
-	/**
-	 * 登录设备类型-mobile
-	 */
-	public static final String DEV_TYPE_MOBILE = "mobile";
 }
