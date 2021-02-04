@@ -26,6 +26,8 @@ knife4j:
             locations: classpath:markdown/*
     setting:
         enableSwaggerModels: false
+        # Ui界面不显示分组元素
+        enableGroup: false
 
 # 配置日志文件
 logging:
