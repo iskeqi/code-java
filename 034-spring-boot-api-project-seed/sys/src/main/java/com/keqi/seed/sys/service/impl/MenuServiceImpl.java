@@ -3,16 +3,14 @@ package com.keqi.seed.sys.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.keqi.seed.sys.domain.db.MenuDO;
 import com.keqi.seed.sys.domain.param.MenuParam;
-import com.keqi.seed.sys.domain.vo.MenuVO;
 import com.keqi.seed.sys.mapper.MenuMapper;
 import com.keqi.seed.sys.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -22,9 +20,13 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	@Transactional
-	public void insert(MenuParam param) {
+	public Map<String, Long> insert(MenuParam param) {
 		MenuDO t = BeanUtil.copyProperties(param, MenuDO.class);
 		this.menuMapper.insert(t);
+
+		Map<String, Long> r = new HashMap<>();
+		r.put("id", t.getId());
+		return r;
 	}
 
 	@Override
@@ -39,28 +41,4 @@ public class MenuServiceImpl implements MenuService {
 	public void deleteById(Long id) {
 		this.menuMapper.deleteById(id);
 	}
-
-	@Override
-	public List<MenuVO> selectMenusByAccountId(Long accountId) {
-		return this.assembleTreeList(this.menuMapper.selectByAccountId(accountId), 0L);
-	}
-
-	/**
-	 * 把没有层次结构的菜单列表按照父子结构关系进行组装（递归构造树形结构）
-	 *
-	 * @param menuVOList menuVOList
-	 * @return r
-	 */
-	private List<MenuVO> assembleTreeList(List<MenuVO> menuVOList, Long rootParentId) {
-		List<MenuVO> menuVOTreeList = new ArrayList<>();
-		for (MenuVO vo : menuVOList) {
-			if (vo.getParentId().equals(rootParentId)) {
-				vo.setMenuList(assembleTreeList(menuVOList, vo.getId()));
-				menuVOTreeList.add(vo);
-			}
-		}
-		menuVOTreeList.sort(Comparator.comparing(MenuVO::getOrderNum));
-		return menuVOTreeList;
-	}
-
 }

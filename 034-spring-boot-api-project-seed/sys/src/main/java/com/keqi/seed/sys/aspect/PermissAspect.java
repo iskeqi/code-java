@@ -1,15 +1,15 @@
 package com.keqi.seed.sys.aspect;
 
 import com.keqi.seed.core.exception.BusinessException;
-import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.sys.domain.vo.MenuVO;
 import com.keqi.seed.sys.mapper.MenuMapper;
-import lombok.AllArgsConstructor;
+import com.keqi.seed.sys.pojo.Auth;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -20,12 +20,12 @@ import java.util.List;
  *
  * @author keqi
  */
-@AllArgsConstructor
 @Aspect
 @Component
 public class PermissAspect {
 
-	private final MenuMapper menuMapper;
+	@Autowired
+	private MenuMapper menuMapper;
 
 	/**
 	 * 配置织入点

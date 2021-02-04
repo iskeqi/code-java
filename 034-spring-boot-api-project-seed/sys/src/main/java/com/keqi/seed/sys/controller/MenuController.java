@@ -2,9 +2,7 @@ package com.keqi.seed.sys.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
-import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.sys.domain.param.MenuParam;
-import com.keqi.seed.sys.domain.vo.MenuVO;
 import com.keqi.seed.sys.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -12,7 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @Api(tags = "6. 菜单管理")
 @ApiSupport(order = 6)
@@ -25,8 +23,8 @@ public class MenuController {
 	@ApiOperation(value = "6.1 新增菜单")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/menu")
-	public void insert(@RequestBody MenuParam param) {
-		this.menuService.insert(param);
+	public Map<String, Long> insert(@RequestBody MenuParam param) {
+		return this.menuService.insert(param);
 	}
 
 	@ApiOperation(value = "6.2 修改菜单")
@@ -42,12 +40,5 @@ public class MenuController {
 	@DeleteMapping("/sys/menu/{id}")
 	public void deleteById(@PathVariable Long id) {
 		this.menuService.deleteById(id);
-	}
-
-	@ApiOperation(value = "6.4 查询当前用户菜单列表")
-	@ApiOperationSupport(order = 4)
-	@GetMapping("/sys/menu/selectMenusByAccountId")
-	public List<MenuVO> selectMenusByAccountId() {
-		return this.menuService.selectMenusByAccountId(Auth.getAccountId());
 	}
 }

@@ -2,13 +2,15 @@ package com.keqi.seed.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.keqi.seed.core.exception.BusinessException;
-import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.core.util.JsonUtil;
 import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.param.LoginParam;
 import com.keqi.seed.sys.domain.vo.AccountDetailVO;
 import com.keqi.seed.sys.domain.vo.LoginVO;
+import com.keqi.seed.sys.domain.vo.MenuVO;
 import com.keqi.seed.sys.mapper.AccountMapper;
+import com.keqi.seed.sys.mapper.MenuMapper;
+import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.sys.pojo.LoginUserBO;
 import com.keqi.seed.sys.pojo.SysConstant;
 import com.keqi.seed.sys.service.AuthService;
@@ -21,14 +23,15 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private MenuMapper menuMapper;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
@@ -122,5 +125,28 @@ public class AuthServiceImpl implements AuthService {
                 return template.exec();
             }
         });
+    }
+
+    @Override
+    public List<MenuVO> selectMenusByAccountId(Long accountId) {
+        return this.assembleTreeList(this.menuMapper.selectByAccountId(accountId), 0L);
+    }
+
+    /**
+     * 把没有层次结构的菜单列表按照父子结构关系进行组装（递归构造树形结构）
+     *
+     * @param menuVOList menuVOList
+     * @return r
+     */
+    private List<MenuVO> assembleTreeList(List<MenuVO> menuVOList, Long rootParentId) {
+        List<MenuVO> menuVOTreeList = new ArrayList<>();
+        for (MenuVO vo : menuVOList) {
+            if (vo.getParentId().equals(rootParentId)) {
+                vo.setMenuList(assembleTreeList(menuVOList, vo.getId()));
+                menuVOTreeList.add(vo);
+            }
+        }
+        menuVOTreeList.sort(Comparator.comparing(MenuVO::getOrderNum));
+        return menuVOTreeList;
     }
 }

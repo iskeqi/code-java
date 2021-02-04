@@ -8,8 +8,9 @@ import com.github.pagehelper.PageSerializable;
 import com.keqi.seed.core.pojo.PageVO;
 import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.db.AccountRoleDO;
+import com.keqi.seed.sys.domain.param.AccountCreateParam;
 import com.keqi.seed.sys.domain.param.AccountPageParam;
-import com.keqi.seed.sys.domain.param.AccountParam;
+import com.keqi.seed.sys.domain.param.AccountUpdateParam;
 import com.keqi.seed.sys.domain.vo.AccountVO;
 import com.keqi.seed.sys.mapper.AccountMapper;
 import com.keqi.seed.sys.mapper.AccountRoleMapper;
@@ -32,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public void insert(AccountParam param) {
+    public void insert(AccountCreateParam param) {
         AccountDO accountDO = BeanUtil.copyProperties(param, AccountDO.class);
         accountDO.setSalt(RandomUtil.randomString(20));
         accountDO.setPassword(SysUtil.encryptedPassword(accountDO.getPassword(), accountDO.getSalt()));
@@ -53,9 +54,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public void updateById(AccountParam param) {
-        param.setAccount(null); // 不允许修改
-        param.setPassword(null); // 不允许通过此接口修改密码
+    public void updateById(AccountUpdateParam param) {
         AccountDO accountDO = BeanUtil.copyProperties(param, AccountDO.class);
         this.accountMapper.updateById(accountDO);
 

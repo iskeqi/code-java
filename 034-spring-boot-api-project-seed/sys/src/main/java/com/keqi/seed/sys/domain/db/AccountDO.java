@@ -31,6 +31,12 @@ public class AccountDO {
 	private String nickName;
 
 	/**
+	 * 岗位
+	 */
+	@TableField(value = "post")
+	private String post;
+
+	/**
 	 * 密码
 	 */
 	@TableField(value = "`password`")

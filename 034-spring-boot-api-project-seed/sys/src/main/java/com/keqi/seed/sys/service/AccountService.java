@@ -1,15 +1,16 @@
 package com.keqi.seed.sys.service;
 
 import com.keqi.seed.core.pojo.PageVO;
+import com.keqi.seed.sys.domain.param.AccountCreateParam;
 import com.keqi.seed.sys.domain.param.AccountPageParam;
-import com.keqi.seed.sys.domain.param.AccountParam;
+import com.keqi.seed.sys.domain.param.AccountUpdateParam;
 import com.keqi.seed.sys.domain.vo.AccountVO;
 
 public interface AccountService {
 
-    void insert(AccountParam param);
+    void insert(AccountCreateParam param);
 
-    void updateById(AccountParam param);
+    void updateById(AccountUpdateParam param);
 
     void deleteById(Long id);
 
