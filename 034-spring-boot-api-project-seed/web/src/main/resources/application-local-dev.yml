@@ -26,7 +26,6 @@ knife4j:
             locations: classpath:markdown/*
     setting:
         enableSwaggerModels: false
-        enableOpenApi: false
 
 # 配置日志文件
 logging:

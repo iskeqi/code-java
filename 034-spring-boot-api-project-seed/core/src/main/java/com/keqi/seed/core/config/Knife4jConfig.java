@@ -36,7 +36,6 @@ public class Knife4jConfig {
                 .apis(RequestHandlerSelectors.basePackage(CommonConstant.ROOT_PACKAGE_NAME)) // 扫描指定包路径下的接口
                 .paths(PathSelectors.any())
                 .build()
-                .extensions(openApiExtensionResolver.buildSettingExtensions())
                 .extensions(openApiExtensionResolver.buildExtensions(groupName));
 
     }
