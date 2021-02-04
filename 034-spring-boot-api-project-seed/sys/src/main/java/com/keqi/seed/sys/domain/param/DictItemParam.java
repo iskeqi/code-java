@@ -1,9 +1,7 @@
 package com.keqi.seed.sys.domain.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class DictItemParam {
@@ -17,10 +15,10 @@ public class DictItemParam {
 	@ApiModelProperty(value = "字典类型名称", example = "性别", required = true)
 	private String typeName;
 
-	@ApiModelProperty(value = "字典项编码", example = "man", required = true)
+	@ApiModelProperty(value = "字典编码", example = "man", required = true)
 	private String itemCode;
 
-	@ApiModelProperty(value = "字典项值", example = "男", required = true)
+	@ApiModelProperty(value = "字典值", example = "男", required = true)
 	private String itemName;
 
 	@ApiModelProperty(value = "排序字段", example = "1", required = true)

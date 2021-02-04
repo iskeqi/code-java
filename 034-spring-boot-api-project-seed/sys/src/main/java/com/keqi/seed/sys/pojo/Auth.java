@@ -16,17 +16,17 @@ import java.util.Objects;
 @Component
 public final class Auth {
 
-	private static final ThreadLocal<Map<String, Long>> threadLocal = new ThreadLocal<>();
+	private static final ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<>();
 
 	/**
-	 * 获取当前登录用户ID
+	 * 获取当前登录用户id
 	 *
 	 * @return r
 	 */
-	public static Long getLoginAccountId() {
-		Map<String, Long> loginInfo = threadLocal.get();
+	public static Long getAccountId() {
+		Map<String, Object> loginInfo = threadLocal.get();
 		Long obj;
-		if (loginInfo == null || (obj = loginInfo.get(CoreConstant.LOGIN_ACCOUNT_ID)) == null) {
+		if (loginInfo == null || (obj = (Long) loginInfo.get(CoreConstant.LOGIN_ACCOUNT_ID)) == null) {
 			throw new NoAuthException();
 		}
 		return obj;
@@ -37,8 +37,8 @@ public final class Auth {
 	 *
 	 * @param accountId accountId
 	 */
-	public static void setLoginAccountId(Long accountId) {
-		Map<String, Long> loginInfo = threadLocal.get();
+	public static void setAccountId(Long accountId) {
+		Map<String, Object> loginInfo = threadLocal.get();
 		if (Objects.isNull(loginInfo)) {
 			loginInfo = new HashMap<>();
 			threadLocal.set(loginInfo);

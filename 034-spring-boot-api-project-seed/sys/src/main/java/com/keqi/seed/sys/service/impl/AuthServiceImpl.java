@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void updatePassword(String password, String newPassword) {
-        Long id = Auth.getLoginAccountId();
+        Long id = Auth.getAccountId();
         AccountDO accountDO = this.accountMapper.selectById(id);
 
         if (SysUtil.encryptedPassword(password, accountDO.getSalt())
@@ -99,7 +99,28 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AccountDetailVO selectLoginUserInfo() {
-        AccountDO accountDO = this.accountMapper.selectById(Auth.getLoginAccountId());
+        AccountDO accountDO = this.accountMapper.selectById(Auth.getAccountId());
         return BeanUtil.copyProperties(accountDO, AccountDetailVO.class);
+    }
+
+    @Override
+    public void logout(String token) {
+        String o = (String) stringRedisTemplate.opsForHash().get(SysConstant.UUID_LOGIN_INFO, token);
+        LoginUserBO loginUserBO = JsonUtil.readValue(o, LoginUserBO.class);
+
+        String accountKey = loginUserBO.getAccount() + (token.endsWith("web") ? "web" : "mobile");
+
+        stringRedisTemplate.execute(new SessionCallback<Object>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> operations) throws DataAccessException {
+                StringRedisTemplate template = (StringRedisTemplate) operations;
+                template.multi();
+
+                template.opsForHash().delete(SysConstant.UUID_LOGIN_INFO, token);
+                template.opsForHash().delete(SysConstant.ACCOUNT_LOGIN_INFO, accountKey);
+
+                return template.exec();
+            }
+        });
     }
 }

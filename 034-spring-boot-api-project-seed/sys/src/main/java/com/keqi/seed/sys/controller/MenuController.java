@@ -48,6 +48,6 @@ public class MenuController {
 	@ApiOperationSupport(order = 4)
 	@GetMapping("/sys/menu/selectMenusByAccountId")
 	public List<MenuVO> selectMenusByAccountId() {
-		return this.menuService.selectMenusByAccountId(Auth.getLoginAccountId());
+		return this.menuService.selectMenusByAccountId(Auth.getAccountId());
 	}
 }

@@ -61,13 +61,13 @@ public class SecurityInterceptorServiceImpl implements SecurityInterceptorServic
         }
 
         // 设置当前操作用户信息到当前线程对象中
-        Auth.setLoginAccountId(loginUserBO.getId());
+        Auth.setAccountId(loginUserBO.getId());
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        Auth.setLoginAccountId(null);
+        Auth.setAccountId(null);
     }
 
 }

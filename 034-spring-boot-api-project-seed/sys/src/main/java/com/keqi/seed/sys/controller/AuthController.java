@@ -31,22 +31,22 @@ public class AuthController {
 
 	@ApiOperation(value = "1.2 修改密码")
 	@ApiOperationSupport(order = 2)
-	@PostMapping("/sys/auth/updatePassword")
+	@PutMapping("/sys/auth/password")
 	public void updatePassword(@Validated @RequestBody UpdatePasswordParam param) {
 		this.authService.updatePassword(param.getPassword(), param.getNewPassword());
 	}
 
 	@ApiOperation(value = "1.3 获取登录用户信息")
 	@ApiOperationSupport(order = 3)
-	@GetMapping("/sys/auth/getLoginUserInfo")
+	@GetMapping("/sys/auth/loginUserInfo")
 	public AccountDetailVO getLoginUserInfo() {
 		return this.authService.selectLoginUserInfo();
 	}
 
 	@ApiOperation(value = "1.4 注销")
 	@ApiOperationSupport(order = 4)
-	@PostMapping("/sys/auth/logout")
-	public void logout() {
-		throw new RuntimeException();
+	@DeleteMapping("/sys/auth/logout")
+	public void logout(@RequestHeader("token") String token) {
+		this.authService.logout(token);
 	}
 }

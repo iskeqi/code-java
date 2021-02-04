@@ -15,9 +15,9 @@ public class DictItemPageParam extends PageParam {
 	@ApiModelProperty(value = "字典类型名称")
 	private String typeName;
 
-	@ApiModelProperty(value = "字典项编码")
+	@ApiModelProperty(value = "字典编码")
 	private String itemCode;
 
-	@ApiModelProperty(value = "字典项值")
+	@ApiModelProperty(value = "字典值")
 	private String itemName;
 }

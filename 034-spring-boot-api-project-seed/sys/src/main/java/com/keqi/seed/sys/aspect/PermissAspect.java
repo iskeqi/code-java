@@ -48,7 +48,7 @@ public class PermissAspect {
 		Method method = methodSignature.getMethod();
 		Permiss permiss = method.getAnnotation(Permiss.class);
 		String[] permissList = permiss.value();
-		Long accountId = Auth.getLoginAccountId();
+		Long accountId = Auth.getAccountId();
 		List<MenuVO> menuVOList = this.menuMapper.selectByAccountId(accountId);
 
 		boolean flag = false;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "2. 字典项管理")
+@Api(tags = "2. 字典管理")
 @ApiSupport(order = 2)
 @RestController
 public class DictItemController {
@@ -23,36 +23,36 @@ public class DictItemController {
 	@Autowired
 	private DictItemService dictItemService;
 
-	@ApiOperation(value = "2.1 新增字典项")
+	@ApiOperation(value = "2.1 新增字典")
 	@ApiOperationSupport(order = 1, ignoreParameters = "param.id")
 	@PostMapping("/sys/dictItem")
 	public void insert(@RequestBody DictItemParam param) {
 		this.dictItemService.insert(param);
 	}
 
-	@ApiOperation(value = "2.2 修改字典项")
+	@ApiOperation(value = "2.2 修改字典")
 	@ApiOperationSupport(order = 2)
 	@PutMapping("/sys/dictItem")
 	public void updateById(@RequestBody DictItemParam param) {
 		this.dictItemService.updateById(param);
 	}
 
-	@ApiOperation(value = "2.3 删除字典项")
+	@ApiOperation(value = "2.3 删除字典")
 	@ApiOperationSupport(order = 3)
-	@ApiImplicitParam(name = "id", value = "字典项ID", example = "1", required = true)
+	@ApiImplicitParam(name = "id", value = "字典ID", example = "1", required = true)
 	@DeleteMapping("/sys/dictItem/{id}")
 	public void deleteById(@PathVariable Long id) {
 		this.dictItemService.deleteById(id);
 	}
 
-	@ApiOperation(value = "2.4 分页查询字典项列表")
+	@ApiOperation(value = "2.4 分页查询字典列表")
 	@ApiOperationSupport(order = 4)
 	@GetMapping("/sys/dictItem/page")
 	public PageVO<DictItemVO> page(DictItemPageParam param) {
 		return this.dictItemService.page(param);
 	}
 
-	@ApiOperation(value = "2.5 根据 typeCode 查询字典项列表")
+	@ApiOperation(value = "2.5 根据 typeCode 查询字典列表")
 	@ApiOperationSupport(order = 5)
 	@ApiImplicitParam(name = "typeCode", value = "字典类型Code", example = "configType", required = true)
 	@GetMapping("/sys/dictItem/listAllByTypeCode")

@@ -14,7 +14,7 @@ import lombok.Data;
 public class DictItemDO {
 
 	/**
-	 * 字典项id
+	 * 字典id
 	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	protected Long id;
@@ -32,13 +32,13 @@ public class DictItemDO {
 	private String typeName;
 
 	/**
-	 * 字典项编码
+	 * 字典编码
 	 */
 	@TableField(value = "item_code")
 	private String itemCode;
 
 	/**
-	 * 字典项值
+	 * 字典值
 	 */
 	@TableField(value = "item_name")
 	private String itemName;
