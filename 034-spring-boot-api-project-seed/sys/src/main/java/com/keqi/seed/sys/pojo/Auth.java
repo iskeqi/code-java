@@ -4,6 +4,7 @@ import com.keqi.seed.core.web.exception.NoAuthException;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -21,6 +22,10 @@ public final class Auth {
 
 	public static Long getAccountId() {
 		return getLoginUserBO().getId();
+	}
+
+	public static List<String> getPermissList() {
+		return getLoginUserBO().getPermissList();
 	}
 
 	public static void setLoginUserBO(LoginUserBO loginUserBO) {

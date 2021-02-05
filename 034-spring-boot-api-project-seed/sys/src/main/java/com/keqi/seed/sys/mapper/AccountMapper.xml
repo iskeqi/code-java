@@ -15,7 +15,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, account, nick_name, post, `password`, salt, create_time, update_time
+        id, account, nick_name, post, `password`, salt, create_time, update_time, deleted
     </sql>
 
     <select id="selectByAccount" resultMap="BaseResultMap">
@@ -23,6 +23,7 @@
         <include refid="Base_Column_List"/>
         from sys_account
         where account = #{account}
+          and deleted = 0
     </select>
 
     <update id="updatePasswordById">
@@ -41,6 +42,7 @@
         select
         <include refid="Base_Column_List"/>
         from sys_account
+        where deleted = 0
         order by update_time desc
     </select>
 

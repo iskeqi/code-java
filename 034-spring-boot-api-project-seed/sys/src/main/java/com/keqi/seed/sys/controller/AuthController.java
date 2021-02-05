@@ -57,7 +57,7 @@ public class AuthController {
 	@ApiOperation(value = "1.5 查询当前用户菜单列表")
 	@ApiOperationSupport(order = 5)
 	@GetMapping("/sys/menu/MenusByAccountId")
-	public List<MenuVO> selectMenusByAccountId() {
-		return this.authService.selectMenusByAccountId(Auth.getAccountId());
+	public List<MenuVO> selectMenusByAccountId(@RequestHeader("token") String token) {
+		return this.authService.selectMenusByAccountId(token, Auth.getAccountId());
 	}
 }

@@ -1,8 +1,10 @@
 package com.keqi.seed.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.keqi.seed.core.web.exception.BusinessException;
 import com.keqi.seed.core.util.JsonUtil;
+import com.keqi.seed.core.web.exception.NoAuthException;
 import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.param.LoginParam;
 import com.keqi.seed.sys.domain.vo.AccountDetailVO;
@@ -66,6 +68,9 @@ public class AuthServiceImpl implements AuthService {
         loginUserBO.setDevType(param.getDevType());
         loginUserBO.setPermissList(permissList);
         loginUserBO.setRoleList(roleList);
+        loginUserBO.setMenuVOS(menuVOS);
+
+        // 此处将登录用户的角色、权限列表缓存至 redis 中，在用户token有效期内未重新登录时，角色、权限列表数据不会及时更新
 
         String o = (String) stringRedisTemplate.opsForHash().get(SysConstant.ACCOUNT_LOGIN_INFO, accountDO.getAccount() + param.getDevType());
 
@@ -137,8 +142,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<MenuVO> selectMenusByAccountId(Long accountId) {
-        return this.assembleTreeList(this.accountMapper.selectMenuVOListByAccountId(accountId), 0L);
+    public List<MenuVO> selectMenusByAccountId(String token, Long accountId) {
+        String o = (String) stringRedisTemplate.opsForHash().get(SysConstant.UUID_LOGIN_INFO, token);
+        if (StrUtil.isBlank(o)) {
+            throw new NoAuthException();
+        }
+
+        LoginUserBO loginUserBO = JsonUtil.readValue(o, LoginUserBO.class);
+        return this.assembleTreeList(loginUserBO.getMenuVOS(), 0L);
     }
 
     /**

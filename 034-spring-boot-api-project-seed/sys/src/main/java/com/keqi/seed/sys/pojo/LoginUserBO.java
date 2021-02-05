@@ -1,5 +1,6 @@
 package com.keqi.seed.sys.pojo;
 
+import com.keqi.seed.sys.domain.vo.MenuVO;
 import lombok.Data;
 
 import java.util.List;
@@ -46,4 +47,9 @@ public class LoginUserBO {
 	 * 用户拥有的角色列表
 	 */
 	private List<String> roleList;
+
+	/**
+	 * 用户拥有的菜单列表
+	 */
+	private List<MenuVO> menuVOS;
 }
