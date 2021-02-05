@@ -1,10 +1,10 @@
 package com.keqi.seed.sys.pojo;
 
-import com.keqi.seed.core.exception.NoAuthException;
-import com.keqi.seed.core.pojo.CoreConstant;
+import com.keqi.seed.core.web.exception.NoAuthException;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -18,31 +18,35 @@ public final class Auth {
 
 	private static final ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<>();
 
-	/**
-	 * 获取当前登录用户id
-	 *
-	 * @return r
-	 */
+	public static final String LOGIN_ACCOUNT_INFO = "loginAccountInfo";
+
 	public static Long getAccountId() {
-		Map<String, Object> loginInfo = threadLocal.get();
-		Long obj;
-		if (loginInfo == null || (obj = (Long) loginInfo.get(CoreConstant.LOGIN_ACCOUNT_ID)) == null) {
-			throw new NoAuthException();
-		}
-		return obj;
+		return getLoginUserBO().getId();
 	}
 
-	/**
-	 * 设置当前登录用户id
-	 *
-	 * @param accountId accountId
-	 */
-	public static void setAccountId(Long accountId) {
+	public static List<String> getPermissList() {
+		return getLoginUserBO().getPermissList();
+	}
+
+	public static void setLoginUserBO(LoginUserBO loginUserBO) {
 		Map<String, Object> loginInfo = threadLocal.get();
 		if (Objects.isNull(loginInfo)) {
 			loginInfo = new HashMap<>();
 			threadLocal.set(loginInfo);
 		}
-		loginInfo.put(CoreConstant.LOGIN_ACCOUNT_ID, accountId);
+		loginInfo.put(LOGIN_ACCOUNT_INFO, loginUserBO);
+	}
+
+	private static LoginUserBO getLoginUserBO() {
+		Map<String, Object> loginInfo = threadLocal.get();
+		if (loginInfo == null) {
+			throw new NoAuthException();
+		}
+
+		LoginUserBO obj = (LoginUserBO) loginInfo.get(LOGIN_ACCOUNT_INFO);
+		if (obj == null) {
+			throw new NoAuthException();
+		}
+		return obj;
 	}
 }

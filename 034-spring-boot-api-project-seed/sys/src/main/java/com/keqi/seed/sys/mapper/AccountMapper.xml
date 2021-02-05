@@ -15,7 +15,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, account, nick_name, post, `password`, salt, create_time, update_time
+        id, account, nick_name, post, `password`, salt, create_time, update_time, deleted
     </sql>
 
     <select id="selectByAccount" resultMap="BaseResultMap">
@@ -23,6 +23,7 @@
         <include refid="Base_Column_List"/>
         from sys_account
         where account = #{account}
+          and deleted = 0
     </select>
 
     <update id="updatePasswordById">
@@ -41,6 +42,45 @@
         select
         <include refid="Base_Column_List"/>
         from sys_account
+        where deleted = 0
         order by update_time desc
+    </select>
+
+    <resultMap id="MenuVO" type="com.keqi.seed.sys.domain.vo.MenuVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="icon" property="icon"/>
+        <result column="type" property="type"/>
+        <result column="permiss" property="permiss"/>
+        <result column="order_num" property="orderNum"/>
+        <result column="parent_id" property="parentId"/>
+    </resultMap>
+    <select id="selectMenuVOListByAccountId" resultMap="MenuVO">
+        select distinct t3.id,
+                        t3.name,
+                        t3.url,
+                        t3.icon,
+                        t3.type,
+                        t3.permiss,
+                        t3.order_num,
+                        t3.parent_id
+        from sys_account_role as t1
+                     left join sys_role_menu as t2 on t1.role_id = t2.role_id
+                     left join sys_menu as t3 on t2.menu_id = t3.id
+        where t1.account_id = #{accountId}
+        order by t3.parent_id,
+                 t3.order_num
+    </select>
+
+    <resultMap id="RoleVO" type="com.keqi.seed.sys.domain.vo.RoleVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <select id="selectRoleVOListByAccountId" resultMap="RoleVO">
+        select t2.id, t2.name
+        from sys_account_role as t1
+                     left join sys_role as t2 on t1.role_id = t2.id
+        where t1.account_id = #{accountId}
     </select>
 </mapper>

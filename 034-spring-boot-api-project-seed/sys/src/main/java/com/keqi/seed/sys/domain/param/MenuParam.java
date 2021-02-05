@@ -12,10 +12,10 @@ public class MenuParam {
     @ApiModelProperty(value = "名称", example = "系统管理", required = true)
     private String name;
 
-    @ApiModelProperty(value = "请求URL地址", example = "/sys/mana", required = true)
+    @ApiModelProperty(value = "请求URL地址", example = "/sys/mana")
     private String url;
 
-    @ApiModelProperty(value = "ICON图标", example = "ele-eleme", required = true)
+    @ApiModelProperty(value = "ICON图标", example = "ele-eleme")
     private String icon;
 
     @ApiModelProperty(value = "菜单类型（C目录 M菜单 B按钮）", example = "C", required = true)

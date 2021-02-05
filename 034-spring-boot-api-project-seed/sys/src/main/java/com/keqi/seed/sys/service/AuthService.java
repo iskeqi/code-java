@@ -17,5 +17,5 @@ public interface AuthService {
 
     void logout(String token);
 
-    List<MenuVO> selectMenusByAccountId(Long accountId);
+    List<MenuVO> selectMenusByAccountId(String token, Long accountId);
 }

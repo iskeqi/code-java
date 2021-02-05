@@ -3,9 +3,9 @@ package com.keqi.seed.sys.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.sys.pojo.LoginUserBO;
-import com.keqi.seed.core.exception.NoAuthException;
-import com.keqi.seed.core.exception.OfflineException;
-import com.keqi.seed.core.interceptor.SecurityInterceptorService;
+import com.keqi.seed.core.web.exception.NoAuthException;
+import com.keqi.seed.core.web.exception.OfflineException;
+import com.keqi.seed.core.web.interceptor.SecurityInterceptorService;
 import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.JsonUtil;
 import com.keqi.seed.sys.pojo.SysConstant;
@@ -61,13 +61,13 @@ public class SecurityInterceptorServiceImpl implements SecurityInterceptorServic
         }
 
         // 设置当前操作用户信息到当前线程对象中
-        Auth.setAccountId(loginUserBO.getId());
+        Auth.setLoginUserBO(loginUserBO);
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        Auth.setAccountId(null);
+        Auth.setLoginUserBO(null);
     }
 
 }

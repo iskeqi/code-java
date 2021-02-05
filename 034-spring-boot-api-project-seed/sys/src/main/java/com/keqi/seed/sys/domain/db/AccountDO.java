@@ -59,4 +59,10 @@ public class AccountDO {
 	 */
 	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateTime;
+
+	/**
+	 * 是否删除[0 未删除，1 已删除]
+	 */
+	@TableField(value = "deleted")
+	private Integer deleted;
 }

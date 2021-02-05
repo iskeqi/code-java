@@ -1,13 +1,16 @@
 package com.keqi.seed.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.keqi.seed.core.exception.BusinessException;
+import cn.hutool.core.util.StrUtil;
+import com.keqi.seed.core.web.exception.BusinessException;
 import com.keqi.seed.core.util.JsonUtil;
+import com.keqi.seed.core.web.exception.NoAuthException;
 import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.param.LoginParam;
 import com.keqi.seed.sys.domain.vo.AccountDetailVO;
 import com.keqi.seed.sys.domain.vo.LoginVO;
 import com.keqi.seed.sys.domain.vo.MenuVO;
+import com.keqi.seed.sys.domain.vo.RoleVO;
 import com.keqi.seed.sys.mapper.AccountMapper;
 import com.keqi.seed.sys.mapper.MenuMapper;
 import com.keqi.seed.sys.pojo.Auth;
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -39,17 +43,22 @@ public class AuthServiceImpl implements AuthService {
     public LoginVO login(LoginParam param) {
         AccountDO accountDO = this.accountMapper.selectByAccount(param.getAccount());
         if (Objects.isNull(accountDO)) {
-            throw new BusinessException("用户名不存在");
+            throw new BusinessException("用户名或密码错误");
         }
 
         String passwordEncry = SysUtil.encryptedPassword(param.getPassword(), accountDO.getSalt());
         if (!Objects.equals(passwordEncry, accountDO.getPassword())) {
-            throw new BusinessException("密码错误");
+            throw new BusinessException("用户名或密码错误");
         }
 
         // token 有效期为 14 天
         long expirationTime = System.currentTimeMillis() + 1209600000;
         String token = UUID.randomUUID().toString().replace("-", "")  + param.getDevType();
+
+        List<MenuVO> menuVOS = this.accountMapper.selectMenuVOListByAccountId(accountDO.getId());
+        List<String> permissList = menuVOS.stream().map(MenuVO::getPermiss).collect(Collectors.toList());
+        List<RoleVO> roleVOS = this.accountMapper.selectRoleVOListByAccountId(accountDO.getId());
+        List<String> roleList = roleVOS.stream().map(RoleVO::getName).collect(Collectors.toList());
 
         LoginUserBO loginUserBO = new LoginUserBO();
         loginUserBO.setId(accountDO.getId());
@@ -57,6 +66,11 @@ public class AuthServiceImpl implements AuthService {
         loginUserBO.setExpirationTime(expirationTime);
         loginUserBO.setToken(token);
         loginUserBO.setDevType(param.getDevType());
+        loginUserBO.setPermissList(permissList);
+        loginUserBO.setRoleList(roleList);
+        loginUserBO.setMenuVOS(menuVOS);
+
+        // 此处将登录用户的角色、权限列表缓存至 redis 中，在用户token有效期内未重新登录时，角色、权限列表数据不会及时更新
 
         String o = (String) stringRedisTemplate.opsForHash().get(SysConstant.ACCOUNT_LOGIN_INFO, accountDO.getAccount() + param.getDevType());
 
@@ -128,8 +142,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<MenuVO> selectMenusByAccountId(Long accountId) {
-        return this.assembleTreeList(this.menuMapper.selectByAccountId(accountId), 0L);
+    public List<MenuVO> selectMenusByAccountId(String token, Long accountId) {
+        String o = (String) stringRedisTemplate.opsForHash().get(SysConstant.UUID_LOGIN_INFO, token);
+        if (StrUtil.isBlank(o)) {
+            throw new NoAuthException();
+        }
+
+        LoginUserBO loginUserBO = JsonUtil.readValue(o, LoginUserBO.class);
+        return this.assembleTreeList(loginUserBO.getMenuVOS(), 0L);
     }
 
     /**

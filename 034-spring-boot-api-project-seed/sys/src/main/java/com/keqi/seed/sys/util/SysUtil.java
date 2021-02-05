@@ -1,7 +1,7 @@
 package com.keqi.seed.sys.util;
 
 import cn.hutool.core.util.HexUtil;
-import com.keqi.seed.core.exception.BusinessException;
+import com.keqi.seed.core.web.exception.BusinessException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

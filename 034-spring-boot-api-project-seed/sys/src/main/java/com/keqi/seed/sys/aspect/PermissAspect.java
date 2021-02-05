@@ -1,8 +1,7 @@
 package com.keqi.seed.sys.aspect;
 
-import com.keqi.seed.core.exception.BusinessException;
-import com.keqi.seed.sys.domain.vo.MenuVO;
-import com.keqi.seed.sys.mapper.MenuMapper;
+import com.keqi.seed.core.web.exception.BusinessException;
+import com.keqi.seed.sys.mapper.AccountMapper;
 import com.keqi.seed.sys.pojo.Auth;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,7 +24,7 @@ import java.util.List;
 public class PermissAspect {
 
 	@Autowired
-	private MenuMapper menuMapper;
+	private AccountMapper accountMapper;
 
 	/**
 	 * 配置织入点
@@ -48,14 +47,14 @@ public class PermissAspect {
 		Method method = methodSignature.getMethod();
 		Permiss permiss = method.getAnnotation(Permiss.class);
 		String[] permissList = permiss.value();
-		Long accountId = Auth.getAccountId();
-		List<MenuVO> menuVOList = this.menuMapper.selectByAccountId(accountId);
+
+		List<String> loginAccountPermissList = Auth.getPermissList();
 
 		boolean flag = false;
 		for (String permissStr : permissList) {
 			flag = false;
-			for (MenuVO t : menuVOList) {
-				if (permissStr.equals(t.getPermiss())) {
+			for (String t : loginAccountPermissList) {
+				if (permissStr.equals(t)) {
 					flag = true;
 					break;
 				}
