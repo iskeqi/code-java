@@ -6,17 +6,19 @@
         <!--@Table sys_role-->
         <id column="id" property="id"/>
         <result column="name" property="name"/>
+        <result column="permiss" property="permiss"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, name, create_time, update_time
+        id, name, permiss, create_time, update_time
     </sql>
 
     <resultMap id="RoleVO" type="com.keqi.seed.sys.domain.vo.RoleVO">
         <id column="id" property="id"/>
+        <result column="permiss" property="permiss"/>
         <result column="name" property="name"/>
     </resultMap>
     <select id="page" resultMap="RoleVO">

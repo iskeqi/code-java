@@ -3,7 +3,7 @@ package com.keqi.seed.sys.controller;
 import cn.hutool.core.io.IoUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
-import com.keqi.seed.core.exception.BusinessException;
+import com.keqi.seed.core.web.exception.BusinessException;
 import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.CommonUtil;
 import com.keqi.seed.sys.domain.db.UploadFileDO;

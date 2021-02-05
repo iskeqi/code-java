@@ -12,27 +12,33 @@ import java.time.LocalDateTime;
 @TableName(value = "sys_role")
 public class RoleDO {
 
-	/**
-	 * 角色id
-	 */
-	@TableId(value = "id", type = IdType.AUTO)
-	private Long id;
+    /**
+     * 角色id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
-	/**
-	 * 角色名称
-	 */
-	@TableField(value = "name")
-	private String name;
+    /**
+     * 角色名称
+     */
+    @TableField(value = "name")
+    private String name;
 
-	/**
-	 * 创建时间
-	 */
-	@TableField(value = "create_time", fill = FieldFill.INSERT)
-	private LocalDateTime createTime;
+    /**
+     * 权限标识
+     */
+    @TableField(value = "permiss")
+    private String permiss;
 
-	/**
-	 * 修改时间
-	 */
-	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-	private LocalDateTime updateTime;
+    /**
+     * 创建时间
+     */
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    /**
+     * 修改时间
+     */
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 }

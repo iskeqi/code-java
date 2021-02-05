@@ -1,4 +1,4 @@
-package com.keqi.seed.core.exception;
+package com.keqi.seed.core.web.exception;
 
 import java.io.Serializable;
 

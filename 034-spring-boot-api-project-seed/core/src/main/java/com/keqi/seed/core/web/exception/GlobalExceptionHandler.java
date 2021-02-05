@@ -1,4 +1,4 @@
-package com.keqi.seed.core.exception;
+package com.keqi.seed.core.web.exception;
 
 import com.keqi.seed.core.response.ResultEntity;
 import com.keqi.seed.core.response.ResultEntityBuilder;

@@ -18,31 +18,4 @@
         <!--@mbg.generated-->
         id, name, url, icon, type, permiss, order_num, parent_id
     </sql>
-
-    <resultMap id="MenuVO" type="com.keqi.seed.sys.domain.vo.MenuVO">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="url" property="url"/>
-        <result column="icon" property="icon"/>
-        <result column="type" property="type"/>
-        <result column="permiss" property="permiss"/>
-        <result column="order_num" property="orderNum"/>
-        <result column="parent_id" property="parentId"/>
-    </resultMap>
-    <select id="selectByAccountId" resultMap="MenuVO">
-        select t3.id,
-               t3.name,
-               t3.url,
-               t3.icon,
-               t3.type,
-               t3.permiss,
-               t3.order_num,
-               t3.parent_id
-        from sys_account_role as t1
-                     left join sys_role_menu as t2 on t1.role_id = t2.role_id
-                     left join sys_menu as t3 on t2.menu_id = t3.id
-        where t1.account_id = #{accountId}
-        order by t3.parent_id,
-                 t3.order_num
-    </select>
 </mapper>

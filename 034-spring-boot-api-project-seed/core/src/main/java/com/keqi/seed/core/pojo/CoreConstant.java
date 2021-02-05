@@ -8,11 +8,6 @@ package com.keqi.seed.core.pojo;
 public final class CoreConstant {
 
 	/**
-	 * 存储登录用户信息 Map 对应的 key
-	 */
-	public static final String LOGIN_ACCOUNT_ID = "loginAccountId";
-
-	/**
 	 * token 名称
 	 */
 	public static final String TOKEN = "token";
