@@ -15,6 +15,7 @@
         <module>mybatis-generator-plugin</module>
         <module>springboot-mybatis-ognl</module>
         <module>springboot-mybatis-typehandler</module>
+        <module>springboot-mybatis-collection</module>
     </modules>
 
 </project>

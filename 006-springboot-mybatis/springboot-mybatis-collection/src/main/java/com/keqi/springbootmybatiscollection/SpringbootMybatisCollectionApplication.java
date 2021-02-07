@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@MapperScan("com.keqi.**.mapper")
+@MapperScan("com.keqi.springbootmybatisbase.sys.mapper")
 @EnableTransactionManagement // 其实这个注解不写也可以
 @SpringBootApplication
 public class SpringbootMybatisCollectionApplication {
