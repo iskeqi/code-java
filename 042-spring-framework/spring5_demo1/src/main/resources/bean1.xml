@@ -1,9 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="user" class="com.atguigu.spring5.User"/>
+    <bean id="user" class="com.atguigu.spring5.User" scope="prototype"/>
+
+
+    <!--通过无参构造函数创建对象，并使用 set 方法注入属性-->
+    <bean id="book" class="com.atguigu.spring5.Book">
+        <!--使用 property 标签通过 set 方法注入-->
+        <property name="bname" value="易筋经"/>
+        <property name="bauthor" value="达摩老祖"/>
+        <!--通过 "<null/>" 属性给指定的属性注入 null 值-->
+        <property name="address">
+            <null/>
+        </property>
+        <!--
+            属性值包含特殊符号
+            1、将特殊符号进行转义
+            2、使用 CDATA 包含特殊符号
+            <![CDATA[]]>
+        -->
+        <property name="saa">
+            <value><![CDATA[<南京>]]></value>
+        </property>
+    </bean>
+
+    <!--使用有参构造函数创建对象，并注入属性-->
+    <bean id="orders" class="com.atguigu.spring5.Orders">
+        <constructor-arg name="oname" value="abc"/>
+        <constructor-arg name="address" value="深圳"/>
+    </bean>
+
+    <!--使用 p 名称空间注入，可以简化基于 xml 配置的方式(仍然是通过 set 方法注入)-->
+    <!--<bean id="book" class="com.atguigu.spring5.Book" p:bauthor="六子" p:bname="九阴白骨爪"/>-->
+    <bean id="userDap" class="com.atguigu.spring5.dao.UserDaoImpl"/>
+
+
+    <bean id="userService" class="com.atguigu.spring5.service.UserService">
+        <!--使用 ref 注入引用类型对象-->
+        <property name="userDao" ref="userDap"/>
+    </bean>
+
+
+
+    <!--内部bean-->
+    <bean id="emp" class="com.atguigu.spring5.bean.Emp">
+        <!--设置两个普通属性-->
+        <property name="name" value="lucy"/>
+        <property name="gender" value="女"/>
+        <property name="dept">
+            <bean class="com.atguigu.spring5.bean.Dept">
+                <property name="name" value="安保部"/>
+            </bean>
+        </property>
+    </bean>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </beans>
