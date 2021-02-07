@@ -25,7 +25,7 @@
             <if test="${column.columnNameHumpLetter} != null and ${column.columnNameHumpLetter} != ''">
                 ${column.columnName},
             </if>
-        <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime'>
+        <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime' && column.columnNameHumpLetter != 'id'>
             <if test="${column.columnNameHumpLetter} != null">
                 ${column.columnName},
             </if>
@@ -42,7 +42,7 @@
             <if test="${column.columnNameHumpLetter} != null and ${column.columnNameHumpLetter} != ''">
                 ${r'#'}{${column.columnNameHumpLetter}},
             </if>
-        <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime'>
+        <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime' && column.columnNameHumpLetter != 'id'>
             <if test="${column.columnNameHumpLetter} != null">
                 ${r'#'}{${column.columnNameHumpLetter}},
             </if>
@@ -56,9 +56,17 @@
     </insert>
 
     <insert id="insertList">
-        insert into ${tableName}(<#list columnList as column><#if column.columnNameHumpLetter == 'createTime'>create_time <#elseif column.columnNameHumpLetter == 'updateTime'>update_time <#else >${column.columnName} </#if><#sep>,</#list>) values
+        insert into ${tableName}(
+        <trim suffixOverrides=",">
+            <#list columnList as column><#if column.columnNameHumpLetter == 'createTime'>create_time, <#elseif column.columnNameHumpLetter == 'updateTime'>update_time, <#elseif column.columnNameHumpLetter != 'id'>${column.columnName}, </#if></#list>
+        </trim>
+        ) values
         <foreach collection="list" item="element" index="index" separator=",">
-            (<#list columnList as column><#if column.columnNameHumpLetter == 'createTime'>now() <#elseif column.columnNameHumpLetter == 'updateTime'>now() <#else > ${r'#'}{element.${column.columnNameHumpLetter}} </#if><#sep>,</#list>)
+            (
+            <trim suffixOverrides=",">
+                <#list columnList as column><#if column.columnNameHumpLetter == 'createTime'>now(), <#elseif column.columnNameHumpLetter == 'updateTime'>now(), <#elseif column.columnNameHumpLetter != 'id'> ${r'#'}{element.${column.columnNameHumpLetter}}, </#if></#list>
+            </trim>
+            )
         </foreach>
     </insert>
 
@@ -70,7 +78,7 @@
             <if test="${column.columnNameHumpLetter} != null and ${column.columnNameHumpLetter} != ''">
                 ${column.columnName} = ${r'#'}{${column.columnNameHumpLetter}},
             </if>
-    <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime'>
+    <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime' && column.columnNameHumpLetter != 'id'>
             <if test="${column.columnNameHumpLetter} != null">
                 ${column.columnName} = ${r'#'}{${column.columnNameHumpLetter}},
             </if>
@@ -90,7 +98,7 @@
             <if test="t.${column.columnNameHumpLetter} != null and t.${column.columnNameHumpLetter} != ''">
                 ${column.columnName} = ${r'#'}{t.${column.columnNameHumpLetter}},
             </if>
-        <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime'>
+        <#elseif column.columnTypeJava != "String" && column.columnNameHumpLetter != 'createTime' && column.columnNameHumpLetter != 'updateTime' && column.columnNameHumpLetter != 'id'>
             <if test="t.${column.columnNameHumpLetter} != null">
                 ${column.columnName} = ${r'#'}{t.${column.columnNameHumpLetter}},
             </if>

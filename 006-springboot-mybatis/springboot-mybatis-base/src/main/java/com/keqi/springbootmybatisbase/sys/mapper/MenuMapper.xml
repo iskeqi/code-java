@@ -24,9 +24,6 @@
     <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
         insert into sys_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="name != null and name != ''">
                 name,
             </if>
@@ -52,9 +49,6 @@
             update_time,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id},
-            </if>
             <if test="name != null and name != ''">
                 #{name},
             </if>
@@ -82,18 +76,23 @@
     </insert>
 
     <insert id="insertList">
-        insert into sys_menu(id ,name ,url ,icon ,type ,permiss ,parent_id ,order_num ,create_time ,update_time ) values
+        insert into sys_menu(
+        <trim suffixOverrides=",">
+            name, url, icon, type, permiss, parent_id, order_num, create_time, update_time, 
+        </trim>
+        ) values
         <foreach collection="list" item="element" index="index" separator=",">
-            ( #{element.id} , #{element.name} , #{element.url} , #{element.icon} , #{element.type} , #{element.permiss} , #{element.parentId} , #{element.orderNum} ,now() ,now() )
+            (
+            <trim suffixOverrides=",">
+                 #{element.name},  #{element.url},  #{element.icon},  #{element.type},  #{element.permiss},  #{element.parentId},  #{element.orderNum}, now(), now(), 
+            </trim>
+            )
         </foreach>
     </insert>
 
     <update id="updateById">
         update sys_menu
         <set>
-            <if test="id != null">
-                id = #{id},
-            </if>
             <if test="name != null and name != ''">
                 name = #{name},
             </if>
@@ -123,9 +122,6 @@
     <update id="update">
         update sys_menu
         <set>
-            <if test="t.id != null">
-                id = #{t.id},
-            </if>
             <if test="t.name != null and t.name != ''">
                 name = #{t.name},
             </if>
