@@ -216,11 +216,11 @@
 
     <resultMap id="${tableNameHump}VO" type="${basePackageName}.${subPackageName}.domain.vo.${tableNameHump}VO">
         <id column="id" property="id"/>
-    <#list columnList as column>
-        <#if column.columnNameHumpLetter != "id">
-            <result column="${column.columnName}" property="${column.columnNameHumpLetter}"/>
-        </#if>
-    </#list>
+<#list columnList as column>
+    <#if column.columnNameHumpLetter != "id">
+        <result column="${column.columnName}" property="${column.columnNameHumpLetter}"/>
+    </#if>
+</#list>
     </resultMap>
 
     <select id="pageQuery" resultMap="${tableNameHump}VO">
