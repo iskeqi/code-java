@@ -1,6 +1,6 @@
 package com.keqi.seed.sys.service.impl;
 
-import com.keqi.seed.core.web.exception.BusinessException;
+import com.keqi.seed.core.exception.BusinessException;
 import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.CommonUtil;
 import com.keqi.seed.sys.domain.db.UploadFileDO;

@@ -2,9 +2,9 @@ package com.keqi.seed.sys.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import com.keqi.seed.core.web.exception.BusinessException;
+import com.keqi.seed.core.exception.BusinessException;
 import com.keqi.seed.core.util.JsonUtil;
-import com.keqi.seed.core.web.exception.NoAuthException;
+import com.keqi.seed.core.exception.NoAuthException;
 import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.param.LoginParam;
 import com.keqi.seed.sys.domain.vo.AccountDetailVO;

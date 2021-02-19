@@ -1,4 +1,4 @@
-package com.keqi.seed.core.web.converter;
+package com.keqi.seed.web.converter;
 
 import org.springframework.core.convert.converter.Converter;
 

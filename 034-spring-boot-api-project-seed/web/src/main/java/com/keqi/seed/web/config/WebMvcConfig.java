@@ -1,4 +1,4 @@
-package com.keqi.seed.core.web.config;
+package com.keqi.seed.web.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,10 +9,10 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.keqi.seed.core.web.converter.MyStringToLocalDateConverter;
-import com.keqi.seed.core.web.converter.MyStringToLocalDateTimeConverter;
-import com.keqi.seed.core.web.converter.MyStringToNumberConverterFactory;
-import com.keqi.seed.core.web.interceptor.SecurityInterceptor;
+import com.keqi.seed.web.converter.MyStringToLocalDateConverter;
+import com.keqi.seed.web.converter.MyStringToLocalDateTimeConverter;
+import com.keqi.seed.web.converter.MyStringToNumberConverterFactory;
+import com.keqi.seed.web.interceptor.SecurityInterceptor;
 import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;

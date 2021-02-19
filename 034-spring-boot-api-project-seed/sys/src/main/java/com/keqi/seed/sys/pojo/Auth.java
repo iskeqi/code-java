@@ -1,6 +1,6 @@
 package com.keqi.seed.sys.pojo;
 
-import com.keqi.seed.core.web.exception.NoAuthException;
+import com.keqi.seed.core.exception.NoAuthException;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

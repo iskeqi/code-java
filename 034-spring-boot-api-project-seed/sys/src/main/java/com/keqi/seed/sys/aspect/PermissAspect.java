@@ -1,6 +1,6 @@
 package com.keqi.seed.sys.aspect;
 
-import com.keqi.seed.core.web.exception.BusinessException;
+import com.keqi.seed.core.exception.BusinessException;
 import com.keqi.seed.sys.mapper.AccountMapper;
 import com.keqi.seed.sys.pojo.Auth;
 import org.aspectj.lang.JoinPoint;
