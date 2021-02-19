@@ -37,4 +37,9 @@ public class AccountParam {
 
 	// 测试Boolean类型
 	private Boolean success;
+
+	// 测试 mqtt 规则引擎桥接数据到 web 服务
+	private String username;
+
+	private String clientid;
 }
