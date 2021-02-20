@@ -5,7 +5,7 @@ import com.keqi.seed.sys.pojo.Auth;
 import com.keqi.seed.sys.pojo.LoginUserBO;
 import com.keqi.seed.core.exception.NoAuthException;
 import com.keqi.seed.core.exception.OfflineException;
-import com.keqi.seed.web.interceptor.SecurityInterceptorService;
+import com.keqi.seed.core.interceptor.SecurityInterceptorService;
 import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.JsonUtil;
 import com.keqi.seed.sys.pojo.SysConstant;

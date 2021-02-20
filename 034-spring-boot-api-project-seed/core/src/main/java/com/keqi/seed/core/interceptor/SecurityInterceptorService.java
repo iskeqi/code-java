@@ -1,4 +1,4 @@
-package com.keqi.seed.web.interceptor;
+package com.keqi.seed.core.interceptor;
 
 import org.springframework.lang.Nullable;
 

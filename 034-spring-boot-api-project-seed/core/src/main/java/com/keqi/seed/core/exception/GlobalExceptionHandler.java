@@ -1,8 +1,5 @@
-package com.keqi.seed.web.exception;
+package com.keqi.seed.core.exception;
 
-import com.keqi.seed.core.exception.BusinessException;
-import com.keqi.seed.core.exception.NoAuthException;
-import com.keqi.seed.core.exception.OfflineException;
 import com.keqi.seed.core.response.ResultEntity;
 import com.keqi.seed.core.response.ResultEntityBuilder;
 import lombok.extern.slf4j.Slf4j;
