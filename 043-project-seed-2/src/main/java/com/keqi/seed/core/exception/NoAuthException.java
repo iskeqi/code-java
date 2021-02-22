@@ -7,4 +7,5 @@ package com.keqi.seed.core.exception;
  */
 public class NoAuthException extends RuntimeException {
 
+    private static final long serialVersionUID = -4300452093209601611L;
 }

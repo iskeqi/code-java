@@ -7,6 +7,8 @@ package com.keqi.seed.core.exception;
  */
 public class BusinessException extends RuntimeException {
 
+	private static final long serialVersionUID = -9013198907551390804L;
+
 	/**
 	 * 创建异常对象(必须指定异常信息，故在此处屏蔽了空的构造函数)
 	 *
