@@ -19,7 +19,7 @@
     </parent>
 
     <groupId>com.keqi</groupId>
-    <artifactId>034-spring-boot-api-project-seed</artifactId>
+    <artifactId>034-project-seed-1</artifactId>
     <version>0.0.1</version>
 
     <properties>
