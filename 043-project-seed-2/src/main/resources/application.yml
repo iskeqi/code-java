@@ -7,7 +7,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: Aliyun_rds_123456
-    url: jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/043-project-seed-3?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+    url: jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/043-project-seed-2?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
     username: keqi
   servlet:
     multipart:
