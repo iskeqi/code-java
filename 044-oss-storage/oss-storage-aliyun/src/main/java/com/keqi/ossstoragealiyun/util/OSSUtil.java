@@ -70,7 +70,7 @@ public class OSSUtil {
      * @param objectName objectName
      * @return
      */
-    public String getUploadUrl(String objectName) {
+    public URL getUploadUrl(String objectName) {
         Date expiration = new Date(System.currentTimeMillis() + 3600000);
         GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName, HttpMethod.PUT);
         request.setExpiration(expiration);
@@ -78,8 +78,7 @@ public class OSSUtil {
         // request.addUserMetadata("author", "aliy");
 
         URL signedUrl = ossClient.generatePresignedUrl(request);
-
-        return signedUrl.toString();
+        return signedUrl;
     }
 
     /**
