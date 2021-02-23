@@ -1,5 +1,8 @@
 package com.keqi.springbootmvcparam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keqi.springbootmvcparam.domain.AccountParam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
@@ -26,7 +29,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 class SpringbootMvcParamApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void contextLoads() throws JsonProcessingException {
 		HandlerMapping handlerMapping;
 		DispatcherServlet dispatcherServlet;
 		MultipartResolver multipartResolver;
@@ -51,6 +54,10 @@ class SpringbootMvcParamApplicationTests {
 
 
 		InitDestroyAnnotationBeanPostProcessor initDestroyAnnotationBeanPostProcessor;
+
+		AccountParam param = new AccountParam();
+		String s = new ObjectMapper().writeValueAsString(param);
+		System.out.println(s);
 	}
 
 }
