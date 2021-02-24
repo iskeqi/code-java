@@ -1,6 +1,8 @@
-package com.keqi.seed.core.response;
+package com.keqi.seed.web;
 
 import com.keqi.seed.core.pojo.CoreConstant;
+import com.keqi.seed.core.response.ResultEntity;
+import com.keqi.seed.core.response.ResultEntityBuilder;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;

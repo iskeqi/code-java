@@ -1,26 +1,31 @@
-package com.keqi.seed.sys.service.impl;
+package com.keqi.seed.web.interceptor;
 
 import cn.hutool.core.util.StrUtil;
-import com.keqi.seed.sys.pojo.Auth;
-import com.keqi.seed.sys.pojo.LoginUserBO;
 import com.keqi.seed.core.exception.NoAuthException;
 import com.keqi.seed.core.exception.OfflineException;
-import com.keqi.seed.core.interceptor.SecurityInterceptorService;
 import com.keqi.seed.core.pojo.CoreConstant;
 import com.keqi.seed.core.util.JsonUtil;
+import com.keqi.seed.sys.pojo.Auth;
+import com.keqi.seed.sys.pojo.LoginUserBO;
 import com.keqi.seed.sys.pojo.SysConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Service
-public class SecurityInterceptorServiceImpl implements SecurityInterceptorService {
+/**
+ * 安全拦截器(进行token的鉴权等)
+ *
+ * @author keqi
+ */
+@Component
+public class SecurityInterceptor implements HandlerInterceptor {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -69,5 +74,4 @@ public class SecurityInterceptorServiceImpl implements SecurityInterceptorServic
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         Auth.setLoginUserBO(null);
     }
-
 }
