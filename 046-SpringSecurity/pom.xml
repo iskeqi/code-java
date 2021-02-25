@@ -17,6 +17,8 @@
     <modules>
         <module>form-login</module>
         <module>form-login-3</module>
+        <module>form-login-4</module>
+        <module>form-login-jdbc</module>
     </modules>
 
 </project>
