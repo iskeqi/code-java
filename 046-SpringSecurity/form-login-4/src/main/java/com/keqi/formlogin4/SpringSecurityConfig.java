@@ -28,6 +28,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 满足此规则的请求需要有 admin 权限
                 .antMatchers("/admin/**").hasRole("admin")
+                // 建议把 hasRole 替换成 hasAuthority，controller中方法的注解也是一样(理解有误)
+                // 一个是角色，一个是权限，从使用的角度来说是不一样的，虽然他们最终是到同一个数组中找权限（实现相同）
+                // 一个是直接针对角色一个是直接针对权限
                 // 满足此规则的请求需要有 user 权限
                 .antMatchers("/user/**").hasRole("user")
                 // 其他请求只要通过登录认证即可
@@ -40,6 +43,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // 在实际开发中可能会用得上，比如上级默认就有下级拥有的所有权限
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
         // 这里的 ROLE_ 前缀，是 SpringSecurity 中默认会加上的前缀。谨记！！！
+        // 也就是说，使用 hasAuthority 更具有一致性，你不用考虑要不要加 ROLE_ 前缀，
+        // 数据库什么样这里就是什么样！而 hasRole 则不同，代码里如果写的是 admin，
+        // 框架会自动加上 ROLE_ 前缀，所以数据库就必须是 ROLE_admin。
         hierarchy.setHierarchy("ROLE_admin > ROLE_user");
         return hierarchy;
     }

@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 还有注销的各种各样的方式
                 .permitAll()
                 .and()
+                .addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
     }
 
