@@ -1,10 +1,5 @@
 package com.keqi.formlogin4;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 /**
  * @作者 江南一点雨
  * @微信公众号 江南一点雨
