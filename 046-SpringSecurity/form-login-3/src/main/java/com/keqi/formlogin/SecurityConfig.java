@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -74,6 +75,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**", "/css/**","/images/**");
     }
 
+    //注册自定义的UsernamePasswordAuthenticationFilter
+    @Bean
+    CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
+        CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(null/*new SuccessHandler()*/);
+        filter.setAuthenticationFailureHandler(null/*new FailureHandler()*/);
+        filter.setFilterProcessesUrl("/login.html");
+
+        //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -116,5 +130,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new MyAuthenticationEntryPoint())
                 .accessDeniedHandler(new MyAccessDeniedHandler());
+
+        //用重写的Filter替换掉原有的UsernamePasswordAuthenticationFilter
+        http.addFilterAt(customAuthenticationFilter(),
+                UsernamePasswordAuthenticationFilter.class);
     }
 }

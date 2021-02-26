@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,10 +21,38 @@ import java.util.Collection;
 @RestController
 @SpringBootApplication
 public class FormSessionApplication {
-
+    UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter;
+    WebExpressionVoter webExpressionVoter;
     public static void main(String[] args) {
         SpringApplication.run(FormSessionApplication.class, args);
     }
+
+    // SpringSecurity 执行原理：https://segmentfault.com/a/1190000021690783
+    // https://blog.csdn.net/u012702547/article/details/89629415
+
+    /*
+        SpringSecurity 中需要掌握的类
+
+            SecurityContext ：作为登录信息对象存储在 session 中,实现类是：SecurityContextImpl
+                Authentication:authentication 属性对象，真正存储登录用户信息的对象，典型实现类是：UsernamePasswordAuthenticationToken
+
+            UsernamePasswordAuthenticationToken ：存储登录用户信息的对象
+                UserDetails:principal 真正的用户信息对象，其中一个实现类就是 User (核心中的核心)
+
+
+        哪个过滤器负责获取 cookie 中的 JSESSIONID ，并找到对应的 session 对象，并通过 SecurityContextHolder 注入登录用户信息到当前线程对象中呢？
+            找到它，并重写它！！！！！！。这个过滤器就是：UsernamePasswordAuthenticationFilter
+                  该过滤器会把 username 和 password 封装成 UsernamePasswordAuthenticationToken，然后交给 AuthenticationManager（默认实现ProviderManager） ，有它去
+                  找到对应的 AuthenticationProvider（默认实现DaoAuthenticationProvider） 进行认证，并返回 Authentication（默认实现 User） 对象。
+            自定义 UsernamePasswordAuthenticationFilter 过滤器：
+                https://blog.csdn.net/qq_32063079/article/details/110630932
+                https://www.jianshu.com/p/693914564406 推荐
+
+
+        注销的逻辑又是哪个过滤器实现的呢？
+            找到它，并重写它 LogoutFilter
+     */
+
 
     @GetMapping("/test1")
     public String test1(HttpServletRequest request, @CookieValue("JSESSIONID") String JSESSIONID) {

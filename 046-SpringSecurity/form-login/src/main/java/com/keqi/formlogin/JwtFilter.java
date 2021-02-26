@@ -18,6 +18,8 @@ public class JwtFilter extends GenericFilterBean {
 
         // 无论是根据 jwt 来获取用户登陆信息，还是根据 token 从 redis 中获取用户信息，拿到之后通过SecurityContextHolder类进而通过ThreadLocal设置登陆信息到当前对象中
 
+        // 如果不满足，直接就在这个地方使用 response 对象输出响应信息到过滤器中
+
         // UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, null, authorities);
         // SecurityContextHolder.getContext().setAuthentication(token);
         filterChain.doFilter(req, servletResponse);
