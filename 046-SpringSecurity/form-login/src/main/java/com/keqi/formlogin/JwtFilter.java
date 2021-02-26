@@ -20,7 +20,7 @@ public class JwtFilter extends GenericFilterBean {
 
         // 如果不满足，直接就在这个地方使用 response 对象输出响应信息到过滤器中
 
-        // UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, null, authorities);
+        // UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("username", null, authorities);
         // SecurityContextHolder.getContext().setAuthentication(token);
         filterChain.doFilter(req, servletResponse);
     }
