@@ -19,6 +19,7 @@
         <module>form-login-3</module>
         <module>form-login-4</module>
         <module>form-login-jdbc</module>
+        <module>form-session</module>
     </modules>
 
 </project>
