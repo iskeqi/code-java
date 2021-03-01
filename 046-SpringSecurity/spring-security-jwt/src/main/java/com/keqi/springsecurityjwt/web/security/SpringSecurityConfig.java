@@ -49,10 +49,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      * 放行指定路径
      *
      * @param web web
-     * @throws Exception exception
      */
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/js/**", "/css/**", "/images/**");
     }
 
