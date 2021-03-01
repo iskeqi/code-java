@@ -31,6 +31,9 @@ public class PermissAspect {
 	//@PreAuthorize("hasAnyRole('a','b')")
 	//@PreAuthorize("hasRole('a')")
 
+	// @hasAnyRole @hasAnyAuthorize @hasRole @hasAuthorize
+	// 提供以上 4 个注解其实就完全能够满足针对于接口认证的权限需求了
+
 	@Autowired
 	private AccountMapper accountMapper;
 
