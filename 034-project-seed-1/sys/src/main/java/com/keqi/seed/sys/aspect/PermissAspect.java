@@ -23,6 +23,14 @@ import java.util.List;
 @Component
 public class PermissAspect {
 
+	// 核心之处就是支持以下几个注解
+	// 这个注解是支持使用 spel 表达式的
+	//@PreAuthorize("principal.username.equals('admin')")
+	// @PreAuthorize("hasAuthority('a')")
+	// @PreAuthorize("hasAnyAuthority('a','b')")
+	//@PreAuthorize("hasAnyRole('a','b')")
+	//@PreAuthorize("hasRole('a')")
+
 	@Autowired
 	private AccountMapper accountMapper;
 
