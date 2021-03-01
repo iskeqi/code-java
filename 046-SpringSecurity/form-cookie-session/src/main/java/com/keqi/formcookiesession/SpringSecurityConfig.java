@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.PrintWriter;
+
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -48,19 +50,34 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .successHandler((request, response, authentication) -> {
-                    // 认证成功
-                    System.out.println("successHandler");
+
+                    // 存储用户登录信息至 redis或者内存中的map或者生成jwt
+
+                    response.setContentType("application/json;charset=utf-8");
+                    PrintWriter out = response.getWriter();
+                    out.write("认证成功");
+                    out.flush();
+                    out.close();
                 })
                 .failureHandler((request, response, exception) -> {
-                    // 认证失败
-                    System.out.println("failureHandler");
+                    response.setContentType("application/json;charset=utf-8");
+                    PrintWriter out = response.getWriter();
+                    out.write("认证失败");
+                    out.flush();
+                    out.close();
                 })
                 .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessHandler((request, response, authentication) -> {
-                    // 注销成功
-                    System.out.println("logoutSuccessHandler");
+
+                    // 在 redis/内存Map 中删除用户登录信息
+
+                    response.setContentType("application/json;charset=utf-8");
+                    PrintWriter out = response.getWriter();
+                    out.write("注销成功");
+                    out.flush();
+                    out.close();
                 })
                 .permitAll()
                 .and()
