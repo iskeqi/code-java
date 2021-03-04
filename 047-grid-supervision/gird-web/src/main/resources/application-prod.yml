@@ -1,0 +1,32 @@
+# 生产环境
+
+# 配置数据源信息
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: Aliyun_rds_123456
+        url: jdbc:mysql://localhost:3306/034-project-seed-1?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: keqi
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
+
+# 开启 knife4j 增强功能
+knife4j:
+    enable: true
+    production: true
+
+# 配置日志文件
+logging:
+    file:
+        name: logs/app.log
+    level:
+        com:
+            keqi: info
+
+# 配置 MyBatis 日志和别名包
+mybatis-plus:
+    config-location:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

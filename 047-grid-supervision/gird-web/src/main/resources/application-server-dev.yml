@@ -1,0 +1,34 @@
+# 线上服务器开发联调测试环境（非生产、非纯测试环境）
+
+# 配置数据源信息(此处使用了 p6spy 插件统计 SQL 执行时间，仅用于开发阶段)
+spring:
+    datasource:
+        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+        password: Aliyun_rds_123456
+        url: jdbc:p6spy:mysql://localhost:3306/034-project-seed-1?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: keqi
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
+
+# 开启 knife4j 增强功能
+knife4j:
+    enable: true
+    setting:
+        enableSwaggerModels: false
+        # Ui界面不显示分组元素
+        enableGroup: false
+
+# 配置日志文件
+logging:
+    file:
+        name: logs/app.log
+    level:
+        com:
+            keqi: debug
+
+# 配置 MyBatis 日志和别名包
+mybatis-plus:
+    config-location:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
