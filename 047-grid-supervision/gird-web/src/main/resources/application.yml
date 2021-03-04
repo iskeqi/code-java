@@ -1,10 +1,41 @@
-# 公共环境配置可以放在此文件中
-spring:
-    profiles:
-        active: local-dev
-
-# 配置端口号和应用路径
 server:
     port: 21304
     servlet:
         context-path: /grid
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: Aliyun_rds_123456
+        url: jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/043-project-seed-2?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: keqi
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
+    redis:
+        url: redis://user:123456@120.25.26.123:6379
+
+knife4j:
+    enable: true
+    setting:
+        enableSwaggerModels: false
+        enableGroup: false
+
+logging:
+    file:
+        name: logs/app.log
+    level:
+        com:
+            keqi: debug
+
+mybatis:
+    config-location:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
