@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.grid.sys.mapper.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.grid.sys.domain.db.MenuDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_menu-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="icon" property="icon"/>
+        <result column="type" property="type"/>
+        <result column="permiss" property="permiss"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="order_num" property="orderNum"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, name, url, icon, type, permiss, parent_id, order_num
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name,
+            </if>
+            <if test="url != null and url != ''">
+                url,
+            </if>
+            <if test="icon != null and icon != ''">
+                icon,
+            </if>
+            <if test="type != null and type != ''">
+                type,
+            </if>
+            <if test="permiss != null and permiss != ''">
+                permiss,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="url != null and url != ''">
+                #{url},
+            </if>
+            <if test="icon != null and icon != ''">
+                #{icon},
+            </if>
+            <if test="type != null and type != ''">
+                #{type},
+            </if>
+            <if test="permiss != null and permiss != ''">
+                #{permiss},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertList">
+        insert into sys_menu(
+        <trim suffixOverrides=",">
+            name, url, icon, type, permiss, parent_id, order_num, 
+        </trim>
+        ) values
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            <trim suffixOverrides=",">
+                 #{element.name},  #{element.url},  #{element.icon},  #{element.type},  #{element.permiss},  #{element.parentId},  #{element.orderNum}, 
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateById">
+        update sys_menu
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="permiss != null and permiss != ''">
+                permiss = #{permiss},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="update">
+        update sys_menu
+        <set>
+            <if test="t.name != null and t.name != ''">
+                name = #{t.name},
+            </if>
+            <if test="t.url != null and t.url != ''">
+                url = #{t.url},
+            </if>
+            <if test="t.icon != null and t.icon != ''">
+                icon = #{t.icon},
+            </if>
+            <if test="t.type != null and t.type != ''">
+                type = #{t.type},
+            </if>
+            <if test="t.permiss != null and t.permiss != ''">
+                permiss = #{t.permiss},
+            </if>
+            <if test="t.parentId != null">
+                parent_id = #{t.parentId},
+            </if>
+            <if test="t.orderNum != null">
+                order_num = #{t.orderNum},
+            </if>
+        </set>
+        where
+        <trim prefixOverrides="and">
+            <if test="con.id != null">
+                and id = #{con.id}
+            </if>
+            <if test="con.name != null and con.name != ''">
+                and name = #{con.name}
+            </if>
+            <if test="con.url != null and con.url != ''">
+                and url = #{con.url}
+            </if>
+            <if test="con.icon != null and con.icon != ''">
+                and icon = #{con.icon}
+            </if>
+            <if test="con.type != null and con.type != ''">
+                and type = #{con.type}
+            </if>
+            <if test="con.permiss != null and con.permiss != ''">
+                and permiss = #{con.permiss}
+            </if>
+            <if test="con.parentId != null">
+                and parent_id = #{con.parentId}
+            </if>
+            <if test="con.orderNum != null">
+                and order_num = #{con.orderNum}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from sys_menu
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete
+        from sys_menu where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="delete">
+        delete
+        from sys_menu where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="permiss != null and permiss != ''">
+                and permiss = #{permiss}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="orderNum != null">
+                and order_num = #{orderNum}
+            </if>
+        </trim>
+    </delete>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where id = #{id}
+    </select>
+
+    <select id="find" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="permiss != null and permiss != ''">
+                and permiss = #{permiss}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="orderNum != null">
+                and order_num = #{orderNum}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="permiss != null and permiss != ''">
+                and permiss = #{permiss}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="orderNum != null">
+                and order_num = #{orderNum}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

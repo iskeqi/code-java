@@ -1,7 +1,5 @@
 package com.keqi.grid.core.pojo;
 
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.List;
 
 /**
@@ -11,10 +9,8 @@ import java.util.List;
  */
 public class PageVO<T> {
 
-	@ApiModelProperty(value = "记录总数", example = "1012")
 	private long total;
 
-	@ApiModelProperty(value = "记录列表")
 	private List<T> list;
 
 	public PageVO() {

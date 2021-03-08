@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.grid.sys.mapper.AccountMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.grid.sys.domain.db.AccountDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_account-->
+        <id column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="phone" property="phone"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="email" property="email"/>
+        <result column="note" property="note"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="file_name" property="fileName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, account, nick_name, phone, gender, birthday, email, note, password, salt, file_name, create_time, update_time, deleted
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">
+                account,
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="note != null and note != ''">
+                note,
+            </if>
+            <if test="password != null and password != ''">
+                password,
+            </if>
+            <if test="salt != null and salt != ''">
+                salt,
+            </if>
+            <if test="fileName != null and fileName != ''">
+                file_name,
+            </if>
+            create_time,
+            update_time,
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">
+                #{account},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                #{nickName},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone},
+            </if>
+            <if test="gender != null">
+                #{gender},
+            </if>
+            <if test="birthday != null">
+                #{birthday},
+            </if>
+            <if test="email != null and email != ''">
+                #{email},
+            </if>
+            <if test="note != null and note != ''">
+                #{note},
+            </if>
+            <if test="password != null and password != ''">
+                #{password},
+            </if>
+            <if test="salt != null and salt != ''">
+                #{salt},
+            </if>
+            <if test="fileName != null and fileName != ''">
+                #{fileName},
+            </if>
+            now(),
+            now(),
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertList">
+        insert into sys_account(
+        <trim suffixOverrides=",">
+            account, nick_name, phone, gender, birthday, email, note, password, salt, file_name, create_time, update_time, deleted, 
+        </trim>
+        ) values
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            <trim suffixOverrides=",">
+                 #{element.account},  #{element.nickName},  #{element.phone},  #{element.gender},  #{element.birthday},  #{element.email},  #{element.note},  #{element.password},  #{element.salt},  #{element.fileName}, now(), now(),  #{element.deleted}, 
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateById">
+        update sys_account
+        <set>
+            <if test="account != null and account != ''">
+                account = #{account},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="note != null and note != ''">
+                note = #{note},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt},
+            </if>
+            <if test="fileName != null and fileName != ''">
+                file_name = #{fileName},
+            </if>
+            update_time = now(),
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="update">
+        update sys_account
+        <set>
+            <if test="t.account != null and t.account != ''">
+                account = #{t.account},
+            </if>
+            <if test="t.nickName != null and t.nickName != ''">
+                nick_name = #{t.nickName},
+            </if>
+            <if test="t.phone != null and t.phone != ''">
+                phone = #{t.phone},
+            </if>
+            <if test="t.gender != null">
+                gender = #{t.gender},
+            </if>
+            <if test="t.birthday != null">
+                birthday = #{t.birthday},
+            </if>
+            <if test="t.email != null and t.email != ''">
+                email = #{t.email},
+            </if>
+            <if test="t.note != null and t.note != ''">
+                note = #{t.note},
+            </if>
+            <if test="t.password != null and t.password != ''">
+                password = #{t.password},
+            </if>
+            <if test="t.salt != null and t.salt != ''">
+                salt = #{t.salt},
+            </if>
+            <if test="t.fileName != null and t.fileName != ''">
+                file_name = #{t.fileName},
+            </if>
+            update_time = now(),
+            <if test="t.deleted != null">
+                deleted = #{t.deleted},
+            </if>
+        </set>
+        where
+        <trim prefixOverrides="and">
+            <if test="con.id != null">
+                and id = #{con.id}
+            </if>
+            <if test="con.account != null and con.account != ''">
+                and account = #{con.account}
+            </if>
+            <if test="con.nickName != null and con.nickName != ''">
+                and nick_name = #{con.nickName}
+            </if>
+            <if test="con.phone != null and con.phone != ''">
+                and phone = #{con.phone}
+            </if>
+            <if test="con.gender != null">
+                and gender = #{con.gender}
+            </if>
+            <if test="con.birthday != null">
+                and birthday = #{con.birthday}
+            </if>
+            <if test="con.email != null and con.email != ''">
+                and email = #{con.email}
+            </if>
+            <if test="con.note != null and con.note != ''">
+                and note = #{con.note}
+            </if>
+            <if test="con.password != null and con.password != ''">
+                and password = #{con.password}
+            </if>
+            <if test="con.salt != null and con.salt != ''">
+                and salt = #{con.salt}
+            </if>
+            <if test="con.fileName != null and con.fileName != ''">
+                and file_name = #{con.fileName}
+            </if>
+            <if test="con.createTime != null">
+                and create_time = #{con.createTime}
+            </if>
+            <if test="con.updateTime != null">
+                and update_time = #{con.updateTime}
+            </if>
+            <if test="con.deleted != null">
+                and deleted = #{con.deleted}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from sys_account
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete
+        from sys_account where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="delete">
+        delete
+        from sys_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="account != null and account != ''">
+                and account = #{account}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="note != null and note != ''">
+                and note = #{note}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="salt != null and salt != ''">
+                and salt = #{salt}
+            </if>
+            <if test="fileName != null and fileName != ''">
+                and file_name = #{fileName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleted != null">
+                and deleted = #{deleted}
+            </if>
+        </trim>
+    </delete>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account
+        where id = #{id}
+    </select>
+
+    <select id="find" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="account != null and account != ''">
+                and account = #{account}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="note != null and note != ''">
+                and note = #{note}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="salt != null and salt != ''">
+                and salt = #{salt}
+            </if>
+            <if test="fileName != null and fileName != ''">
+                and file_name = #{fileName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleted != null">
+                and deleted = #{deleted}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="account != null and account != ''">
+                and account = #{account}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="note != null and note != ''">
+                and note = #{note}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="salt != null and salt != ''">
+                and salt = #{salt}
+            </if>
+            <if test="fileName != null and fileName != ''">
+                and file_name = #{fileName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleted != null">
+                and deleted = #{deleted}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

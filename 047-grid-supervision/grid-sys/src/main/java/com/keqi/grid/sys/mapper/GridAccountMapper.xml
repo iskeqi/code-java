@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.grid.sys.mapper.GridAccountMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.grid.sys.domain.db.GridAccountDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_grid_account-->
+        <id column="id" property="id"/>
+        <result column="account_id" property="accountId"/>
+        <result column="grid_id" property="gridId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, account_id, grid_id
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_grid_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">
+                account_id,
+            </if>
+            <if test="gridId != null">
+                grid_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">
+                #{accountId},
+            </if>
+            <if test="gridId != null">
+                #{gridId},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertList">
+        insert into sys_grid_account(
+        <trim suffixOverrides=",">
+            account_id, grid_id, 
+        </trim>
+        ) values
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            <trim suffixOverrides=",">
+                 #{element.accountId},  #{element.gridId}, 
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateById">
+        update sys_grid_account
+        <set>
+            <if test="accountId != null">
+                account_id = #{accountId},
+            </if>
+            <if test="gridId != null">
+                grid_id = #{gridId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="update">
+        update sys_grid_account
+        <set>
+            <if test="t.accountId != null">
+                account_id = #{t.accountId},
+            </if>
+            <if test="t.gridId != null">
+                grid_id = #{t.gridId},
+            </if>
+        </set>
+        where
+        <trim prefixOverrides="and">
+            <if test="con.id != null">
+                and id = #{con.id}
+            </if>
+            <if test="con.accountId != null">
+                and account_id = #{con.accountId}
+            </if>
+            <if test="con.gridId != null">
+                and grid_id = #{con.gridId}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from sys_grid_account
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete
+        from sys_grid_account where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="delete">
+        delete
+        from sys_grid_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="gridId != null">
+                and grid_id = #{gridId}
+            </if>
+        </trim>
+    </delete>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_grid_account
+        where id = #{id}
+    </select>
+
+    <select id="find" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_grid_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="gridId != null">
+                and grid_id = #{gridId}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_grid_account where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_grid_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="gridId != null">
+                and grid_id = #{gridId}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

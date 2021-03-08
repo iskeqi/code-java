@@ -31,18 +31,20 @@ public class Generate {
         List<TemplateBO> list = new ArrayList<>();
 
         TemplateBO templateBO = new TemplateBO();
-        templateBO.setTableName("sys_dict_item"); // 表名
-        templateBO.setTableNameHump("DictItem"); // 去掉前缀转驼峰，并大写首字母
-        templateBO.setTableNameHumpLetter("dictItem"); // 去掉前缀转驼峰，并小写首字母
-        templateBO.setTableComment("字典"); // 表注释并去掉最后的"表"字
+        templateBO.setTableName("sys_grid_account"); // 表名
+        templateBO.setTableNameHump("GridAccount"); // 去掉前缀转驼峰，并大写首字母
+        templateBO.setTableNameHumpLetter("gridAccount"); // 去掉前缀转驼峰，并小写首字母
+        templateBO.setTableComment("网格-用户"); // 表注释并去掉最后的"表"字
         templateBO.setSubPackageName("sys"); // 所属子包名
         // 指定生成文件所在的目录
-        String rootPath = System.getProperty("user.dir");
-        templateBO.setPath(rootPath + "/src/main/java/com/keqi/grid/sys");
+        // String rootPath = System.getProperty("user.dir");
+        templateBO.setPath("E:\\KEQI\\code-java\\047-grid-supervision\\grid-sys\\src\\main\\java\\com\\keqi\\grid\\sys");
+        // controller 在 swagger 中的排序
+        // templateBO.setSort(8);
 
-        templateBO.setBasePackageName("com.keqi.seed");
+        templateBO.setBasePackageName("com.keqi.grid");
         templateBO.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        templateBO.setUrl("jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/043-project-seed-2?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
+        templateBO.setUrl("jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/047-grid-supervision?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
         templateBO.setUsername("keqi");
         templateBO.setPassword("Aliyun_rds_123456");
         list.add(templateBO);
@@ -122,7 +124,7 @@ public class Generate {
         Configuration configuration = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setDirectoryForTemplateLoading(new File(
-                ResourceUtils.getURL("classpath:").getPath() + "/ftl"));
+                ResourceUtils.getURL("E:\\KEQI\\code-java\\047-grid-supervision\\gird-generate\\src\\main\\resources").getPath() + "/ftl"));
 
         // xxxDO.java
         File doFile = new File(templateBO.getPath() + "/domain/db", templateBO.getTableNameHump() + "DO.java");
@@ -144,12 +146,30 @@ public class Generate {
         Template voTemplate = configuration.getTemplate("domain/vo/vo.ftl");
         voTemplate.process(obj, new FileWriter(voFile));
 
-
         // xxxPageParam.java
         File pageParamFile = new File(templateBO.getPath() + "/domain/param", templateBO.getTableNameHump() + "PageParam.java");
         Template pageParamTemplate = configuration.getTemplate("domain/param/pageParam.ftl");
         pageParamTemplate.process(obj, new FileWriter(pageParamFile));
 
+        // xxxParam.java
+        File paramFile = new File(templateBO.getPath() + "/domain/param", templateBO.getTableNameHump() + "Param.java");
+        Template paramTemplate = configuration.getTemplate("domain/param/param.ftl");
+        paramTemplate.process(obj, new FileWriter(paramFile));
+
+        // xxxControler.java
+        File controllerFile = new File(templateBO.getPath() + "/controller", templateBO.getTableNameHump() + "Controller.java");
+        Template controllerTemplate = configuration.getTemplate("controller/controller.ftl");
+        controllerTemplate.process(obj, new FileWriter(controllerFile));
+
+        // xxxService.java
+        File serviceFile = new File(templateBO.getPath() + "/service", templateBO.getTableNameHump() + "Service.java");
+        Template serviceTemplate = configuration.getTemplate("service/service.ftl");
+        serviceTemplate.process(obj, new FileWriter(serviceFile));
+
+        // xxxServiceImpl.java
+        File serviceImplFile = new File(templateBO.getPath() + "/service/impl", templateBO.getTableNameHump() + "ServiceImpl.java");
+        Template serviceImplTemplate = configuration.getTemplate("service/impl/serviceImpl.ftl");
+        serviceImplTemplate.process(obj, new FileWriter(serviceImplFile));
     }
 
     private static final Map<String, String> typeMap;

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.grid.sys.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.grid.sys.domain.db.RoleDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_role-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="permiss" property="permiss"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, name, permiss, create_time, update_time
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name,
+            </if>
+            <if test="permiss != null and permiss != ''">
+                permiss,
+            </if>
+            create_time,
+            update_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="permiss != null and permiss != ''">
+                #{permiss},
+            </if>
+            now(),
+            now(),
+        </trim>
+    </insert>
+
+    <insert id="insertList">
+        insert into sys_role(
+        <trim suffixOverrides=",">
+            name, permiss, create_time, update_time, 
+        </trim>
+        ) values
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            <trim suffixOverrides=",">
+                 #{element.name},  #{element.permiss}, now(), now(), 
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateById">
+        update sys_role
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="permiss != null and permiss != ''">
+                permiss = #{permiss},
+            </if>
+            update_time = now(),
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="update">
+        update sys_role
+        <set>
+            <if test="t.name != null and t.name != ''">
+                name = #{t.name},
+            </if>
+            <if test="t.permiss != null and t.permiss != ''">
+                permiss = #{t.permiss},
+            </if>
+            update_time = now(),
+        </set>
+        where
+        <trim prefixOverrides="and">
+            <if test="con.id != null">
+                and id = #{con.id}
+            </if>
+            <if test="con.name != null and con.name != ''">
+                and name = #{con.name}
+            </if>
+            <if test="con.permiss != null and con.permiss != ''">
+                and permiss = #{con.permiss}
+            </if>
+            <if test="con.createTime != null">
+                and create_time = #{con.createTime}
+            </if>
+            <if test="con.updateTime != null">
+                and update_time = #{con.updateTime}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from sys_role
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete
+        from sys_role where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="delete">
+        delete
+        from sys_role where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="permiss != null and permiss != ''">
+                and permiss = #{permiss}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </trim>
+    </delete>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        where id = #{id}
+    </select>
+
+    <select id="find" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="permiss != null and permiss != ''">
+                and permiss = #{permiss}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="permiss != null and permiss != ''">
+                and permiss = #{permiss}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </trim>
+    </select>
+
+</mapper>
