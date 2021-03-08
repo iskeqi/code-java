@@ -50,4 +50,10 @@ public class UploadFileDO {
 	 */
 	private LocalDateTime updateTime;
 
+	public UploadFileDO() {
+	}
+
+	public UploadFileDO(String name) {
+		this.name = name;
+	}
 }

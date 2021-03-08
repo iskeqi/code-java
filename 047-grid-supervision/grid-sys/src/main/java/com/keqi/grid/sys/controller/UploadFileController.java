@@ -1,37 +1,38 @@
 package com.keqi.grid.sys.controller;
 
-import com.keqi.grid.core.pojo.PageVO;
-import com.keqi.grid.sys.domain.param.UploadFilePageParam;
-import com.keqi.grid.sys.domain.param.UploadFileParam;
-import com.keqi.grid.sys.domain.vo.UploadFileVO;
 import com.keqi.grid.sys.service.UploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@RestController
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
+@Controller
 public class UploadFileController {
 
-	@Autowired
-	private UploadFileService uploadFileService;
+    @Autowired
+    private UploadFileService uploadFileService;
 
-	@PostMapping("/sys/uploadFile")
-	public void insert(@Validated @RequestBody UploadFileParam param) {
-		this.uploadFileService.insert(param);
-	}
+    @ResponseBody
+    @PostMapping("/sys/uploadFile")
+    public Map<String, String> upload(MultipartFile file) {
+        Map<String, String> r = new HashMap<>();
+        r.put("fileName", this.uploadFileService.upload(file));
+        return r;
+    }
 
-	@PutMapping("/sys/uploadFile")
-	public void updateById(@Validated @RequestBody UploadFileParam param) {
-		this.uploadFileService.updateById(param);
-	}
+    @GetMapping("/sys/uploadFile")
+    public void downloadByName(HttpServletRequest request, HttpServletResponse response, @RequestParam String fileName) throws Exception {
+        this.uploadFileService.downloadByName(request, response, fileName);
+    }
 
-	@DeleteMapping("/sys/uploadFile/{id}")
-	public void deleteById(@PathVariable Long id) {
-		this.uploadFileService.deleteById(id);
-	}
-
-	@PostMapping("/sys/uploadFile/page")
-	public PageVO<UploadFileVO> page(@RequestBody UploadFilePageParam param) {
-		return this.uploadFileService.page(param);
-	}
+    @ResponseBody
+    @DeleteMapping("/sys/uploadFile/{fileName}")
+    public void deleteByName(@PathVariable String fileName) {
+        this.uploadFileService.deleteByFileName(fileName);
+    }
 }

@@ -30,8 +30,8 @@ public class ${tableNameHump}Controller {
 		this.${tableNameHumpLetter}Service.deleteById(id);
 	}
 
-	@PostMapping("/sys/${tableNameHumpLetter}/page")
-	public PageVO<${tableNameHump}VO> page(@RequestBody ${tableNameHump}PageParam param) {
+	@GetMapping("/sys/${tableNameHumpLetter}/page")
+	public PageVO<${tableNameHump}VO> page(${tableNameHump}PageParam param) {
 		return this.${tableNameHumpLetter}Service.page(param);
 	}
 }

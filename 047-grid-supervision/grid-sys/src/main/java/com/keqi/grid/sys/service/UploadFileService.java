@@ -1,17 +1,16 @@
 package com.keqi.grid.sys.service;
 
-import com.keqi.grid.core.pojo.PageVO;
-import com.keqi.grid.sys.domain.param.UploadFilePageParam;
-import com.keqi.grid.sys.domain.param.UploadFileParam;
-import com.keqi.grid.sys.domain.vo.UploadFileVO;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public interface UploadFileService {
 
-	void insert(UploadFileParam param);
+	String upload(MultipartFile file);
 
-	void updateById(UploadFileParam param);
+	void deleteByFileName(String fileName);
 
-	void deleteById(Long id);
-
-	PageVO<UploadFileVO> page(UploadFilePageParam param);
+	void downloadByName(HttpServletRequest request, HttpServletResponse response, String fileName) throws IOException;
 }
