@@ -46,4 +46,8 @@ public class GridDO {
 	 */
 	private LocalDateTime updateTime;
 
+	/**
+	 * 组级列表
+	 */
+	private String ancestors;
 }

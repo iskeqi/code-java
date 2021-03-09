@@ -24,4 +24,15 @@ public class GridAccountDO {
 	 */
 	private Long gridId;
 
+	public GridAccountDO() {
+	}
+
+	public GridAccountDO(Long accountId) {
+		this.accountId = accountId;
+	}
+
+	public GridAccountDO(Long accountId, Long gridId) {
+		this.accountId = accountId;
+		this.gridId = gridId;
+	}
 }

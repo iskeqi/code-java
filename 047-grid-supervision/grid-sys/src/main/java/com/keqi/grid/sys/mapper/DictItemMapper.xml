@@ -241,4 +241,9 @@
         </trim>
     </select>
 
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dict_item
+    </select>
 </mapper>

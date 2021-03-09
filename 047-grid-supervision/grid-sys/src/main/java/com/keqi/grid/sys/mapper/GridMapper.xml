@@ -11,11 +11,12 @@
         <result column="parent_id" property="parentId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
+        <result column="ancestors" property="ancestors"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, name, area, order_num, parent_id, create_time, update_time
+        id, name, area, order_num, parent_id, create_time, update_time, ancestors
     </sql>
 
     <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
@@ -57,13 +58,13 @@
     <insert id="insertList">
         insert into sys_grid(
         <trim suffixOverrides=",">
-            name, area, order_num, parent_id, create_time, update_time, 
+            name, area, order_num, parent_id, create_time, update_time,
         </trim>
         ) values
         <foreach collection="list" item="element" index="index" separator=",">
             (
             <trim suffixOverrides=",">
-                 #{element.name},  #{element.area},  #{element.orderNum},  #{element.parentId}, now(), now(), 
+                #{element.name}, #{element.area}, #{element.orderNum}, #{element.parentId}, now(), now(),
             </trim>
             )
         </foreach>
@@ -248,4 +249,28 @@
         </trim>
     </select>
 
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_grid
+    </select>
+
+    <select id="findSubListByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_grid where
+        <foreach collection="gridIds" item="id" separator="or">
+            ancestors like concat('%,',#{id}, ',%')
+        </foreach>
+        union
+        select <include refid="Base_Column_List"/>
+        from sys_grid where id in
+        <foreach collection="gridIds" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="countByParentId" resultType="int">
+        select count(*) from sys_grid where parent_id = #{gridId}
+    </select>
 </mapper>

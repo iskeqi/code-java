@@ -31,10 +31,10 @@ public class Generate {
         List<TemplateBO> list = new ArrayList<>();
 
         TemplateBO templateBO = new TemplateBO();
-        templateBO.setTableName("sys_grid_account"); // 表名
-        templateBO.setTableNameHump("GridAccount"); // 去掉前缀转驼峰，并大写首字母
-        templateBO.setTableNameHumpLetter("gridAccount"); // 去掉前缀转驼峰，并小写首字母
-        templateBO.setTableComment("网格-用户"); // 表注释并去掉最后的"表"字
+        templateBO.setTableName("sys_login_account"); // 表名
+        templateBO.setTableNameHump("LoginAccount"); // 去掉前缀转驼峰，并大写首字母
+        templateBO.setTableNameHumpLetter("loginAccount"); // 去掉前缀转驼峰，并小写首字母
+        templateBO.setTableComment("登录用户"); // 表注释并去掉最后的"表"字
         templateBO.setSubPackageName("sys"); // 所属子包名
         // 指定生成文件所在的目录
         // String rootPath = System.getProperty("user.dir");

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.grid.sys.mapper.LoginAccountMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.grid.sys.domain.db.LoginAccountDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_login_account-->
+        <id column="id" property="id"/>
+        <result column="token" property="token"/>
+        <result column="account_id" property="accountId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, token, account_id, create_time
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_login_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="token != null and token != ''">
+                token,
+            </if>
+            <if test="accountId != null">
+                account_id,
+            </if>
+            create_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="token != null and token != ''">
+                #{token},
+            </if>
+            <if test="accountId != null">
+                #{accountId},
+            </if>
+            now(),
+        </trim>
+    </insert>
+
+    <insert id="insertList">
+        insert into sys_login_account(
+        <trim suffixOverrides=",">
+            token, account_id, create_time, 
+        </trim>
+        ) values
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            <trim suffixOverrides=",">
+                 #{element.token},  #{element.accountId}, now(), 
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateById">
+        update sys_login_account
+        <set>
+            <if test="token != null and token != ''">
+                token = #{token},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="update">
+        update sys_login_account
+        <set>
+            <if test="t.token != null and t.token != ''">
+                token = #{t.token},
+            </if>
+            <if test="t.accountId != null">
+                account_id = #{t.accountId},
+            </if>
+        </set>
+        where
+        <trim prefixOverrides="and">
+            <if test="con.id != null">
+                and id = #{con.id}
+            </if>
+            <if test="con.token != null and con.token != ''">
+                and token = #{con.token}
+            </if>
+            <if test="con.accountId != null">
+                and account_id = #{con.accountId}
+            </if>
+            <if test="con.createTime != null">
+                and create_time = #{con.createTime}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from sys_login_account
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        delete
+        from sys_login_account where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="delete">
+        delete
+        from sys_login_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="token != null and token != ''">
+                and token = #{token}
+            </if>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </trim>
+    </delete>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_login_account
+        where id = #{id}
+    </select>
+
+    <select id="find" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_login_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="token != null and token != ''">
+                and token = #{token}
+            </if>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_login_account where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_login_account where
+        <trim prefixOverrides="and">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="token != null and token != ''">
+                and token = #{token}
+            </if>
+            <if test="accountId != null">
+                and account_id = #{accountId}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

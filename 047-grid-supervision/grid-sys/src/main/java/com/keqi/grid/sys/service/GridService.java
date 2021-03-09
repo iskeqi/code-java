@@ -1,17 +1,20 @@
 package com.keqi.grid.sys.service;
 
-import com.keqi.grid.core.pojo.PageVO;
-import com.keqi.grid.sys.domain.param.GridPageParam;
-import com.keqi.grid.sys.domain.param.GridParam;
 import com.keqi.grid.sys.domain.vo.GridVO;
+
+import java.util.List;
 
 public interface GridService {
 
-	void insert(GridParam param);
+    List<GridVO> findTreeAll();
 
-	void updateById(GridParam param);
+    /**
+     * 查询指定用户本级及其子级的网格 id
+     *
+     * @param accountId
+     * @return
+     */
+    List<Long> findGridIdsByUserId(Long accountId);
 
-	void deleteById(Long id);
-
-	PageVO<GridVO> page(GridPageParam param);
+    boolean whetherTheBottomGrid(Long gridId);
 }

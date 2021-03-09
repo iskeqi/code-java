@@ -19,4 +19,11 @@ public class AccountRoleDO {
 	 */
 	private Long roleId;
 
+	public AccountRoleDO() {
+	}
+
+	public AccountRoleDO(Long accountId, Long roleId) {
+		this.accountId = accountId;
+		this.roleId = roleId;
+	}
 }

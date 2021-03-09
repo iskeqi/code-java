@@ -1,53 +1,65 @@
 package com.keqi.grid.sys.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageSerializable;
-import com.keqi.grid.core.pojo.PageVO;
+import com.keqi.grid.sys.domain.db.GridAccountDO;
 import com.keqi.grid.sys.domain.db.GridDO;
-import com.keqi.grid.sys.domain.param.GridPageParam;
-import com.keqi.grid.sys.domain.param.GridParam;
 import com.keqi.grid.sys.domain.vo.GridVO;
+import com.keqi.grid.sys.mapper.GridAccountMapper;
 import com.keqi.grid.sys.mapper.GridMapper;
 import com.keqi.grid.sys.service.GridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GridServiceImpl implements GridService {
 
-	@Autowired
-	private GridMapper gridMapper;
+    @Autowired
+    private GridMapper gridMapper;
+    @Autowired
+    private GridAccountMapper gridAccountMapper;
 
-	@Override
-	@Transactional
-	public void insert(GridParam param) {
-		GridDO t = BeanUtil.copyProperties(param, GridDO.class);
-		this.gridMapper.insert(t);
-	}
+    @Override
+    public List<GridVO> findTreeAll() {
+        List<GridDO> gridDOList = this.gridMapper.findAll();
+        List<GridVO> gridVOList = new ArrayList<>(gridDOList.size());
 
-	@Override
-	@Transactional
-	public void updateById(GridParam param) {
-		GridDO t = BeanUtil.copyProperties(param, GridDO.class);
-		this.gridMapper.updateById(t);
-	}
+        gridDOList.forEach(x -> gridVOList.add(new GridVO(x.getId(), x.getName(), x.getArea(), x.getOrderNum(), x.getParentId())));
+        return this.buildTree(gridVOList, 0);
+    }
 
-	@Override
-	@Transactional
-	public void deleteById(Long id) {
-		this.gridMapper.deleteById(id);
-	}
+    /**
+     * 查询指定用户本级及其子级的网格 id
+     *
+     * @param accountId
+     * @return
+     */
+    @Override
+    public List<Long> findGridIdsByUserId(Long accountId) {
+        List<GridAccountDO> list = this.gridAccountMapper.findList(new GridAccountDO(accountId));
+        List<Long> gridIds = list.stream().map(GridAccountDO::getGridId).collect(Collectors.toList());
 
-	@Override
-	public PageVO<GridVO> page(GridPageParam param) {
-		PageHelper.startPage(param.getPageNum(), param.getPageSize());
-		// List<GridVO> result = this.gridMapper.page(param);
+        List<GridDO> subList = this.gridMapper.findSubListByIds(gridIds);
+        return subList.stream().map(GridDO::getId).collect(Collectors.toList());
+    }
 
-		// return new PageVO<>(new PageSerializable<>(result).getTotal(), result);
-		return null;
-	}
+    @Override
+    public boolean whetherTheBottomGrid(Long gridId) {
+        return this.gridMapper.countByParentId(gridId) == 0;
+    }
+
+    private List<GridVO> buildTree(List<GridVO> gridVOList, long rootId) {
+        List<GridVO> r = new ArrayList<>();
+        for (GridVO t : gridVOList) {
+            if (t.getParentId() == rootId) {
+                t.setSubList(buildTree(gridVOList, t.getId()));
+                r.add(t);
+            }
+        }
+        r.sort(Comparator.comparing(GridVO::getOrderNum));
+        return r;
+    }
 }

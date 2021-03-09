@@ -3,7 +3,7 @@ package com.keqi.grid.sys.domain.vo;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class GridVO {
@@ -18,8 +18,16 @@ public class GridVO {
 
     private Long parentId;
 
-    private LocalDateTime createTime;
+    private List<GridVO> subList;
 
-    private LocalDateTime updateTime;
+    public GridVO() {
+    }
 
+    public GridVO(Long id, String name, BigDecimal area, Integer orderNum, Long parentId) {
+        this.id = id;
+        this.name = name;
+        this.area = area;
+        this.orderNum = orderNum;
+        this.parentId = parentId;
+    }
 }

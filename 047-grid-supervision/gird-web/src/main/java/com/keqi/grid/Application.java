@@ -1,4 +1,4 @@
-package com.keqi.grid.web;
+package com.keqi.grid;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

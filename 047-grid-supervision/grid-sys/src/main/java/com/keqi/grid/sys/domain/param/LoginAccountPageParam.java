@@ -6,5 +6,5 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class DictItemPageParam extends PageParam {
+public class LoginAccountPageParam extends PageParam {
 }

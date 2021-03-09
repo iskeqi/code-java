@@ -2,18 +2,19 @@ package com.keqi.grid.sys.domain.param;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class AccountParam {
 
     private Long id;
 
-    private String account;
-
+    @NotNull
     private String nickName;
 
+    @NotNull
     private String phone;
 
     private Integer gender;
@@ -24,12 +25,10 @@ public class AccountParam {
 
     private String note;
 
-    private String password;
-
-    private String salt;
-
     private String fileName;
 
-    private Integer deleted;
+    private List<Long> gridIds;
 
+    @NotNull
+    private Long roleId;
 }

@@ -14,6 +14,7 @@ spring:
             max-file-size: 100MB
             max-request-size: 120MB
 
+
 logging:
     file:
         name: logs/app.log
@@ -31,3 +32,5 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
 
+knife4j:
+    enable: true
