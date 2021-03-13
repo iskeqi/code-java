@@ -14,9 +14,9 @@ import java.util.List;
  * 批量推送给多个用户（官方的代码直接拷贝过来就能用啊）
  */
 public class PushList {
-	private static String appId = "2Dh5TCOEvB8nTHkOOhw046";
-	private static String appKey = "9L6Q7pWhnvAdNT9YMssYX4";
-	private static String masterSecret = "sJxVEDDtNR7p3Zars2tIf7";
+	private static String appId = "2Dh5TCOE3232vB8nTHkOOhw046";
+	private static String appKey = "9L6Q7p32WhnvAdNT9YMssYX4";
+	private static String masterSecret = "sJx23VEDDtNR7p3Zars2tIf7";
 	static String CID1 = "e64a08fc64d9727defff30b8d7c3113d";
 	static String CID2 = "4c19277058b37510b1bb6371e3cacee1";
 	static String host = "http://api.getui.com/apiex.htm";

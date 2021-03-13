@@ -17,9 +17,9 @@ import java.util.Map;
  */
 public class PushListUtil {
 
-    private static final String appId = "2Dh5TCOEvB8nTHkOOhw046";
-    private static final String appKey = "9L6Q7pWhnvAdNT9YMssYX4";
-    private static final String masterSecret = "sJxVEDDtNR7p3Zars2tIf7";
+    private static final String appId = "2Dh5TCOeqEvB8nTHkOOhw046";
+    private static final String appKey = "9L6Q7peqeWhnvAdNT9YMssYX4";
+    private static final String masterSecret = "sJxVEDDt43NR7p3Zars2tIf7";
     private static final String host = "http://api.getui.com/apiex.htm";
 
     /**

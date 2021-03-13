@@ -14,9 +14,9 @@ import com.gexin.rp.sdk.template.style.Style0;
  */
 public class PushtoSingle {
 	// 详见【概述】-【服务端接入步骤】-【STEP1】说明，获得的应用配置
-	private static String appId = "2Dh5TCOEvB8nTHkOOhw046";
-	private static String appKey = "9L6Q7pWhnvAdNT9YMssYX4";
-	private static String masterSecret = "sJxVEDDtNR7p3Zars2tIf7";
+	private static String appId = "2Dh5TCO3223EvB8nTHkOOhw046";
+	private static String appKey = "9L6Q7pWhn3232vAdNT9YMssYX4";
+	private static String masterSecret = "sJxVEDD32tNR7p3Zars2tIf7";
 
 	static String CID = "e64a08fc64d9727defff30b8d7c3113d";
 	// 别名推送方式

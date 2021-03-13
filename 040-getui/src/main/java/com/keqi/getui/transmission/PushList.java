@@ -11,9 +11,9 @@ import java.util.List;
 
 public class PushList {
     // 详见【概述】-【服务端接入步骤】-【STEP1】说明，获得的应用配置
-    private static String appId = "2Dh5TCOEvB8nTHkOOhw046";
-    private static String appKey = "9L6Q7pWhnvAdNT9YMssYX4";
-    private static String masterSecret = "sJxVEDDtNR7p3Zars2tIf7";
+    private static String appId = "2Dh5TCOEvB8nreTHkOOhw046";
+    private static String appKey = "9L6Q7pWhnvAdewNT9YMssYX4";
+    private static String masterSecret = "sJxVEwDDtNR7p3Zars2tIf7";
 
     static String CID1 = "2930119df12a5c611aa76455d1e91580";
     static String CID2 = "2930119df12a5c611aa76d55d1e91580";
