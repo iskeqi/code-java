@@ -15,6 +15,8 @@ public class SpringbootMvcStaticResourceApplication {
 
     @GetMapping("/index")
     public String index() {
+
+
         return "bbb";
     }
 

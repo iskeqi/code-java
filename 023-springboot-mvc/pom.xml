@@ -11,6 +11,7 @@
 
     <modules>
         <module>springboot-mvc-param</module>
+        <module>springboot-mvc-static-resource</module>
     </modules>
 
 </project>
