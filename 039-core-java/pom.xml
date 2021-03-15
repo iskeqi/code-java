@@ -13,6 +13,7 @@
         <module>inner-class</module>
         <module>reflect</module>
         <module>util</module>
+        <module>thread</module>
     </modules>
     <packaging>pom</packaging>
 
