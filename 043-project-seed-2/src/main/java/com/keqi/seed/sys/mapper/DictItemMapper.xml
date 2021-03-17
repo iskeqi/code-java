@@ -17,7 +17,36 @@
         id, type_code, type_name, item_code, item_name, order_num
     </sql>
 
-    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    <sql id="CommonWhere">
+        <trim prefixOverrides="and">
+            <if test="con.id != null">
+                and id = #{con.id}
+            </if>
+            <if test="con.typeCode != null and con.typeCode != ''">
+                and type_code = #{con.typeCode}
+            </if>
+            <if test="con.typeName != null and con.typeName != ''">
+                and type_name = #{con.typeName}
+            </if>
+            <if test="con.itemCode != null and con.itemCode != ''">
+                and item_code = #{con.itemCode}
+            </if>
+            <if test="con.itemName != null and con.itemName != ''">
+                and item_name = #{con.itemName}
+            </if>
+            <if test="con.orderNum != null">
+                and order_num = #{con.orderNum}
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="foreachIds">
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into sys_dict_item
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="typeCode != null and typeCode != ''">
@@ -55,7 +84,7 @@
         </trim>
     </insert>
 
-    <insert id="insertList">
+    <!--<insert id="insertList">
         insert into sys_dict_item(
         <trim suffixOverrides=",">
             type_code, type_name, item_code, item_name, order_num, 
@@ -68,9 +97,13 @@
             </trim>
             )
         </foreach>
-    </insert>
+    </insert>-->
 
-    <update id="updateById">
+    <!--<update id="updateById">
+        <include refid="update"/> where id = #{id}
+    </update>-->
+
+    <update id="update">
         update sys_dict_item
         <set>
             <if test="typeCode != null and typeCode != ''">
@@ -89,156 +122,35 @@
                 order_num = #{orderNum},
             </if>
         </set>
-        where id = #{id}
+        where <include refid="CommonWhere"/>
     </update>
 
-    <update id="update">
-        update sys_dict_item
-        <set>
-            <if test="t.typeCode != null and t.typeCode != ''">
-                type_code = #{t.typeCode},
-            </if>
-            <if test="t.typeName != null and t.typeName != ''">
-                type_name = #{t.typeName},
-            </if>
-            <if test="t.itemCode != null and t.itemCode != ''">
-                item_code = #{t.itemCode},
-            </if>
-            <if test="t.itemName != null and t.itemName != ''">
-                item_name = #{t.itemName},
-            </if>
-            <if test="t.orderNum != null">
-                order_num = #{t.orderNum},
-            </if>
-        </set>
-        where
-        <trim prefixOverrides="and">
-            <if test="con.id != null">
-                and id = #{con.id}
-            </if>
-            <if test="con.typeCode != null and con.typeCode != ''">
-                and type_code = #{con.typeCode}
-            </if>
-            <if test="con.typeName != null and con.typeName != ''">
-                and type_name = #{con.typeName}
-            </if>
-            <if test="con.itemCode != null and con.itemCode != ''">
-                and item_code = #{con.itemCode}
-            </if>
-            <if test="con.itemName != null and con.itemName != ''">
-                and item_name = #{con.itemName}
-            </if>
-            <if test="con.orderNum != null">
-                and order_num = #{con.orderNum}
-            </if>
-        </trim>
-    </update>
+    <!--<delete id="deleteById">
+        delete from sys_dict_item where id = #{id}
+    </delete>-->
 
-    <delete id="deleteById">
-        delete
-        from sys_dict_item
-        where id = #{id}
-    </delete>
-
-    <delete id="deleteByIds">
-        delete
-        from sys_dict_item where id in
-        <foreach item="item" collection="ids" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
+    <!--<delete id="deleteByIds">
+        delete from sys_dict_item where id in <include refid="foreachIds"/>
+    </delete>-->
 
     <delete id="delete">
-        delete
-        from sys_dict_item where
-        <trim prefixOverrides="and">
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="typeCode != null and typeCode != ''">
-                and type_code = #{typeCode}
-            </if>
-            <if test="typeName != null and typeName != ''">
-                and type_name = #{typeName}
-            </if>
-            <if test="itemCode != null and itemCode != ''">
-                and item_code = #{itemCode}
-            </if>
-            <if test="itemName != null and itemName != ''">
-                and item_name = #{itemName}
-            </if>
-            <if test="orderNum != null">
-                and order_num = #{orderNum}
-            </if>
-        </trim>
+        delete from sys_dict_item where <include refid="CommonWhere"/>
     </delete>
 
-    <select id="findById" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_dict_item
-        where id = #{id}
-    </select>
+    <!--<select id="findById" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_dict_item where id = #{id}
+    </select>-->
 
     <select id="find" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_dict_item where
-        <trim prefixOverrides="and">
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="typeCode != null and typeCode != ''">
-                and type_code = #{typeCode}
-            </if>
-            <if test="typeName != null and typeName != ''">
-                and type_name = #{typeName}
-            </if>
-            <if test="itemCode != null and itemCode != ''">
-                and item_code = #{itemCode}
-            </if>
-            <if test="itemName != null and itemName != ''">
-                and item_name = #{itemName}
-            </if>
-            <if test="orderNum != null">
-                and order_num = #{orderNum}
-            </if>
-        </trim>
+        select <include refid="Base_Column_List"/> from sys_dict_item where <include refid="CommonWhere"/>
     </select>
 
-    <select id="findByIds" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_dict_item where id in
-        <foreach item="item" collection="ids" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
+    <!--<select id="findByIds" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_dict_item where id in <include refid="foreachIds"/>
+    </select>-->
 
-    <select id="findList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_dict_item where
-        <trim prefixOverrides="and">
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="typeCode != null and typeCode != ''">
-                and type_code = #{typeCode}
-            </if>
-            <if test="typeName != null and typeName != ''">
-                and type_name = #{typeName}
-            </if>
-            <if test="itemCode != null and itemCode != ''">
-                and item_code = #{itemCode}
-            </if>
-            <if test="itemName != null and itemName != ''">
-                and item_name = #{itemName}
-            </if>
-            <if test="orderNum != null">
-                and order_num = #{orderNum}
-            </if>
-        </trim>
-    </select>
+    <!--<select id="findList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_dict_item where <include refid="CommonWhere"/>
+    </select>-->
 
 </mapper>

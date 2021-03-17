@@ -17,7 +17,7 @@
         <#list columnList as column>${column.columnName}<#sep>, </#list>
     </sql>
 
-    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
         <#list columnList as column>
