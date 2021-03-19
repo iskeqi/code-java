@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.dataxweb.mapper.TaskLogMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.dataxweb.domain.TaskLog">
+        <!--@mbg.generated-->
+        <!--@Table t_task_log-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="task_id" jdbcType="INTEGER" property="taskId"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="file_path" jdbcType="VARCHAR" property="filePath"/>
+        <result column="data_count" jdbcType="INTEGER" property="dataCount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, task_id, `status`, start_date, end_date, create_date, create_user_id, file_path, data_count
+    </sql>
+</mapper>
