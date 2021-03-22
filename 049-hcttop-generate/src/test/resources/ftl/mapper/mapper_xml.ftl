@@ -55,7 +55,7 @@
         </trim>
     </insert>
 
-    <insert id="insertList">
+    <insert id="batchInsert">
         insert into ${tableName}(
         <trim suffixOverrides=",">
             <#list columnList as column><#if column.columnNameHumpLetter == 'createDate'>create_date, <#elseif column.columnNameHumpLetter == 'updateDate'>update_date, <#elseif column.columnNameHumpLetter != 'id'>${column.columnName}, </#if></#list>
@@ -103,7 +103,7 @@
         where id = ${r'#'}{id}
     </select>
 
-    <select id="findList" resultMap="BaseResultMap">
+    <select id="find" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from ${tableName} where
