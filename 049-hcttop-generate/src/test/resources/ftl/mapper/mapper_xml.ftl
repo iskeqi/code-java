@@ -122,12 +122,12 @@
         </trim>
     </select>
 
-    <select id="pageQueryCount" resultMap="BaseResultMap">
+    <select id="pageQueryCount">
         select count(*)
         from ${tableName}
     </select>
 
-    <select id="pageQuery" resultMap="BaseResultMap">
+    <select id="pageQuery" resultType="${basePackageName}.${subPackageName}.entity.${tableNameHump}Dto">
         select
         <include refid="Base_Column_List"/>
         from ${tableName}

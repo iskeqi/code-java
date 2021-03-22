@@ -23,10 +23,8 @@ import java.util.Map;
 public class ${tableNameHump} {
 
 <#list columnList as column>
-	/**
-	 * ${column.columnComment}
-	 */
-	@ApiModelProperty(value = "id", example = "1", required = true)
+
+	@ApiModelProperty(value = "${column.columnComment}", example = "1", required = true)
 	private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
 </#list>
