@@ -34,24 +34,24 @@ public class Generate {
         List<TemplateBO> list = new ArrayList<>();
 
         TemplateBO templateBO = new TemplateBO();
-        templateBO.setTableName("sys_dict_item"); // 表名
-        templateBO.setTableNameHump("DictItem"); // 去掉前缀转驼峰，并大写首字母
-        templateBO.setTableNameHumpLetter("dictItem"); // 去掉前缀转驼峰，并小写首字母
-        templateBO.setTableComment("字典"); // 表注释并去掉最后的"表"字
-        templateBO.setSubPackageName("hcttopgenerate"); // 所属子包名
+        templateBO.setTableName("t_task"); // 表名
+        templateBO.setTableNameHump("Task"); // 去掉前缀转驼峰，并大写首字母
+        templateBO.setTableNameHumpLetter("task"); // 去掉前缀转驼峰，并小写首字母
+        templateBO.setTableComment("任务"); // 表注释并去掉最后的"表"字
+        templateBO.setSubPackageName("data"); // 所属子包名
         // 指定生成文件所在的目录
         // String rootPath = System.getProperty("user.dir");
-        templateBO.setPath("E:\\KEQI\\code-java\\049-hcttop-generate\\src\\main\\java\\com\\keqi\\hcttopgenerate");
+        templateBO.setPath("D:\\hcttop\\data-exchange\\src\\main\\java\\com\\hcttop\\data");
 
         // 设置是否需要 controller 和 service
         // 2 则需要， 其他值不需要
-        templateBO.setType(2);
+        templateBO.setType(1);
 
-        templateBO.setBasePackageName("com.keqi");
+        templateBO.setBasePackageName("com.hcttop");
         templateBO.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        templateBO.setUrl("jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/043-project-seed-2?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true");
-        templateBO.setUsername("keqi");
-        templateBO.setPassword("Aliyun_rds_123456");
+        templateBO.setUrl("jdbc:mysql://10.10.20.200:3306/data_exchange_dev?");
+        templateBO.setUsername("data_exchange_dev");
+        templateBO.setPassword("Hcttop.8888");
         list.add(templateBO);
 
         for (TemplateBO t : list) {
