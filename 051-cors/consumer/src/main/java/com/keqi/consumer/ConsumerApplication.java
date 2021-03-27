@@ -34,6 +34,10 @@ public class ConsumerApplication {
 		// options探测请求 ，检测后台服务器是否支持（有没有在响应头中加 Access-Control-Allow-Origin），如果不支持，就直接报错！！！
 
 
+		// 服务端允许跨域请求，是不是后台就不安全了呢？？？就没法避免 csrf 攻击了呢？并不是的
+		// 因为本来服务端就没有限制只能同源下的客户端请求后台，服务端解决安全问题，靠的就不是这个思路！
+		// 服务端所谓的解决跨域问题，其实只是在响应头中多加一个 header 而已，告诉浏览器不需要你的好心，我自由办法！！其它啥也没干！！！
+
 		String uri = "http://localhost:8080/hello";
 		ResponseEntity<Map> exchange = restTemplate.exchange(uri, HttpMethod.GET, null, Map.class);
 		return exchange.getBody();
