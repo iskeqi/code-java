@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" onclick="btnClick()" value="get_button">
+<input type="button" onclick="btnClick2()" value="post_button">
+</body>
+
+<script>
+
+
+    function btnClick() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onload = function () {
+            // 输出接收到的文字数据
+            document.getElementById("demo").innerHTML=xhr.responseText;
+        }
+
+        xhr.onerror = function () {
+            document.getElementById("demo").innerHTML="请求出错";
+        }
+
+        // 发送异步 GET 请求
+        xhr.open("GET", "http://localhost:8080/hello", true);
+        xhr.send();
+    }
+
+    function btnClick2() {
+        $.post('http://localhost:8080/hello', function (msg) {
+            console.log(msg);
+        });
+    }
+</script>
+</html>
