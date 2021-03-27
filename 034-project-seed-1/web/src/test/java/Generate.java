@@ -1,5 +1,7 @@
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keqi.seed.core.util.JsonUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,13 @@ import java.util.Map;
  * @author keqi
  */
 public class Generate {
+
+	@Test
+	public void test1() throws Exception {
+		TemplateBO templateBO = new TemplateBO();
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.writeValue(new File("D:\\hcttop\\job.json"), templateBO);
+	}
 
 	@Test
 	public void test() throws Exception {
