@@ -36,6 +36,7 @@ public class DemoWebSocketHandler extends TextWebSocketHandler {
             String payload = textMessage.getPayload();
             if ("PING".equals(payload)) {
                 // 用于心跳，防止长时间未操作，就断线了
+                session.sendMessage(new TextMessage("PONG"));
                 return;
             }
             // 如果非要通过这种方式，进行请求/应答机制，那么就就使用IOC容器来根据msgCode获取到对应的Handle来处理消息(仍然不建议)
@@ -47,12 +48,14 @@ public class DemoWebSocketHandler extends TextWebSocketHandler {
 
     @Override // 对应 close 事件
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        // 如果客户端主动断开连接，那么就会触发这个方法
         log.info("[afterConnectionClosed][session({}) 连接关闭。关闭原因是({})}]", session, status);
         WebSocketUtil.removeSession(session);
     }
 
     @Override // 对应 error 事件
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        // 发生 error 事件，就会触发这个方法
         log.info("[handleTransportError][session({}) 发生异常]", session, exception);
     }
 
