@@ -27,6 +27,12 @@ public class DemoWebSocketHandler extends TextWebSocketHandler {
         log.info("[afterConnectionEstablished][session({}) 接入]", session);
         // 解析 accessToken （这里直接使用token作为用户信息，如果需要存储用户的其他信息，就需要稍微修改一下session和用户信心的关联方式，比如用3个map存储）
         String accessToken = (String) session.getAttributes().get("accessToken");
+
+        // WebSocketSession 对象有一个 Map<String, Object> getAttributes() 方法，能够用来存储数据，一般会用来存储一些和这个 session 对象直接相关的信息
+        // 只能通过 HandshakeInterceptor 接口的 boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
+        //			WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception; 方法的 attributes 参数来进行设置
+
+
         WebSocketUtil.addSession(session, accessToken);
     }
 
