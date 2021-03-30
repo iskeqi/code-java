@@ -21,6 +21,8 @@ public class DemoWebSocketHandler extends TextWebSocketHandler {
 
     @Override // 对应 open 事件
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        // 无需自己管理 session 超时时间，Spring封装的类库已经帮你做好了，你只要在使用的时候，调用 isOpen() 方法判断连接是否还在就行
+
         log.info("{open}本次操作线程名称：{}，本次操作线程ID：{}", Thread.currentThread().getName(), Thread.currentThread().getId());
         log.info("[afterConnectionEstablished][session({}) 接入]", session);
         // 解析 accessToken （这里直接使用token作为用户信息，如果需要存储用户的其他信息，就需要稍微修改一下session和用户信心的关联方式，比如用3个map存储）
