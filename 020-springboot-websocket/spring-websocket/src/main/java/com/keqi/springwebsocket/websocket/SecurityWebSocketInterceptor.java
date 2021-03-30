@@ -47,6 +47,8 @@ public class SecurityWebSocketInterceptor extends HttpSessionHandshakeIntercepto
 
             // 所以到底需不需要在此处进行鉴权，就要看你整个项目中是使用的拦截器进行鉴权还是过滤器进行鉴权了哦。
             // SpringSecurity 进行鉴权时，好像采用的就是 Filter 哦
+
+            // 先经过过滤器，再经过这里！！
             log.info("这里鉴权不通过，直接就结束了");
             return false;
         }
