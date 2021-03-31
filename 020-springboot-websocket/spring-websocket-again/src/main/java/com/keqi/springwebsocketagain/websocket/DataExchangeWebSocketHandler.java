@@ -46,7 +46,9 @@ public class DataExchangeWebSocketHandler extends TextWebSocketHandler {
 			WebSocketMessageEntity webSocketMessageEntity = JsonUtil.readValue(textMessage.getPayload(), WebSocketMessageEntity.class);
 			// 处理心跳
 			if ("heartbeat".equals(webSocketMessageEntity.getPage())) {
-				WebSocketUtil.send(webSocketSession.getId(), webSocketMessageEntity);
+				if (webSocketSession.isOpen()) {
+					webSocketSession.sendMessage(new TextMessage(JsonUtil.writeValueAsString(webSocketMessageEntity)));
+				}
 			}
 
 			// 设置当前连接处于哪个页面
