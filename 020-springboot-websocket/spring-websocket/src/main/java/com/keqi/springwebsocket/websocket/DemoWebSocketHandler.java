@@ -38,6 +38,10 @@ public class DemoWebSocketHandler extends TextWebSocketHandler {
 
     @Override // 对应 message 事件
     public void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws Exception {
+        // 通过打印出的日志可见，其实 Tomcat 容器已经为你建立了一个处理 websocket 消息的线程池，而且用的就是 HTTP 的线程池，他们是共用的一个线程池！！！
+        // 你只需要负责编写无状态的的代码就行，根本就不需要关心线程池的问题，因为人家已经帮你做好了
+        // 处理 websocket 消息的逻辑和你编写一个controller接口的逻辑是一模一样的，不带任何状态就对了！！！
+        // 根本就没啥区别呀，明白了吗？！！！
         log.info("{message}本次操作线程名称：{}，本次操作线程ID：{}", Thread.currentThread().getName(), Thread.currentThread().getId());
         log.info("[handleMessage][session({}) 接收到一条消息({})]", session, textMessage); // 生产环境下，请设置成 debug 级别
         try {
