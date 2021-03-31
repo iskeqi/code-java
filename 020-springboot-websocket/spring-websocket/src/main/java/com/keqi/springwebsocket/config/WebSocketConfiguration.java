@@ -19,7 +19,9 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(demoWebSocketHandler, "/") // 配置处理器
+        registry.addHandler(demoWebSocketHandler, "/ws/")
+                // 配置处理器，这里的路径就是 websocket 连接地址后面跟着的路径，当然是跟在 context-path 后面啦
+                // 比如：ws://localhost:8080/springwebsocket/ws/?accessToken=123
                 .addInterceptors(securityWebSocketInterceptor) // 配置拦截器
                 .setAllowedOrigins("*"); // 解决跨域问题
     }
