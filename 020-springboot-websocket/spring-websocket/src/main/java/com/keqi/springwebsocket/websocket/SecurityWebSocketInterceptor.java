@@ -35,7 +35,7 @@ public class SecurityWebSocketInterceptor extends HttpSessionHandshakeIntercepto
             accessToken = "accessToken";
         }
         attributes.put("accessToken", accessToken); // 通过这个对象设置的属性，实际上就会被设置到代表当前这个连接的的 WebSocketSession 对象的 attributes 属性中
-        // 而且只有这种方式可以进行设置，直接通过 WebSocketSession 对象都不能设置此值
+        // 而且只有这种方式可以进行设置，直接通过 WebSocketSession 对象都不能设置此值! 这真的是个遗憾！
 
         // 可见，只有在 WebSocket 握手阶段，才会调用此方法，发送消息时，是不会经过此方法的
         log.info("{拦截器}本次操作线程名称：{}，本次操作线程ID：{}", Thread.currentThread().getName(), Thread.currentThread().getId());

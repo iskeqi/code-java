@@ -47,6 +47,9 @@ public class WebSocketSession {
 		} catch (IOException e) {
 			log.error("websocket IO异常");
 		}
+
+		// 这个 Session 对象本身能够设置值吗？
+
 	}
 
 	/**
