@@ -15,5 +15,5 @@ public interface WebSocketMessageHandler {
 	 * @param param 请求参数
 	 * @return r 响应参数
 	 */
-	Map<String, Object> execute(Map<String, Object> param);
+	Map<String, Object> execute(String webSocketSessionId, Map<String, Object> param);
 }

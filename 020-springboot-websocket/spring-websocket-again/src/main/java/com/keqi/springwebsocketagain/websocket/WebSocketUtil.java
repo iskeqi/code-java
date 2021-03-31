@@ -34,6 +34,11 @@ public class WebSocketUtil {
 	static final Map<WebSocketSession, String> SESSION_INFO_MAP = new ConcurrentHashMap<>();
 
 	/**
+	 * 用户存储 WebSocketSession 及其 id 的关联关系，避免将 WebSocketSession 对象传递到其它位置
+	 */
+	private static final Map<String, WebSocketSession> SESSION_ID_MAP = new ConcurrentHashMap<>();
+
+	/**
 	 * 给所有客户端推送消息
 	 *
 	 * @param webSocketMessageEntity
@@ -49,11 +54,14 @@ public class WebSocketUtil {
 	/**
 	 * 给指定的连接推送消息
 	 *
-	 * @param webSocketSession       webSocketSession
-	 * @param webSocketMessageEntity webSocketMessageEntity
+	 * @param webSocketSessionId
+	 * @param webSocketMessageEntity
 	 */
-	public static void send(WebSocketSession webSocketSession, WebSocketMessageEntity webSocketMessageEntity) {
-		sendTextMessage(webSocketSession, webSocketMessageEntity);
+	public static void send(String webSocketSessionId, WebSocketMessageEntity webSocketMessageEntity) {
+		WebSocketSession webSocketSession = SESSION_ID_MAP.get(webSocketSessionId);
+		if (Objects.nonNull(webSocketSession)) {
+			sendTextMessage(webSocketSession, webSocketMessageEntity);
+		}
 	}
 
 	/**
@@ -69,6 +77,7 @@ public class WebSocketUtil {
 		}
 		list.add(webSocketSession);
 		USER_SESSION_MAP.put(userId, list);
+		SESSION_ID_MAP.put(webSocketSession.getId(), webSocketSession);
 	}
 
 	/**
@@ -82,6 +91,8 @@ public class WebSocketUtil {
 		if (!CollectionUtils.isEmpty(list)) {
 			list.remove(webSocketSession);
 		}
+		SESSION_ID_MAP.remove(webSocketSession.getId());
+		SESSION_INFO_MAP.remove(webSocketSession);
 	}
 
 	private static void sendTextMessage(WebSocketSession webSocketSession, WebSocketMessageEntity webSocketMessageEntity) {

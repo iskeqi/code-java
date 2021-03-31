@@ -50,8 +50,8 @@ public class DataExchangeWebSocketHandler extends TextWebSocketHandler {
 			WebSocketMessageHandler webSocketMessageHandler = webSocketMessageHandlerMap.get("webSocketMessageHandler_"
 					+ webSocketMessageEntity.getPage() + "_" + webSocketMessageEntity.getType());
 			if (Objects.nonNull(webSocketMessageHandler)) {
-				webSocketMessageEntity.setData(webSocketMessageHandler.execute(webSocketMessageEntity.getData()));
-				WebSocketUtil.send(webSocketSession, webSocketMessageEntity);
+				webSocketMessageEntity.setData(webSocketMessageHandler.execute(webSocketSession.getId(), webSocketMessageEntity.getData()));
+				WebSocketUtil.send(webSocketSession.getId(), webSocketMessageEntity);
 			}
 		} catch (Throwable throwable) {
 			log.info(throwable.getMessage(), throwable);

@@ -14,7 +14,7 @@ import java.util.Map;
 public class TaskInTransit implements WebSocketMessageHandler {
 
 	@Override
-	public Map<String, Object> execute(Map<String, Object> param) {
+	public Map<String, Object> execute(String webSocketSessionId, Map<String, Object> param) {
 		// 执行对应的请求-应答机制
 		return param;
 	}
