@@ -61,6 +61,13 @@ class MybatisPlusAgainApplicationTests {
 		// 测试逻辑删除
 		Long id = 1377814206023647234L;
 		Account account = accountMapper.selectById(id);
+		String jsonStr = account.getJsonStr();
+		// 可见 MySQL 中的 json 类型，在 Java 代码里面是可以直接用字符串 String 去接收的
+		// 根本就不需要浪费时间去做什么类型转换器，直接使用 String 就行，然后手动的进行对象和字符串之间的转换即可
+
+		System.out.println(jsonStr);
+
+
 		System.out.println(account.getId());
 	}
 
