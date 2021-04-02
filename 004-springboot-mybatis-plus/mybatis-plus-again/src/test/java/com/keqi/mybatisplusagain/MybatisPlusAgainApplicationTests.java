@@ -1,12 +1,16 @@
 package com.keqi.mybatisplusagain;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keqi.mybatisplusagain.domain.Account;
 import com.keqi.mybatisplusagain.domain.PageParam;
 import com.keqi.mybatisplusagain.mapper.AccountMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Map;
 
 @SpringBootTest
 class MybatisPlusAgainApplicationTests {
@@ -57,15 +61,31 @@ class MybatisPlusAgainApplicationTests {
 	}
 
 	@Test
-	void contextLoads4() {
+	void contextLoads4() throws JsonProcessingException {
 		// 测试逻辑删除
 		Long id = 1377814206023647234L;
 		Account account = accountMapper.selectById(id);
-		String jsonStr = account.getJsonStr();
+		// String jsonStr = account.getJsonStr();
 		// 可见 MySQL 中的 json 类型，在 Java 代码里面是可以直接用字符串 String 去接收的
 		// 根本就不需要浪费时间去做什么类型转换器，直接使用 String 就行，然后手动的进行对象和字符串之间的转换即可
 
+		// 可见 MySQL 中的 json 类型，在 Java 代码里面直接用 Map<String, Object> 去接收，是不支持的
+		// Map<String, Object> jsonStr = account.getJsonStr();
+
+		// 可见 MySQL 中的 json 类型，在 Java 代码里面直接用 Object 去接收是支持的，因为本质上它就是一个字符串
+		Object jsonStr = account.getJsonStr();
+		String s = (String) jsonStr; // 这里能够直接进行强制类型转换，就是最好的证明！！！
+		System.out.println(s);
 		System.out.println(jsonStr);
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map map = objectMapper.readValue(s, Map.class);
+		// 利用 jackson 把 json 字符串转换成 Map 对象
+
+		// 以后针对于 MySQL 中的 json 类型，就这么干，这种方式简单又方便
+		// 直接使用 Object 类型对应数据库中的 json 类型，而不用 String 是因为，响应 JSON 数据给客户端时，避免字符串的转义
+
+		System.out.println(map);
 
 
 		System.out.println(account.getId());

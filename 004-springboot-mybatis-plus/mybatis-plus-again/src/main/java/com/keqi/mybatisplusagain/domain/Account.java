@@ -79,5 +79,5 @@ public class Account {
 	private Integer deleted;
 
 	@TableField(value = "json_str")
-	private String jsonStr;
+	private Object jsonStr;
 }
