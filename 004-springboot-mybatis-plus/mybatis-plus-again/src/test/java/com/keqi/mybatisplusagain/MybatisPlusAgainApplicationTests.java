@@ -2,7 +2,6 @@ package com.keqi.mybatisplusagain;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keqi.mybatisplusagain.domain.Account;
 import com.keqi.mybatisplusagain.domain.PageParam;
 import com.keqi.mybatisplusagain.mapper.AccountMapper;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
@@ -24,6 +24,11 @@ class MybatisPlusAgainApplicationTests {
 		account.setAccount("keqi");
 		account.setPassword("123456");
 		account.setNickName("测试 IdType.ASSIGN_ID 类型的主键");
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("account", account.getAccount());
+		map.put("password", account.getPassword());
+		account.setJsonStr(map);
 
 		System.out.println("测试一下这个主键是在创建对象的时候生成的还是执行了 insert 后才生成的：" + account.getId());
 		// 果然是执行了 SQL 之后才生成的，其实这才是合理的，创建对象的时候生成反而是错误的，毕竟创建对象又不是一定要插入到数据库中
@@ -73,18 +78,21 @@ class MybatisPlusAgainApplicationTests {
 		// Map<String, Object> jsonStr = account.getJsonStr();
 
 		// 可见 MySQL 中的 json 类型，在 Java 代码里面直接用 Object 去接收是支持的，因为本质上它就是一个字符串
-		Object jsonStr = account.getJsonStr();
-		String s = (String) jsonStr; // 这里能够直接进行强制类型转换，就是最好的证明！！！
-		System.out.println(s);
-		System.out.println(jsonStr);
+		//Object jsonStr = account.getJsonStr();
+		//String s = (String) jsonStr; // 这里能够直接进行强制类型转换，就是最好的证明！！！
+		//System.out.println(s);
+		//System.out.println(jsonStr);
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		Map map = objectMapper.readValue(s, Map.class);
+		//ObjectMapper objectMapper = new ObjectMapper();
+		//Map map = objectMapper.readValue(s, Map.class);
 		// 利用 jackson 把 json 字符串转换成 Map 对象
 
 		// 以后针对于 MySQL 中的 json 类型，就这么干，这种方式简单又方便
 		// 直接使用 Object 类型对应数据库中的 json 类型，而不用 String 是因为，响应 JSON 数据给客户端时，避免字符串的转义
 
+		// 也可以直接使用 Map<String, Object> ,但是需要搭配MP内置的 JacksonTypeHandler 来使用，其实没有必要自己单独写，
+		// 因为它已经写过了
+		Map<String, Object> map = account.getJsonStr();
 		System.out.println(map);
 
 
@@ -98,10 +106,12 @@ class MybatisPlusAgainApplicationTests {
 			2、逻辑删除（推荐）
 			3、SQL 打印分析（推荐）
 			4、分页插件（必做）
-			5、主键生成策略，最好使用雪花算法{IdType.ASSIGN_ID}，而不是数据库自增id
+			5、主键生成策略（必做），最好使用雪花算法{IdType.ASSIGN_ID}，而不是数据库自增id
+			6、类型转换器（推荐），尤其是内置的 JacksonTypeHandler 类型转换器，
+				完美解决内存中 Map<String, Object> 和 MySQL 中 json 类型之间的转换。根本无需自己编写一个自定义的类型转换器
 
-			6、通用枚举、字段类型处理器（不推荐，并没有必要去使用）
-			7、数据安全保护（不推荐，没必要这么干）
+			7、通用枚举（不推荐，并没有必要去使用）
+			8、数据安全保护（不推荐，没必要这么干）
 
 
 

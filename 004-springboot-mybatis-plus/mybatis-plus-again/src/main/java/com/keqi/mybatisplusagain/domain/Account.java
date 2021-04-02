@@ -5,15 +5,17 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * 用户表
  */
 @Data
-@TableName(value = "sys_account")
+@TableName(value = "sys_account", autoResultMap = true)
 public class Account {
 
 	/**
@@ -78,6 +80,6 @@ public class Account {
 	@TableField(value = "deleted")
 	private Integer deleted;
 
-	@TableField(value = "json_str")
-	private Object jsonStr;
+	@TableField(value = "json_str", typeHandler = JacksonTypeHandler.class)
+	private Map<String, Object> jsonStr;
 }
