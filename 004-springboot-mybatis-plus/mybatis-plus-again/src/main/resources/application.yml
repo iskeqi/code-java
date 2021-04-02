@@ -4,3 +4,19 @@ spring:
     password: Aliyun_rds_123456
     url: jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/mybatis-plus?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
     username: keqi
+
+mybatis-plus:
+  config-location:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以无需在实体类上加 @TableLogic 注解)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+logging:
+  file:
+    name: logs/app.log
+  level:
+    com:
+      keqi: debug
