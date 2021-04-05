@@ -13,6 +13,7 @@
         <module>springboot-mybatisplus-mysql</module>
         <module>springboot-mybatisplus-mysql-p6spy</module>
         <module>springboot-mp-dynamic</module>
+        <module>mybatis-plus-again</module>
     </modules>
 
 </project>
