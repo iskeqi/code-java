@@ -1,6 +1,10 @@
 package com.keqi.springbootmvcjackson.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.keqi.springbootmvcjackson.enums.GenderEnum;
+import com.keqi.springbootmvcjackson.serialize.BaseEnumDeSerializer;
+import com.keqi.springbootmvcjackson.serialize.BaseEnumSerializer;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,8 +21,8 @@ public class Student {
 
 	// 默认情况下，jackson 序列化时，输出的是 name() 方法
 	// 默认情况情况下，jackson 反序列化时，支持 ordinal 属性和 name 属性两种序列化机制
-	// @JsonDeserialize(using = BaseEnumDeSerializer.class)
-	// @JsonSerialize(using = BaseEnumSerializer.class)
+	@JsonDeserialize(using = BaseEnumDeSerializer.class)
+	@JsonSerialize(using = BaseEnumSerializer.class)
 
 	// 在实体类上加注解，已经实现了，全局还没有实现，再继续找找解决方案
 	private GenderEnum gender;

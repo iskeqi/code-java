@@ -11,6 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.keqi.springbootmvcjackson.enums.BaseEnum;
+import com.keqi.springbootmvcjackson.serialize.BaseEnumDeSerializer;
 import com.keqi.springbootmvcjackson.serialize.BaseEnumSerializer;
 import com.keqi.springbootmvcjackson.serialize.BigDecimalDeSerialize;
 import com.keqi.springbootmvcjackson.serialize.BigDecimalSerialize;
@@ -70,10 +71,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 		// 这种方式的缺点是只能支持 BaseEnum.clazz ，它的子类是不支持的
 		SimpleModule baseEnumModule = new SimpleModule();
-		//baseEnumModule.addSerializer(BaseEnum.class, new BaseEnumSerializer<>());
-		//baseEnumModule.addDeserializer(BaseEnum.class, new BaseEnumDeSerializer());
-		baseEnumModule.addKeySerializer(BaseEnum.class, new BaseEnumSerializer<>());
-		//baseEnumModule.addKeyDeserializer(BaseEnum.class, new BaseEnumDeSerializer());
+		baseEnumModule.addSerializer(BaseEnum.class, new BaseEnumSerializer<>());
+		baseEnumModule.addDeserializer(BaseEnum.class, new BaseEnumDeSerializer());
 
 		converter.setObjectMapper(objectMapper);
 		return converter;
