@@ -31,6 +31,10 @@ public class DataExchangeWebSocketInterceptor extends HttpSessionHandshakeInterc
 		}
 		attributes.put("userId", Integer.valueOf(userIdStr));
 
+		if (log.isDebugEnabled()) {
+			log.debug("userId：{} 建立连接成功，当期线程id 为：{}", userIdStr, Thread.currentThread().getId());
+		}
+
 		return super.beforeHandshake(request, response, wsHandler, attributes);
 	}
 
