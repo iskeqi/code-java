@@ -85,6 +85,7 @@ public class TaskExecuteServiceImpl implements TaskExcuteService {
 			failureThread.start();
 
 			r.put("开始执行process.waitFor()命令的时间是", LocalDateTime.now());
+			// 0 datax.py 执行成功，1 datax.py 正常执行失败，2 datax.py 异常执行失败
 			int resultCode = process.waitFor();
 			r.put("执行process.waitFor()命令后的时间是", LocalDateTime.now());
 			if (resultCode == 0) {
