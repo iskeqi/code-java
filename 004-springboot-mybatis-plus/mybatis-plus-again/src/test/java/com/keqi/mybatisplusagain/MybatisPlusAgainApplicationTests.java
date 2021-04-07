@@ -109,6 +109,7 @@ class MybatisPlusAgainApplicationTests {
 			5、主键生成策略（必做），最好使用雪花算法{IdType.ASSIGN_ID}，而不是数据库自增id
 			6、类型转换器（推荐），尤其是内置的 JacksonTypeHandler 类型转换器，
 				完美解决内存中 Map<String, Object> 和 MySQL 中 json 类型之间的转换。根本无需自己编写一个自定义的类型转换器
+				如果是 List<Map> 是不支持的，所以，还是使用自定义的类型转换器吧
 
 			7、通用枚举（不推荐，并没有必要去使用）
 			8、数据安全保护（不推荐，没必要这么干）
