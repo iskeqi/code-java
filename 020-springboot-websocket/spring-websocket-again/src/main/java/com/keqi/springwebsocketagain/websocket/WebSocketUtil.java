@@ -31,19 +31,19 @@ public class WebSocketUtil {
 	 * WebSocketSession 的额外信息，因 getAttributes() 方法中的 Map 只能在握手阶段设置值，其它情况下无法设置值
 	 * 因当前仅需存储当前连接处于哪个页面这一个信息，所以未使用Map而是直接使用 String
 	 */
-	static final Map<WebSocketSession, String> SESSION_INFO_MAP = new ConcurrentHashMap<>();
+	static final Map<WebSocketSession, String> SESSION_PAGE_MAP = new ConcurrentHashMap<>();
 
 	/**
 	 * 用户存储 WebSocketSession 及其 id 的关联关系，避免将 WebSocketSession 对象传递到其它位置
 	 */
-	private static final Map<String, WebSocketSession> SESSION_ID_MAP = new ConcurrentHashMap<>();
+	private static final Map<String, WebSocketSession> ID_SESSION_MAP = new ConcurrentHashMap<>();
 
 	/**
 	 * 给所有客户端推送消息
 	 *
 	 * @param webSocketMessageEntity
 	 */
-	public static void broadcast(WebSocketMessageEntity webSocketMessageEntity) {
+	public static void sendAll(WebSocketMessageEntity webSocketMessageEntity) {
 		for (List<WebSocketSession> list : USER_SESSION_MAP.values()) {
 			for (WebSocketSession webSocketSession : list) {
 				sendTextMessage(webSocketSession, webSocketMessageEntity);
@@ -58,7 +58,7 @@ public class WebSocketUtil {
 	 * @param webSocketMessageEntity
 	 */
 	public static void send(String webSocketSessionId, WebSocketMessageEntity webSocketMessageEntity) {
-		WebSocketSession webSocketSession = SESSION_ID_MAP.get(webSocketSessionId);
+		WebSocketSession webSocketSession = ID_SESSION_MAP.get(webSocketSessionId);
 		if (Objects.nonNull(webSocketSession)) {
 			sendTextMessage(webSocketSession, webSocketMessageEntity);
 		}
@@ -77,7 +77,7 @@ public class WebSocketUtil {
 		}
 		list.add(webSocketSession);
 		USER_SESSION_MAP.put(userId, list);
-		SESSION_ID_MAP.put(webSocketSession.getId(), webSocketSession);
+		ID_SESSION_MAP.put(webSocketSession.getId(), webSocketSession);
 	}
 
 	/**
@@ -91,16 +91,17 @@ public class WebSocketUtil {
 		if (!CollectionUtils.isEmpty(list)) {
 			list.remove(webSocketSession);
 		}
-		SESSION_ID_MAP.remove(webSocketSession.getId());
-		SESSION_INFO_MAP.remove(webSocketSession);
+		ID_SESSION_MAP.remove(webSocketSession.getId());
+		SESSION_PAGE_MAP.remove(webSocketSession);
 	}
 
 	private static void sendTextMessage(WebSocketSession webSocketSession, WebSocketMessageEntity webSocketMessageEntity) {
 		if (webSocketSession.isOpen()) {
 			try {
-				String page = SESSION_INFO_MAP.get(webSocketSession);
-				if (page.equals(webSocketMessageEntity.getPage())) {
-					// 因为客户端是全局一个 WebSocket 连接，如果推送消息的 code 和当前连接中保存的 code 一致时，才进行数据推送，避免浪费带宽
+				String page1 = SESSION_PAGE_MAP.get(webSocketSession);
+				String page2 = webSocketMessageEntity.getPage();
+				if (Objects.equals(page2, page1) || Objects.equals("global", page2)) {
+					// 因为客户端是全局一个 WebSocket 连接，如果推送消息的 page 和当前连接中保存的 page 一致时，才进行数据推送，global 例外
 					webSocketSession.sendMessage(new TextMessage(JsonUtil.writeValueAsString(webSocketMessageEntity)));
 				}
 			} catch (IOException e) {

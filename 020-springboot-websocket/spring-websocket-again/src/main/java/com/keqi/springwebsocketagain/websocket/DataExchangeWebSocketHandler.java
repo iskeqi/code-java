@@ -44,24 +44,20 @@ public class DataExchangeWebSocketHandler extends TextWebSocketHandler {
 	public void handleTextMessage(WebSocketSession webSocketSession, TextMessage textMessage) {
 		try {
 			WebSocketMessageEntity webSocketMessageEntity = JsonUtil.readValue(textMessage.getPayload(), WebSocketMessageEntity.class);
-			// 处理心跳
-			if ("heartbeat".equals(webSocketMessageEntity.getPage())) {
-				if (webSocketSession.isOpen()) {
-					webSocketSession.sendMessage(new TextMessage(JsonUtil.writeValueAsString(webSocketMessageEntity)));
-				}
-			}
 
 			// 设置当前连接处于哪个页面
-			WebSocketUtil.SESSION_INFO_MAP.put(webSocketSession, webSocketMessageEntity.getPage());
+			String page = webSocketMessageEntity.getPage();
+			if (!Objects.equals(page, "heartbeat")) {
+				WebSocketUtil.SESSION_PAGE_MAP.put(webSocketSession, page);
+			}
 
 			WebSocketMessageHandler webSocketMessageHandler = webSocketMessageHandlerMap.get("webSocketMessageHandler_"
 					+ webSocketMessageEntity.getPage() + "_" + webSocketMessageEntity.getType());
 			if (Objects.nonNull(webSocketMessageHandler)) {
-				webSocketMessageEntity.setData(webSocketMessageHandler.execute(webSocketSession.getId(), webSocketMessageEntity.getData()));
-				WebSocketUtil.send(webSocketSession.getId(), webSocketMessageEntity);
+				WebSocketUtil.send(webSocketSession.getId(), webSocketMessageHandler.execute(webSocketSession.getId(), webSocketMessageEntity));
 			}
 		} catch (Throwable throwable) {
-			log.info(throwable.getMessage(), throwable);
+			log.error(throwable.getMessage(), throwable);
 		}
 	}
 

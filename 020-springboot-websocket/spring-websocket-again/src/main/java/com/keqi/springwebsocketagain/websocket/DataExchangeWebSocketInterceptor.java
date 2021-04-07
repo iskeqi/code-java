@@ -26,7 +26,7 @@ public class DataExchangeWebSocketInterceptor extends HttpSessionHandshakeInterc
 
 		ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
 		String userIdStr = servletServerHttpRequest.getServletRequest().getParameter("userId");
-		if (StringUtils.isEmpty(userIdStr)) {
+		if (StringUtils.hasText(userIdStr)) {
 			return false;
 		}
 		attributes.put("userId", Integer.valueOf(userIdStr));
