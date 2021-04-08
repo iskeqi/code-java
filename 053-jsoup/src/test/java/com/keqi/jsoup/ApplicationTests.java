@@ -15,8 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
@@ -225,7 +227,7 @@ class ApplicationTests {
 	}
 
 	@Test
-	void downloadImage() throws URISyntaxException, IOException {
+	void downloadImageUseByte() throws URISyntaxException, IOException {
 		URI uri = new URI("http://image.nmc.cn/product/2021/04/08/AMSM/medium/SEVP_NMC_AMSM_CAGMSS_ESRH_ACHN_L10CM_PS_20210408000000000.jpg?v=1617862237150");
 		ResponseEntity<byte[]> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, null, byte[].class);
 		int statusCodeValue = responseEntity.getStatusCodeValue();
@@ -233,6 +235,24 @@ class ApplicationTests {
 			// 获取代表图片的字节数组
 			byte[] body = responseEntity.getBody();
 			FileCopyUtils.copy(body, new File("E:\\" + UUID.randomUUID().toString() + ".jpg"));
+		} else {
+			log.error("文件下载失败，HTTP 状态码为：{}", statusCodeValue);
+		}
+	}
+
+	@Test
+	void downloadImageUseInputStream() throws URISyntaxException, IOException {
+		URI uri = new URI("http://image.nmc.cn/product/2021/04/08/AMSM/medium/SEVP_NMC_AMSM_CAGMSS_ESRH_ACHN_L10CM_PS_20210408000000000.jpg?v=1617862237150");
+		ResponseEntity<byte[]> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, null, byte[].class);
+		int statusCodeValue = responseEntity.getStatusCodeValue();
+		if (Objects.equals(statusCodeValue, HttpStatus.OK.value())) {
+			// 获取代表图片的字节数组
+			byte[] body = responseEntity.getBody();
+			FileCopyUtils.copy(body, new File("E:\\" + UUID.randomUUID().toString() + ".jpg"));
+
+			// 将字节数组转换成 InputStream 对象
+			InputStream inputStream = new ByteArrayInputStream(body);
+			inputStream.close();
 		} else {
 			log.error("文件下载失败，HTTP 状态码为：{}", statusCodeValue);
 		}
