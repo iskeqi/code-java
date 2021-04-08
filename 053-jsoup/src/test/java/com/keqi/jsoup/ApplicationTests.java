@@ -1,20 +1,36 @@
 package com.keqi.jsoup;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Objects;
+import java.util.UUID;
 
+@Slf4j
 @SpringBootTest
 class ApplicationTests {
 
 	// 使用 jsoup 解析中央气象台网站 天气实况 栏目中的各个 HTML 页面，并提取出当前页面中的图片
 	// 总结，除了 HTML 页面对应的地址不一样，其它都是相同的，代码写的越规范，越是难以防止爬虫
+
+	@Autowired
+	RestTemplate restTemplate;
 
 	@Test
 	void contextLoads() {
@@ -206,5 +222,19 @@ class ApplicationTests {
 		// 输出内容格式如下：
 		// http://image.nmc.cn/product/2021/04/08/AMSM/medium/SEVP_NMC_AMSM_CAGMSS_ESRH_ACHN_L10CM_PS_20210408000000000.jpg?v=1617862237150 : 04/08 08:00
 		// http://image.nmc.cn/product/2021/04/07/AMSM/medium/SEVP_NMC_AMSM_CAGMSS_ESRH_ACHN_L10CM_PS_20210407000000000.jpg?v=1617775849128 : 04/07 08:00
+	}
+
+	@Test
+	void downloadImage() throws URISyntaxException, IOException {
+		URI uri = new URI("http://image.nmc.cn/product/2021/04/08/AMSM/medium/SEVP_NMC_AMSM_CAGMSS_ESRH_ACHN_L10CM_PS_20210408000000000.jpg?v=1617862237150");
+		ResponseEntity<byte[]> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, null, byte[].class);
+		int statusCodeValue = responseEntity.getStatusCodeValue();
+		if (Objects.equals(statusCodeValue, HttpStatus.OK.value())) {
+			// 获取代表图片的字节数组
+			byte[] body = responseEntity.getBody();
+			FileCopyUtils.copy(body, new File("E:\\" + UUID.randomUUID().toString() + ".jpg"));
+		} else {
+			log.error("文件下载失败，HTTP 状态码为：{}", statusCodeValue);
+		}
 	}
 }
