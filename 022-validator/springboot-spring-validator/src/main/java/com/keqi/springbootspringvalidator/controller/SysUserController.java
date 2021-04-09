@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -95,15 +97,23 @@ public class SysUserController {
 	 */
 	@GetMapping("/manualValidator")
 	public AjaxEntity manualValidator() {
+
+
+
 		SysUserCreateRequestParam sysUserCreateRequestParam = new SysUserCreateRequestParam();
 		sysUserCreateRequestParam.setUserEmail("1209023760");
+		List<SysUserCreateRequestParam> list = new ArrayList<>();
+		list.add(sysUserCreateRequestParam);
+
+		SysUserCreateBatchRequestParam param = new SysUserCreateBatchRequestParam();
+		param.setSysUserList(list);
 
 		/*
 		javax.validation.Validator 类的 validate() 方法返回值是一个Set<ConstraintViolation<T>>类型的集合，对于不满足要求的参数，就会
 		生成一个ConstraintViolation对象，并把错误信息封装在它的 message 属性中。
 
 		可见，实际使用过程中，应该封装一个工具类，只需要一行代码，然后在不符合校验规则的情况下，就直接抛出异常即可。
-
+			此种方式支持嵌套子对象的校验！
 		 */
 		Set<ConstraintViolation<SysUserCreateRequestParam>> constraintViolationSet = validator.validate(sysUserCreateRequestParam);
 
@@ -111,6 +121,7 @@ public class SysUserController {
 			String message = sysUserCreateRequestParamConstraintViolation.getMessage();
 			System.out.println(message);
 		}
+
 
 		if (springValidatorUtil.validate(sysUserCreateRequestParam)) {
 			// 校验通过
