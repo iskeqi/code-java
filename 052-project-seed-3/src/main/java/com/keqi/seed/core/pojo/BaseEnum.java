@@ -5,7 +5,11 @@ package com.keqi.seed.core.pojo;
  *
  * @author keqi
  */
-public interface BaseEnum {
+public interface BaseEnum<T> {
 
 	Integer getCode();
+
+	String getCodeName();
+
+	T buildByCode(Integer code);
 }

@@ -1,4 +1,4 @@
-package com.keqi.seed.core.web;
+package com.keqi.seed.web;
 
 import com.keqi.seed.core.response.ResultEntity;
 import com.keqi.seed.core.response.ResultEntityBuilder;

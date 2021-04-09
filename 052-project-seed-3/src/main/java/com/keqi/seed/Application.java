@@ -1,4 +1,4 @@
-package com.keqi.seed.core;
+package com.keqi.seed;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

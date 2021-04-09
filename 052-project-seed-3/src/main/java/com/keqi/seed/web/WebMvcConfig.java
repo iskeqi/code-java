@@ -1,4 +1,4 @@
-package com.keqi.seed.core.web;
+package com.keqi.seed.web;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,10 +9,9 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.keqi.seed.core.web.converter.MyStringToBaseEnumConverterFactory;
-import com.keqi.seed.core.web.converter.MyStringToLocalDateConverter;
-import com.keqi.seed.core.web.converter.MyStringToLocalDateTimeConverter;
-import com.keqi.seed.core.web.converter.MyStringToNumberConverterFactory;
+import com.keqi.seed.web.converter.MyStringToLocalDateConverter;
+import com.keqi.seed.web.converter.MyStringToLocalDateTimeConverter;
+import com.keqi.seed.web.converter.MyStringToNumberConverterFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -26,6 +25,11 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * web mvc 配置类
+ *
+ * (
+ * 	如果希望对此类进行扩展，但是又无法直接更改此类时，可以创建一个配置类继承 WebMvcConfig 重写本类中已经重写
+ * 	的方法，还可以实现 WebMvcConfigurer 接口中在本类没有实现的方法
+ * )
  *
  * @author keqi
  */
@@ -42,7 +46,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addConverter(new MyStringToLocalDateConverter());
 		registry.addConverter(new MyStringToLocalDateTimeConverter());
 		registry.addConverterFactory(new MyStringToNumberConverterFactory());
-		registry.addConverterFactory(new MyStringToBaseEnumConverterFactory());
 	}
 
 	/**
