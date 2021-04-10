@@ -12,6 +12,8 @@
     <modules>
         <module>springboot-mvc-param</module>
         <module>springboot-mvc-static-resource</module>
+        <module>springboot-mvc-jackson</module>
+        <module>springboot-mvc-static-resource</module>
     </modules>
 
 </project>
