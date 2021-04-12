@@ -1,0 +1,19 @@
+# 本机开发环境
+spring:
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
+
+
+# 开启 knife4j 增强功能
+knife4j:
+    enable: true
+
+# 配置日志文件
+logging:
+    file:
+        name: logs/app.log
+    level:
+        com:
+            keqi: debug
