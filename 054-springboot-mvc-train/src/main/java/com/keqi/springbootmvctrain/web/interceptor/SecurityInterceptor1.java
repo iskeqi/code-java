@@ -15,21 +15,21 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @Component
-public class SecurityInterceptor implements HandlerInterceptor {
+public class SecurityInterceptor1 implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-		log.info("SecurityInterceptor.preHandle()");
+		log.info("SecurityInterceptor1.preHandle()");
 		return true;
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		log.info("SecurityInterceptor.postHandle()");
+		log.info("SecurityInterceptor1.postHandle()");
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-		log.info("SecurityInterceptor.afterCompletion()");
+		log.info("SecurityInterceptor1.afterCompletion()");
 	}
 }

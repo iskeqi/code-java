@@ -5,14 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.keqi.springbootmvctrain.web.converter.MyStringToLocalDateConverter;
 import com.keqi.springbootmvctrain.web.converter.MyStringToLocalDateTimeConverter;
 import com.keqi.springbootmvctrain.web.converter.MyStringToNumberConverterFactory;
-import com.keqi.springbootmvctrain.web.interceptor.SecurityInterceptor;
+import com.keqi.springbootmvctrain.web.interceptor.SecurityInterceptor1;
+import com.keqi.springbootmvctrain.web.interceptor.SecurityInterceptor2;
+import com.keqi.springbootmvctrain.web.interceptor.SecurityInterceptor3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -36,7 +35,11 @@ import java.time.format.DateTimeFormatter;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    private SecurityInterceptor securityInterceptor;
+    private SecurityInterceptor1 securityInterceptor1;
+    @Autowired
+    private SecurityInterceptor2 securityInterceptor2;
+    @Autowired
+    private SecurityInterceptor3 securityInterceptor3;
 
     /**
      * 注册拦截器对象
@@ -56,11 +59,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 "/error"
         };
 
-        registry.addInterceptor(securityInterceptor).addPathPatterns("/**")
+        registry.addInterceptor(securityInterceptor1).addPathPatterns("/**")
                 // 放行 knife4j 路径
                 .excludePathPatterns(knife4jPaths)
                 // 放行登录接口请求路径
                 .excludePathPatterns("/sys/auth/login");
+
+        registry.addInterceptor(securityInterceptor2).addPathPatterns("/**");
+        registry.addInterceptor(securityInterceptor3).addPathPatterns("/**");
     }
 
     /**
@@ -71,7 +77,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOriginPatterns("*")
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowCredentials(true)
                 .maxAge(3600)
@@ -110,15 +116,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         javaTimeModule.addSerializer(LocalDate.class,
                 new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        javaTimeModule.addSerializer(LocalTime.class,
-                new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         javaTimeModule.addDeserializer(LocalDateTime.class,
                 new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         javaTimeModule.addDeserializer(LocalDate.class,
                 new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        javaTimeModule.addDeserializer(LocalTime.class,
-                new LocalTimeDeserializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         objectMapper.registerModule(javaTimeModule);
 
