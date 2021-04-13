@@ -12,7 +12,7 @@ public interface WebSocketMessageHandler {
 	 *
 	 * @param webSocketSessionId
 	 * @param webSocketMessageEntity
-	 * @return
+	 * @return r 如果不希望给客户端响应数据，可以直接返回 null
 	 */
 	WebSocketMessageEntity execute(String webSocketSessionId, WebSocketMessageEntity webSocketMessageEntity);
 }

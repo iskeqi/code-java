@@ -24,6 +24,8 @@ public class DataExchangeWebSocketInterceptor extends HttpSessionHandshakeInterc
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
 								   WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
 
+		// 此处应该传递 token，然后进行验证，并将当前登录用户信息放到 ThreadLocal 中存储
+
 		ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
 		String userIdStr = servletServerHttpRequest.getServletRequest().getParameter("userId");
 		if (StringUtils.hasText(userIdStr)) {

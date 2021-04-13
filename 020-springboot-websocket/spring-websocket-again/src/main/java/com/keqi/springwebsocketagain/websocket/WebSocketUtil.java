@@ -8,10 +8,10 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -25,16 +25,20 @@ public class WebSocketUtil {
 	/**
 	 * 用户id 和该账号下建立的 WebSocketSession 连接
 	 */
-	private static final Map<Integer, List<WebSocketSession>> USER_SESSION_MAP = new ConcurrentHashMap<>();
+	private static final Map<Integer, Set<WebSocketSession>> USER_SESSION_MAP = new ConcurrentHashMap<>();
 
 	/**
-	 * WebSocketSession 的额外信息，因 getAttributes() 方法中的 Map 只能在握手阶段设置值，其它情况下无法设置值
-	 * 因当前仅需存储当前连接处于哪个页面这一个信息，所以未使用Map而是直接使用 String
+	 * WebSocketSession 当前处于哪个页面
 	 */
 	static final Map<WebSocketSession, String> SESSION_PAGE_MAP = new ConcurrentHashMap<>();
 
 	/**
-	 * 用户存储 WebSocketSession 及其 id 的关联关系，避免将 WebSocketSession 对象传递到其它位置
+	 * 当前页面下存在哪些 WebSocketSession 连接
+	 */
+	static final Map<String, Set<WebSocketSession>> PAGE_SESSION_MAP = new ConcurrentHashMap<>();
+
+	/**
+	 * webSocketSessionId 和 WebSocketSession 之间的关系
 	 */
 	private static final Map<String, WebSocketSession> ID_SESSION_MAP = new ConcurrentHashMap<>();
 
@@ -44,7 +48,7 @@ public class WebSocketUtil {
 	 * @param webSocketMessageEntity
 	 */
 	public static void sendAll(WebSocketMessageEntity webSocketMessageEntity) {
-		for (List<WebSocketSession> list : USER_SESSION_MAP.values()) {
+		for (Set<WebSocketSession> list : USER_SESSION_MAP.values()) {
 			for (WebSocketSession webSocketSession : list) {
 				sendTextMessage(webSocketSession, webSocketMessageEntity);
 			}
@@ -65,19 +69,61 @@ public class WebSocketUtil {
 	}
 
 	/**
+	 * 给指定用户发送消息
+	 *
+	 * @param userId
+	 * @param webSocketMessageEntity
+	 */
+	public static void sendByUserId(Integer userId, WebSocketMessageEntity webSocketMessageEntity) {
+		for (WebSocketSession webSocketSession : USER_SESSION_MAP.get(userId)) {
+			sendTextMessage(webSocketSession, webSocketMessageEntity);
+		}
+	}
+
+	/**
+	 * 给处于指定页面下的所有连接推送消息
+	 *
+	 * @param page
+	 * @param webSocketMessageEntity
+	 */
+	public static void sendByPage(String page, WebSocketMessageEntity webSocketMessageEntity) {
+		for (WebSocketSession webSocketSession : PAGE_SESSION_MAP.get(page)) {
+			sendTextMessage(webSocketSession, webSocketMessageEntity);
+		}
+	}
+
+	/**
 	 * 添加 WebSocketSession
 	 *
 	 * @param webSocketSession
 	 */
 	static void addWebSocketSession(WebSocketSession webSocketSession) {
 		Integer userId = MapUtil.getInt(webSocketSession.getAttributes(), "userId");
-		List<WebSocketSession> list = USER_SESSION_MAP.get(userId);
-		if (Objects.isNull(list)) {
-			list = new ArrayList<>();
+
+		Set<WebSocketSession> set = USER_SESSION_MAP.get(userId);
+		if (Objects.isNull(set)) {
+			set = new HashSet<>();
 		}
-		list.add(webSocketSession);
-		USER_SESSION_MAP.put(userId, list);
+		set.add(webSocketSession);
+		USER_SESSION_MAP.put(userId, set);
+
 		ID_SESSION_MAP.put(webSocketSession.getId(), webSocketSession);
+	}
+
+	/**
+	 * 修改 WebSocketSession 处于哪个页面
+	 *
+	 * @param webSocketSession
+	 * @param page
+	 */
+	static void updateWebSocketSessionPage(WebSocketSession webSocketSession, String page) {
+		SESSION_PAGE_MAP.put(webSocketSession, page);
+
+		Set<WebSocketSession> set = PAGE_SESSION_MAP.get(page);
+		if (Objects.isNull(set)) {
+			set = new HashSet<>();
+		}
+		set.add(webSocketSession);
 	}
 
 	/**
@@ -87,12 +133,20 @@ public class WebSocketUtil {
 	 */
 	static void removeWebSocketSession(WebSocketSession webSocketSession) {
 		Integer userId = MapUtil.getInt(webSocketSession.getAttributes(), "userId");
-		List<WebSocketSession> list = USER_SESSION_MAP.get(userId);
-		if (!CollectionUtils.isEmpty(list)) {
-			list.remove(webSocketSession);
+		Set<WebSocketSession> userSessionMapSet = USER_SESSION_MAP.get(userId);
+		if (!CollectionUtils.isEmpty(userSessionMapSet)) {
+			userSessionMapSet.remove(webSocketSession);
 		}
+
 		ID_SESSION_MAP.remove(webSocketSession.getId());
+
+		String page = SESSION_PAGE_MAP.get(webSocketSession);
 		SESSION_PAGE_MAP.remove(webSocketSession);
+
+		Set<WebSocketSession> set = PAGE_SESSION_MAP.get(page);
+		if (!CollectionUtils.isEmpty(set)) {
+			set.remove(webSocketSession);
+		}
 	}
 
 	private static void sendTextMessage(WebSocketSession webSocketSession, WebSocketMessageEntity webSocketMessageEntity) {

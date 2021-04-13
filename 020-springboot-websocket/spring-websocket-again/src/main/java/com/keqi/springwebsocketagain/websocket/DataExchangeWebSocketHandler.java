@@ -48,7 +48,7 @@ public class DataExchangeWebSocketHandler extends TextWebSocketHandler {
 			// 设置当前连接处于哪个页面
 			String page = webSocketMessageEntity.getPage();
 			if (!Objects.equals(page, "heartbeat")) {
-				WebSocketUtil.SESSION_PAGE_MAP.put(webSocketSession, page);
+				WebSocketUtil.updateWebSocketSessionPage(webSocketSession, page);
 			}
 
 			WebSocketMessageHandler webSocketMessageHandler = webSocketMessageHandlerMap.get("webSocketMessageHandler_"
