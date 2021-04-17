@@ -10,5 +10,10 @@ public class CollectionsTest {
         List emptyList = Collections.emptyList();
 
         System.out.println(emptyList.size());
+
+        List emptyList1 = Collections.EMPTY_LIST;
+        List<Object> objects = Collections.emptyList();
+
+
     }
 }
