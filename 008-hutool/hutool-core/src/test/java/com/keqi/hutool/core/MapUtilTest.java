@@ -1,12 +1,10 @@
 package com.keqi.hutool.core;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.map.MapUtil;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.sound.midi.Soundbank;
 import java.util.HashMap;
 import java.util.Map;
 
