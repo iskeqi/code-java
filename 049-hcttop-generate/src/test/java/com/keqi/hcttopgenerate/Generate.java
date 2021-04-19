@@ -34,14 +34,14 @@ public class Generate {
         List<TemplateBO> list = new ArrayList<>();
 
         TemplateBO templateBO = new TemplateBO();
-        templateBO.setTableName("t_task"); // 表名
-        templateBO.setTableNameHump("Task"); // 去掉前缀转驼峰，并大写首字母
-        templateBO.setTableNameHumpLetter("task"); // 去掉前缀转驼峰，并小写首字母
-        templateBO.setTableComment("任务"); // 表注释并去掉最后的"表"字
-        templateBO.setSubPackageName("data"); // 所属子包名
+        templateBO.setTableName("t_service_report_flow"); // 表名
+        templateBO.setTableNameHump("ServiceReportFlow"); // 去掉前缀转驼峰，并大写首字母
+        templateBO.setTableNameHumpLetter("serviceReportFlow"); // 去掉前缀转驼峰，并小写首字母
+        templateBO.setTableComment("报装流程"); // 表注释并去掉最后的"表"字
+        templateBO.setSubPackageName("overview"); // 所属子包名
         // 指定生成文件所在的目录
         // String rootPath = System.getProperty("user.dir");
-        templateBO.setPath("D:\\hcttop\\data-exchange\\src\\main\\java\\com\\hcttop\\data");
+        templateBO.setPath("D:\\hcttop\\water-works\\src\\main\\java\\com\\hcttop\\overview");
 
         // 设置是否需要 controller 和 service
         // 2 则需要， 其他值不需要
@@ -49,9 +49,9 @@ public class Generate {
 
         templateBO.setBasePackageName("com.hcttop");
         templateBO.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        templateBO.setUrl("jdbc:mysql://10.10.20.200:3306/data_exchange_dev?");
-        templateBO.setUsername("data_exchange_dev");
-        templateBO.setPassword("Hcttop.8888");
+        templateBO.setUrl("jdbc:mysql://10.10.20.200:3306/ytdata_dev?");
+        templateBO.setUsername("ytdata");
+        templateBO.setPassword("Ytdata2021.");
         list.add(templateBO);
 
         for (TemplateBO t : list) {
