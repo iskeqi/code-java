@@ -32,6 +32,8 @@ public class DataExchangeWebSocketHandler {
 	 */
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config) throws IOException {
+		// Session 对象无法设置一些与它强关联的信息，那么完全可以自定义一个类，将其它信息和 Session 对象封装到一起
+
 		// 连接认证
 		int userId;
 		try {
