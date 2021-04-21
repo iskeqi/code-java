@@ -34,10 +34,10 @@ public class Generate {
         List<TemplateBO> list = new ArrayList<>();
 
         TemplateBO templateBO = new TemplateBO();
-        templateBO.setTableName("t_service_report_flow"); // 表名
-        templateBO.setTableNameHump("ServiceReportFlow"); // 去掉前缀转驼峰，并大写首字母
-        templateBO.setTableNameHumpLetter("serviceReportFlow"); // 去掉前缀转驼峰，并小写首字母
-        templateBO.setTableComment("报装流程"); // 表注释并去掉最后的"表"字
+        templateBO.setTableName("t_service_complaint_order_type_statistics"); // 表名
+        templateBO.setTableNameHump("ServiceComplaintOrderTypeStatistics"); // 去掉前缀转驼峰，并大写首字母
+        templateBO.setTableNameHumpLetter("serviceComplaintOrderTypeStatistics"); // 去掉前缀转驼峰，并小写首字母
+        templateBO.setTableComment("投诉单分类统计"); // 表注释并去掉最后的"表"字
         templateBO.setSubPackageName("overview"); // 所属子包名
         // 指定生成文件所在的目录
         // String rootPath = System.getProperty("user.dir");
