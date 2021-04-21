@@ -2,11 +2,13 @@ package com.keqi.hutool.core;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.NumberUtil;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapUtilTest {
 
@@ -56,5 +58,25 @@ public class MapUtilTest {
 		System.out.println(param == null);
 		System.out.println(param.size());
 
+		double a = 100;
+		double b = 100;
+		System.out.println(NumberUtil.sub(1, NumberUtil.div(a, b)));
+
+		System.out.println(NumberUtil.div(1, 1));
+
+		System.out.println(calculatePercentage(1,0));
+	}
+
+	private double calculatePercentage(double a, double b) {
+		if (Objects.equals(a, b)) {
+			return 0;
+		} else if (Objects.equals(a, 0D)) {
+			return 1;
+		} else if (Objects.equals(b, 0D)) {
+			return -1;
+		}
+		else {
+			return NumberUtil.div(NumberUtil.sub(b, a), a);
+		}
 	}
 }
