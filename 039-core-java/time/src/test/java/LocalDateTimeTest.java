@@ -18,6 +18,8 @@ public class LocalDateTimeTest {
 		ZonedDateTime zonedDateTime = now.atZone(ZoneId.systemDefault());
 		System.out.println(zonedDateTime);
 
+		LocalDateTime of = LocalDateTime.of(2020, 1, 1, 1,1,1);
+
 
 	}
 }
