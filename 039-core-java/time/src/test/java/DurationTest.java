@@ -23,8 +23,8 @@ public class DurationTest {
 		// 对于 Duration 中的 toXXX() 方法的作用和 until() 方法的作用是相同的
 		// 表示两个时间之间的间隔是 xxx 单位
 
-		LocalDateTime of2 = LocalDateTime.of(2021, 4, 21, 22, 22, 22);
-		LocalDateTime of3 = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 21, 21));
+		LocalDateTime of2 = LocalDateTime.of(2020, 10, 22, 22, 22, 22);
+		LocalDateTime of3 = LocalDateTime.of(2021, 4, 21, 22, 20, 21);
 		Duration between1 = Duration.between(of2, of3);
 		System.out.println(between1.toDays());// 664143
 		System.out.println(between1.toHours());//15939440
@@ -32,9 +32,17 @@ public class DurationTest {
 		System.out.println(of2.until(of3, ChronoUnit.DAYS));//664143
 
 		// 现在需要计算两个 LocalDateTime 之间的间隔是 xx 年 xx 月 xx 日 xx 时 xx 分 xx 秒
-		Period between2 = Period.between(of2.toLocalDate(), of3.toLocalDate());
-		System.out.println("间隔：" + between2.getYears() + " 年 " + between2.getMonths() + " 月 " +  between2.getDays() + " 日");
 
 
+		System.out.println(of2.until(of3, ChronoUnit.YEARS)); // 0
+		System.out.println(of2.until(of3, ChronoUnit.MONTHS)); //
+		System.out.println(of2.until(of3, ChronoUnit.DAYS));
+		System.out.println(of2.until(of3, ChronoUnit.HOURS));
+		System.out.println(of2.until(of3, ChronoUnit.MINUTES));
+		System.out.println(of2.until(of3, ChronoUnit.SECONDS));
 	}
+
+
+
+
 }
