@@ -1,10 +1,6 @@
 import org.junit.Test;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Date;
 
 /**
@@ -12,40 +8,22 @@ import java.util.Date;
  */
 public class InstantTest {
 
+	// java.time.Instant 类表示时刻
+
 	@Test
 	public void test1() {
-		Instant instant = Instant.now();
-		System.out.println(instant.toString());
+		// 获取表示当前时刻的 Instant 对象
+		Instant now = Instant.now();
 
-		System.out.println(instant.toEpochMilli());
+		Instant instant = Instant.ofEpochMilli(System.currentTimeMillis());
 
-		Date date = new Date(instant.toEpochMilli());
-		System.out.println(date);
+		// Instant 转成 Date 对象
+		Date date = new Date(now.toEpochMilli());
 
-		ZoneOffset zoneOffset;
-		ZoneId zoneId = ZoneId.systemDefault();
-		System.out.println(zoneId.getId());
-		Date date1 = new Date(LocalDateTime.now().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
-		System.out.println(date1);
+		// Date 转成 Instant 对象
+		Instant instant1 = Instant.ofEpochMilli(date.getTime());
 
-		// LocalDate 转换成 Date
-		Date date2 = new Date(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
-		System.out.println(date2);
-
-		// LocalDateTime 转换成 Date
-		System.out.println(new Date(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
-
-		// LocalDateTime
-		ZoneOffset zoneOffset1 = ZoneOffset.ofHours(8);
-		System.out.println(zoneOffset1.getId());
-
-		// 今年的第 112 天
-		System.out.println(LocalDate.now().getDayOfYear());
-
-		// 这周的第 4 天
-		System.out.println(LocalDate.now().getDayOfWeek().getValue());
-
-		// 这月的第 22 天
-		System.out.println(LocalDate.now().getDayOfMonth());
+		// 包含了时区信息的对象内部本质上就是维护了一个 时间戳字段和一个时区字段
+		// 没有包含时区信息的对象本质上就只包含了一个代表时间信息的字符串，你并不知道它对应的时间戳是什么，需要根据不同时区来进行解释
 	}
 }
