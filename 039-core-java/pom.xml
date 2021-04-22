@@ -16,6 +16,7 @@
         <module>thread</module>
         <module>enum-test</module>
         <module>jihe</module>
+        <module>time</module>
     </modules>
     <packaging>pom</packaging>
 
