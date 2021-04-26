@@ -24,7 +24,7 @@ public class ${tableNameHump} {
 
 <#list columnList as column>
 
-	@ApiModelProperty(value = "${column.columnComment}", example = "1", required = true)
+	@ApiModelProperty(value = "${column.columnComment}")
 	private ${column.columnTypeJava} ${column.columnNameHumpLetter};
 
 </#list>
