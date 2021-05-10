@@ -127,7 +127,7 @@
         from ${tableName}
     </select>
 
-    <select id="pageQuery" resultType="${basePackageName}.${subPackageName}.entity.${tableNameHump}Dto">
+    <select id="pageQuery" resultType="${basePackageName}.${subPackageName}.dto.${tableNameHump}Dto">
         select
         <include refid="Base_Column_List"/>
         from ${tableName}

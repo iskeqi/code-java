@@ -11,5 +11,5 @@ public interface BaseEnum<T> {
 
 	String getCodeName();
 
-	T buildByCode(Integer code);
+	T parse(Integer code);
 }

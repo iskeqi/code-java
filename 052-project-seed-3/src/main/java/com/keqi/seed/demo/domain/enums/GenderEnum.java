@@ -34,7 +34,7 @@ public enum GenderEnum implements BaseEnum<GenderEnum> {
 	}
 
 	@Override
-	public GenderEnum buildByCode(Integer code) {
+	public GenderEnum parse(Integer code) {
 		GenderEnum[] values = GenderEnum.values();
 		for (GenderEnum value : values) {
 			if (Objects.equals(value.getCode(), code)) {

@@ -18,6 +18,10 @@ import java.util.Objects;
  */
 public class PosterImageUtil {
 
+	// https://blog.nowcoder.net/n/151d81086ea94d3b9caa8d06bac4d477
+	// http://www.itwanger.com/java/2019/11/14/java-qrcode-poster.html
+
+
 	/**
 	 * content1 内容和布局
 	 *
