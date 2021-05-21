@@ -17,6 +17,7 @@
         <module>enum-test</module>
         <module>jihe</module>
         <module>time</module>
+        <module>generic</module>
     </modules>
     <packaging>pom</packaging>
 
