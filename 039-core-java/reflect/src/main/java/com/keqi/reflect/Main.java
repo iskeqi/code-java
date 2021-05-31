@@ -2,30 +2,29 @@ package com.keqi.reflect;
 
 import javax.annotation.Resource;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 
 public class Main {
-
-	public static void main(String[] args) throws IllegalAccessException {
+	
+	public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
 		// 获取 java.lang.Class 对象的三种方法
-
+		
 		// 法一：仅知道对象时
 /*		LocalDate today = LocalDate.now();
 		Class<? extends LocalDate> localDateClazz = today.getClass();*/
-
+		
 		// 法二：仅知道类时
 		Class<LocalDate> clazz = LocalDate.class;
-
+		
 		// 法三：仅知道类的字符串名称时
 /*		try {
 			Class<?> aClass = Class.forName("java.time.LocalDate");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}*/
-
+		
 		// 名称信息
 		System.out.println(clazz.getName()); // Java 内部使用功能的真正名称
 		System.out.println(clazz.getSimpleName()); // 简单名称
@@ -34,10 +33,10 @@ public class Main {
 		int modifiers1 = clazz.getModifiers(); // 获取类的修饰符
 		Class<? super LocalDate> superclass = clazz.getSuperclass(); // 获取父类
 		Class<?>[] interfaces = clazz.getInterfaces();
-
+		
 		// 对于类的操作，可能需要获取这个类的注解和父类、接口等信息
-
-
+		
+		
 		// 获取类的字段对象 java.lang.reflect.Field
 		System.out.println(Arrays.toString(clazz.getFields())); // 返回本类及其父类的所有 public 类型的字段(私有的不行)
 		try {
@@ -53,7 +52,7 @@ public class Main {
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
 		}
-
+		
 		// 拿到 Field 对象之后，获取字段信息以及访问字段信息等操作
 		try {
 			Field min = clazz.getDeclaredField("MIN");
@@ -62,9 +61,9 @@ public class Main {
 			min.setAccessible(true); // 如果上述方法无法访问，比如是 private 的，那么需要先调用此方法，然后才能使用对应的get/set方法
 			Object o = min.get(LocalDate.now()); // 获取指定对象当前字段的值
 			//min.set(LocalDate.now(), LocalDate.MAX); // 设置指定对象中该值为第二个参数的值
-
+			
 			// 通常需要用反射的时候，是知道它的字段名称，然后调用它的get/set方法
-
+			
 			int modifiers = min.getModifiers();
 			String s = Modifier.toString(modifiers);
 			Class<?> type = min.getType();
@@ -73,12 +72,35 @@ public class Main {
 			// 获取这个字段上指定的注解
 			Resource annotation = min.getAnnotation(Resource.class);
 			System.out.println(annotation);
-
+			
 			// 获取某个字段上面使用的注解，这也是一个非常常见的操作！！！
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
 		}
-
+		
 		// 拿到 Method 对象之后，对于 Method 的各种操作
+		Method of = clazz.getDeclaredMethod("of", int.class, int.class, int.class);
+		Object o = of.invoke(null, new Object[]{2021, 5, 31});
+		System.out.println(((LocalDate) o).toString());
+		
+		Class<String> stringClass = String.class;
+		Constructor<?>[] constructors = stringClass.getConstructors();
+		for (Constructor<?> constructor : constructors) {
+			// constructor.newin
+			Annotation[] declaredAnnotations = constructor.getDeclaredAnnotations();
+		}
+		
+		
+		String s = stringClass.newInstance();
+		System.out.println(s.length());
+		
+		// 类型信息 类似于 instance of
+		// boolean instance = stringClass.isInstance();
+		
+		// 类型信息 类似于 () 强制类型转换，类型检查和转换
+		// stringClass.cast();
+		
+		// 对于枚举类型的反射对象，可以通过 getEnumConstants() 方法获取到该枚举类的所有对象
+		String[] enumConstants = stringClass.getEnumConstants();
 	}
 }
