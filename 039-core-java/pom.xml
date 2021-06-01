@@ -18,6 +18,7 @@
         <module>jihe</module>
         <module>time</module>
         <module>generic</module>
+        <module>proxy</module>
     </modules>
     <packaging>pom</packaging>
 
