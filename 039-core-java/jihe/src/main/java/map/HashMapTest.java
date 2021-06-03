@@ -29,5 +29,26 @@ public class HashMapTest {
 		// 获取到所有值，不是key
 		Collection<String> values = map.values();
 		System.out.println(Arrays.toString(values.toArray()));
+		
+		HashMapTest test = new HashMapTest();
+		// 通过对象引用是可以直接调用类的静态方法的
+	}
+	
+	public void main2(String[] args) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("name", "keqi");
+		map.put("age", "24");
+		
+		// 遍历Map的几种方式
+		
+		// 获取到所有的 key ，再根据 key 去找到 value（效率太低，不推荐）
+		Set<String> strings = map.keySet();
+		
+		// 直接获取到所有的 Map.Entry<String, String> 对象（推荐用法，挺好）
+		Set<Map.Entry<String, String>> entries = map.entrySet();
+		
+		// 获取到所有值，不是key
+		Collection<String> values = map.values();
+		System.out.println(Arrays.toString(values.toArray()));
 	}
 }
