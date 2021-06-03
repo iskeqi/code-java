@@ -36,6 +36,7 @@ public class DemoController {
 
 	@GetMapping("/test2")
 	public void test2() {
+		LocalDateTime startTime = LocalDateTime.now();
 		ZSetOperations<String, String> zSetOperations = stringRedisTemplate.opsForZSet();
 
 		// 从 zsetkey 中查询数据(模拟定时任务获取当前待执行的定时任务)
@@ -45,7 +46,7 @@ public class DemoController {
 		Long count = zSetOperations.count(ZSETKEY, 0, currentTimeMillis);
 
 		Set<String> sets = zSetOperations.rangeByScore(ZSETKEY, 0, currentTimeMillis);
-		LocalDateTime startTime = LocalDateTime.now();
+
 		zSetOperations.removeRangeByScore(ZSETKEY, 0, currentTimeMillis);
 		/*for (String value : sets) {
 			// 挨个将待执行的任务添加到线程池任务队列中，等待执行
