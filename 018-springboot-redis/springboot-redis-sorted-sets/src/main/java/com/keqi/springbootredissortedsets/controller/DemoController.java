@@ -68,5 +68,7 @@ public class DemoController {
 		// 6000 条数据，才不到 1 秒钟
 		// 使用 zrangebyscore 取出指定范围内的所有数据，再使用 zremrangebyscore 删除指定分数范围内的所有数据，非常快
 		// 上面速度慢是以为网络操作次数太多导致的
+
+		// 减少网络操作，速度立马就能提升
 	}
 }
