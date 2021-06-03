@@ -54,8 +54,8 @@ public class DemoController {
 		}*/
 		LocalDateTime endTime = LocalDateTime.now();
 		System.out.println(startTime + "-->" + endTime);
-		/*for (int i = 1; i <= (count / 500) + 1; i++) {
-			Set<String> zsetkey = zSetOperations.rangeByScore(ZSETKEY, 0, currentTimeMillis, ((i - 1) * 500L), 500);*/
+		/*for (int i = 1; i <= (count / 10000) + 1; i++) {
+			Set<String> zsetkey = zSetOperations.rangeByScore(ZSETKEY, 0, currentTimeMillis, ((i - 1) * 10000L), 10000);*/
 			/*for (String s : zsetkey) {
 				// 挨个将待执行的任务添加到线程池任务队列中，等待执行
 				System.out.println(s);
