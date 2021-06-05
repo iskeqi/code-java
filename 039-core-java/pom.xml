@@ -21,6 +21,7 @@
         <module>proxy</module>
         <module>class-loader</module>
         <module>lambda</module>
+        <module>lambda</module>
     </modules>
     <packaging>pom</packaging>
 
