@@ -21,7 +21,8 @@
         <module>proxy</module>
         <module>class-loader</module>
         <module>lambda</module>
-        <module>lambda</module>
+        <module>inner-class</module>
+        <module>stream</module>
     </modules>
     <packaging>pom</packaging>
 
