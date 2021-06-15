@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Function;
@@ -269,5 +271,32 @@ public class DateUtilTest {
 					", birthday=" + birthday +
 					'}';
 		}
+	}
+	
+	@Test
+	public void test4() {
+		List<String> strings1 = rangeMonth(LocalDate.now());
+		List<String> strings2 = rangeMonth(LocalDate.now().withMonth(1));
+		
+		System.out.println(strings1);
+		System.out.println(strings2);
+	}
+	
+	public List<String> rangeMonth(LocalDate today) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+		List<String> r;
+		if (Month.JANUARY.equals(today.getMonth())) {
+			r = new ArrayList<>(12);
+			for (int i = 12; i > 0; i--) {
+				r.add(today.minusMonths(i).format(formatter));
+			}
+		} else {
+			int size = today.getMonthValue() - 1;
+			r = new ArrayList<>();
+			for (int i = size; i > 0; i--) {
+				r.add(today.minusMonths(i).format(formatter));
+			}
+		}
+		return r;
 	}
 }
