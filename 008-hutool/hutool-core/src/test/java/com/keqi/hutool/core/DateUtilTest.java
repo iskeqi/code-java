@@ -153,12 +153,15 @@ public class DateUtilTest {
 			Student student = new Student(String.valueOf(i), i, LocalDate.now().minusDays(i));
 			list.add(student);
 		}
-		Map<LocalDate, List<Student>> timeMap = list.stream().collect(Collectors.groupingBy(Student::getBirthday));
+		Map<LocalDate, List<Student>> dateMap = list.stream().collect(Collectors.groupingBy(Student::getBirthday));
+		LocalDate begin = LocalDate.now().minusDays(7);
+		LocalDate end = LocalDate.now().minusDays(1);
 		
-		List<Student> students = rangeFill(LocalDate.now().minusDays(7), LocalDate.now().minusDays(1), ChronoUnit.DAYS, timeMap, time -> {
-			int i = new Random().nextInt(10);
-			return new Student(String.valueOf(i), i, time);
+		List<Student> students = DateUtilTest.rangeDayFill(begin, end, dateMap, date -> {
+			int i = new Random().nextInt(100);
+			return new Student(String.valueOf(i), i, date);
 		});
+		
 		System.out.println(students);
 	}
 	
@@ -186,6 +189,31 @@ public class DateUtilTest {
 				r.add(function.apply(begin));
 			}
 			begin = begin.plus(amountToAdd, chronoUnit);
+		}
+		return r;
+	}
+	
+	/**
+	 * 将[begin,end]中存在的日期但 dateMap 中不存在的日期进行补全
+	 *
+	 * @param begin    开始日期
+	 * @param end      结束日期
+	 * @param dateMap  日期Map
+	 * @param function dateList 中存在且dateMap 中不存在时，调用此方法进行对象补全
+	 * @param <T>      泛型对象
+	 * @return 补全后的对象列表
+	 */
+	public static <T> List<T> rangeDayFill(LocalDate begin, LocalDate end, Map<LocalDate, List<T>> dateMap, Function<LocalDate, T> function) {
+		long until = begin.until(end, ChronoUnit.DAYS) + 1;
+		List<T> r = new ArrayList<>((int) until);
+		for (int i = 1; i <= until; i++) {
+			List<T> ts = dateMap.get(begin);
+			if (ts != null && ts.size() > 0) {
+				r.add(ts.get(0));
+			} else {
+				r.add(function.apply(begin));
+			}
+			begin = begin.plusDays(1);
 		}
 		return r;
 	}
