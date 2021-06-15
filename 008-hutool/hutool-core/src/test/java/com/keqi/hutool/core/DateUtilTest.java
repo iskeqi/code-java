@@ -8,9 +8,9 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 测试cn.hutool.core.date.DateUtil类的常用方法
@@ -95,7 +95,7 @@ public class DateUtilTest {
 	
 	@Test
 	public void test2() {
-		List<LocalDate> list1 = rangeDay(LocalDate.now(), LocalDate.now().plusDays(765));
+		List<LocalDate> list1 = rangeDay(LocalDate.now().minusDays(7), LocalDate.now().minusDays(1));
 		List<LocalDate> list2 = rangeMonth(LocalDate.now(), LocalDate.now().plusDays(765));
 		List<LocalDate> list3 = rangeYear(LocalDate.now(), LocalDate.now().plusDays(765));
 		
@@ -104,10 +104,10 @@ public class DateUtilTest {
 	
 	public List<LocalDate> rangeDay(LocalDate begin, LocalDate end) {
 		List<LocalDate> r = new ArrayList<>();
-		do {
+		while (!begin.isAfter(end)) {
 			r.add(begin);
 			begin = begin.plus(1, ChronoUnit.DAYS);
-		} while (!begin.isAfter(end));
+		}
 		return r;
 	}
 	
@@ -127,5 +127,119 @@ public class DateUtilTest {
 			begin = begin.plus(1, ChronoUnit.YEARS);
 		} while (!begin.isAfter(end));
 		return r;
+	}
+	
+	/**
+	 * 获取指定日期之间的列表
+	 *
+	 * @param begin      开始日期
+	 * @param end        结束日期
+	 * @param chronoUnit 仅支持 YEARS、MONTHS、DAYS
+	 * @return [开始日期, 结束日期]
+	 */
+	public List<LocalDate> range(LocalDate begin, LocalDate end, ChronoUnit chronoUnit) {
+		List<LocalDate> r = new ArrayList<>();
+		while (!begin.isAfter(end)) {
+			r.add(begin);
+			begin = begin.plus(1, chronoUnit);
+		}
+		return r;
+	}
+	
+	@Test
+	public void test3() {
+		List<Student> list = new ArrayList<>();
+		for (int i = 1; i < 4; i++) {
+			Student student = new Student(String.valueOf(i), i, LocalDate.now().minusDays(i));
+			list.add(student);
+		}
+		Map<LocalDate, List<Student>> timeMap = list.stream().collect(Collectors.groupingBy(Student::getBirthday));
+		
+		List<Student> students = rangeFill(LocalDate.now().minusDays(7), LocalDate.now().minusDays(1), ChronoUnit.DAYS, timeMap, time -> {
+			int i = new Random().nextInt(10);
+			return new Student(String.valueOf(i), i, time);
+		});
+		System.out.println(students);
+	}
+	
+	public <T> List<T> rangeFill(LocalDate begin, LocalDate end, ChronoUnit chronoUnit, Map<LocalDate, List<T>> timeMap, Function<LocalDate, T> function) {
+		List<T> r = new ArrayList<>();
+		while (!begin.isAfter(end)) {
+			List<T> ts = timeMap.get(begin);
+			if (ts != null && ts.size() > 0) {
+				r.add(ts.get(0));
+			} else {
+				r.add(function.apply(begin));
+			}
+			begin = begin.plus(1, chronoUnit);
+		}
+		return r;
+	}
+	
+	public <T> List<T> rangeFill(LocalDate begin, LocalDate end, ChronoUnit chronoUnit, long amountToAdd, Map<LocalDate, List<T>> timeMap, Function<LocalDate, T> function) {
+		List<T> r = new ArrayList<>();
+		while (!begin.isAfter(end)) {
+			List<T> ts = timeMap.get(begin);
+			if (ts != null && ts.size() > 0) {
+				r.add(ts.get(0));
+			} else {
+				r.add(function.apply(begin));
+			}
+			begin = begin.plus(amountToAdd, chronoUnit);
+		}
+		return r;
+	}
+	
+	static class Student {
+		private String name;
+		private Integer age;
+		private LocalDate birthday;
+		
+		public Student() {
+		}
+		
+		public Student(String name, Integer age) {
+			this.name = name;
+			this.age = age;
+		}
+		
+		public Student(String name, Integer age, LocalDate birthday) {
+			this.name = name;
+			this.age = age;
+			this.birthday = birthday;
+		}
+		
+		public String getName() {
+			return name;
+		}
+		
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+		public Integer getAge() {
+			return age;
+		}
+		
+		public void setAge(Integer age) {
+			this.age = age;
+		}
+		
+		public LocalDate getBirthday() {
+			return birthday;
+		}
+		
+		public void setBirthday(LocalDate birthday) {
+			this.birthday = birthday;
+		}
+		
+		@Override
+		public String toString() {
+			return "Student{" +
+					"name='" + name + '\'' +
+					", age=" + age +
+					", birthday=" + birthday +
+					'}';
+		}
 	}
 }
