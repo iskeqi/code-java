@@ -37,5 +37,9 @@ public class PriorityQueueTest {
 		for (int i = 0; i < size; i++) {
 			System.out.println(priorityQueue.poll());
 		}
+
+		// 取前K个最大的元素，直接取不就好了吗？
+		// 取中值，直接取不就好了吗？
+		// 对一个已经排序了的一份数据，取出前K个值，很难吗？？？太简单了吧！
 	}
 }
