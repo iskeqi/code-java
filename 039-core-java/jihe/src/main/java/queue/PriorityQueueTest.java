@@ -31,7 +31,10 @@ public class PriorityQueueTest {
 		// 直接这样遍历，并不是有序的，只有一个个取出来才是对的
 		priorityQueue.forEach(System.out::println);
 		System.out.println("---");
-		for (int i = 0; i < priorityQueue.size(); i++) {
+
+		// 通过 poll() 方法出队列的方式取数据，才能够按照优先级取出数据
+		int size = priorityQueue.size();
+		for (int i = 0; i < size; i++) {
 			System.out.println(priorityQueue.poll());
 		}
 	}
