@@ -7,7 +7,17 @@ import java.util.Set;
 /**
  * @author keqi
  */
-public class MyEnumMap<K,V> implements Map<K,V> {
+public class MyEnumMap<K extends Enum<K>,V> implements Map<K,V> {
+	
+	private K[] keys;
+	private V[] values;
+	
+	public MyEnumMap(Class<K> clazz) {
+		K[] enumConstants = clazz.getEnumConstants();
+		keys = (K[]) new Object[enumConstants.length];
+		values = (V[]) new Object[enumConstants.length];
+	}
+	
 	@Override
 	public int size() {
 		return 0;
