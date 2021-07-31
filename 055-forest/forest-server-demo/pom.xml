@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.keqi</groupId>
-    <artifactId>forest-study</artifactId>
+    <artifactId>forest-server-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>forest-study</name>
-    <description>forest-study</description>
+    <name>forest-server-demo</name>
+    <description>forest-server-demo</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -26,12 +26,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.dtflys.forest</groupId>
-            <artifactId>forest-spring-boot-starter</artifactId>
-            <version>1.5.2-BETA</version>
         </dependency>
 
         <dependency>
