@@ -20,4 +20,15 @@ public class DemoController {
 
         return GeTuiUtil.pushSingle(cid, s, null);
     }
+
+    @GetMapping("/test2")
+    public boolean test2() throws JsonProcessingException {
+        String cid = "230752ee62294ecb6983d80af131bcbf";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        PushSingleParam param = new PushSingleParam();
+        String s = objectMapper.writeValueAsString(param);
+
+        return GeTuiUtil.pushList(new String[]{cid}, s, null, null);
+    }
 }
