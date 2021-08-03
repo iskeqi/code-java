@@ -2,9 +2,18 @@
 spring:
     profiles:
         active: local-dev
+    main:
+        banner-mode: off
 
 # 配置端口号和应用路径
 server:
     port: 21803
     servlet:
         context-path: /seed
+# 关闭 sa-token banner
+sa-token:
+    is-print: false
+# 关闭 mybatis-plus banner
+mybatis-plus:
+    global-config:
+        banner: false
