@@ -1,0 +1,35 @@
+# 线上服务器开发联调测试环境（非生产、非纯测试环境）
+
+# 配置数据源信息
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: Aliyun_rds_123456
+        url: jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/034-project-seed-1?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: keqi
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
+
+# 配置日志文件
+logging:
+    file:
+        name: logs/app.log
+    level:
+        com:
+            keqi: debug
+
+# 配置 MyBatisPlus 日志和别名包
+mybatis-plus:
+    config-location:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        type-aliases-package: com.keqi.seed.core.typeHandler
+    global-config:
+        db-config:
+            logic-delete-field: deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以不需要在逻辑删除字段上加上@TableLogic注解)
+            logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+            logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+knife4j:
+    enable: true
