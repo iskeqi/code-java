@@ -15,7 +15,7 @@ public class Knife4jConfig {
 
 	@Bean(value = "defaultApi2")
 	public Docket defaultApi2() {
-		Docket docket=new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(new ApiInfoBuilder()
 						.description("RESTful APIs")
 						.termsOfServiceUrl("http://www.keqi.com/")
@@ -27,6 +27,5 @@ public class Knife4jConfig {
 				.apis(RequestHandlerSelectors.basePackage("com.keqi"))
 				.paths(PathSelectors.any())
 				.build();
-		return docket;
 	}
 }

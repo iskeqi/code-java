@@ -21,7 +21,7 @@ public class ValidatorUtil {
 	private static Validator validator;
 
 	@Autowired
-	public static void setValidator(Validator validator) {
+	public void setValidator(Validator validator) {
 		ValidatorUtil.validator = validator;
 	}
 
