@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 	private String active;
 
 	/**
-	 * 自定义异常
+	 * BusinessException
 	 *
 	 * @param e BusinessException
 	 * @return r
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
 
 		if ("prod".equals(active)) {
 			// 邮件、微信、钉钉通知相关责任人
-			return ResultEntityBuilder.failure("服务器有点累，请联系系统管理员");
+			return ResultEntityBuilder.failure("系统繁忙，请稍后重试");
 		}
 
 		// 开发阶段，直接将异常信息通过接口响应出去，便于排查问题

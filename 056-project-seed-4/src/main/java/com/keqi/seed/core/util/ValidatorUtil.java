@@ -18,28 +18,37 @@ import java.util.StringJoiner;
 @Component
 public class ValidatorUtil {
 
-	private static Validator validator;
+    private static Validator validator;
 
-	@Autowired
-	public void setValidator(Validator validator) {
-		ValidatorUtil.validator = validator;
-	}
+    @Autowired
+    public void setValidator(Validator validator) {
+        ValidatorUtil.validator = validator;
+    }
 
-	/**
-	 * 校验指定对象（支持嵌套子对象的校验）
-	 *
-	 * @param object object
-	 * @param <T>    r
-	 */
-	public static <T> boolean validate(T object) {
-		Set<ConstraintViolation<T>> constraintViolationSet = validator.validate(object);
-		if (!CollectionUtils.isEmpty(constraintViolationSet)) {
-			StringJoiner stringJoiner = new StringJoiner(",");
-			for (ConstraintViolation<T> constraintViolation : constraintViolationSet) {
-				stringJoiner.add(constraintViolation.getMessage());
-			}
-			throw new ValidatorException(stringJoiner.toString());
-		}
-		return true;
-	}
+    /**
+     * 校验指定对象（支持嵌套子对象的校验）
+     *
+     * @param object object
+     * @return 满足约束条件返回 true，不满足则返回 false
+     */
+    public static boolean checkValidate(Object object) {
+        return CollectionUtils.isEmpty(validator.validate(object));
+    }
+
+    /**
+     * 校验指定对象（支持嵌套子对象的校验）
+     *
+     * @param object object
+     * @throws ValidatorException 如果不满足条件会抛出异常
+     */
+    public static void validate(Object object) {
+        Set<ConstraintViolation<Object>> set = validator.validate(object);
+        if (set != null && set.size() > 0) {
+            StringJoiner stringJoiner = new StringJoiner(",");
+            for (ConstraintViolation<Object> constraintViolation : set) {
+                stringJoiner.add(constraintViolation.getMessage());
+            }
+            throw new ValidatorException(stringJoiner.toString());
+        }
+    }
 }

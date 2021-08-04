@@ -7,11 +7,11 @@ package com.keqi.seed.core.pojo;
  */
 public interface BaseService<T> {
 
-	void insert(T t);
+	T insert(T t);
 
-	void deleteById(Long id);
+	int deleteById(Long id);
 
-	void updateById(Long id);
+	int updateById(Long id);
 
-	void getById(Long id);
+	T getById(Long id);
 }
