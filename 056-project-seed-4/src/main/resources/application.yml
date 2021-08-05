@@ -5,6 +5,10 @@ spring:
         active: local-dev
     main:
         banner-mode: off
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
 
 # 配置端口号和应用路径
 server:
@@ -12,15 +16,31 @@ server:
     servlet:
         context-path: /seed
 
+# 日志相关配置
+logging:
+    file:
+        name: logs/app.log
+
 # sa-token 相关配置
 sa-token:
+    # 关闭 logo
     is-print: false
+    # 关闭默认的 cookie 机制
     is-read-cookie: false
     token-style: tik
+    # 不允许同一账号并发登录
     is-concurrent: false
     token-name: token
 
-# 关闭 mybatis-plus banner
+# 配置 MyBatisPlus 日志和别名包
 mybatis-plus:
+    config-location:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        type-aliases-package: com.keqi.seed.core.typeHandler
     global-config:
         banner: false
+        # 如不需要做逻辑删除，可删除此配置
+        db-config:
+            logic-delete-field: deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以不需要在逻辑删除字段上加上@TableLogic注解)
+            logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+            logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)

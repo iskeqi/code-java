@@ -1,4 +1,4 @@
-# 线上服务器开发联调测试环境（非生产、非纯测试环境）
+# 生产环境配置
 
 # 配置数据源信息
 spring:
@@ -12,7 +12,8 @@ spring:
 logging:
     level:
         com:
-            keqi: debug
+            keqi: info
 
+# 生产环境必须关闭接口文档
 knife4j:
-    enable: true
+    enable: false

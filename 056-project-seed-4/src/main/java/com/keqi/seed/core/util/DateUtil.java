@@ -56,29 +56,7 @@ public class DateUtil {
 		}
 		return r;
 	}
-	
-	/**
-	 * 将 dateList 中存在的日期但 dateMap 中不存在的日期进行补全
-	 *
-	 * @param dateList 指定日期列表
-	 * @param dateMap  日期Map
-	 * @param function dateList 中存在且dateMap 中不存在时，调用此方法进行对象补全
-	 * @param <T>      泛型对象
-	 * @return 补全后的对象列表
-	 */
-	/*public <T> List<T> rangeDayFill(List<LocalDate> dateList, Map<LocalDate, List<T>> dateMap, Function<LocalDate, T> function) {
-		List<T> r = new ArrayList<>(dateList.size());
-		for (LocalDate date : dateList) {
-			List<T> ts = dateMap.get(date);
-			if (ts != null && ts.size() > 0) {
-				r.add(ts.get(0));
-			} else {
-				r.add(function.apply(date));
-			}
-		}
-		return r;
-	}*/
-	
+
 	/**
 	 * 将[begin,end]中存在的日期但 dateMap 中不存在的日期进行补全
 	 *

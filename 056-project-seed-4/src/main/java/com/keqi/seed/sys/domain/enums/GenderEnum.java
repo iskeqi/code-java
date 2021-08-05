@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public enum GenderEnum implements BaseEnum<GenderEnum> {
 
-	NONE(0, "无"),
+	NONE(0, "未知"),
 	MAN(1, "男"),
 	WOMEN(2, "女");
 
