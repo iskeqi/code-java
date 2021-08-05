@@ -1,4 +1,4 @@
-package com.keqi.seed.demo.domain.enums;
+package com.keqi.seed.sys.domain.enums;
 
 import com.keqi.seed.core.pojo.BaseEnum;
 

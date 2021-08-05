@@ -1,5 +1,6 @@
 package com.keqi.seed.web;
 
+import cn.dev33.satoken.exception.*;
 import com.keqi.seed.core.exception.BusinessException;
 import com.keqi.seed.core.exception.ValidatorException;
 import com.keqi.seed.core.response.ResultEntity;
@@ -45,6 +46,36 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = ValidatorException.class)
 	public ResultEntity springValidatorException() {
 		return ResultEntityBuilder.failure(null);
+	}
+
+	/**
+	 * SaTokenException
+	 *
+	 * @param e SaTokenException
+	 * @return r
+	 */
+	@ExceptionHandler(value = SaTokenException.class)
+	public ResultEntity businessException(SaTokenException e) {
+		if (e instanceof DisableLoginException) {
+			return ResultEntityBuilder.noAuth("当前账号被禁用");
+		}
+		if (e instanceof IdTokenInvalidException) {
+			// 当前 token 无效
+			return ResultEntityBuilder.noAuth("当前账号未登录");
+		}
+		if (e instanceof NotLoginException) {
+			return ResultEntityBuilder.noAuth("当前账号未登录");
+		}
+		if (e instanceof NotPermissionException) {
+			return ResultEntityBuilder.noAuth("当前账号无此操作权限");
+		}
+		if (e instanceof NotRoleException) {
+			return ResultEntityBuilder.noAuth("当前账号无此操作权限");
+		}
+		if (e instanceof NotSafeException) {
+			return ResultEntityBuilder.noAuth("当前操作未通过二级认证");
+		}
+		return ResultEntityBuilder.noAuth(e.getMessage());
 	}
 
 	/**

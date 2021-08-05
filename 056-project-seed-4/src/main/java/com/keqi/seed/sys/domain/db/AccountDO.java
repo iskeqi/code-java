@@ -1,4 +1,4 @@
-package com.keqi.seed.demo.domain.db;
+package com.keqi.seed.sys.domain.db;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * @author keqi
  */
 @Data
-public class Account {
+public class AccountDO {
 
 	private String name;
 
