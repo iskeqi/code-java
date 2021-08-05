@@ -30,6 +30,10 @@ public class DemoCommandLineRunner implements CommandLineRunner {
                     ModbusMaster master = ModbusMasterFactory.createModbusMasterTCP(tcpParameters);
                     Modbus.setAutoIncrementTransactionId(true);
 
+                    // 如果有多个 slave 设备呢？直接在内存中维护多个 ModbusMaster 对象吗？还是 ModbusSlave 对象
+                    // 当然是 ModbusMaster 对象啦
+                    // ModbusSlave slave = ModbusSlaveFactory.createModbusSlaveTCP(tcpParameters);
+
                     if (!master.isConnected()) {
                         master.connect();
                     }
