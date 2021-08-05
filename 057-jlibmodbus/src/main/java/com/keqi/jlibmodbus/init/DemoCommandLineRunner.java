@@ -6,13 +6,12 @@ import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory;
 import com.intelligt.modbus.jlibmodbus.tcp.TcpParameters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.util.Arrays;
 
 @Slf4j
-@Component
+/*@Component*/
 public class DemoCommandLineRunner implements CommandLineRunner {
 
     @Override
@@ -45,20 +44,20 @@ public class DemoCommandLineRunner implements CommandLineRunner {
                     // 读取线圈寄存器
                     System.out.println("==================");
 
-                    boolean[] coils = master.readCoils(slaveId, offset, quantity);
-                    System.out.println(Arrays.toString(coils));
+                    /*boolean[] coils = master.readCoils(slaveId, offset, quantity);
+                    System.out.println(Arrays.toString(coils));*/
 
                     // 读取离散寄存器
-                    boolean[] discreteInputs = master.readDiscreteInputs(slaveId, offset, quantity);
-                    System.out.println(Arrays.toString(discreteInputs));
+                    /*boolean[] discreteInputs = master.readDiscreteInputs(slaveId, offset, quantity);
+                    System.out.println(Arrays.toString(discreteInputs));*/
 
                     // 读取保持寄存器
                     int[] holdingRegisters = master.readHoldingRegisters(slaveId, offset, quantity);
                     System.out.println(Arrays.toString(holdingRegisters));
 
                     // 读取输入寄存器
-                    int[] inputRegisters = master.readInputRegisters(slaveId, offset, quantity);
-                    System.out.println(Arrays.toString(inputRegisters));
+                    /*int[] inputRegisters = master.readInputRegisters(slaveId, offset, quantity);
+                    System.out.println(Arrays.toString(inputRegisters));*/
 
                     // 写单个线圈寄存器
                     // master.writeSingleCoil();
