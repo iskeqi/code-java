@@ -9,9 +9,9 @@ public interface BaseService<T> {
 
 	T insert(T t);
 
-	int deleteById(Long id);
+	int deleteById(String id);
 
-	int updateById(Long id);
+	int updateById(T t);
 
-	T getById(Long id);
+	T getById(String id);
 }

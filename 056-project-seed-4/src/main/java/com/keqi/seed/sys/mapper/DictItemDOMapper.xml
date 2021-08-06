@@ -14,4 +14,8 @@
         <!--@mbg.generated-->
         type_code, item_code, type_name, item_name, order_num
     </sql>
+
+    <select id="listByTypeCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_dict_item where type_code = #{typeCode} order by order_num
+    </select>
 </mapper>

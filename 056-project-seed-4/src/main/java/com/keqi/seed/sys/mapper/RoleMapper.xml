@@ -14,4 +14,19 @@
         <!--@mbg.generated-->
         id, `name`, permiss, create_time, update_time
     </sql>
+
+    <select id="page" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        <where>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="permiss != null and permiss != ''">
+                and permiss = #{permiss}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
 </mapper>

@@ -17,4 +17,14 @@
         <!--@mbg.generated-->
         id, account, nick_name, post, `password`, salt, create_time, update_time
     </sql>
+
+    <select id="page" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_account
+        <where>
+            <if test="post != null and post != ''">
+                and post = #{post}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
 </mapper>

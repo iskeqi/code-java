@@ -1,7 +1,6 @@
 package com.keqi.seed.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -14,12 +13,12 @@ public class RoleMenuDO {
     /**
      * 角色id
      */
-    @TableId(value = "role_id", type = IdType.ASSIGN_ID)
+    @TableField(value = "role_id")
     private Long roleId;
 
     /**
      * 菜单id
      */
-    @TableId(value = "menu_id", type = IdType.ASSIGN_ID)
+    @TableField(value = "menu_id")
     private Long menuId;
 }

@@ -19,7 +19,7 @@ import java.lang.reflect.Type;
  *
  * @author keqi
  */
-@ControllerAdvice(basePackages = "com.keqi.seed")
+@ControllerAdvice(basePackages = "com.keqi")
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
 	@Override
