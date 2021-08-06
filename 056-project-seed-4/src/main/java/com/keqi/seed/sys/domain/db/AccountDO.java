@@ -1,21 +1,45 @@
 package com.keqi.seed.sys.domain.db;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.keqi.seed.core.pojo.BaseDO;
 import lombok.Data;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
 
 /**
- * @author keqi
+ * 用户表
  */
 @Data
-public class AccountDO {
+@EqualsAndHashCode(callSuper = true)
+@TableName(value = "sys_account")
+public class AccountDO extends BaseDO {
+    /**
+     * 用户名
+     */
+    @TableField(value = "account")
+    private String account;
 
-	private String name;
+    /**
+     * 姓名
+     */
+    @TableField(value = "nick_name")
+    private String nickName;
 
-	private Integer gender;
+    /**
+     * 岗位
+     */
+    @TableField(value = "post")
+    private String post;
 
-	private LocalDate birthday;
+    /**
+     * 密码
+     */
+    @TableField(value = "`password`")
+    private String password;
 
-	private LocalDateTime createTime;
+    /**
+     * 盐
+     */
+    @TableField(value = "salt")
+    private String salt;
 }

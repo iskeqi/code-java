@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.seed.sys.mapper.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.seed.sys.domain.db.MenuDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_menu-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="icon" property="icon"/>
+        <result column="type" property="type"/>
+        <result column="permiss" property="permiss"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="order_num" property="orderNum"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`, url, icon, `type`, permiss, parent_id, order_num
+    </sql>
+</mapper>

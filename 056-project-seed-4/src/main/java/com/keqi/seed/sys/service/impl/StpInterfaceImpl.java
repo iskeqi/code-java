@@ -1,4 +1,4 @@
-package com.keqi.seed.sys.service;
+package com.keqi.seed.sys.service.impl;
 
 import cn.dev33.satoken.stp.StpInterface;
 import org.springframework.stereotype.Component;
