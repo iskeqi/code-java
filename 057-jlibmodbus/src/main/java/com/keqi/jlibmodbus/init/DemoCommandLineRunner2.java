@@ -68,33 +68,36 @@ public class DemoCommandLineRunner2 implements CommandLineRunner {
                         int quantity = 10;//读取的寄存器数量
 
                         // 读取线圈寄存器
-
-                    /*boolean[] coils = master.readCoils(slaveId, offset, quantity);
-                    System.out.println(Arrays.toString(coils));*/
+                        boolean[] coils = master.readCoils(slaveId, offset, quantity);
+                        System.out.println(Arrays.toString(coils) + " ->" + entry.getKey());
 
                         // 读取离散寄存器
-                    /*boolean[] discreteInputs = master.readDiscreteInputs(slaveId, offset, quantity);
-                    System.out.println(Arrays.toString(discreteInputs));*/
+                        boolean[] discreteInputs = master.readDiscreteInputs(slaveId, offset, quantity);
+                        System.out.println(Arrays.toString(discreteInputs) + " ->" + entry.getKey());
 
                         // 读取保持寄存器
                         int[] holdingRegisters = master.readHoldingRegisters(slaveId, offset, quantity);
-                        System.out.println(Arrays.toString(holdingRegisters) + "->" + entry.getKey());
+                        System.out.println(Arrays.toString(holdingRegisters) + " ->" + entry.getKey());
 
                         // 读取输入寄存器
-                    /*int[] inputRegisters = master.readInputRegisters(slaveId, offset, quantity);
-                    System.out.println(Arrays.toString(inputRegisters));*/
+                        int[] inputRegisters = master.readInputRegisters(slaveId, offset, quantity);
+                        System.out.println(Arrays.toString(inputRegisters) + " ->" + entry.getKey());
 
                         // 写单个线圈寄存器
-                        // master.writeSingleCoil();
+                        for (int i = 0; i < 10; i++) {
+                            master.writeSingleCoil(slaveId, i, false);
+                        }
 
                         // 写多个线圈寄存器
-                        // master.writeMultipleCoils();
+                        master.writeMultipleCoils(slaveId, offset, new boolean[]{true, true, true, true, true, true, true, true, true, true});
 
                         // 写单个保持寄存器
-                        // master.writeSingleRegister();
+                        for (int i = 0; i < 10; i++) {
+                            master.writeSingleRegister(slaveId, i, 100);
+                        }
 
                         // 写多个保持寄存器
-                        // master.writeMultipleRegisters();
+                        master.writeMultipleRegisters(slaveId, offset, holdingRegisters);
                     }
                     System.out.println("----------------->");
                 }
