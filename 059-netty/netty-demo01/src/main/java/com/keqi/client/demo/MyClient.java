@@ -1,4 +1,4 @@
-package com.keqi.client;
+package com.keqi.client.demo;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

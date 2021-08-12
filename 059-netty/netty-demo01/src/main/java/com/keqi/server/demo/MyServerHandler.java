@@ -1,4 +1,4 @@
-package com.keqi.server;
+package com.keqi.server.demo;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
