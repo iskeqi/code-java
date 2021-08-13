@@ -14,7 +14,7 @@ public class SimpleChatClientHandler extends SimpleChannelInboundHandler<String>
         // 从 Map<Channel, String> 对象中根据 Channel 对象找到对应的远程服务器地址
 
         boolean r = Objects.equals(s, ctx.channel().id().asLongText() + "\n");
-        System.out.println(Thread.currentThread().getId() + " " + r + " " + s + " " + ctx.channel().id().asLongText());
+        System.out.println(Thread.currentThread().getName() + " " + r + " " + s + " " + ctx.channel().id().asLongText());
     }
 
 }

@@ -53,6 +53,7 @@ public class UpperComputerRunner implements CommandLineRunner {
                     Channel channel = bootstrap.connect(split[0], Integer.parseInt(split[1])).sync().channel();
                     // 每一个客户端对应的 channel 都保存起来
                     CHANNEL_MAP.put(str, channel);
+                    Thread.currentThread().setName(str);
                     channel.writeAndFlush(str);
                 } catch (Throwable e) {
                     e.printStackTrace();
