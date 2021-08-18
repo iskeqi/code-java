@@ -16,6 +16,14 @@ public class ThreadTest {
         // 第二种是通过 interput() 方法通知目标线程，让目标线程主动的结束
 
 
+        Thread t1 = new Thread(() -> {
+            // 当前线程处理类
+        });
+        t1.setUncaughtExceptionHandler((t, e) -> {
+            // 这也是可以处理异常的，不过还是建议直接在 run() 方法内部进行显示的 try catch 异常捕获
+        });
+
+
         ScheduledExecutorService delayExecutorService = Executors.newScheduledThreadPool(10);
         // 基于线程池实现延时任务，搭配数据库轮询，是单机环境下很好的一种延时任务的实现方案
         // delayExecutorService.schedule()
