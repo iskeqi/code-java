@@ -41,7 +41,9 @@ public class createThreadTest {
 
         @Override
         public void run() {
-            System.out.println("Thread1 " + Thread.currentThread().getName());
+            Thread currentThread = Thread.currentThread();
+            System.out.println("Thread1 -> " + currentThread.getName() + "-> " + currentThread.getId()
+                    + "-> " + currentThread.getPriority());
         }
     }
 
@@ -49,14 +51,19 @@ public class createThreadTest {
 
         @Override
         public void run() {
-            System.out.println("Thread2 " + Thread.currentThread().getName());
+            Thread currentThread = Thread.currentThread();
+            System.out.println("Thread2 -> " + currentThread.getName() + "-> " + currentThread.getId()
+                    + "-> " + currentThread.getPriority());
         }
     }
 
     public static class Thread3 implements Callable<String> {
         @Override
         public String call() throws Exception {
-            System.out.println("Thread3 " + Thread.currentThread().getName());
+            Thread currentThread = Thread.currentThread();
+            System.out.println("Thread3 -> " + currentThread.getName() + "-> " + currentThread.getId()
+                    + "-> " + currentThread.getPriority());
+
             return "success";
         }
     }
