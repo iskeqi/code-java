@@ -5,6 +5,6 @@ import com.keqi.seed.sys.domain.db.DictItemDO;
 
 import java.util.List;
 
-public interface DictItemDOMapper extends BaseMapper<DictItemDO> {
+public interface DictItemMapper extends BaseMapper<DictItemDO> {
     List<DictItemDO> listByTypeCode(String typeCode);
 }
