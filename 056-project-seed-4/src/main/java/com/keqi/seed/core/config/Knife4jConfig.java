@@ -18,21 +18,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableSwagger2WebMvc
 public class Knife4jConfig {
 
-	@Bean
-	public Docket defaultApi2() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				// 关闭默认的响应信息
-				.useDefaultResponseMessages(false)
-				.apiInfo(new ApiInfoBuilder()
-						.description("RESTful APIs")
-						.termsOfServiceUrl("http://www.keqi.com/")
-						.version("1.0")
-						.build())
-				.groupName("2.X版本")
-				.select()
-				//这里指定Controller扫描包路径
-				.apis(RequestHandlerSelectors.basePackage("com.keqi"))
-				.paths(PathSelectors.any())
-				.build();
-	}
+    @Bean
+    public Docket defaultApi2() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                // 关闭默认的响应信息
+                .useDefaultResponseMessages(false)
+                .apiInfo(new ApiInfoBuilder()
+                        .description("restful api")
+                        .termsOfServiceUrl("https://www.keqi.com/")
+                        .version("1.0")
+                        .build())
+                .groupName("default group")
+                .select()
+                //这里指定Controller扫描包路径
+                .apis(RequestHandlerSelectors.basePackage("com.keqi"))
+                .paths(PathSelectors.any())
+                .build();
+    }
 }
