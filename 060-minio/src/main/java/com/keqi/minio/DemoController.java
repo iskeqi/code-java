@@ -18,7 +18,7 @@ public class DemoController {
         2、删除文件：客户端请求应用服务器要删除指定文件，应用服务器使用 removeObject 向 minio 服务发送命令，直接删除文件
 
         3、上传文件：客户端请求应用服务器要上传指定文件，应用服务器使用presignedPutObject向 minio服务发送命令，
-         返回对应的信息（一个带了很多参数的 url），客户端使用此url发送put请求，并在body中带上文集爱你内容
+         返回对应的信息（一个带了很多参数的 url），客户端使用此url发送put请求，并在body中带上文件的二进制方式
 
      */
 
