@@ -5,7 +5,9 @@ import io.minio.PostPolicy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 @RestController
 public class DemoController {
@@ -25,8 +27,12 @@ public class DemoController {
 
     @GetMapping("download")
     public String download(String objectName) throws Throwable {
-        // 客户端传递一个对象名称，对象的全程为 /桶名称/文件夹名称/文件名称（不能带上桶的名称）
-        // 正确示例如：/a/Postman-win64-8.10.0-Setup.exe（最前面的 / 可以带也可以不带）
+        // 客户端传递一个对象名称，对象的全程为 /桶名称/文件夹名称/文件名称
+        // 后端手动去除掉第一个 “/桶名称/”
+        // 然后作为参数调用 minio 服务
+        int i = objectName.indexOf("/", 1);
+        objectName = objectName.substring(i + 1);
+
         MinioClient minioClient =
                 new MinioClient("http://192.168.74.132:9000", "minioadmin", "minioadmin");
         String s = minioClient.presignedGetObject("tese1", objectName);
@@ -35,6 +41,15 @@ public class DemoController {
 
     @GetMapping("upload")
     public String upload(String objectName) throws Throwable {
+
+        // 要求前端上传文件的真实文件名称.后缀的参数到此接口
+        // 后端在文件的前面拼接上当天的日期（如：2021-08-27）以及simple UUID字符串，此时 objectName 为：/bucketName/2021-08-27/UUID-真实文件名称
+        // 后端检查此文件是否存在，或者不检查（日期、UUID都是后端控制的，确实没有必要再继续判断文件是否存在了）
+        // 返回文件上传 url 和当前文件名称(存储桶策略必须指定为不可覆盖同名文件)
+        // 前端根据返回的url 发送 put 请求，并在请求体里面带上文件内容，即可实现文件的直传
+
+        objectName = LocalDate.now() + "/" + UUID.randomUUID().toString().replaceAll("-", "") + "-" + objectName;
+
         MinioClient minioClient =
                 new MinioClient("http://192.168.74.132:9000", "minioadmin", "minioadmin");
         PostPolicy postPolicy = new PostPolicy("tese1", objectName, ZonedDateTime.now().plusDays(1));
@@ -64,7 +79,6 @@ xhr.send(data);
          */
 
 
-
         return minioClient.presignedPutObject("tese1", objectName);
 
 
@@ -92,6 +106,9 @@ xhr.send(data);
 
     @GetMapping("delete")
     public String delete(String objectName) throws Throwable {
+        int i = objectName.indexOf("/", 1);
+        objectName = objectName.substring(i + 1);
+
         MinioClient minioClient =
                 new MinioClient("http://192.168.74.132:9000", "minioadmin", "minioadmin");
         minioClient.removeObject("tese1", objectName);
