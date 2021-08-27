@@ -1,13 +1,8 @@
 package com.keqi.minio;
 
 import io.minio.MinioClient;
-import io.minio.PostPolicy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @RestController
 public class DemoController {
@@ -30,13 +25,14 @@ public class DemoController {
         // 客户端传递一个对象名称，对象的全程为 /桶名称/文件夹名称/文件名称
         // 后端手动去除掉第一个 “/桶名称/”
         // 然后作为参数调用 minio 服务
-        int i = objectName.indexOf("/", 1);
+        /*int i = objectName.indexOf("/", 1);
         objectName = objectName.substring(i + 1);
 
         MinioClient minioClient =
                 new MinioClient("http://192.168.74.132:9000", "minioadmin", "minioadmin");
         String s = minioClient.presignedGetObject("tese1", objectName);
-        return s;
+        return s;*/
+        return MinioUtil.download(objectName);
     }
 
     @GetMapping("upload")
@@ -48,11 +44,11 @@ public class DemoController {
         // 返回文件上传 url 和当前文件名称(存储桶策略必须指定为不可覆盖同名文件)
         // 前端根据返回的url 发送 put 请求，并在请求体里面带上文件内容，即可实现文件的直传
 
-        objectName = LocalDate.now() + "/" + UUID.randomUUID().toString().replaceAll("-", "") + "-" + objectName;
+        /*objectName = LocalDate.now() + "/" + UUID.randomUUID().toString().replaceAll("-", "") + "-" + objectName;
 
         MinioClient minioClient =
                 new MinioClient("http://192.168.74.132:9000", "minioadmin", "minioadmin");
-        PostPolicy postPolicy = new PostPolicy("tese1", objectName, ZonedDateTime.now().plusDays(1));
+        PostPolicy postPolicy = new PostPolicy("tese1", objectName, ZonedDateTime.now().plusDays(1));*/
 
         // 返回值是一个 url(带上了很多参数的) ，直接向此 url 发送请求(PUT)，并且 body 里面带上二进制文件就行（）
 
@@ -79,8 +75,8 @@ xhr.send(data);
          */
 
 
-        return minioClient.presignedPutObject("tese1", objectName);
-
+        /*return minioClient.presignedPutObject("tese1", objectName);*/
+        return MinioUtil.upload(objectName);
 
 
 
@@ -106,12 +102,14 @@ xhr.send(data);
 
     @GetMapping("delete")
     public String delete(String objectName) throws Throwable {
-        int i = objectName.indexOf("/", 1);
+        /*int i = objectName.indexOf("/", 1);
         objectName = objectName.substring(i + 1);
 
         MinioClient minioClient =
                 new MinioClient("http://192.168.74.132:9000", "minioadmin", "minioadmin");
         minioClient.removeObject("tese1", objectName);
+        return "success";*/
+        MinioUtil.delete(objectName);
         return "success";
     }
 
