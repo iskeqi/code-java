@@ -1,0 +1,21 @@
+# 生产环境配置
+
+# 配置数据源信息
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: Aliyun_rds_123456
+        url: jdbc:mysql://rm-bp1f65ehm719kd63y5o.mysql.rds.aliyuncs.com:3306/dynamic-datasource?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: keqi
+        hikari:
+            pool-name: hikari
+
+# 配置日志文件
+logging:
+    level:
+        com:
+            keqi: info
+
+# 生产环境必须关闭接口文档
+knife4j:
+    enable: false

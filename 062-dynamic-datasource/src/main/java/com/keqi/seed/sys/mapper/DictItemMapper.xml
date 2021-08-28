@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keqi.seed.sys.mapper.DictItemMapper">
+    <resultMap id="BaseResultMap" type="com.keqi.seed.sys.domain.db.DictItemDO">
+        <!--@mbg.generated-->
+        <!--@Table sys_dict_item-->
+        <id column="type_code" property="typeCode"/>
+        <id column="item_code" property="itemCode"/>
+        <result column="type_name" property="typeName"/>
+        <result column="item_name" property="itemName"/>
+        <result column="order_num" property="orderNum"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        type_code, item_code, type_name, item_name, order_num
+    </sql>
+
+    <select id="listByTypeCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from sys_dict_item where type_code = #{typeCode} order by order_num
+    </select>
+</mapper>

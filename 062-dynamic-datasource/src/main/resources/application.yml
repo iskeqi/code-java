@@ -1,0 +1,41 @@
+# 公共环境配置可以放在此文件中
+
+spring:
+    profiles:
+        active: local-dev
+    main:
+        banner-mode: off
+    servlet:
+        multipart:
+            max-file-size: 20MB
+            max-request-size: 30MB
+
+# 配置端口号和应用路径
+server:
+    port: 21803
+    servlet:
+        context-path: /seed
+
+# 日志相关配置
+logging:
+    file:
+        name: logs/app.log
+
+# sa-token 相关配置
+sa-token:
+    # 关闭 logo
+    is-print: false
+    # 关闭默认的 cookie 机制
+    is-read-cookie: false
+    token-style: tik
+    # 不允许同一账号并发登录
+    is-concurrent: false
+    token-name: token
+
+# 配置 MyBatisPlus 日志和别名包
+mybatis-plus:
+    config-location:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        type-aliases-package: com.keqi.seed.core.typeHandler
+    global-config:
+        banner: false
