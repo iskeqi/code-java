@@ -48,7 +48,7 @@ public class Server {
 				log.debug("accept {}" + sc.toString());
 
 				if (key.isAcceptable()) {
-					//
+					// 服务端 accept 有新的链接
 				}
 
 				if (key.isConnectable()) {
@@ -56,12 +56,14 @@ public class Server {
 				}
 
 				if (key.isReadable()) {
-
+					// 可读事件
+					// netty 实现
 				}
 
 				if (key.isWritable()) {
 
 				}
+				iterator.remove(); // key 处理完了，就必须要进行处理
 			}
 
 		}
