@@ -12,6 +12,7 @@
         <module>netty-server-haier</module>
         <module>netty-springboot-client</module>
         <module>netty-day01</module>
+        <module>netty-day02</module>
     </modules>
     <packaging>pom</packaging>
 
