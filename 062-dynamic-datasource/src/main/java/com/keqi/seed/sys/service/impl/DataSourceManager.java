@@ -2,21 +2,22 @@ package com.keqi.seed.sys.service.impl;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.creator.DefaultDataSourceCreator;
+import com.baomidou.dynamic.datasource.provider.AbstractJdbcDataSourceProvider;
+import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * DataSourceManager
@@ -42,6 +43,34 @@ public class DataSourceManager {
     private String password;
 
     /**
+     * 程序启动时，将已存在的数据源进行初始化
+     *
+     * @return r
+     */
+    @Bean
+    public DynamicDataSourceProvider jdbcDynamicDataSourceProvider() {
+        return new AbstractJdbcDataSourceProvider(driverClassName, url, username, password) {
+            @Override
+            protected Map<String, DataSourceProperty> executeStmt(Statement statement) throws SQLException {
+                Map<String, DataSourceProperty> map = new HashMap<>();
+                ResultSet rs = statement.executeQuery("select tenant_identifier from sys_tenant");
+                while (rs.next()) {
+                    String pollName = rs.getString("tenant_identifier");
+
+                    DataSourceProperty property = new DataSourceProperty();
+                    property.setUsername(username);
+                    property.setPassword(password);
+                    property.setUrl(replaceDatabaseName(url, pollName));
+                    property.setDriverClassName(driverClassName);
+
+                    map.put(pollName, property);
+                }
+                return map;
+            }
+        };
+    }
+
+    /**
      * 创建一个新的数据源
      *
      * @param pollName 连接池名称，需要保证唯一，建议使用租户唯一标识符进行命名
@@ -50,12 +79,12 @@ public class DataSourceManager {
         DataSourceProperty dataSourceProperty = new DataSourceProperty();
         dataSourceProperty.setPoolName(pollName);
         dataSourceProperty.setDriverClassName(driverClassName);
-        String dbName = url.substring(url.substring(0, url.indexOf("?")).lastIndexOf("/") + 1, url.indexOf("?"));
-        dataSourceProperty.setUrl(url.replace(dbName, pollName));
+        dataSourceProperty.setUrl(replaceDatabaseName(url, pollName));
         dataSourceProperty.setUsername(username);
         dataSourceProperty.setPassword(password);
 
         DynamicRoutingDataSource ds = (DynamicRoutingDataSource) dataSource;
+        DataSource dataSource = dataSourceCreator.createDataSource(dataSourceProperty);
         ds.addDataSource(pollName, dataSource);
     }
 
@@ -70,36 +99,17 @@ public class DataSourceManager {
     }
 
     /**
-     * 创建数据库
-     *
-     * @param databaseName databaseName
-     */
-    public void createDatabase(String databaseName) {
-        String sql = "create database " + databaseName;
-        execute(sql);
-    }
-
-    /**
-     * 删除数据库
-     *
-     * @param databaseName databaseName
-     */
-    public void dropDatabase(String databaseName) {
-        String sql = "drop database " + databaseName;
-        execute(sql);
-    }
-
-    /**
      * 执行 resource 目录下的 sql 脚本文件
      *
      * @param pollName pollName
+     * @return true 表示执行成功， false 表示执行失败
      */
-    public void runSQLScriptFile(String pollName) {
+    public boolean runSQLScriptFile(String pollName) {
+        boolean result = true;
         Connection con = null;
         try {
             Class.forName(driverClassName);
-            String dbName = url.substring(url.substring(0, url.indexOf("?")).lastIndexOf("/") + 1, url.indexOf("?"));
-            con = DriverManager.getConnection(url.replace(dbName, pollName), username, password);
+            con = DriverManager.getConnection(replaceDatabaseName(url, pollName), username, password);
             ScriptRunner runner = new ScriptRunner(con);
             runner.setAutoCommit(false);
             runner.setStopOnError(true);
@@ -107,6 +117,7 @@ public class DataSourceManager {
             ClassPathResource resource = new ClassPathResource("tenant-schema.sql");
             runner.runScript(new InputStreamReader(resource.getInputStream()));
         } catch (Throwable e) {
+            result = false;
             try {
                 if (con != null) {
                     con.rollback();
@@ -123,24 +134,11 @@ public class DataSourceManager {
                 }
             }
         }
+        return result;
     }
 
-    @SneakyThrows
-    private void execute(String sql) {
-        PreparedStatement pst = null;
-        Connection con = null;
-        try {
-            Class.forName(driverClassName);
-            con = DriverManager.getConnection(url, username, password);
-            pst = con.prepareStatement(sql);
-            pst.executeUpdate();
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
+    private String replaceDatabaseName(String url, String pollName) {
+        String dbName = url.substring(url.substring(0, url.indexOf("?")).lastIndexOf("/") + 1, url.indexOf("?"));
+        return url.replace(dbName, pollName);
     }
 }

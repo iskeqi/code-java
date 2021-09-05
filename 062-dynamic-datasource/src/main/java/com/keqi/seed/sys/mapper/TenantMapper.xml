@@ -14,4 +14,12 @@
         <!--@mbg.generated-->
         id, tenant_name, tenant_identifier, create_time, update_time
     </sql>
+
+    <update id="createDatabase">
+        create database ${databaseName}
+    </update>
+
+    <update id="dropDatabase">
+        drop database ${databaseName}
+    </update>
 </mapper>

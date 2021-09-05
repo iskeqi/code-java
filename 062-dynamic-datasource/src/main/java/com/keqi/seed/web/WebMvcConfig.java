@@ -58,9 +58,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         // 注册注解拦截器，并排除不需要注解鉴权的接口地址 (与登录拦截器无关)
         registry.addInterceptor(new SaAnnotationInterceptor()).addPathPatterns("/**");
-        // 注册Sa-Token的路由拦截器，并排除登录接口或其他可匿名访问的接口地址 (与注解拦截器无关)
+        // 注册Sa-Token的路由拦截器，并排除公开接口或其他可匿名访问的接口地址 (与注解拦截器无关)
         registry.addInterceptor(new SaRouteInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/sys/auth/login")
+                .excludePathPatterns(knife4jPaths);
+        // 注册 DynamicDatasourceInterceptor 拦截器，进行数据源的切换
+        registry.addInterceptor(new DynamicDatasourceInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/sys/**") // sys/** 目录下的请求使用默认的 master 数据源
                 .excludePathPatterns(knife4jPaths);
     }
 

@@ -13,8 +13,8 @@ public class TenantController {
     private TenantService tenantService;
 
     @PostMapping
-    public void insert(@RequestBody TenantDO param) {
-        tenantService.insert(param);
+    public TenantDO insert(@RequestBody TenantDO param) {
+        return tenantService.insert(param);
     }
 
     @DeleteMapping("/{id}")
