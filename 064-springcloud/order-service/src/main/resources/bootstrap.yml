@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: order-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+# feign 的相关配置
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+  httpclient:
+    enabled: true # 默认值为 true，其实只要引入了对应的依赖，默认就是开启了
+    max-connections: 200
+    max-connections-per-route: 50
