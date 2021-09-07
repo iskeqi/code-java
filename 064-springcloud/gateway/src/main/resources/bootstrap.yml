@@ -1,0 +1,32 @@
+server:
+  port: 10010
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: localhost:8848 # nacos地址
+    gateway:
+      routes:
+        - id: user-service # 路由标示，必须唯一
+          uri: lb://user-service # 路由的目标地址
+          predicates: # 路由断言，判断请求是否符合规则
+            - Path=/user/** # 路径断言，判断路径是否是以/user开头，如果是则符合
+        #          filters: # 针对当前路由有效
+        #            - AddRequestHeader=X-Request-red, blue
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+      default-filters: # 默认过滤器，会对所有请求都生效
+        - AddRequestHeader=X-Request-red, blue
+      globalcors: # 跨域配置
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowCredentials: true # 允许携带 cookie
+            allowedOrigins: "*" # 允许各种网站源头的请求
+            allowedHeaders: "*" # 允许携带各种 header
+            allowedMethods: "*" # 允许各种http method
+            maxAge: 3628800 # 配置这次跨域检测的有效期
+
