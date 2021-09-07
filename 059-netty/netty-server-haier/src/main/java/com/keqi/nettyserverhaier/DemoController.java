@@ -59,8 +59,8 @@ public class DemoController {
         CommandConsumerParam param = new CommandConsumerParam();
         param.setCommand("GetInFullPlate");
         param.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        param.setStartingPoint(String.valueOf(1));
-        param.setEndPoint(String.valueOf(2));
+        param.setStartingPoint(String.valueOf(2));
+        param.setEndPoint(String.valueOf(8));
 
         String msg = JSON.toJSONString(param);
 

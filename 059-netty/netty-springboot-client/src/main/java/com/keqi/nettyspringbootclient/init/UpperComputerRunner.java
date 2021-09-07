@@ -28,8 +28,7 @@ public class UpperComputerRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // 从数据库中读取到所有的上位机
         List<String> list = new ArrayList<>();
-        list.add("127.0.0.1:6666");
-        list.add("127.0.0.1:7777");
+        list.add("223.99.217.210:2021");
 
         // 开启对应个数的线程
         for (String str : list) {
