@@ -19,7 +19,7 @@ public class DemoController {
     public String test1() {
 
         CommandConsumerParam param = new CommandConsumerParam();
-        param.setCommand("GetInEmptyPlate");
+        param.setCommand("GetInFullPlate");
         param.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         param.setStation(String.valueOf(6));
         param.setStartingPoint(String.valueOf(1));
@@ -38,7 +38,7 @@ public class DemoController {
     @GetMapping("/test2")
     public String test2() {
         CommandConsumerParam param = new CommandConsumerParam();
-        param.setCommand("SendBackEmptyPlate");
+        param.setCommand("SendOutFullPlate");
         param.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         param.setStation(String.valueOf(6));
         param.setStartingPoint(String.valueOf(1));
@@ -57,10 +57,10 @@ public class DemoController {
     @GetMapping("/test3")
     public String test3() {
         CommandConsumerParam param = new CommandConsumerParam();
-        param.setCommand("GetInFullPlate");
+        param.setCommand("GetInEmptyPlate");
         param.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        param.setStartingPoint(String.valueOf(2));
-        param.setEndPoint(String.valueOf(8));
+        param.setStartingPoint(String.valueOf(1));
+        param.setEndPoint(String.valueOf(2));
 
         String msg = JSON.toJSONString(param);
 
@@ -75,7 +75,7 @@ public class DemoController {
     @GetMapping("/test4")
     public String test4() {
         CommandConsumerParam param = new CommandConsumerParam();
-        param.setCommand("SendOutFullPlate");
+        param.setCommand("SendOutEmptyPlate");
         param.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         param.setStartingPoint(String.valueOf(1));
         param.setEndPoint(String.valueOf(2));

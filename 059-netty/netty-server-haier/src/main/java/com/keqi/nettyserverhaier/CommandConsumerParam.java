@@ -1,5 +1,7 @@
 package com.keqi.nettyserverhaier;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * 上位机请求实体类（上位机 -> 中控）
  *
@@ -10,36 +12,43 @@ public class CommandConsumerParam {
     /**
      * Request id (Simple UUID)
      */
+    @JSONField(name = "Id")
     private String Id;
 
     /**
      * 指令名称
      */
+    @JSONField(name = "Command")
     private String Command;
 
     /**
      * 起点
      */
+    @JSONField(name = "StartingPoint")
     private String StartingPoint;
 
     /**
      * 终点
      */
+    @JSONField(name = "EndPoint")
     private String EndPoint;
 
     /**
      * 站点类型
      */
+    @JSONField(name = "Station")
     private String Station;
 
     /**
      * 上位机对应的数字编号
      */
+    @JSONField(name = "client")
     private Integer client;
 
     /**
      * 地图 id
      */
+    @JSONField(name = "mapId")
     private Integer mapId;
 
     public String getId() {
