@@ -22,6 +22,15 @@ public class GeTuiHttpInterceptor implements Interceptor<GeTuiResponse<?>> {
         request.setUrl(request.getUrl().replaceFirst("appId", this.appId));
         // 给每个请求的 header 中加上 token 参数
         request.addHeader("token", token);
+
+        /*
+         这里可以利用 forest 提供的全局变量的方式实现同样需求，但是要求必须在 forest.variables 变量下
+
+         forest:
+            variables:
+                a: foo
+                b: bar
+         */
         return true;
     }
 
