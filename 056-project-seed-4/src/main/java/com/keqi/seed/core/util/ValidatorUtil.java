@@ -42,7 +42,7 @@ public class ValidatorUtil {
      * @throws ValidatorException 如果不满足条件会抛出异常
      */
     public static void validate(Object object) {
-        if (object == null ) {
+        if (object == null) {
             throw new ValidatorException("param is null");
         }
         Set<ConstraintViolation<Object>> set = validator.validate(object);
