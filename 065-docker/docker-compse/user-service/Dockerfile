@@ -1,7 +1,7 @@
 # 指定基础镜像
 FROM java:8-alpine
 # 拷贝 jar 包
-COPY ./user-service-0.0.1-SNAPSHOT.jar /tmp/app.jar
+COPY ./demo-0.0.1-SNAPSHOT.jar /tmp/app.jar
 # 暴露端口
 # EXPOSE 9909
 # Java 项目的启动命令

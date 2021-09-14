@@ -63,3 +63,4 @@
 ![image-20210914213418318](D:\KEQI\MyCode\code-java\065-docker\images\image-20210914213418318.png)
 
 dockercompose 实际上就是把 docker run 命令的各种参数转换成了 compose 中的命令，实际上表达的还是一个意思。
+
