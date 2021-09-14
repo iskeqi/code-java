@@ -7,10 +7,15 @@
     <groupId>com.keqi</groupId>
     <artifactId>065-docker</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <modules>
+        <module>demo-docker</module>
+    </modules>
 
 </project>
