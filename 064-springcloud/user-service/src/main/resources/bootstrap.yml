@@ -6,6 +6,6 @@ spring:
     active: dev
   cloud:
     nacos:
-      server-addr: localhost:8848 # nacos 地址
+      server-addr: nacos:8848 # localhost:8848 # nacos 地址
       config:
         file-extension: yml # 配置文件后缀

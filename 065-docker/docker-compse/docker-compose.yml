@@ -1,0 +1,23 @@
+version: "3.2"
+# 整个 docker-compose 目录下的文件就是所有的微服务，在此目录下使用docker-compose up -d 进行部署
+# 如果容器有先后依赖关系的话，最好指定一下显示的先后顺序，避免因为先后顺序的问题导致不对
+services:
+  #  nacos:
+  #    image: nacos/nacos-server
+  #    environment:
+  #      MODE: standalone
+  #    ports:
+  #      - "8848:8848"
+  user-service:
+    build: ./user-service
+    ports:
+      - "44444:9909"
+  order-service:
+    build: ./order-service
+    ports:
+      - "33333:9909"
+#  gateway:
+#    build: ./gateway
+#    ports:
+#      - "10010:10010"
+# 以上配置，完美实现 docker-compose 一键部署多个应用程序
