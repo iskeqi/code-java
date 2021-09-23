@@ -56,6 +56,56 @@ public abstract class AbstractModbusMasterTCP {
         }
     }
 
+
+    /**
+     * 读保持寄存器
+     *
+     * @param startAddress startAddress
+     * @param quantity     quantity
+     * @return r
+     * @throws ModbusTCPException e
+     */
+    final public int[] readHoldingRegisters(int startAddress, int quantity) throws ModbusTCPException {
+        try {
+            return modbusMaster.readHoldingRegisters(serverAddress, startAddress, quantity);
+        } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
+            throw new ModbusTCPException(e.getMessage(), e);
+        }
+    }
+
+
+    /**
+     * 读离散寄存器
+     *
+     * @param startAddress startAddress
+     * @param quantity     quantity
+     * @return r
+     * @throws ModbusTCPException e
+     */
+    final public boolean[] readDiscreteInputs(int startAddress, int quantity) throws ModbusTCPException {
+        try {
+            return modbusMaster.readDiscreteInputs(serverAddress, startAddress, quantity);
+        } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
+            throw new ModbusTCPException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * 读输入寄存器
+     *
+     * @param startAddress startAddress
+     * @param quantity     quantity
+     * @return r
+     * @throws ModbusTCPException e
+     */
+    final public int[] readInputRegisters(int startAddress, int quantity) throws ModbusTCPException {
+        try {
+            return modbusMaster.readInputRegisters(serverAddress, startAddress, quantity);
+        } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
+            throw new ModbusTCPException(e.getMessage(), e);
+        }
+    }
+
     /**
      * 写单个线圈
      *
@@ -81,22 +131,6 @@ public abstract class AbstractModbusMasterTCP {
     final public void writeMultipleCoils(int startAddress, boolean[] coils) throws ModbusTCPException {
         try {
             modbusMaster.writeMultipleCoils(serverAddress, startAddress, coils);
-        } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
-            throw new ModbusTCPException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * 读保持寄存器
-     *
-     * @param startAddress startAddress
-     * @param quantity     quantity
-     * @return r
-     * @throws ModbusTCPException e
-     */
-    final public int[] readHoldingRegisters(int startAddress, int quantity) throws ModbusTCPException {
-        try {
-            return modbusMaster.readHoldingRegisters(serverAddress, startAddress, quantity);
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
             throw new ModbusTCPException(e.getMessage(), e);
         }
