@@ -6,7 +6,6 @@ import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory;
 import com.intelligt.modbus.jlibmodbus.tcp.TcpParameters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.util.Arrays;
@@ -17,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-@Component
+/*@Component*/
 public class DemoCommandLineRunner2 implements CommandLineRunner {
 
     private final Object obj = new Object();
