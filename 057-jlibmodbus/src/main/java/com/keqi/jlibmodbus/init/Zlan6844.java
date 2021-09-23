@@ -10,4 +10,7 @@ public class Zlan6844 extends AbstractModbusMasterTCP {
     }
 
     // 可以根据自己的需求制定
+    public void fun() {
+        System.out.println(this.host + " " + this.port);
+    }
 }

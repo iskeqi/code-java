@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -24,10 +23,10 @@ public class DemoCommandLineRunner3 implements CommandLineRunner {
 
         scheduledExecutorService.scheduleWithFixedDelay(() -> {
             try {
-                boolean[] coils = zlan6844.readCoils(Zlan6844Constant.DI1, 8);
-                System.out.println(Arrays.toString(coils));
+                // boolean[] coils = zlan6844.readCoils(Zlan6844Constant.DI1, 8);
+                // System.out.println(Arrays.toString(coils));
 
-                coils = new boolean[8];
+                boolean[] coils = new boolean[8];
                 zlan6844.writeMultipleCoils(Zlan6844Constant.DI1, coils);
 
             } catch (Throwable e) {
