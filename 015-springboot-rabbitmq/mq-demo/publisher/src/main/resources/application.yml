@@ -1,0 +1,10 @@
+spring:
+  rabbitmq:
+    host: 120.25.26.123 # rabbitmq 的 ip 地址
+    port: 5672 # 端口号
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        prefetch: 1 # 每次只能获取一条消息，处理完成才能获取下一个消息(控制消费者预取的消息数量)
