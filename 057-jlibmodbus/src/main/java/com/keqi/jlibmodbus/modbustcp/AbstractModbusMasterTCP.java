@@ -26,7 +26,7 @@ public abstract class AbstractModbusMasterTCP {
     protected String host;
     protected int port;
 
-    private static String errorMsg;
+    private String errorMsg;
 
     public AbstractModbusMasterTCP(String host, int port) throws ModbusTCPException {
         try {
