@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface EnumValidate {
 
-	String message() default "{constraint.default.const.message}";
+	String message() default "param is invalid";
 
 	Class<?>[] groups() default {};
 
