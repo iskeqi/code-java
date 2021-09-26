@@ -11,6 +11,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * 枚举验证注解
+ *
+ * @author keqi
  */
 @Documented
 @Constraint(validatedBy = {EnumValidateValidator.class})
@@ -18,12 +20,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface EnumValidate {
 
-	String message() default "{constraint.default.const.message}";
+    String message() default "param is invalid";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-	Class<?> value();
+    Class<?> value();
 
 }
