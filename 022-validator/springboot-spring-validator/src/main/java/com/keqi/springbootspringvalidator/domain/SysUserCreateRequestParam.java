@@ -1,6 +1,6 @@
 package com.keqi.springbootspringvalidator.domain;
 
-import com.keqi.springbootspringvalidator.validators.EnumConstant;
+import com.keqi.springbootspringvalidator.validators.EnumValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,9 +42,9 @@ public class SysUserCreateRequestParam implements Serializable {
 	/*@Constant(message = "verson只能为1.0", value="1.0")*/
 	String version;
 
-	@EnumConstant(message = "性别参数错误", value = Gender.class)
+	@EnumValidate(message = "性别参数错误", value = Gender.class)
 	String gender;
 
-	@EnumConstant(message = "性别参数错误", value = Sex.class)
+	@EnumValidate(message = "性别参数错误", value = Sex.class)
 	String sex;
 }

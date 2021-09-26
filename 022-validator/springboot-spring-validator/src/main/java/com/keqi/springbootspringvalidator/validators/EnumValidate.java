@@ -13,10 +13,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 自定义枚举常量
  */
 @Documented
-@Constraint(validatedBy = {EnumConstantValidator.class})
+@Constraint(validatedBy = {EnumValidateValidator.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
-public @interface EnumConstant {
+public @interface EnumValidate {
 
 	String message() default "{constraint.default.const.message}";
 

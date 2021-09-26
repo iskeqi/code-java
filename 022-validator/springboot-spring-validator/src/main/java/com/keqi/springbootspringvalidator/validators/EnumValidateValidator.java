@@ -8,12 +8,12 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
 @Slf4j
-public class EnumConstantValidator implements ConstraintValidator<EnumConstant, String> {
+public class EnumValidateValidator implements ConstraintValidator<EnumValidate, String> {
 
     private Class<?> clazz;
 
     @Override
-    public void initialize(EnumConstant constraintAnnotation) {
+    public void initialize(EnumValidate constraintAnnotation) {
         // 获取到注解中 value 属性指定的值
         // 本方法只会被调用一次（如果 value 中指定的值不一样，则每个不同的 value 值都会被调用一次）
         clazz = constraintAnnotation.value();
