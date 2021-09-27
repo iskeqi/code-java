@@ -1,6 +1,6 @@
 package com.keqi.seed.sys.domain.enums;
 
-import com.keqi.seed.core.pojo.BaseEnum;
+import com.keqi.seed.core.pojo.BaseEnumValidate;
 
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ import java.util.Objects;
  *
  * @author keqi
  */
-public enum GenderEnum implements BaseEnum {
+public enum GenderEnumValidate implements BaseEnumValidate {
 
     NONE("0", "未知"),
     MAN("1", "男"),
@@ -18,12 +18,11 @@ public enum GenderEnum implements BaseEnum {
     private final String code;
     private final String codeName;
 
-    GenderEnum(String code, String codeName) {
+    GenderEnumValidate(String code, String codeName) {
         this.code = code;
         this.codeName = codeName;
     }
 
-    @Override
     public String getCode() {
         return code;
     }
@@ -32,13 +31,18 @@ public enum GenderEnum implements BaseEnum {
         return codeName;
     }
 
-    public GenderEnum parse(String code) {
-        GenderEnum[] values = GenderEnum.values();
-        for (GenderEnum value : values) {
+    public GenderEnumValidate parse(String code) {
+        GenderEnumValidate[] values = GenderEnumValidate.values();
+        for (GenderEnumValidate value : values) {
             if (Objects.equals(value.getCode(), code)) {
                 return value;
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean existCode(String code) {
+        return parse(code) != null;
     }
 }

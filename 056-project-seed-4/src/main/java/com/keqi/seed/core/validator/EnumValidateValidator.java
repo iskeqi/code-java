@@ -1,10 +1,10 @@
 package com.keqi.seed.core.validator;
 
-import com.keqi.seed.core.pojo.BaseEnum;
+import com.keqi.seed.core.pojo.BaseEnumValidate;
+import com.keqi.seed.core.validator.annotation.EnumValidate;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Objects;
 
 public class EnumValidateValidator implements ConstraintValidator<EnumValidate, String> {
 
@@ -18,8 +18,8 @@ public class EnumValidateValidator implements ConstraintValidator<EnumValidate, 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         for (Object constant : clazz.getEnumConstants()) {
-            BaseEnum baseEnum = (BaseEnum) constant;
-            if (Objects.equals(value, baseEnum.getCode())) {
+            BaseEnumValidate baseEnumValidate = (BaseEnumValidate) constant;
+            if (baseEnumValidate.existCode(value)) {
                 return true;
             }
         }

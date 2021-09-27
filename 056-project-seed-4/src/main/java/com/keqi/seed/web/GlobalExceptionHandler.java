@@ -44,8 +44,8 @@ public class GlobalExceptionHandler {
 	 * @return r
 	 */
 	@ExceptionHandler(value = ValidatorException.class)
-	public ResultEntity springValidatorException() {
-		return ResultEntityBuilder.failure(null);
+	public ResultEntity springValidatorException(ValidatorException e) {
+		return ResultEntityBuilder.failure(e.getMessage());
 	}
 
 	/**

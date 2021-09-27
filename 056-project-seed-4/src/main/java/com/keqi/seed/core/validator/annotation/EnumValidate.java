@@ -1,4 +1,6 @@
-package com.keqi.seed.core.validator;
+package com.keqi.seed.core.validator.annotation;
+
+import com.keqi.seed.core.validator.EnumValidateValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

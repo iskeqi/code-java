@@ -5,7 +5,7 @@ package com.keqi.seed.core.pojo;
  *
  * @author keqi
  */
-public interface BaseEnum {
+public interface BaseEnumValidate {
 
-    String getCode();
+    boolean existCode(String code);
 }

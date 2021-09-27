@@ -41,7 +41,7 @@ public class ValidatorUtil {
      * @param object object
      * @throws ValidatorException 如果不满足条件会抛出异常
      */
-    public static void validate(Object object) {
+    public static void validate(Object object) throws ValidatorException {
         if (object == null) {
             throw new ValidatorException("param is null");
         }
