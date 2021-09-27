@@ -11,6 +11,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * 枚举验证注解
+ * <p>
+ * 用法：@EnumValidate(message = "参数错误", value = GenderEnum.class)
  *
  * @author keqi
  */
