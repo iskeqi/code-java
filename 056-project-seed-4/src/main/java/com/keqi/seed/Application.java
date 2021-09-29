@@ -11,7 +11,7 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         if (log.isDebugEnabled()) {
-            log.info("http://localhost:21803/seed/doc.html");
+            log.debug("http://localhost:21803/seed/doc.html");
         }
     }
 
