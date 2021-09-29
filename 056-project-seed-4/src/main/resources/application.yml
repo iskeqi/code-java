@@ -2,7 +2,7 @@
 
 spring:
     profiles:
-        active: local-dev
+        active: prod
     main:
         banner-mode: off
     servlet:
