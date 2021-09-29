@@ -13,8 +13,8 @@ spring:
 # 配置日志文件
 logging:
     level:
-        com:
-            keqi: info
+        com.keqi: info
+        # org.springframework.web: debug
 
 # 生产环境必须关闭接口文档
 knife4j:

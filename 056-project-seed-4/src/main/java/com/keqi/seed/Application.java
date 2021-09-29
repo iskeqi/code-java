@@ -10,7 +10,9 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        log.info("http://localhost:21803/seed/doc.html");
+        if (log.isDebugEnabled()) {
+            log.info("http://localhost:21803/seed/doc.html");
+        }
     }
 
 }

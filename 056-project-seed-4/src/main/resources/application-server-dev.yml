@@ -13,8 +13,8 @@ spring:
 # 配置日志文件
 logging:
     level:
-        com:
-            keqi: debug
+        com.keqi: debug
+        # org.springframework.web: debug
 
 knife4j:
     enable: true
