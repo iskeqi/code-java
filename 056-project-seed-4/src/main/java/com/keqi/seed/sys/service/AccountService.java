@@ -2,7 +2,6 @@ package com.keqi.seed.sys.service;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.util.SaFoxUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.keqi.seed.core.pojo.BaseService;
@@ -37,17 +36,16 @@ public class AccountService implements BaseService<AccountDO> {
 
     @Transactional
     @Override
-    public int deleteById(String id) {
-        LambdaQueryWrapper<AccountRoleDO> query1 = Wrappers.lambdaQuery(AccountRoleDO.class)
-                .ge(AccountRoleDO::getAccountId, id);
-        accountRoleMapper.delete(query1);
+    public void deleteById(String id) {
+        accountRoleMapper.delete(Wrappers.lambdaQuery(AccountRoleDO.class)
+                .eq(AccountRoleDO::getAccountId, id));
 
-        return accountMapper.deleteById(id);
+        accountMapper.deleteById(id);
     }
 
     @Override
-    public int updateById(AccountDO accountDO) {
-        return accountMapper.updateById(accountDO);
+    public void updateById(AccountDO accountDO) {
+        accountMapper.updateById(accountDO);
     }
 
     @Override

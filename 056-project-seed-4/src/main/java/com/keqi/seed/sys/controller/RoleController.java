@@ -1,5 +1,6 @@
 package com.keqi.seed.sys.controller;
 
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.keqi.seed.core.pojo.PageVO;
 import com.keqi.seed.sys.domain.db.RoleDO;
 import com.keqi.seed.sys.domain.param.RolePageParam;
@@ -34,6 +35,8 @@ public class RoleController {
         return roleService.getById(id);
     }
 
+    @ApiOperationSupport(ignoreParameters = {"records", "total", "orders", "optimizeCountSql",
+            "isSearchCount", "hitCount", "countId", "maxLimit", "searchCount"})
     @GetMapping("/page")
     public PageVO<RoleDO> page(RolePageParam param) {
         return roleService.page(param);
