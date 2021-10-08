@@ -5,10 +5,10 @@ spring:
         active: local-dev
     main:
         banner-mode: off
-    servlet:
-        multipart:
-            max-file-size: 20MB
-            max-request-size: 30MB
+#    servlet:
+#        multipart:
+#            max-file-size: 20MB
+#            max-request-size: 30MB
 
 # 配置端口号和应用路径
 server:
