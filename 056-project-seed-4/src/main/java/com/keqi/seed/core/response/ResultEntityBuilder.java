@@ -1,6 +1,6 @@
 package com.keqi.seed.core.response;
 
-import org.springframework.http.HttpStatus;
+import com.keqi.seed.core.exception.BusinessException;
 
 /**
  * 响应实体构建类
@@ -9,17 +9,6 @@ import org.springframework.http.HttpStatus;
  */
 public class ResultEntityBuilder {
 
-    /*OK(200, "OK")*/
-    private static final int successCode = HttpStatus.OK.value();
-    private static final String successMsg = HttpStatus.OK.getReasonPhrase();
-
-    /*INTERNAL_SERVER_ERROR(500, "Internal Server Error")*/
-    private static final int failureCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
-
-    /*UNAUTHORIZED(401, "Unauthorized")*/
-    private static final int noAuthCode = HttpStatus.UNAUTHORIZED.value();
-    private static final String noAuthMsg = HttpStatus.UNAUTHORIZED.getReasonPhrase();
-
     /**
      * 单个对象
      *
@@ -27,7 +16,7 @@ public class ResultEntityBuilder {
      * @return r 如果是一个空的List对象，那么 body 的值会是 []
      */
     public static ResultEntity success(Object body) {
-        return new ResultEntity(successCode, successMsg, body);
+        return new ResultEntity(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getCode(), body);
     }
 
     /**
@@ -36,7 +25,7 @@ public class ResultEntityBuilder {
      * @return r
      */
     public static ResultEntity success() {
-        return new ResultEntity(successCode, successMsg, null);
+        return new ResultEntity(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getCode(), null);
     }
 
     /**
@@ -45,7 +34,7 @@ public class ResultEntityBuilder {
      * @return r
      */
     public static ResultEntity noAuth(String message) {
-        return new ResultEntity(noAuthCode, message == null ? noAuthMsg : message, null);
+        return new ResultEntity(ResultStatusEnum.NO_AUTH.getCode(), message, null);
     }
 
     /**
@@ -55,6 +44,26 @@ public class ResultEntityBuilder {
      * @return r
      */
     public static ResultEntity failure(String msg) {
-        return new ResultEntity(failureCode, msg, null);
+        return new ResultEntity(ResultStatusEnum.FAILURE.getCode(), msg, null);
+    }
+
+    /**
+     * 异常返回
+     *
+     * @param e e
+     * @return r
+     */
+    public static ResultEntity business(BusinessException e) {
+        return new ResultEntity(e.getStatus(), e.getMessage(), null);
+    }
+
+    /**
+     * 参数错误
+     *
+     * @param message message
+     * @return r
+     */
+    public static ResultEntity paramIllegal(String message) {
+        return new ResultEntity(ResultStatusEnum.PARAM_ILLEGAL.getCode(), message, null);
     }
 }

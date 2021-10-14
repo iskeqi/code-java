@@ -24,78 +24,78 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public class GlobalExceptionHandler {
 
-	@Value("${spring.profiles.active:local-dev}")
-	private String active;
+    @Value("${spring.profiles.active:local-dev}")
+    private String active;
 
-	/**
-	 * BusinessException
-	 *
-	 * @param e BusinessException
-	 * @return r
-	 */
-	@ExceptionHandler(value = BusinessException.class)
-	public ResultEntity businessException(BusinessException e) {
-		return ResultEntityBuilder.failure(e.getMessage());
-	}
+    /**
+     * BusinessException
+     *
+     * @param e BusinessException
+     * @return r
+     */
+    @ExceptionHandler(value = BusinessException.class)
+    public ResultEntity businessException(BusinessException e) {
+        return ResultEntityBuilder.business(e);
+    }
 
-	/**
-	 * SpringValidatorException
-	 *
-	 * @return r
-	 */
-	@ExceptionHandler(value = ValidatorException.class)
-	public ResultEntity springValidatorException(ValidatorException e) {
-		return ResultEntityBuilder.failure(e.getMessage());
-	}
+    /**
+     * SpringValidatorException
+     *
+     * @return r
+     */
+    @ExceptionHandler(value = ValidatorException.class)
+    public ResultEntity springValidatorException(ValidatorException e) {
+        return ResultEntityBuilder.paramIllegal(e.getMessage());
+    }
 
-	/**
-	 * SaTokenException
-	 *
-	 * @param e SaTokenException
-	 * @return r
-	 */
-	@ExceptionHandler(value = SaTokenException.class)
-	public ResultEntity businessException(SaTokenException e) {
-		if (e instanceof DisableLoginException) {
-			return ResultEntityBuilder.noAuth("当前账号被禁用");
-		}
-		if (e instanceof IdTokenInvalidException) {
-			// 当前 token 无效
-			return ResultEntityBuilder.noAuth("当前账号未登录");
-		}
-		if (e instanceof NotLoginException) {
-			return ResultEntityBuilder.noAuth("当前账号未登录");
-		}
-		if (e instanceof NotPermissionException) {
-			return ResultEntityBuilder.noAuth("当前账号无此操作权限");
-		}
-		if (e instanceof NotRoleException) {
-			return ResultEntityBuilder.noAuth("当前账号无此操作权限");
-		}
-		if (e instanceof NotSafeException) {
-			return ResultEntityBuilder.noAuth("当前操作未通过二级认证");
-		}
-		return ResultEntityBuilder.noAuth(e.getMessage());
-	}
+    /**
+     * SaTokenException
+     *
+     * @param e SaTokenException
+     * @return r
+     */
+    @ExceptionHandler(value = SaTokenException.class)
+    public ResultEntity businessException(SaTokenException e) {
+        if (e instanceof DisableLoginException) {
+            return ResultEntityBuilder.noAuth("当前账号被禁用");
+        }
+        if (e instanceof IdTokenInvalidException) {
+            // 当前 token 无效
+            return ResultEntityBuilder.noAuth("当前账号未登录");
+        }
+        if (e instanceof NotLoginException) {
+            return ResultEntityBuilder.noAuth("当前账号未登录");
+        }
+        if (e instanceof NotPermissionException) {
+            return ResultEntityBuilder.noAuth("当前账号无此操作权限");
+        }
+        if (e instanceof NotRoleException) {
+            return ResultEntityBuilder.noAuth("当前账号无此操作权限");
+        }
+        if (e instanceof NotSafeException) {
+            return ResultEntityBuilder.noAuth("当前操作未通过二级认证");
+        }
+        return ResultEntityBuilder.noAuth(e.getMessage());
+    }
 
-	/**
-	 * 这个异常必须要放在最后
-	 *
-	 * @param e Throwable
-	 * @return r
-	 */
-	@ExceptionHandler(Throwable.class)
-	public ResultEntity throwable(Throwable e) {
-		// 未知异常，打印异常栈信息便于排查问题
-		log.error(e.getMessage(), e);
+    /**
+     * 这个异常必须要放在最后
+     *
+     * @param e Throwable
+     * @return r
+     */
+    @ExceptionHandler(Throwable.class)
+    public ResultEntity throwable(Throwable e) {
+        // 未知异常，打印异常栈信息便于排查问题
+        log.error(e.getMessage(), e);
 
-		if ("prod".equals(active)) {
-			// 邮件、微信、钉钉通知相关责任人
-			return ResultEntityBuilder.failure("系统繁忙，请稍后重试");
-		}
+        if ("prod".equals(active)) {
+            // 邮件、微信、钉钉通知相关责任人
+            return ResultEntityBuilder.failure("系统繁忙，请稍后重试");
+        }
 
-		// 开发阶段，直接将异常信息通过接口响应出去，便于排查问题
-		return ResultEntityBuilder.failure(e.toString());
-	}
+        // 开发阶段，直接将异常信息通过接口响应出去，便于排查问题
+        return ResultEntityBuilder.failure(e.toString());
+    }
 
 }
