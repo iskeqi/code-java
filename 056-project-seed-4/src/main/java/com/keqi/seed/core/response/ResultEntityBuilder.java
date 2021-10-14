@@ -16,7 +16,7 @@ public class ResultEntityBuilder {
      * @return r 如果是一个空的List对象，那么 body 的值会是 []
      */
     public static ResultEntity success(Object body) {
-        return new ResultEntity(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getCode(), body);
+        return new ResultEntity(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getCodeName(), body);
     }
 
     /**
@@ -25,7 +25,7 @@ public class ResultEntityBuilder {
      * @return r
      */
     public static ResultEntity success() {
-        return new ResultEntity(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getCode(), null);
+        return new ResultEntity(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getCodeName(), null);
     }
 
     /**

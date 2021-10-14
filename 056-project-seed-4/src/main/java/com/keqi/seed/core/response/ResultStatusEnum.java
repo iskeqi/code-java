@@ -1,9 +1,5 @@
 package com.keqi.seed.core.response;
 
-import com.keqi.seed.sys.domain.enums.GenderEnumValidate;
-
-import java.util.Objects;
-
 /**
  * ResponseStatusEnum
  *
@@ -16,7 +12,7 @@ public enum ResultStatusEnum {
     FAILURE("1", "联系技术支持"),
 
     // 10000 - 权限相关
-    NO_AUTH("10001", "token错误/失效"),
+    NO_AUTH("10001", "token错误或失效"),
 
     // 20000 - 参数相关
     PARAM_ILLEGAL("20001", "参数错误");
@@ -44,13 +40,4 @@ public enum ResultStatusEnum {
         return codeName;
     }
 
-    public GenderEnumValidate parse(String code) {
-        GenderEnumValidate[] values = GenderEnumValidate.values();
-        for (GenderEnumValidate value : values) {
-            if (Objects.equals(value.getCode(), code)) {
-                return value;
-            }
-        }
-        return null;
-    }
 }
