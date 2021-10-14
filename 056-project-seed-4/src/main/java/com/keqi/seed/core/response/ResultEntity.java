@@ -5,18 +5,18 @@ package com.keqi.seed.core.response;
  *
  * @author keqi
  */
-public class ResultEntity {
+public class ResultEntity<T> {
 
 	private String status;
 
 	private String message;
 
-	private Object data;
+	private T data;
 
 	public ResultEntity() {
 	}
 
-	public ResultEntity(String status, String message, Object data) {
+	public ResultEntity(String status, String message, T data) {
 		this.status = status;
 		this.message = message;
 		this.data = data;
@@ -38,11 +38,11 @@ public class ResultEntity {
 		this.message = message;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 }

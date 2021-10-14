@@ -1,6 +1,7 @@
 package com.keqi.seed.sys.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.keqi.seed.core.response.ResultEntity;
 import com.keqi.seed.sys.domain.dto.AuthDto;
 import com.keqi.seed.sys.domain.param.AuthParam;
 import com.keqi.seed.sys.service.AuthService;
@@ -15,8 +16,9 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public AuthDto auth(@RequestBody AuthParam param) {
-        return authService.auth(param);
+    public ResultEntity<AuthDto> auth(@RequestBody AuthParam param) {
+//        return authService.auth(param);
+        return null;
     }
 
     @DeleteMapping("/logout")
