@@ -1,7 +1,5 @@
 package com.keqi.seed.core.response;
 
-import com.keqi.seed.core.exception.BusinessException;
-
 /**
  * 响应实体构建类
  *
@@ -50,11 +48,12 @@ public class ResultEntityBuilder {
     /**
      * 异常返回
      *
-     * @param e e
+     * @param status  status
+     * @param message message
      * @return r
      */
-    public static ResultEntity business(BusinessException e) {
-        return new ResultEntity(e.getStatus(), e.getMessage(), null);
+    public static ResultEntity business(String status, String message) {
+        return new ResultEntity(status, message, null);
     }
 
     /**

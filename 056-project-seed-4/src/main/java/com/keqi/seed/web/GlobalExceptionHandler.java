@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = BusinessException.class)
     public ResultEntity businessException(BusinessException e) {
-        return ResultEntityBuilder.business(e);
+        return ResultEntityBuilder.business(e.getStatus(), e.getMessage());
     }
 
     /**
