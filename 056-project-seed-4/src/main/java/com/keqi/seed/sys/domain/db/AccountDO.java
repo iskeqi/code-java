@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.keqi.seed.core.pojo.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * 用户表
  */
 @Data
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_account")
 public class AccountDO extends BaseDO {

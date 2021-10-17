@@ -35,7 +35,7 @@ public class RoleService implements BaseService<RoleDO> {
 
     @Transactional
     @Override
-    public int deleteById(String id) {
+    public void deleteById(String id) {
         LambdaQueryWrapper<AccountRoleDO> query1 = Wrappers.lambdaQuery(AccountRoleDO.class)
                 .eq(AccountRoleDO::getRoleId, id);
         int count = accountRoleMapper.selectCount(query1);
@@ -47,12 +47,12 @@ public class RoleService implements BaseService<RoleDO> {
                 .eq(RoleMenuDO::getRoleId, id);
         roleMenuMapper.delete(query2);
 
-        return roleMapper.deleteById(id);
+        roleMapper.deleteById(id);
     }
 
     @Override
-    public int updateById(RoleDO roleDO) {
-        return roleMapper.updateById(roleDO);
+    public void updateById(RoleDO roleDO) {
+        roleMapper.updateById(roleDO);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.keqi.seed.sys.service;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.keqi.seed.core.exception.BusinessException;
 import com.keqi.seed.sys.domain.db.AccountDO;
@@ -21,9 +21,8 @@ public class AuthService {
     private AccountMapper accountMapper;
 
     public AuthDto auth(AuthParam param) {
-        LambdaQueryWrapper<AccountDO> query1 = Wrappers.lambdaQuery(AccountDO.class)
-                .eq(AccountDO::getAccount, param.getUsername());
-        AccountDO accountDO = accountMapper.selectOne(query1);
+        QueryWrapper<AccountDO> query = Wrappers.query(new AccountDO().setAccount(param.getUsername()));
+        AccountDO accountDO = accountMapper.selectOne(query);
         if (accountDO == null) {
             throw new BusinessException("用户名或密码不正确");
         }

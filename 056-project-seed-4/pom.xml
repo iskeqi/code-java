@@ -47,7 +47,7 @@
         <dependency>
             <groupId>com.dtflys.forest</groupId>
             <artifactId>forest-spring-boot-starter</artifactId>
-            <version>1.5.2-BETA</version>
+            <version>1.5.4</version>
         </dependency>
 
         <dependency>

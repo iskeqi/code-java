@@ -1,5 +1,6 @@
 package com.keqi.seed.sys.controller;
 
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.keqi.seed.core.pojo.PageVO;
 import com.keqi.seed.sys.domain.db.AccountDO;
 import com.keqi.seed.sys.domain.param.AccountPageParam;
@@ -34,6 +35,8 @@ public class AccountController {
         return accountService.getById(id);
     }
 
+    @ApiOperationSupport(ignoreParameters = {"records", "total", "orders", "optimizeCountSql",
+            "isSearchCount", "hitCount", "countId", "maxLimit", "searchCount"})
     @GetMapping("/page")
     public PageVO<AccountDO> page(AccountPageParam param) {
         return accountService.page(param);

@@ -1,5 +1,7 @@
 package com.keqi.seed.sys.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.keqi.seed.core.pojo.BaseDictValidate;
 import com.keqi.seed.sys.domain.db.DictItemDO;
 import com.keqi.seed.sys.mapper.DictItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class DictItemService {
+@Service("dictItemService")
+public class DictItemService implements BaseDictValidate {
 
     @Autowired
     private DictItemMapper dictItemMapper;
@@ -20,5 +22,16 @@ public class DictItemService {
 
     public List<DictItemDO> listByTypeCode(String typeCode) {
         return dictItemMapper.listByTypeCode(typeCode);
+    }
+
+    @Override
+    public boolean existItemCode(String typeCode, String itemCode) {
+        DictItemDO param = new DictItemDO();
+        param.setTypeCode(typeCode);
+        param.setItemCode(itemCode);
+
+        DictItemDO t = dictItemMapper.selectOne(Wrappers.lambdaQuery(param));
+
+        return t != null;
     }
 }
