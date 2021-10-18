@@ -2,8 +2,6 @@ package com.keqi.seed.sys.domain.enums;
 
 import com.keqi.seed.core.validator.BaseEnumValidate;
 
-import java.util.Objects;
-
 /**
  * 性别枚举类
  *
@@ -34,7 +32,7 @@ public enum GenderEnum implements BaseEnumValidate {
     public GenderEnum parse(String code) {
         GenderEnum[] values = GenderEnum.values();
         for (GenderEnum value : values) {
-            if (Objects.equals(value.getCode(), code)) {
+            if (value.getCode().equals(code)) {
                 return value;
             }
         }
