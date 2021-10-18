@@ -1,8 +1,8 @@
 package com.keqi.seed.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.keqi.seed.core.pojo.BaseDO;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,33 +15,19 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_account")
 public class AccountDO extends BaseDO {
-    /**
-     * 用户名
-     */
-    @TableField(value = "account")
+
+    @ApiModelProperty("用户名")
     private String account;
 
-    /**
-     * 姓名
-     */
-    @TableField(value = "nick_name")
+    @ApiModelProperty("姓名")
     private String nickName;
 
-    /**
-     * 岗位
-     */
-    @TableField(value = "post")
+    @ApiModelProperty("岗位")
     private String post;
 
-    /**
-     * 密码
-     */
-    @TableField(value = "`password`")
+    @ApiModelProperty("密码")
     private String password;
 
-    /**
-     * 盐
-     */
-    @TableField(value = "salt")
+    @ApiModelProperty("盐")
     private String salt;
 }

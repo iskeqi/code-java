@@ -1,4 +1,4 @@
-package com.keqi.seed.core.pojo;
+package com.keqi.seed.core.validator;
 
 /**
  * 基础枚举类

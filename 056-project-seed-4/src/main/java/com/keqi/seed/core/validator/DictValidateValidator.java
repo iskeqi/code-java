@@ -1,7 +1,6 @@
 package com.keqi.seed.core.validator;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.keqi.seed.core.pojo.BaseDictValidate;
 import com.keqi.seed.core.validator.annotation.DictValidate;
 
 import javax.validation.ConstraintValidator;

@@ -1,6 +1,5 @@
 package com.keqi.seed.core.validator;
 
-import com.keqi.seed.core.pojo.BaseEnumValidate;
 import com.keqi.seed.core.validator.annotation.EnumValidate;
 
 import javax.validation.ConstraintValidator;

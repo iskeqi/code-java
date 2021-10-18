@@ -1,7 +1,7 @@
 package com.keqi.seed.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -10,21 +10,12 @@ import lombok.experimental.Accessors;
 @TableName(value = "sys_config")
 public class ConfigDO {
 
-    /**
-     * 配置项key
-     */
-    @TableField(value = "config_key")
+    @ApiModelProperty("配置项key")
     private String configKey;
 
-    /**
-     * 配置项value
-     */
-    @TableField(value = "config_value")
+    @ApiModelProperty("配置项value")
     private String configValue;
 
-    /**
-     * 配置项描述信息
-     */
-    @TableField(value = "note")
+    @ApiModelProperty("配置项描述信息")
     private String note;
 }

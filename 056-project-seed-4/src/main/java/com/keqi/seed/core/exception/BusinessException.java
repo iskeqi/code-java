@@ -3,7 +3,7 @@ package com.keqi.seed.core.exception;
 import com.keqi.seed.core.response.ResultStatusEnum;
 
 /**
- * 业务异常类（当校验用户输入不合法时，通过抛出此异常给用户界面作为提示信息）
+ * 业务异常类
  *
  * @author keqi
  */

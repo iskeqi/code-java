@@ -1,7 +1,7 @@
 package com.keqi.seed.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,15 +10,10 @@ import lombok.Data;
 @Data
 @TableName(value = "sys_account_role")
 public class AccountRoleDO {
-    /**
-     * 用户id
-     */
-    @TableField(value = "account_id")
+
+    @ApiModelProperty("用户id")
     private Long accountId;
 
-    /**
-     * 角色id
-     */
-    @TableField(value = "role_id")
+    @ApiModelProperty("角色id")
     private Long roleId;
 }

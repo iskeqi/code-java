@@ -35,8 +35,10 @@ public class RoleController {
         return roleService.getById(id);
     }
 
-    @ApiOperationSupport(ignoreParameters = {"records", "total", "orders", "optimizeCountSql",
-            "isSearchCount", "hitCount", "countId", "maxLimit", "searchCount"})
+    @ApiOperationSupport(ignoreParameters = {
+            "records", "total", "orders", "optimizeCountSql", "isSearchCount", "hitCount",
+            "countId", "maxLimit", "searchCount", "searchName", "orderFiled", "orderType",
+            "searchValue", "beginDate", "endDate", "beginTime", "endTime"})
     @GetMapping("/page")
     public PageVO<RoleDO> page(RolePageParam param) {
         return roleService.page(param);

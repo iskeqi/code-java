@@ -1,7 +1,7 @@
 package com.keqi.seed.sys.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.keqi.seed.core.pojo.BaseDictValidate;
+import com.keqi.seed.core.validator.BaseDictValidate;
 import com.keqi.seed.sys.domain.db.DictItemDO;
 import com.keqi.seed.sys.mapper.DictItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;

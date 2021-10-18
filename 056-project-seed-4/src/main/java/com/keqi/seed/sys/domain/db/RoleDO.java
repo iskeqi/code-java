@@ -1,8 +1,8 @@
 package com.keqi.seed.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.keqi.seed.core.pojo.BaseDO;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,15 +13,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_role")
 public class RoleDO extends BaseDO {
-    /**
-     * 角色名称
-     */
-    @TableField(value = "`name`")
+
+    @ApiModelProperty("角色名称")
     private String name;
 
-    /**
-     * 权限标识
-     */
-    @TableField(value = "permiss")
+    @ApiModelProperty("权限标识")
     private String permiss;
 }

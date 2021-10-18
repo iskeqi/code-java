@@ -35,8 +35,10 @@ public class AccountController {
         return accountService.getById(id);
     }
 
-    @ApiOperationSupport(ignoreParameters = {"records", "total", "orders", "optimizeCountSql",
-            "isSearchCount", "hitCount", "countId", "maxLimit", "searchCount"})
+    @ApiOperationSupport(ignoreParameters = {
+            "records", "total", "orders", "optimizeCountSql", "isSearchCount", "hitCount",
+            "countId", "maxLimit", "searchCount", "searchName", "orderFiled", "orderType",
+            "searchValue", "beginDate", "endDate", "beginTime", "endTime"})
     @GetMapping("/page")
     public PageVO<AccountDO> page(AccountPageParam param) {
         return accountService.page(param);

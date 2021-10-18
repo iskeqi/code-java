@@ -35,8 +35,10 @@ public class ConfigController {
         return configService.getByConfigKey(configKey);
     }
 
-    @ApiOperationSupport(ignoreParameters = {"records", "total", "orders", "optimizeCountSql",
-            "isSearchCount", "hitCount", "countId", "maxLimit", "searchCount"})
+    @ApiOperationSupport(ignoreParameters = {
+            "records", "total", "orders", "optimizeCountSql", "isSearchCount", "hitCount",
+            "countId", "maxLimit", "searchCount", "searchName", "orderFiled", "orderType",
+            "searchValue", "beginDate", "endDate", "beginTime", "endTime"})
     @GetMapping("/page")
     public PageVO<ConfigDO> page(Page<ConfigDO> param) {
         return configService.page(param);

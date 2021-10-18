@@ -1,8 +1,8 @@
 package com.keqi.seed.sys.domain.db;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.keqi.seed.core.pojo.BaseDO;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,45 +13,25 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_menu")
 public class MenuDO extends BaseDO {
-    /**
-     * 名称
-     */
-    @TableField(value = "`name`")
+
+    @ApiModelProperty("名称")
     private String name;
 
-    /**
-     * 请求URL地址
-     */
-    @TableField(value = "url")
+    @ApiModelProperty("请求URL地址")
     private String url;
 
-    /**
-     * ICON图标
-     */
-    @TableField(value = "icon")
+    @ApiModelProperty("ICON图标")
     private String icon;
 
-    /**
-     * 菜单类型 [C 目录，M 菜单，B 按钮]
-     */
-    @TableField(value = "`type`")
+    @ApiModelProperty("菜单类型 [C 目录，M 菜单，B 按钮]")
     private String type;
 
-    /**
-     * 权限标识
-     */
-    @TableField(value = "permiss")
+    @ApiModelProperty("权限标识")
     private String permiss;
 
-    /**
-     * 父级ID
-     */
-    @TableField(value = "parent_id")
+    @ApiModelProperty("父级ID")
     private Long parentId;
 
-    /**
-     * 排序字段
-     */
-    @TableField(value = "order_num")
+    @ApiModelProperty("排序字段")
     private Integer orderNum;
 }
