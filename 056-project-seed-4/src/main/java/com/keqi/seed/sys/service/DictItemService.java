@@ -34,4 +34,13 @@ public class DictItemService implements BaseDictValidate {
 
         return t != null;
     }
+
+    public void delete(String typeCode, String itemCode) {
+        DictItemDO t = new DictItemDO().setTypeCode(typeCode);
+        if (itemCode != null) {
+            t.setItemCode(itemCode);
+        }
+
+        dictItemMapper.delete(Wrappers.query(t));
+    }
 }

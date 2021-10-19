@@ -31,10 +31,15 @@ public class ConfigService {
     }
 
     public void updateByConfigKey(ConfigDO param) {
-        ConfigDO t = BeanUtil.copyProperties(param, ConfigDO.class);
+        ConfigDO t1 = this.getByConfigKey(param.getConfigKey());
+        if (t1 == null) {
+            throw new BusinessException("configKey：" + param.getConfigKey() + " 不存在");
+        }
+
+        ConfigDO t2 = BeanUtil.copyProperties(param, ConfigDO.class);
         // configKey 是不能修改的
-        t.setConfigKey(null);
-        configMapper.update(t, Wrappers.query(new ConfigDO().setConfigKey(param.getConfigKey())));
+        t2.setConfigKey(null);
+        configMapper.update(t2, Wrappers.query(new ConfigDO().setConfigKey(param.getConfigKey())));
     }
 
     public ConfigDO getByConfigKey(String configKey) {

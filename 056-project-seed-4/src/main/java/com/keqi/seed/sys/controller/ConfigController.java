@@ -8,6 +8,7 @@ import com.keqi.seed.sys.service.ConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "配置管理")
@@ -20,7 +21,7 @@ public class ConfigController {
 
     @ApiOperation("新增配置")
     @PostMapping
-    public void insert(@RequestBody ConfigDO param) {
+    public void insert(@Validated @RequestBody ConfigDO param) {
         configService.insert(param);
     }
 
@@ -32,7 +33,7 @@ public class ConfigController {
 
     @ApiOperation("修改配置")
     @PutMapping
-    public void updateByConfigKey(@RequestBody ConfigDO param) {
+    public void updateByConfigKey(@Validated @RequestBody ConfigDO param) {
         configService.updateByConfigKey(param);
     }
 

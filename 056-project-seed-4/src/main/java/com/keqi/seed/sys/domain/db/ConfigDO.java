@@ -5,14 +5,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @Accessors(chain = true)
 @TableName(value = "sys_config")
 public class ConfigDO {
 
+    @NotBlank
     @ApiModelProperty("配置项key")
     private String configKey;
 
+    @NotBlank
     @ApiModelProperty("配置项value")
     private String configValue;
 
