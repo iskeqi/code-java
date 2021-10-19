@@ -13,11 +13,13 @@ import com.keqi.seed.sys.domain.db.RoleDO;
 import com.keqi.seed.sys.domain.param.AccountPageParam;
 import com.keqi.seed.sys.mapper.AccountMapper;
 import com.keqi.seed.sys.mapper.AccountRoleMapper;
+import com.keqi.seed.sys.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountService implements BaseService<AccountDO> {
@@ -26,6 +28,8 @@ public class AccountService implements BaseService<AccountDO> {
     private AccountMapper accountMapper;
     @Autowired
     private AccountRoleMapper accountRoleMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     @Transactional
@@ -69,7 +73,16 @@ public class AccountService implements BaseService<AccountDO> {
 
     @Override
     public AccountDO getById(String id) {
-        return accountMapper.selectById(id);
+        List<AccountRoleDO> roleIdList = accountRoleMapper
+                .selectList(Wrappers.query(new AccountRoleDO().setAccountId(id)));
+        List<RoleDO> roleList = roleMapper.selectBatchIds(
+                roleIdList.stream().map(AccountRoleDO::getRoleId).collect(Collectors.toList()));
+
+        AccountDO t = accountMapper.selectById(id);
+        t.setPassword(null);
+        t.setSalt(null);
+        t.setRoleList(roleList);
+        return t;
     }
 
     public PageVO<AccountDO> page(AccountPageParam param) {
