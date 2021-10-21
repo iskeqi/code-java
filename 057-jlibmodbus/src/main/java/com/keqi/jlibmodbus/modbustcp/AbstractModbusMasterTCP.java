@@ -25,14 +25,17 @@ public abstract class AbstractModbusMasterTCP {
 
     protected String host;
     protected int port;
+    protected String deviceName;
 
-    private String errorMsg;
+    private static final String errorMsg = "ModbusTCP 设备[deviceName] 发生异常";
 
-    public AbstractModbusMasterTCP(String host, int port) throws ModbusTCPException {
+    public AbstractModbusMasterTCP(String host, int port, String deviceName) throws ModbusTCPException {
         try {
             this.host = host;
             this.port = port;
-            errorMsg = "ModbusTCP 设备[ " + this.host + ":" + this.port + " ] 发生异常";
+            this.deviceName = deviceName;
+
+            errorMsg.replace("deviceName", this.deviceName);
 
             TcpParameters tcpParameters = new TcpParameters();
             tcpParameters.setHost(InetAddress.getByName(host));
