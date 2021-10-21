@@ -31,9 +31,9 @@ public abstract class AbstractModbusMasterTCP {
 
     public AbstractModbusMasterTCP(String host, int port, String deviceName) throws ModbusTCPException {
         try {
+            this.deviceName = deviceName == null ? host + ":" + port : deviceName;
             this.host = host;
             this.port = port;
-            this.deviceName = deviceName;
 
             errorMsg.replace("deviceName", this.deviceName);
 
