@@ -72,6 +72,17 @@ public abstract class AbstractModbusMasterTCP {
     }
 
     /**
+     * 读单个线圈
+     *
+     * @param startAddress startAddress
+     * @return r
+     * @throws ModbusTCPException e
+     */
+    final public boolean readCoils(int startAddress) throws ModbusTCPException {
+        return readCoils(startAddress, 1)[0];
+    }
+
+    /**
      * 读保持寄存器
      *
      * @param startAddress startAddress
@@ -86,6 +97,17 @@ public abstract class AbstractModbusMasterTCP {
             handleException(e);
         }
         return readHoldingRegisters(startAddress, quantity);
+    }
+
+    /**
+     * 读单个保持寄存器
+     *
+     * @param startAddress startAddress
+     * @return r
+     * @throws ModbusTCPException e
+     */
+    final public int readHoldingRegisters(int startAddress) throws ModbusTCPException {
+        return readHoldingRegisters(startAddress, 1)[0];
     }
 
     /**
@@ -106,6 +128,17 @@ public abstract class AbstractModbusMasterTCP {
     }
 
     /**
+     * 读单个离散寄存器
+     *
+     * @param startAddress startAddress
+     * @return r
+     * @throws ModbusTCPException e
+     */
+    final public boolean readDiscreteInputs(int startAddress) throws ModbusTCPException {
+        return readDiscreteInputs(startAddress, 1)[0];
+    }
+
+    /**
      * 读输入寄存器
      *
      * @param startAddress startAddress
@@ -120,6 +153,17 @@ public abstract class AbstractModbusMasterTCP {
             handleException(e);
         }
         return readInputRegisters(startAddress, quantity);
+    }
+
+    /**
+     * 读单个输入寄存器
+     *
+     * @param startAddress startAddress
+     * @return r
+     * @throws ModbusTCPException e
+     */
+    final public int readInputRegisters(int startAddress) throws ModbusTCPException {
+        return readInputRegisters(startAddress, 1)[0];
     }
 
     /**
