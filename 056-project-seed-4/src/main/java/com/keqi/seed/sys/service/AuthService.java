@@ -2,7 +2,6 @@ package com.keqi.seed.sys.service;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.keqi.seed.core.exception.BusinessException;
 import com.keqi.seed.sys.domain.db.AccountDO;
@@ -21,13 +20,12 @@ public class AuthService {
     private AccountMapper accountMapper;
 
     public AuthDto auth(AuthParam param) {
-        QueryWrapper<AccountDO> query = Wrappers.query(new AccountDO().setAccount(param.getUsername()));
-        AccountDO accountDO = accountMapper.selectOne(query);
-        if (accountDO == null) {
+        AccountDO t = accountMapper.selectOne(Wrappers.query(new AccountDO().setAccount(param.getUsername())));
+        if (t == null) {
             throw new BusinessException("用户名或密码不正确");
         }
-        String password = SaSecureUtil.sha256(accountDO.getSalt() + param.getPassword() + accountDO.getAccount());
-        if (!Objects.equals(password, accountDO.getPassword())) {
+        String password = SaSecureUtil.sha256(t.getSalt() + param.getPassword() + t.getAccount());
+        if (!Objects.equals(password, t.getPassword())) {
             throw new BusinessException("用户名或密码不正确");
         }
 
