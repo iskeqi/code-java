@@ -7,15 +7,17 @@ package com.keqi.seed.core.response;
  */
 public enum ResultStatusEnum {
 
-    // 基础返回状态码
-    SUCCESS("0", "success"),
-    FAILURE("1", "联系技术支持"),
+    SUCCESS("00000", "success"),
 
-    // 10000 - 权限相关
-    NO_AUTH("10001", "token错误或失效"),
+    // 用户端错误
+    NO_AUTH("A0001", "token错误或失效"),
+    PARAM_ILLEGAL("A0002", "参数错误"),
 
-    // 20000 - 参数相关
-    PARAM_ILLEGAL("20001", "参数错误");
+    // 服务端错误
+    FAILURE("B0001", "联系技术支持"),
+
+    // 第三方服务错误
+    THIRD_SERVICE("C0001", "调用第三方服务出错");
 
     /**
      * 状态码
