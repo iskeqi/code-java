@@ -42,7 +42,7 @@ public class ResultEntityBuilder {
      * @return r
      */
     public static ResultEntity failure(String msg) {
-        return new ResultEntity(ResultStatusEnum.FAILURE.getCode(), msg, null);
+        return new ResultEntity(ResultStatusEnum.SERVER_ERROR.getCode(), msg, null);
     }
 
     /**
