@@ -2,6 +2,7 @@ package com.keqi.seed.web;
 
 import cn.dev33.satoken.exception.*;
 import com.keqi.seed.core.exception.BusinessException;
+import com.keqi.seed.core.exception.ParamException;
 import com.keqi.seed.core.exception.ValidatorException;
 import com.keqi.seed.core.response.ResultEntity;
 import com.keqi.seed.core.response.ResultEntityBuilder;
@@ -36,6 +37,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BusinessException.class)
     public ResultEntity businessException(BusinessException e) {
         return ResultEntityBuilder.business(e.getStatus(), e.getMessage());
+    }
+
+    /**
+     * ParamException
+     *
+     * @param e ParamException
+     * @return r
+     */
+    @ExceptionHandler(value = ParamException.class)
+    public ResultEntity businessException(ParamException e) {
+        return ResultEntityBuilder.paramIllegal(e.getMessage());
     }
 
     /**
