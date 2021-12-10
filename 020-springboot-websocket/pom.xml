@@ -13,6 +13,7 @@
         <module>springboot-websocket</module>
         <module>spring-websocket</module>
         <module>tomcat-websocket</module>
+        <module>spring-websocket-again</module>
     </modules>
 
 </project>

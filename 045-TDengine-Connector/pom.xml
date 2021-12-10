@@ -16,6 +16,8 @@
 
     <modules>
         <module>tdengine-java-connector</module>
+        <module>tdengine-mybatis-connector</module>
+        <module>tdengine-restful-connector</module>
     </modules>
 
 </project>
