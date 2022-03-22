@@ -27,7 +27,7 @@ public abstract class AbstractModbusMasterTCP {
     protected int port;
     protected String deviceName;
 
-    private static final String errorMsg = "ModbusTCP 设备[deviceName] 发生异常";
+    protected String errorMsg = "ModbusTCP slave [deviceName] occurs exception ";
 
     public AbstractModbusMasterTCP(String host, int port, String deviceName) throws ModbusTCPException {
         try {
