@@ -1,9 +1,6 @@
 package com.keqi.mqtt.connect;
 
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class ConnectTest {
@@ -22,6 +19,7 @@ public class ConnectTest {
 
             // 设置connect 属性
             MqttConnectOptions connOpts = new MqttConnectOptions();
+            // 持久化连接
             connOpts.setCleanSession(true);
 
             System.out.println("Connecting to broker: "+broker);
@@ -29,15 +27,20 @@ public class ConnectTest {
             System.out.println("Connected");
 
 
-
+            // 发送一个 qos为2的消息到 broker 中
             System.out.println("Publishing message: "+content);
-
             MqttMessage message = new MqttMessage(content.getBytes());
             message.setQos(qos);
-
             sampleClient.publish(topic, message);
             System.out.println("Message published");
 
+//            sampleClient.subscribe(); // 订阅
+//            IMqttToken iMqttToken = sampleClient.subscribeWithResponse();
+//            iMqttToken.get
+//            sampleClient.unsubscribe(); //
+
+
+            // 断开连接(客户端主动断开)
             sampleClient.disconnect();
 
             System.out.println("Disconnected");
