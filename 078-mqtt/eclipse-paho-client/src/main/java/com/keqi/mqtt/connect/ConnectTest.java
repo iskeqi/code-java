@@ -17,11 +17,36 @@ public class ConnectTest {
         try {
             MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
 
+
+
+
+
+
             // 设置connect 属性
             MqttConnectOptions connOpts = new MqttConnectOptions();
             // 持久化连接
             connOpts.setCleanSession(true);
+            // 设置自动重连
+            connOpts.setAutomaticReconnect(true);
+            connOpts.setUserName("username");
+//            connOpts.setPassword("password".getBytes());
 
+            sampleClient.setCallback(new MqttCallback() {
+                @Override
+                public void connectionLost(Throwable cause) {
+
+                }
+
+                @Override
+                public void messageArrived(String topic, MqttMessage message) throws Exception {
+
+                }
+
+                @Override
+                public void deliveryComplete(IMqttDeliveryToken token) {
+
+                }
+            });
             System.out.println("Connecting to broker: "+broker);
             sampleClient.connect(connOpts);
             System.out.println("Connected");
