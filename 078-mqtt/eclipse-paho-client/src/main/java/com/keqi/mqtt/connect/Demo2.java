@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Demo2 {
 
@@ -45,28 +46,43 @@ public class Demo2 {
             }
         }, 5, TimeUnit.SECONDS);
 
-//        AtomicInteger count = new AtomicInteger();
-//        mqttClient.subscribe(TOPIC, (topic, message) -> {
-//            count.getAndIncrement();
-//            System.out.println(count + " | " + Thread.currentThread().getName() + " | " + new String(message.getPayload()));
-//        });
-//
-//        AtomicInteger count2 = new AtomicInteger();
-//        mqttClient.subscribe(TOPIC2, (topic, message) -> {
-//            count2.getAndIncrement();
-//            System.out.println(count2 + " | " + Thread.currentThread().getName() + " | " + new String(message.getPayload()));
-//        });
-
-        mqttClient.subscribe(TOPIC);
-        mqttClient.subscribe(TOPIC2);
-
         // 不同的 topic 发送过来的消息，使用的都是同一个线程名称为：MQTT Call 的线程接收的消息，如果希望使用多线程来接收消息，需要自己
         // 使用一个线程池，交给不同的线程去处理，mqtt类库内部并没有实现这种机制，自己实现就好了
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        mqttClient.setCallback(new FooCallbackListener());
+
+        AtomicInteger count = new AtomicInteger();
+        mqttClient.subscribe(TOPIC, (topic, message) -> {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(count + " | " + Thread.currentThread().getName() + " | " + new String(message.getPayload()));
+                }
+            });
+        });
+
+        mqttClient.subscribe(TOPIC2, (topic, message) -> {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(count + " | " + Thread.currentThread().getName() + " | " + new String(message.getPayload()));
+                }
+            });
+        });
+
+//        mqttClient.subscribe(TOPIC);
+//        mqttClient.subscribe(TOPIC2);
+
+
+//        mqttClient.setCallback(new FooCallbackListener(executorService));
     }
 
-    public class FooCallbackListener implements MqttCallback {
+    public static class FooCallbackListener implements MqttCallback {
+
+        ExecutorService executorService;
+
+        public FooCallbackListener(ExecutorService executorService) {
+            this.executorService = executorService;
+        }
 
         @Override
         public void connectionLost(Throwable e) {
@@ -84,11 +100,7 @@ public class Demo2 {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        System.out.println(Thread.currentThread().getName() + " | " + new String(token.getMessage().getPayload()));
-                    } catch (MqttException e) {
-                        e.printStackTrace();
-                    }
+                    System.out.println(Thread.currentThread().getName() + " | " + new String(message.getPayload()));
                 }
             });
         }
