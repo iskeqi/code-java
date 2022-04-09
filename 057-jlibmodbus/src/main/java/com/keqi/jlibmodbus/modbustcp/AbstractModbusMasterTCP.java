@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Objects;
 
 /**
  * 继承此类即可拥有使用 ModbusTCP 协议与硬件设备通信的能力
@@ -68,7 +69,7 @@ public abstract class AbstractModbusMasterTCP {
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
             handleException(e);
         }
-        return readCoils(startAddress, quantity);
+        return null;
     }
 
     /**
@@ -79,7 +80,7 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public boolean readCoils(int startAddress) throws ModbusTCPException {
-        return readCoils(startAddress, 1)[0];
+        return Objects.requireNonNull(readCoils(startAddress, 1))[0];
     }
 
     /**
@@ -96,7 +97,7 @@ public abstract class AbstractModbusMasterTCP {
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
             handleException(e);
         }
-        return readHoldingRegisters(startAddress, quantity);
+        return null;
     }
 
     /**
@@ -107,7 +108,7 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public int readHoldingRegisters(int startAddress) throws ModbusTCPException {
-        return readHoldingRegisters(startAddress, 1)[0];
+        return Objects.requireNonNull(readHoldingRegisters(startAddress, 1))[0];
     }
 
     /**
@@ -124,7 +125,7 @@ public abstract class AbstractModbusMasterTCP {
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
             handleException(e);
         }
-        return readDiscreteInputs(startAddress, quantity);
+        return null;
     }
 
     /**
@@ -135,7 +136,7 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public boolean readDiscreteInputs(int startAddress) throws ModbusTCPException {
-        return readDiscreteInputs(startAddress, 1)[0];
+        return Objects.requireNonNull(readDiscreteInputs(startAddress, 1))[0];
     }
 
     /**
@@ -152,7 +153,7 @@ public abstract class AbstractModbusMasterTCP {
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
             handleException(e);
         }
-        return readInputRegisters(startAddress, quantity);
+        return null;
     }
 
     /**
@@ -163,7 +164,7 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public int readInputRegisters(int startAddress) throws ModbusTCPException {
-        return readInputRegisters(startAddress, 1)[0];
+        return Objects.requireNonNull(readInputRegisters(startAddress, 1))[0];
     }
 
     /**
@@ -174,16 +175,10 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public void writeSingleCoil(int startAddress, boolean coil) throws ModbusTCPException {
-        boolean flag = false;
-
         try {
             modbusMaster.writeSingleCoil(serverAddress, startAddress, coil);
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
-            flag = handleException(e);
-        }
-
-        if (flag) {
-            writeSingleCoil(startAddress, coil);
+            handleException(e);
         }
     }
 
@@ -195,16 +190,10 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public void writeMultipleCoils(int startAddress, boolean[] coils) throws ModbusTCPException {
-        boolean flag = false;
-
         try {
             modbusMaster.writeMultipleCoils(serverAddress, startAddress, coils);
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
-            flag = handleException(e);
-        }
-
-        if (flag) {
-            writeMultipleCoils(startAddress, coils);
+            handleException(e);
         }
     }
 
@@ -216,16 +205,10 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public void writeSingleRegister(int startAddress, int register) throws ModbusTCPException {
-        boolean flag = false;
-
         try {
             modbusMaster.writeSingleRegister(serverAddress, startAddress, register);
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
-            flag = handleException(e);
-        }
-
-        if (flag) {
-            writeSingleRegister(startAddress, register);
+            handleException(e);
         }
     }
 
@@ -237,21 +220,16 @@ public abstract class AbstractModbusMasterTCP {
      * @throws ModbusTCPException e
      */
     final public void writeMultipleRegisters(int startAddress, int[] registers) throws ModbusTCPException {
-        boolean flag = false;
-
         try {
             modbusMaster.writeMultipleRegisters(serverAddress, startAddress, registers);
         } catch (ModbusProtocolException | ModbusNumberException | ModbusIOException e) {
-            flag = handleException(e);
-        }
-
-        if (flag) {
-            writeMultipleRegisters(startAddress, registers);
+            handleException(e);
         }
     }
 
-    private boolean handleException(Throwable e) {
-        if (e instanceof ModbusIOException) {
+    private void handleException(Throwable e) {
+        // 断线重连功能需要重新设计
+        /*if (e instanceof ModbusIOException) {
             if (!this.modbusMaster.isConnected()) {
                 try {
                     // 尝试重连
@@ -263,8 +241,7 @@ public abstract class AbstractModbusMasterTCP {
                 // 重连成功，不中断当前调用链(最好在这里进行重试，而不是通过返回值去重试，可能造成死循环)
                 return true;
             }
-        }
-
+        }*/
         throw new ModbusTCPException(errorMsg, e);
     }
 }
