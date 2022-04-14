@@ -1,53 +1,41 @@
 package com.keqi.client;
 
+import com.keqi.client.itlong.ItlongMsg;
+import com.keqi.client.itlong.ItlongProtocol;
 import org.smartboot.socket.MessageProcessor;
 import org.smartboot.socket.transport.AioQuickClient;
 import org.smartboot.socket.transport.AioSession;
 import org.smartboot.socket.transport.WriteBuffer;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.nio.charset.StandardCharsets;
 
 public class StringClient {
 
     public static void main(String[] args) throws IOException {
-        MessageProcessor<String> processor = new MessageProcessor<String>() {
+        MessageProcessor<ItlongMsg> processor = new MessageProcessor<ItlongMsg>() {
             @Override
-            public void process(AioSession session, String msg) {
+            public void process(AioSession session, ItlongMsg msg) {
                 System.out.println("receive from server: " + msg);
             }
         };
 
-        AioQuickClient client = new AioQuickClient("localhost", 8888, new SmartProtocol(), processor);
-
+        AioQuickClient client = new AioQuickClient("localhost", 8888, new ItlongProtocol(), processor);
+        // 启动客户端
         AioSession session = client.start();
+
         WriteBuffer writeBuffer = session.writeBuffer();
-        byte[] data = "hello smart-socket".getBytes();
 
-        writeBuffer.writeInt(data.length);
-        writeBuffer.write(data);
+        // 发送报文
+
+        // 49 54 4C 00 05 00 01 10 04 10
+        writeBuffer.write("ITL".getBytes(StandardCharsets.UTF_8));
+        writeBuffer.writeShort((short) 5);
+        writeBuffer.writeByte((byte) 0);
+        writeBuffer.writeByte((byte) 1);
+        writeBuffer.writeShort((short) 4100);
+        writeBuffer.writeByte((byte) 16);
+
         writeBuffer.flush();
-
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                byte[] data = "hello smart-socket".getBytes();
-
-                try {
-                    writeBuffer.writeInt(data.length);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    writeBuffer.write(data);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                writeBuffer.flush();
-            }
-        }, 1, 10, TimeUnit.SECONDS);
     }
 }
