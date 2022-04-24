@@ -33,7 +33,7 @@ class ScrewApplicationTests {
                 // 打开目录
                 .openOutputDir(false)
                 // 文件类型
-                .fileType(EngineFileType.WORD)
+                .fileType(EngineFileType.MD)
                 // 生成模板实现
                 .produceType(EngineTemplateType.freemarker).build();
 
