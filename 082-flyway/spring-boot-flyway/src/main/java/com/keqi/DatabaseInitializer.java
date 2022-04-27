@@ -20,6 +20,10 @@ public class DatabaseInitializer {
     private final FlywayProperties flywayProperties;
     private final DataSourceProperties dataSourceProperties;
 
+    /**
+     * 先创建数据库，再利用 flyway 执行脚本
+     * @throws SQLException
+     */
     @PostConstruct
     public void init() throws SQLException {
         log.info("DatabaseInitializer uses flyway init-sqls to initiate database");
