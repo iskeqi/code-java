@@ -14,3 +14,5 @@ spring:
     baseline-version: 0
     # 迁移脚本的位置
     locations: classpath:/flyway/
+    init-sqls:
+      - create database if not exists `flyway` default charset utf8mb4 collate utf8mb4_0900_ai_ci;
