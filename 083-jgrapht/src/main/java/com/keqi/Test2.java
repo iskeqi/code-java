@@ -67,6 +67,14 @@ public class Test2 {
 
         // 获取图对应的 DijkstraShortestPath 对象
         DijkstraShortestPath<String, DefaultWeightedEdge> dijkstraShortestPath = new DijkstraShortestPath<>(graph);
+
+        GraphPath<String, DefaultWeightedEdge> path1 = dijkstraShortestPath.getPath("v7", "v0");
+        StringJoiner str = new StringJoiner(" -> ");
+        for (String vertex : path1.getVertexList()) {
+            str.add(vertex);
+        }
+        System.out.println("    " + str);
+
         // 获取指定顶点到其他路径的最短路径
         ShortestPathAlgorithm.SingleSourcePaths<String, DefaultWeightedEdge> sourcePaths = dijkstraShortestPath.getPaths("v7");
         GraphPath<String, DefaultWeightedEdge> graphPath = sourcePaths.getPath("v0");
