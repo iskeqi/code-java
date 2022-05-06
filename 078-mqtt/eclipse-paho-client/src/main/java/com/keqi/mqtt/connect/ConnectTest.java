@@ -3,80 +3,52 @@ package com.keqi.mqtt.connect;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class ConnectTest {
 
-    public static void main(String[] args) {
+    // 客户端唯一标识符
+    public static final String CLIENT_IDENTIFIER = "193bde359-6264-4799-a7b9-afef899b111a";
+    // Broker 服务URL
+    public static final String SERVER_URI = "tcp://114.132.245.130:1883";
 
-        String topic = "MQTT Examples";
-        String content = "Message from MqttPublishSample";
-        int qos = 2;
-        String broker = "tcp://mqtt.eclipseprojects.io:1883";
-        String clientId = "JavaSample";
-        MemoryPersistence persistence = new MemoryPersistence();
+    public static void main(String[] args) throws MqttException {
+        // 创建 MqttClient 对象
+        MemoryPersistence memoryPersistence = new MemoryPersistence();
+        MqttClient mqttClient = new MqttClient(SERVER_URI, CLIENT_IDENTIFIER, memoryPersistence);
+
+        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
+        // 设置用户名
+        mqttConnectOptions.setUserName("admin");
+        // 设置密码
+        mqttConnectOptions.setPassword("admin".toCharArray());
+        // 设置为持久化连接
+        mqttConnectOptions.setCleanSession(true);
+        // 设置自动重连
+        mqttConnectOptions.setAutomaticReconnect(true);
+        // 设置 Keepalive 心跳时长为 60s
+        mqttConnectOptions.setKeepAliveInterval(6);
+
+
+        IMqttToken iMqttToken = mqttClient.connectWithResult(mqttConnectOptions);
+        System.out.println(iMqttToken.getResponse().toString());
 
         try {
-            MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
-
-
-            // 设置connect 属性
-            MqttConnectOptions connOpts = new MqttConnectOptions();
-            // 持久化连接
-            connOpts.setCleanSession(true);
-            // 设置自动重连
-            connOpts.setAutomaticReconnect(true);
-            connOpts.setUserName("username");
-//            connOpts.setPassword("password".getBytes());
-
-            sampleClient.setCallback(new MqttCallback() {
-                @Override
-                public void connectionLost(Throwable cause) {
-
-                }
-
-                @Override
-                public void messageArrived(String topic, MqttMessage message) throws Exception {
-
-                }
-
-                @Override
-                public void deliveryComplete(IMqttDeliveryToken token) {
-
-                }
-            });
-            System.out.println("Connecting to broker: " + broker);
-            sampleClient.connect(connOpts);
-            System.out.println("Connected");
-
-
-            // 发送一个 qos为2的消息到 broker 中
-            System.out.println("Publishing message: " + content);
-            MqttMessage message = new MqttMessage(content.getBytes());
-            message.setQos(qos);
-//            message.setRetained(true); // 是否发送保留消息
-
-            sampleClient.publish(topic, message);
-            System.out.println("Message published");
-
-//            sampleClient.subscribe(); // 订阅
-//            IMqttToken iMqttToken = sampleClient.subscribeWithResponse();
-//            iMqttToken.get
-//            sampleClient.unsubscribe(); //
-
-
-            // 断开连接(客户端主动断开)
-            sampleClient.disconnect();
-
-            System.out.println("Disconnected");
-            System.exit(0);
-        } catch (MqttException me) {
-
-            System.out.println("reason " + me.getReasonCode());
-            System.out.println("msg " + me.getMessage());
-            System.out.println("loc " + me.getLocalizedMessage());
-            System.out.println("cause " + me.getCause());
-            System.out.println("excep " + me);
-
-            me.printStackTrace();
+            System.out.println("开始睡眠 " + LocalDateTime.now());
+            Thread.sleep(10000);
+            System.out.println("结束睡眠 " + LocalDateTime.now());
+        } catch (InterruptedException e) {
+            System.out.println("睡眠 3 秒失败");
         }
+
+        // Client 主动关闭连接
+        mqttClient.disconnect();
     }
+
+
 }
