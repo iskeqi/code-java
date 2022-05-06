@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,6 +24,9 @@ public class AdminClientApplication {
 //		for (int i = 0; i < 1000; i++) {
 //			log.info(UUID.randomUUID().toString());
 //		}
+		Iterator iterator;
+		ArrayList arrayList;
+		HashMap hashMap;
 		ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
 		for (int i = 0; i < 10; i++) {
 			scheduledExecutorService.scheduleWithFixedDelay(() -> {
