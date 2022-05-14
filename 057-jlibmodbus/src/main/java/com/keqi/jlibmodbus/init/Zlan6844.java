@@ -6,7 +6,7 @@ import com.keqi.jlibmodbus.modbustcp.ModbusTCPException;
 public class Zlan6844 extends AbstractModbusMasterTCP {
 
     public Zlan6844(String host, int port) throws ModbusTCPException {
-        super(host, port);
+        super(host, port, null);
     }
 
     // 可以根据自己的需求制定

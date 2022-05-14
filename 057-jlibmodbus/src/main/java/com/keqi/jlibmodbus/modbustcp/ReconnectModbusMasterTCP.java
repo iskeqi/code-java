@@ -28,6 +28,7 @@ public class ReconnectModbusMasterTCP {
 
     @PostConstruct
     public void init() {
+        log.info("ReconnectModbusMasterTCP init start");
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() -> {
             // 每隔 5 秒钟检测 ModbusTCP 连接是否断线，若断线，要主动重连
@@ -41,6 +42,7 @@ public class ReconnectModbusMasterTCP {
                 }
             });
         }, 60, 5, TimeUnit.SECONDS);
+        log.info("ReconnectModbusMasterTCP init end");
     }
 
     public void addMaster(String name, AbstractModbusMasterTCP masterTCP) {
