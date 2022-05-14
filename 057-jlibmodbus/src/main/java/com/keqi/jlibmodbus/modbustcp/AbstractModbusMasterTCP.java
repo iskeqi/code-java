@@ -22,13 +22,13 @@ import java.util.Objects;
 public abstract class AbstractModbusMasterTCP {
 
     private ModbusMaster modbusMaster;
-    private static final int serverAddress = 1;
+    private final int serverAddress = 1;
 
     protected String host;
     protected int port;
     protected String deviceName;
 
-    protected String errorMsg = "ModbusTCP slave [deviceName] occurs exception ";
+    protected String errorMsg = "ModbusTCP slave [deviceName] occurs exception";
 
     public AbstractModbusMasterTCP(String host, int port, String deviceName) throws ModbusTCPException {
         try {
@@ -36,7 +36,7 @@ public abstract class AbstractModbusMasterTCP {
             this.host = host;
             this.port = port;
 
-            errorMsg.replace("deviceName", this.deviceName);
+            errorMsg = errorMsg.replace("deviceName", this.deviceName);
 
             TcpParameters tcpParameters = new TcpParameters();
             tcpParameters.setHost(InetAddress.getByName(host));
@@ -227,21 +227,26 @@ public abstract class AbstractModbusMasterTCP {
         }
     }
 
-    private void handleException(Throwable e) {
-        // 断线重连功能需要重新设计
-        /*if (e instanceof ModbusIOException) {
-            if (!this.modbusMaster.isConnected()) {
-                try {
-                    // 尝试重连
-                    this.modbusMaster.connect();
-                } catch (ModbusIOException ex) {
-                    // 重连失败，直接抛异常，中断当前调用链
-                    throw new ModbusTCPException(errorMsg, e);
-                }
-                // 重连成功，不中断当前调用链(最好在这里进行重试，而不是通过返回值去重试，可能造成死循环)
-                return true;
-            }
-        }*/
+    /**
+     * 判断连接是否正常
+     *
+     * @return true 正常 false 失败
+     */
+    final public boolean isConnected() {
+        return modbusMaster.isConnected();
+    }
+
+    /**
+     * 连接
+     *
+     * @throws ModbusIOException exception
+     */
+    final public void connect() throws ModbusIOException {
+        modbusMaster.connect();
+    }
+
+    protected void handleException(Throwable e) {
+        log.error(errorMsg, e);
         throw new ModbusTCPException(errorMsg, e);
     }
 }
