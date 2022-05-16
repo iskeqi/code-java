@@ -11,17 +11,13 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <protobuf.version>3.12.4</protobuf.version>
-        <plugin.protobuf.version>0.6.1</plugin.protobuf.version>
-        <grpc.version>1.6.1</grpc.version>
-        <plugin.os.version>1.6.2</plugin.os.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.19.1</version>
+            <version>3.4.0</version>
         </dependency>
     </dependencies>
 
@@ -30,20 +26,17 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>${plugin.os.version}</version>
+                <version>1.4.1.Final</version>
             </extension>
         </extensions>
         <plugins>
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>${plugin.protobuf.version}</version>
-                <extensions>true</extensions>
+                <version>0.5.0</version>
                 <configuration>
-                    <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
-                    <clearOutputDirectory>false</clearOutputDirectory>
                     <protocArtifact>
-                        com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                        com.google.protobuf:protoc:3.1.0:exe:${os.detected.classifier}
                     </protocArtifact>
                     <pluginId>grpc-java</pluginId>
                 </configuration>
@@ -56,6 +49,5 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
-    </build>
+        </plugins></build>
 </project>
