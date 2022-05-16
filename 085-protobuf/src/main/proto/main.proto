@@ -1,0 +1,1025 @@
+syntax = "proto3";
+
+package proto;
+
+option java_package = "com.sr.vehicle.protobuf";
+
+option java_outer_classname = "MainProtos";
+
+import "monitor.proto"; // !!此处的路径不要修改
+
+enum MessageType {
+    MSG_REQUEST = 0;
+    MSG_RESPONSE = 1;
+    MSG_COMMAND = 2;
+    MSG_NOTIFICATION = 3;
+}
+
+message Message {
+    MessageType type = 1;
+    fixed32 seq = 2;
+    fixed64 session_id = 3;
+
+    Request request = 4;
+    Response response = 5;
+    Command command = 6;
+    Notification notification = 7;
+}
+
+enum CommandType {
+    CMD_ZERO = 0;
+    CMD_START_LOCATION = 0x01;
+    CMD_STOP_LOCATION = 0x02;
+
+    CMD_PAUSE_MOVEMENT = 0x03;
+    CMD_CONTINUE_MOVEMENT = 0x04;
+    CMD_STOP_MOVEMENT = 0x05;
+
+    CMD_ENABLE_MANUAL_CONTROL = 0x06;
+    CMD_DISABLE_MANUAL_CONTROL = 0x07;
+
+    CMD_SRC_RESET = 0x08; //重启SRC
+    CMD_SET_SPEED_LEVEL = 0x09;
+
+    CMD_SET_CUR_MAP = 0x0A; // 设置当前使用的map名称
+    CMD_SET_CUR_STATION = 0x0B; // 设置当前所在站点
+
+    CMD_ENABLE_OBSTACLE_AVOID = 0x0C; // 启用避障
+    CMD_DISABLE_OBSTACLE_AVOID = 0x0D; // 停用避障
+
+    CMD_STOP_SROS = 0x0E; // 正常停止sros各模块
+    CMD_RESET_SRP = 0x0F; // 重新启动sros各模块(包括src)
+    CMD_SET_MANUAL_SPEED = 0x10; // 手动设置SRC运动速度
+
+    CMD_ACTION_TASK = 0x11; // [废弃] 执行动作任务
+    CMD_CANCEL_EMERGENCY = 0x12; // 解除急停状态
+    CMD_ENABLE_AUTO_CHARGE = 0x13; // 启动自动充电
+
+    CMD_NEW_MAP_START = 0x14; // 开始绘制新地图
+    CMD_NEW_MAP_STOP = 0x15; // 结束绘制新地图（保存）
+    CMD_NEW_MAP_CANCEL = 0x16; // 取消绘制新地图（不保存）
+
+    CMD_SET_LOCATION_INITIAL_POSE = 0x17; // 设置定位初始位姿
+
+    CMD_SYNC_TIME = 0x18;
+
+    CMD_COMMON_CANCEL = 0x19; // [废弃] 通用的任务取消指令
+
+    CMD_NEW_MOVEMENT_TASK = 0x20;
+    CMD_CANCEL_MOVEMENT_TASK = 0x21;
+
+    CMD_NEW_ACTION_TASK = 0x22;
+    CMD_CANCEL_ACTION_TASK = 0x23;
+
+    CMD_SET_GENERAL_IO_OUPUT = 0x24; // 设置IO输出状态
+
+    CMD_SET_SPEAKER_VOLUME = 0x25; // 设置VSC speaker音量
+
+    CMD_SPEED_SLOW_DOWN = 0x26; // [废弃] 减速命令
+
+    CMD_CALIBRATION = 0x27;
+
+    CMD_TRIGGER_EMERGENCY = 0x28; // 触发急停
+
+    CMD_ENTER_POWER_SAVE_MODE = 0x31; // 进入低功耗模式
+    CMD_EXIT_POWER_SAVE_MODE = 0x32; // 退出低功耗模式
+
+    CMD_STOP_CHARGE = 0x33; // 停止充电
+    CMD_SET_CHECKPOINT = 0x35;
+
+    CMD_INPUT_ACTION_VALUE = 0x41; // 设置ActionTask的输入值
+
+    CMD_START_MISSION = 0x42;
+    CMD_CANCEL_MISSION = 0x43;
+    CMD_CONTINUE_MISSION = 0x45; // 继续任务
+    CMD_REORDER_MISSION = 0x44; // mission重新排序
+}
+
+// 请求数据
+message Request {
+    enum RequestType {
+        REQUEST_LOGIN = 0;
+        REQUEST_INFO = 1;
+        REQUEST_SYSTEM_STATE = 2;
+        REQUEST_HARDWARE_STATE = 3;
+        REQUEST_MAP_LIST = 4;
+        REQUEST_BAG_LIST = 5;
+        REQUEST_LASER_POINTS = 6;
+        REQUEST_TASK_STATE = 7;
+        REQUEST_FILE_OPERATE = 8;
+        REQUEST_LOGOUT = 9;
+        REQUEST_LOAD_CONFIG = 10;
+        REQUEST_SAVE_CONFIG = 11;
+        REQUEST_FILE_LIST = 12;
+        REQUEST_MONITOR_DATA = 13;
+        REQUEST_CHANGE_PW = 14;
+        REQUEST_TIMESTAMP = 15;
+        REQUEST_GET_CUT_MAP = 16;
+        REQUEST_MISSION_LIST = 17;
+        REQUEST_HEARTBEAT = 18;
+        REQUEST_CONNECT_INFO = 19;
+    }
+    RequestType request_type = 1;
+    LoginRequest login_request = 2;
+
+    enum FileOperateType {
+        FILE_OPERATE_ZERO = 0;
+        GET_NAV_MAP_FILE = 0x01;
+        SET_NAV_MAP_FILE = 0x02;
+        GET_RAW_MAP_FILE = 0x03;
+        SET_RAW_MAP_FILE = 0x04;
+        EXPORT_MAP_FILE = 0x05; // 导出可用于定位&导航的地图，等同于EXPORT_NAV_MAP_FILE
+        IMPORT_MAP_FILE = 0x06;
+        DELETE_MAP_FILE = 0x07;
+        RENAME_MAP_FILE = 0x08;
+        EXPORT_LOG_FILE = 0x09; // 导出日志文件
+        EXPORT_CONFIG_FILE = 0x0A; // 导入/导出配置文件
+        IMPORT_CONFIG_FILE = 0x0B; // 导入/导出配置文件
+        IMPORT_SYSTEM_UPDATE_FILE = 0x0C; // 导入升级包
+        RESTORE_FACTORY_SETTINGS = 0x0D; // 恢复出厂设置/程序
+        BACKUP_AS_FACTORY_SETTINGS = 0x0E; // 保存当前设置/程序作为出厂状态的设置
+
+        GET_COMMON_FILES = 0x12; // 获取其他文件
+        SET_COMMON_FILES = 0x13; // 上传其他文件
+
+        EXPORT_NAV_MAP_FILE = 0x21; // 导出可用于导航&定位的地图
+        EXPORT_OPT_MAP_FILE = 0x22; // 导出可用于导航&定位&地图优化的地图数据
+        EXPORT_ALL_MAP_FILE = 0x23; // 导出所有和地图相关的文件
+    };
+    FileOperateType file_op = 3;
+
+    string param_str = 4; // from
+    string param_str1 = 5; // to
+    string param_str2 = 6;
+
+    repeated ConfigItem config = 7;
+
+    int32 param_int = 8;
+    int32 param_int1 = 9;
+}
+
+message Notification {
+    enum NotifyType {
+        NOTIFY_MOVE_TASK_FINISHED = 0;
+        NOTIFY_ACTION_TASK_FINISHED = 1;
+        NOTIFY_MOVE_PATH_SENT = 2;
+        NOTIFY_CALIBRATION_FINISHED = 3;
+        NOTIFY_UPDATE_FINISHED = 4;
+        NOTIFY_MISSION_LIST_CHANGED = 5;
+    }
+
+    NotifyType notify_type = 1;
+
+    uint32 reserved_field = 2;
+
+    uint32 cur_station_no = 3;
+    Pose cur_pose = 4;
+
+    MovementTask movement_task = 5;
+    ActionTask action_task = 6;
+    CalibrationResult cal_result = 7;
+    UpdateResult update_result = 8;
+    repeated Mission mission_list = 9;
+}
+
+message Response {
+    enum ResponseType {
+        RESPONSE_LOGIN = 0;
+        RESPONSE_INFO = 1;
+        RESPONSE_SYSTEM_STATE = 2;
+        RESPONSE_HARDWARE_STATE = 3;
+        RESPONSE_MAP_LIST = 4;
+        RESPONSE_BAG_LIST = 5;
+        RESPONSE_LASER_POINTS = 6;
+        RESPONSE_TASK_STATE = 7;
+        RESPONSE_COMMAND = 8;
+        RESPONSE_ADDRINFO = 9;
+        RESPONSE_NOTIFY = 11;
+        RESPONSE_FILE_OPERATE = 12;
+        RESPONSE_LOGOUT = 13;
+        RESPONSE_LOAD_CONFIG = 14;
+        RESPONSE_SAVE_CONFIG = 15;
+        RESPONSE_FILE_LIST = 16;
+        RESPONSE_MONITOR_DATA = 17;
+        RESPONSE_CHANGE_PW = 18;
+        RESPONSE_TIMESTAMP = 19;
+        RESPONSE_GET_CUR_MAP = 20;
+        RESPONSE_MISSION_LIST = 21;
+        RESPONSE_HEARTBEAT = 22;
+        RESPONSE_COMMON_POSE_INFO = 23; // 通用位姿信息
+        RESPONSE_CONNECT_INFO = 24;
+    }
+    ResponseType response_type = 1;
+
+    Info info = 2;
+    SystemState system_state = 3;
+    HardwareState hardware_state = 4;
+    MapList map_list = 5;
+    //    BagListMsg bag_list = 6;
+    LaserPoints laser_points = 7;
+    MovementTask movement_task = 8;
+    ActionTask action_task = 9;
+
+    ResponseResult result = 10; //init this message for every response
+
+    NotifyResponse notify_response = 14; // true if notify received
+
+    repeated ConfigItem config = 16;
+
+    FileList list = 17;
+
+    monitor.Record record = 18;
+
+    uint64 timestamp = 19;
+    string retInfo = 20;
+
+    repeated Mission mission_list = 21;
+
+    AddressInfo address_info = 12 [deprecated = true]; // 废弃
+    LoginInfo login_info = 15 [deprecated = true]; // 废弃
+
+    ConnectInfo connect_info = 23;
+}
+
+message CalibrationResult {
+    double x = 1;
+    double y = 2;
+    double theta = 3;
+    int32 status = 4;
+}
+
+message UpdateResult {
+    enum ResultCode {
+        UPDATE_SUCCESS = 0;
+        UPDATE_FAILED = 1;
+    }
+    ResultCode result_code = 1;
+}
+
+message NotifyResponse {
+    bool ack = 1;
+    enum NotifyType {
+        NOTIFY_MOVE_TASK_FINISHED = 0;
+        NOTIFY_ACTION_TASK_FINISHED = 1;
+        NOTIFY_MOVE_PATH_SENT = 2;
+        NOTIFY_CALIBRATION_FINISHED = 3;
+        NOTIFY_UPDATE_FINISHED = 4;
+    }
+    NotifyType type = 2;
+}
+
+message ConfigItem {
+    int32 id = 1;
+    string key = 2;
+    string value = 3;
+    string name = 4;
+    string value_unit = 5;
+    string value_type = 6;
+    string default_value = 7;
+    string value_range = 8;
+    string description = 9;
+    uint32 permission = 10;
+    string changed_time = 11;
+    string changed_user = 12;
+}
+
+// 废弃
+message LoginInfo {
+    fixed64 session_id = 1;
+    string result_str = 2;
+}
+
+message LoginRequest {
+    string username = 1; // 用户名，明文
+    string password = 2; // 密码，MD5加密后的密文（小写）
+
+    // 废弃
+    enum AccessAuthority {
+        AA_NONE = 0;
+        AA_NORMAL = 10;
+        AA_ADMIN = 20;
+        AA_ROOT = 30;
+    }
+    AccessAuthority access = 3 [deprecated = true];
+}
+
+message ResponseResult {
+    enum ResultState {
+        RESPONSE_NONE = 0;
+        RESPONSE_PROCESSING = 1; // processing
+        RESPONSE_OK = 2; // excute command success
+        RESPONSE_FAILED = 4; // fail to excute command
+    }
+
+    enum ResultCode {
+        RESULT_CODE_NONE = 0;
+
+        /* deperated */
+        RESULT_PRE_TASK_RUNNING = 1; //previous task is running
+        RESULT_INVALID_CMD_PARAM = 2;
+        RESUTL_PRE_TASK_WATING_ACK = 3; // previous task is wating for ACK
+        RESULT_CODE_IN_EMERGENCY_STATE = 10; // 车辆处于急停状态
+        RESULT_CODE_NO_LOCATIONG = 11; // 车辆不处于定位状态
+        /* end of deperated */
+
+        RESULT_CODE_USER_OR_PASSWORD_INVALID = 101; // 登录失败，账号或密码错误
+        ERROR_CODE_USER_FMS_ALREADY_EXISTS = 102; // FMS用户已经登录了，不允许其他的FMS用户登录,请检查是否有其他FMS用户登录了，或者是FMS掉线后重连没有带上一次的session_id
+
+        RESULT_CODE_UNDEFINED = 200; //undefined command
+
+        RESULT_CODE_UNREACHABLE = 201;
+        RESULT_CODE_CONTROL_MUTEX_IS_LOCKED = 300; // 当前处于独占模式，不允许对agv进行“写”操作
+        RESULT_CODE_EXECUTE_UNABLE_WHILE_INIT = 301;
+        RESULT_CODE_FUNCTION_IS_DEPRESSED = 302;
+        RESULT_CODE_LOCATION_RUNNING = 10001; // 定位已启动
+        RESULT_CODE_LOCATION_SLAM_STATE_ERROR = 10002; // 启动定位时SLAM状态异常
+        RESULT_CODE_LOCATION_STATION_NOT_EXIST = 10003; // 通过站点定位，但是该站点不存在
+        RESULT_CODE_LOCATION_START_TRYING = 10004;
+        ERROR_CODE_LOCATION_NO_MAP = 10005; // 定位的时候地图未加载
+        ERROR_CODE_LOCATION_MAP_LOAD_ERROR = 10006; //地图没有正确加载，无法定位
+        RESULT_CODE_LOCATION_NO_RUNNING = 20001; // 关闭定位时定位未启动
+        RESULT_CODE_LOCATION_PATH_RUNNING = 20002; // 关闭定位时正在运动
+        RESULT_CODE_LOCATION_MOVEMENT_RUNNING = 20003; // 关闭定位时正在执行移动任务
+        RESULT_CODE_LOCATION_MISSON_RUNNING = 20004; // 关闭定位时mission正在运行
+
+        RESULT_CODE_CANCEL_EMERGENCY_CAN_NOT_RECOVER = 30001; // 由于有急停不可解除，导致解除急停失败，可能的原因是：急停开关没有解除等
+        RESULT_CODE_SET_EMERGENCY_WHILE_IN_EMERGENCY_STATE = 30002;
+
+        RESULT_CODE_CONTINUE_IN_EMERGENCY = 40001; // 继续时车辆处于急停状态
+        RESULT_CODE_CONTINUE_NOT_IN_LOCATING = 40002; // 继续时车辆处于急停状态
+        RESULT_CODE_CONTINUE_NOT_IN_PAUSE = 40003; // 继续时车辆处于急停状态
+
+
+        RESULT_CODE_SYNC_TIME_SYSTEM_NOT_IDLE = 50001; // 设置系统时间的时候，系统处于繁忙状态
+
+        RESULT_CODE_MANUAL_CONTROL_NOT_ON = 70001; // 小车不处于手动控制状态
+        RESULT_CODE_START_MANUAL_CONTROL_IN_EMERGENCY = 70002; // 小车不处于急停状态下启动手动控制
+        RESULT_CODE_START_MANUAL_CONTROL_IN_BREAK_SW = 70003; // 小车不处于解抱闸状态下启动手动控制
+        RESULT_CODE_MANUAL_CONTROL_MOVEMENT_RUNNING = 70004; // 有移动任务执行不能切换到手动控制
+        RESULT_CODE_MANUAL_CONTROL_MISSION_RUNNING = 70005; // mission任务正在执行时不能切换手动控制
+        RESULT_CODE_START_MANUAL_CONTROL_WHILE_IN_MANUAL_CONTROL = 70006;
+        RESULT_CODE_NEW_MAP_MOVEMENT_RUNNING = 80001; // 移动任务在执行的时候不能创建地图
+        RESULT_CODE_NEW_MAP_MISSION_RUNNING = 80002; // misson任务在执行的时候不能创建地图
+        RESULT_CODE_NEW_MAP_WHILE_ALREADY_NEW_MAP_RUNNING = 80003;
+        RESULT_CODE_SET_MAP_PATH_RUNNING = 100001; // 更新当前地图时有任务执行或正处于定位状态
+        RESULT_CODE_SET_MAP_MOVEMENT_RUNNING = 100002; // 更新当前地图时有移动任务执行
+        RESULT_CODE_SET_MAP_MISSION_RUNNING = 100003; // 更新当前地图时mission任务正在执行
+        RESULT_CODE_SET_MAP_WHILE_AGV_RUNNING = 100004;
+        RESULT_CODE_SET_CONFIG_MOVEMENT_RUNNING = 110001; // 设置参数的时移动任务在运行
+        RESULT_CODE_SET_CONFIG_ACTION_RUNNING = 110002; // 设置参数的时动作任务在运行
+        RESULT_CODE_SET_CONFIG_MISSION_RUNNING = 110003; // 设置参数的时移动任务在运行
+
+        RESULT_CODE_SET_SPEED_NOT_IN_MANUAL = 160001; // 小车不处于手动控制状态
+
+        RESULT_CODE_SET_PGV_INFO_ID_IS_ZERO = 170001; // 保存当前pgv时，pgv的id为0.（即：当前没有扫描到pgv的信息，但仍然在保存pgv）
+        RESULT_CODE_SET_PGV_INFO_ID_IS_REPEAT = 170002; // 保存当前pgv时，pgv的id重复.同一张地图中不能同时存在两张id一样的pgv
+        RESULT_CODE_DELETE_PGV_INFO_WHILE_STATION_IS_ZERO = 170013;
+
+        RESULT_CODE_LOCK_CONTROL_MUTEX_MOVEMENT_RUNNING = 180001; // 获取独占模式时移动任务正在运行
+        RESULT_CODE_LOCK_CONTROL_MUTEX_ACTION_RUNNING = 180002; // 获取独占模式时动作任务正在运行
+        RESULT_CODE_LOCK_CONTROL_MUTEX_MISSION_RUNNING = 180003; // 获取独占模式时mission任务正在运行
+        RESULT_CODE_LOCK_CONTROL_MUTEX_NONE_NICK_NAME = 180004; // 获取独占模式时没有带上锁人的绰号
+        RESULT_CODE_LOCK_CONTROL_MUTEX_NONE_IP_ADDRESS = 180005; // 获取独占模式时没有带上锁人的ip
+
+        RESULT_CODE_UNLOCK_CONTROL_MUTEX_CURRENT_IS_UNLOCKED = 190001; // 释放独占模式时当前已经是非独占模式
+        RESULT_CODE_UNLOCK_CONTROL_MUTEX_SESSION_ID_MISSMATCH = 190002; // 释放独占模式时sessionId不匹配
+
+        RESULT_CODE_FORCE_UNLOCK_CONTROL_MUTEX_PERMISSION_DENIED = 200001; // 强制释放独占模式时权限不够
+
+        RESULT_CODE_MOVEMENT_IN_EMERGENCY = 320001; // 车辆处于急停状态
+        RESULT_CODE_MOVEMENT_NO_LOCATING = 320002; // 车辆不处于定位状态
+        RESULT_CODE_MOVEMENT_PRE_TASK_RUNNING = 320003; // previous task is running
+        RESULT_CODE_MOVEMENT_INVALID_CMD_PARAM = 320004; // invalid param
+        RESULT_CODE_MOVEMENT_IN_MANUAL_CONTROL = 320005; // 处于手动控制状态，不能启动移动任务
+        RESULT_CODE_MOVEMENT_FOLLOW_PATH_START_POSE_OFFSET = 320010; // 用户发送移动路径时，起始点偏离了agv的真实位置，阈值由main.manual_path_start_pose_check_threshold配置
+        RESULT_CODE_MOVEMENT_FOLLOW_PATH_EXIST_ARC = 320011; // 用户发送移动路径时，路径中存在圆弧路径，圆弧路径已经被废弃
+        RESULT_CODE_MOVEMENT_FOLLOW_PATH_START_ANGLE_OFFSET = 320012; // 用户发送路径时，起点的角度与当前src角度相差过大，阈值由main.manual_path_start_pose_check_threshold配置
+        RESULT_CODE_MOVEMENT_FOLLOW_PATH_POSE_NOT_CONTINUOUS = 320013; // 用户发送移动路径，路径不连续，阈值值由main.manual_path_pose_continuous_check_threshold 配置
+        RESULT_CODE_MOVEMENT_FOLLOW_PATH_ANGLE_NOT_CONTINUOUS = 320014; // 用户发送移动路径，角度不连续，阈值值由main.manual_path_angle_continuous_check_threshold 配置
+        RESULT_CODE_MOVEMENT_IN_POWER_SAVE_MODE = 320020; // 处于低功耗模式，不能启动移动任务
+        RESULT_CODE_MOVEMENT_BREAK_SWITCH_ON = 320021; // 处于解抱闸状态（电源开关处于第二档），不能启动移动任务
+        RESULT_CODE_MOVEMENT_LASER_ERROR = 320022; // 雷达错误，不能启动移动任务
+        RESULT_CODE_MOVEMENT_VSC_ERROR = 320023; // VSC错误，不能启动移动任务
+        RESULT_CODE_MOVEMENT_SRC_ERROR = 320024; // SRC错误，不能启动移动任务
+        RESULT_CODE_MOVEMENT_MOTOR1_ERROR = 320025; // 电机1错误，不能启动移动任务
+        RESULT_CODE_MOVEMENT_MOTOR2_ERROR = 320026; // 电机2错误，不能启动移动任务
+
+        RESULT_CODE_MOVEMENT_ROTATE_IN_DISABLE_ROTATE_AREA = 320030; //规划的路径在禁止旋转区域旋转
+        RESULT_CODE_MOVEMENT_PATHS_CHASSIS_NOT_SUPPORT = 320031; //当前底盘不支持本次规划的路径,请检测地图路径是否编辑正确，并检查车辆的底盘是否配置正确(参数：src.base_type)
+        RESULT_CODE_CANCEL_MOVEMENT_WHILE_NOT_MOVING = 330001;
+        RESULT_CODE_SET_CHECKPOINT_NO_ERROR_TASK_NOT_RUNNING = 330010;
+        RESULT_CODE_SET_CHECKPOINT_NO_ERROR_TASK_NOT_FOLLOW_PATH = 330011;
+        RESULT_CODE_SET_CHECKPOINT_NO_ERROR_NO_LESS_THAN_SYS = 330012;
+        RESULT_CODE_ACTION_IN_EMERGENCY = 340001; // 车辆处于急停状态
+        RESULT_CODE_ACTION_PRE_TASK_RUNNING = 340002; // previous task is running
+        RESULT_CODE_ACTION_IN_POWER_SAVE_MODE = 340003; // 处于低功耗模式，不能启动动作任务
+        RESULT_CODE_ACTION_RESPONSE_TIMEOUT = 340010; // 回复超时
+        RESULT_CODE_ACTION_RESPONSE_INCORRECT = 340011; // 回复出错
+        RESULT_CODE_ACTION_SYSTEM_BUSY = 340012; // 系统繁忙
+        RESULT_CODE_ACTION_ID_NOT_SUPPORT = 340013; // action id 不支持
+        RESULT_CODE_ACTION_PARAM_0_NOT_SUPPORT = 340014; // action param 0 不支持
+        RESULT_CODE_ACTION_PARAM_1_NOT_SUPPORT = 340015; // action param 1 不支持
+        RESULT_CODE_ACTION_EAC_DISABLED = 340016; // eac模块没有开启
+        RESULT_CODE_ACTION_EAC_BUSY = 340017;
+        RESULT_CODE_ACTION_EAC_ERROR = 340018;
+        RESULT_CODE_ACTION_EAC_PAUSE_FAILED = 340019; // EAC暂停失败
+
+        RESULT_CODE_901 = 340901;
+        RESULT_CODE_902 = 340902;
+        RESULT_CODE_903 = 340903;
+        RESULT_CODE_904 = 340904;
+        RESULT_CODE_905 = 340905;
+        RESULT_CODE_906 = 340906;
+        RESULT_CODE_907 = 340907;
+        RESULT_CODE_908 = 340908;
+        RESULT_CODE_909 = 340909;
+        RESULT_CODE_930 = 340930;
+        RESULT_CODE_999 = 340999;
+
+        RESULT_CODE_RFID_NOT_OPEN = 413201;
+        RESULT_CODE_RFID_NO_DATA = 413202;
+        RESULT_CODE_MISSION_IN_EMERGENCY = 660001; // 车辆处于急停状态
+        RESULT_CODE_MISSION_NO_LOCATING = 660002; // 车辆不处于定位状态
+        RESULT_CODE_MISSION_ID_NOT_EXIST = 660005; //任务Id不存在
+        RESULT_CODE_MISSION_ENQUEUE_TIMEOUT = 660006; // 加入队列超时
+
+    }
+
+    ResultState result_state = 2;
+    uint32 result_code = 3;
+}
+
+// 命令
+message Command {
+
+    CommandType command = 2;
+
+    int32 param_int = 3;
+    int32 param_int1 = 4;
+
+    string param_str = 5;
+
+    Pose pose = 6;
+
+    bool param_boolean = 7; // 当重新定位时设置此处为True可以启动强制定位
+
+    string param_str1 = 8;
+
+    MovementTask movement_task = 9;
+    ActionTask action_task = 10;
+
+    uint64 general_io_output = 11;
+
+    repeated Mission mission_list = 12;
+
+    string locker_ip_address = 13; // 独占人ip
+    string locker_nickname = 14; // 独占人nickname
+}
+
+message Pose {
+    int32 x = 2; // 单位mm
+    int32 y = 3;
+    int32 z = 4;
+
+    int32 roll = 5; // 单位(1/1000)rad
+    int32 pitch = 6;
+    int32 yaw = 7;
+
+    int32 confidence = 8;
+}
+
+message FileInfo {
+    string name = 2;
+    int32 size = 3;
+    uint64 last_write_time = 4;
+    bool file_compressed = 5;
+    string md5sum = 6;
+}
+
+message MapList {
+    uint32 req_seq = 1;
+    repeated FileInfo list = 2;
+}
+
+message FileList {
+    uint32 req_seq = 1;
+    repeated FileInfo list = 2;
+}
+
+message Path {
+    enum PathType {
+        PATH_ZERO = 0;
+        PATH_LINE = 1;
+        PATH_CIRCLE = 2;
+        PATH_BEZIER = 3;
+        PATH_ROTATE = 4;
+    }
+    PathType type = 1;
+
+    int32 sx = 2; // 距离单位均为mm
+    int32 sy = 3;
+
+    int32 ex = 4;
+    int32 ey = 5;
+
+    int32 cx = 6;
+    int32 cy = 7;
+
+    int32 dx = 8;
+    int32 dy = 9;
+
+    int32 radius = 10;
+    int32 rotate_angle = 11; // 角度单位为1/1000 rad
+
+    int32 direction = 12; // 0x01->前进；0x02->后退
+
+    int32 limit_v = 13;
+    int32 limit_w = 14;
+
+    string path_name = 15; // 地图中边的ID
+
+}
+
+message PathList {
+
+    repeated Path list = 2;
+}
+
+message Info {
+    reserved 1;
+
+    string serial_no = 2; // 主控器硬件序列号
+    string nickname = 3; // 自定义名称
+
+    string hardware_version = 4;
+
+    uint32 sros_version = 5;
+    string sros_version_str = 6;
+
+    uint32 src_version = 7;
+    string src_version_str = 8;
+
+    string vehicle_type = 9; // 车辆类型
+    string action_unit = 10; // 动作单元
+
+    string vehicle_serial_no = 11; // 车辆序列号
+}
+
+message MotionControlState {
+    enum MCState {
+        MC_ZERO = 0;
+        MC_INITIALING = 0x01; // 初始化中
+        MC_IDLE = 0x02; // 空闲状态
+
+        MC_PATH_RUNNING = 0x03; // 正在执行路径
+        MC_VELOCITY_RUNNING = 0x04; // 正在执行速度
+    }
+
+    MCState state = 1;
+
+    int32 v_x = 5; // 当前x方向线速度，单位mm/s
+    int32 v_y = 6; // 当前y方向线速度，单位mm/s
+    int32 w = 7; // 当前旋转角速度速度，单位(1/1000)rad/s
+
+    int32 path_no = 8; // 当前执行的路径编号
+}
+
+enum TaskResult {
+    TASK_RESULT_NA = 0; ///< 结果状态不可用
+    TASK_RESULT_OK = 1; ///< 任务执行完成
+    TASK_RESULT_CANCELD = 2; ///< 任务取消
+    TASK_RESULT_FAILED = 3; ///< 任务执行出错
+};
+
+message MovementTask {
+    enum TaskState {
+        MT_NA = 0;
+        MT_WAIT_FOR_START = 2;
+        MT_RUNNING = 3; // 任务正在执行
+        MT_PAUSED = 4;
+        MT_FINISHED = 5;
+
+        MT_IN_CANCEL = 6;
+        MT_TASK_WAIT_FOR_ACK = 7;
+        MT_WAIT_FOR_CHECKPOINT = 8;
+    }
+
+    TaskState state = 2;
+
+    int32 no = 3;
+    enum DstStationType {
+        DS_DEFAULT = 0;
+        DS_NO_ROTATE = 1;
+    }
+    DstStationType dst_station_type = 13;
+
+    enum TaskType {
+        MT_ZERO = 0;
+        MT_MOVE_FOLLOW_PATH = 1;
+        MT_MOVE_TO_STATION = 2;
+        MT_MOVE_TO_POSE = 3;
+        MT_MOVE_MIX2 = 4;
+    }
+    TaskType type = 4;
+
+    repeated uint32 stations = 5;
+    repeated Pose poses = 6;
+    repeated Path paths = 12;
+
+    enum AvoidPolicy {
+        AT_ZERO = 0;
+        OBSTACLE_AVOID_WAIT = 0x01; // 暂停运动直至障碍消失
+        OBSTACLE_AVOID_REPLAN = 0x02; // 重新规划路径绕过障碍
+        OBSTACLE_AVOID_NONE = 0x10; // 不处理
+    }
+    AvoidPolicy avoid_policy = 11; // 避障策略
+
+    int32 remain_time = 7; // 剩余执行时间，单位s
+    int32 remain_distance = 8; // 剩余里程，单位mm
+    int32 total_distance = 9; // 路径里程，单位mm
+
+    TaskResult result = 10;
+    uint32 failed_code = 15;
+    uint32 cur_path_no = 16;
+    uint32 cur_checkpoint_no = 17;
+}
+
+message ActionTask {
+    enum TaskState {
+        AT_ZERO = 0;
+        AT_WAIT_FOR_START = 2;
+        AT_RUNNING = 3; // 任务正在执行
+        AT_PAUSED = 4;
+        AT_FINISHED = 5;
+
+        AT_IN_CANCEL = 6;
+        AT_TASK_WAIT_FOR_ACK = 7;
+    }
+    TaskState state = 2;
+
+    int32 no = 3;
+
+    int32 id = 4;
+    int32 param0 = 5;
+    int32 param1 = 6;
+
+    TaskResult result = 7;
+    string result_str = 8;
+    int32 result_code = 9;
+
+    string param_str = 12;
+}
+
+enum AvoidPolicy {
+    AT_ZERO = 0;
+    OBSTACLE_AVOID_WAIT = 0x01; // 暂停运动直至障碍消失
+    OBSTACLE_AVOID_REPLAN = 0x02; // 重新规划路径绕过障碍
+    OBSTACLE_AVOID_NONE = 0x10; // 不处理
+}
+
+message Mission {
+    enum MissionStatus {
+        MISSION_STATUS_NA = 0;
+        MISSION_STATUS_PENDING = 2;
+        MISSION_STATUS_RUNNING = 3; // 任务正在执行
+        MISSION_STATUS_PAUSED = 4;
+        MISSION_STATUS_FINISHED = 5;
+    }
+
+    uint64 no = 1; // 多次执行同一个mission，no不同
+
+    uint32 id = 2; // mission id，即使多次执行同一个mission，id是一样的
+    string name = 3; // mission名称
+    string map_name = 4; // 名称所在地图名称
+    string cur_step_id = 5; // 当前mission运行到的step id
+
+    AvoidPolicy avoid_policy = 11; // 避障策略
+    MissionStatus state = 12; // 任务状态
+    TaskResult result = 13; // mission运行结果
+    uint32 errCode = 14; // 错误码
+
+    uint64 start_timestamp = 15;
+    uint64 finish_timestamp = 16;
+}
+
+message ControlMutexInfo {
+    uint64 session_id = 1;
+    string ip_address = 2;
+    string nick_name = 3; // who am i
+}
+
+message SystemState {
+    uint32 req_seq = 1;
+
+    enum SysState {
+        SYS_STATE_ZERO = 0x00;
+        SYS_STATE_INITIALING = 0x01; // 系统正在初始化
+        SYS_STATE_IDLE = 0x02; // 系统空闲
+        SYS_STATE_ERROR = 0x03; // 系统出错
+
+        SYS_STATE_START_LOCATING = 0x04; // 正在启动定位
+
+        SYS_STATE_TASK_NAV_INITIALING = 0x05; // 导航正在初始化
+        SYS_STATE_TASK_NAV_FINDING_PATH = 0x06; // 导航正在寻路
+        SYS_STATE_TASK_NAV_WAITING_FINISH = 0x07; // 正在等待到达目标位置
+        SYS_STATE_TASK_NAV_WAITING_FINISH_SLOW = 0x08; // 检测到障碍,减速
+        SYS_STATE_TASK_NAV_REFINDING_PATH = 0x09; // 导航正在重新寻路
+        SYS_STATE_TASK_NAV_PAUSED = 0x0A; // 遇到障碍暂停运动
+        SYS_STATE_TASK_NAV_NO_WAY = 0x0B; // 无法抵达目标位置
+
+        SYS_STATE_TASK_NEWMAP_DRAWING = 0x0C; // 正在绘制新地图
+        SYS_STATE_TASK_NEWMAP_SAVING = 0x0D; // 正在保存新地图
+
+        SYS_STATE_TASK_PATH_NAV_INITIALING = 0x0E; // 正在初始化执行固定路径
+        SYS_STATE_TASK_PATH_WAITING_FINISH = 0x0F; // 正在等待固定路径执行结束
+        SYS_STATE_TASK_PATH_WAITING_FINISH_SLOW = 0x10; // 检测到障碍,减速前进
+        SYS_STATE_TASK_PATH_PAUSED = 0x11; // 遇到障碍暂停运动
+
+        SYS_STATE_TASK_NAV_NO_STATION = 0x12; // 无法检测到目标站点
+
+        SYS_STATE_TASK_MANUAL_PAUSED = 0x13; //手动暂停状态
+
+        SYS_STATE_TASK_NAV_PATH_ERROR = 0x14; //导航过程中路径出错：例偏离路径
+        SYS_STATE_TASK_MANUAL_PATH_ERROR = 0x15; //导航过程中路径出错：例偏离路径
+        SYS_STATE_HARDWARE_ERROR = 0x16;
+
+        SYS_STATE_TASK_PATH_WAITING_TRAFFIC_CONTROL = 0x17;
+        SYS_STATE_TASK_PATH_WAITING_TRAFFIC_CONTROL_SLOW = 0x18;
+    };
+
+    SysState sys_state = 2;
+
+    enum LocationState {
+        LOCATION_STATE_ZERO = 0x00;
+        LOCATION_STATE_NONE = 0x01;
+        LOCATION_STATE_INITIALING = 0x02; // 初始化中
+        LOCATION_STATE_RUNNING = 0x03; // 定位正常
+        LOCATION_STATE_RELOCATING = 0x04; // 重定位
+        LOCATION_STATE_ERROR = 0x05; // 出错,定位时为环境变化过大, 绘图时为未检测到landmark
+    };
+
+    LocationState location_state = 3;
+    Pose location_pose = 4;
+
+    enum EmergencyState {
+        STATE_EMERGENCY_NA = 0x00; // 紧急状态不可用
+
+        STATE_EMERGENCY_NONE = 0x01; // 不处于急停状态
+        STATE_EMERGENCY_TRIGER = 0x02; // 急停状态触发
+        STATE_EMERGENCY_RECOVERABLE = 0x03; // 可恢复急停状态
+    };
+
+    EmergencyState emergency_state = 5;
+
+    MotionControlState mc_state = 6;
+
+    MovementTask movement_state = 7;
+
+    ActionTask action_state = 8;
+
+    uint32 station_no = 9;
+
+    string map_name = 10; // 当前系统正在使用的地图
+
+    int32 map_saving_progress = 11;
+
+    enum ObaEnableState {
+        OBA_NA = 0x00;
+        OBA_ENABLED = 0x01;
+        OBA_DISABLED = 0x02;
+    }
+    ObaEnableState oba_enable_state = 12;
+
+    enum FreshState {
+        FRESH_NA = 0;
+        FRESH_NO = 1;
+        FRESH_YES = 2; // 新开机或重新启动时的状态
+    }
+    FreshState fresh_state = 13;
+
+    enum RunState {
+        RUN_NA = 0;
+        RUN_IDLE = 1; // 空闲状态
+        RUN_RUNNING = 2; // 正在运行
+        RUN_BLOCK_SLOWDOWN = 3; // 遇到障碍物减速运行
+        RUN_BLOCK_STOP = 4; // 遇到障碍物暂停运行
+    }
+    RunState run_state = 14; // 车辆运行状态
+
+    /* 顶升机构状态 */
+    enum LoadState {
+        LOAD_NONE = 0;
+        LOAD_FREE = 1;
+        LOAD_FULL = 2;
+    }
+    LoadState load_state = 15;
+
+    enum OperationState {
+        OPERATION_NONE = 0;
+        OPERATION_AUTO = 1;
+        OPERATION_MANUAL = 2;
+    }
+    OperationState operation_state = 16;
+
+    uint32 speed_level = 17;
+
+    Mission running_mission = 18; // 正在运行的mission
+
+    uint32 cur_volume = 20;
+
+    uint32 multi_load_state = 23; // every bit indicate load status, 0=FREE 1=FULL
+
+    enum EmergencySource {
+        EMERGENCY_SRC_NONE = 0x00;
+        EMERGENCY_SRC_BUTTON_1 = 0x11; // 紧急按钮1触发
+        EMERGENCY_SRC_BUTTON_2 = 0x12; // 紧急按钮2触发
+        EMERGENCY_SRC_BUTTON_3 = 0x13; // 紧急按钮3触发
+        EMERGENCY_SRC_BUTTON_4 = 0x14; // 紧急按钮4触发
+        EMERGENCY_SRC_EDGE_1 = 0x21; // 边缘碰撞检测开关1触发
+        EMERGENCY_SRC_EDGE_2 = 0x22; // 边缘碰撞检测开关2触发
+        EMERGENCY_SRC_EDGE_3 = 0x23; // 边缘碰撞检测开关3触发
+        EMERGENCY_SRC_EDGE_4 = 0x24; // 边缘碰撞检测开关4触发
+        EMERGENCY_SRC_SOFTWARE_1 = 0x31; // 软件触发急停1
+        EMERGENCY_SRC_SOFTWARE_2 = 0x32; // 软件触发急停2
+        EMERGENCY_SRC_SOFTWARE_3 = 0x33; // 软件触发急停3
+        EMERGENCY_SRC_SOFTWARE_4 = 0x34; // 软件触发急停4
+    };
+
+    EmergencySource emergency_source = 24; // 急停触发源
+
+    // 标记是否可以开始新移动任务
+    enum NewMovementTaskState {
+        NEW_MOVEMENT_TASK_STATE_NONE = 0x00;
+        // 系统空闲、没有急停、没有解抱闸、不是低电量模式、定位成功、非手动控制模式、
+        // 没有移动任务或是移动任务已经结束、雷达、VSC、MOTOR1、MOTOR2、SRC都正常
+        NEW_MOVEMENT_TASK_STATE_READY = 0x01;
+        NEW_MOVEMENT_TASK_STATE_USELESS = 0x02;
+    }
+    NewMovementTaskState new_movement_task_state = 25;
+
+
+    uint32 last_error_code = 26;
+
+    repeated uint32 fault_codes = 27 [packed = true];
+
+    // 表示调度状态
+    enum FleetMode {
+        FLEET_MODE_NONE = 0;
+        FLEET_MODE_OFFLINE = 1; // 单机模式
+        FLEET_MODE_ONLINE = 2; // 调度模式
+    }
+    // FleetMode expect_fleet_state = 28; // [保留]期望的调度模式，当车辆进入某个现场后，若无fms则需要设置单机模式，若有需要设置调度模式
+    FleetMode fleet_mode = 29; // 当前的调度模式
+}
+
+message HardwareState {
+    uint32 req_seq = 1;
+
+    // 基本硬件状态
+    uint32 cpu_usage = 3; // cpu使用百分比，单位%
+    uint32 memory_usage = 4; // 内存使用百分比，单位%
+    uint32 disk_usage = 5; // 磁盘使用百分比，单位%
+    uint32 remain_disk_space = 2; // 磁盘剩余空间，单位MB
+
+    // WiFi状态
+    enum WiFiState {
+        WIFI_NA = 0; // 状态不可用
+        WIFI_DISCONNECTED = 2;
+        WIFI_CONNECTED = 3;
+        WIFI_SCANNING = 4;
+    }
+    WiFiState wifi_state = 6; // WiFi状态
+    string wifi_name = 7; // 连接的wifi名称
+    uint32 wifi_strength = 8; // 信号强度，单位%
+
+    // 电池状态
+    enum BatteryState {
+        BATTERY_NA = 0; // 状态不可用
+        BATTERY_CHARGING = 2; // 正在充电
+        BATTERY_NO_CHARGING = 3; // 未充电
+    }
+    BatteryState battery_state = 9; // 电池状态
+    uint32 battery_percentage = 10; // 剩余电量，单位%
+    uint32 battery_voltage = 18; // 电池当前电压，单位mV
+    int32 battery_current = 19; // 电池当前电流，单位mA
+    int32 battery_temperature = 14; // 电池温度，单位℃
+    int32 battery_remain_capacity = 26; // 电池剩余容量（mAh)
+    int32 battery_nominal_capacity = 27; // 电池标称容量（mAh)
+    int32 battery_use_cycles = 28; // 电池循环次数
+    uint32 battery_remain_time = 29;
+
+    enum PowerState {
+        POWER_NA = 0;
+        POWER_NORMAL = 1;
+        POWER_SAVE_MODE = 2;
+    }
+    PowerState power_state = 24;
+
+    enum BreakSwitchState {
+        BREAK_SW_NA = 0;
+        BREAK_SW_OFF = 1;
+        BREAK_SW_ON = 2;
+    }
+    BreakSwitchState break_sw_state = 25;
+
+    // 雷达状态
+    enum LaserState {
+        LASER_NA = 0; // 状态不可用
+        LASER_INITING = 1; // 雷达正在初始化中
+        LASER_OK = 2; // 雷达正常
+        LASER_ERROR = 3; // 雷达出错
+    }
+    LaserState laser_state = 11;
+
+    // 其他传感器状态
+
+    int32 cpu_temperature = 12; // cpu当前的温度，单位℃
+    int32 box_temperature = 13; // 机体内部温度，单位℃
+
+    uint64 general_io_input = 16; // 输入端点
+    uint64 general_io_output = 17; // 输出端点.
+
+    SRCHardwareState src_hardware_state = 20;
+
+    repeated Device devices = 21; // 通用的设备列表
+
+    enum HState {
+        H_STATE_ZERO = 0;
+        H_STATE_INITIALING = 1;
+        H_STATE_OK = 2;
+        H_STATE_ERROR = 3;
+    }
+    HState hardware_state = 22;
+    uint32 hardware_error_code = 23;
+}
+
+message SRCHardwareState {
+    uint32 m1_status_code = 1; //电机状态
+    uint32 m2_status_code = 2;
+    uint32 m3_status_code = 3;
+    uint32 m4_status_code = 4;
+    uint32 total_power_cycle = 5; // 上电次数
+    uint32 total_poweron_time = 6; // 总开机时间，单位s
+    uint32 total_mileage = 7; // 总运动里程，单位m
+
+    uint32 src_state = 9; // SRC状态，具体定义参考 src_protocol.h
+    uint32 src_state_error_reason = 10; // SRC出错原因，具体定义参考 src_protocol.h
+}
+
+message Device {
+    string name = 1; // 名称
+
+    // 注意，需要与`fms/device/device.h`中的定义一致
+    enum DeviceState {
+        DEVICE_NONE = 0x00;
+
+        // 0x01 ~ 0x1F
+        DEVICE_OK = 0x01;
+
+        // 0x20 ~ 0x2F
+        DEVICE_OFF = 0x40;
+
+        // 0x30 ~ 0x7F
+        // RESERVED
+
+        // 0x80 ~ 0xFF
+        DEVICE_ERROR = 0x80;
+        DEVICE_ERROR_OPEN_FAILED = 0x81;
+        DEVICE_ERROR_TIMEOUT = 0x82;
+    }
+    DeviceState state = 2; // 状态
+
+    uint32 error_code = 3;
+
+    string serial_no = 4; // 序列号
+    string model_no = 5; // 型号
+    string version_no = 6; // 版本号
+    uint32 id = 7;
+    string interface_name = 8;
+    string info = 9;
+}
+
+message LaserPoints {
+    uint32 req_seq = 1;
+
+    repeated int32 xs = 2 [packed = true];
+    repeated int32 ys = 3 [packed = true];
+}
+message AddressInfo {
+    uint32 req_seq = 1;
+    string ip_address = 2;
+    string mac_address = 3;
+    string nick_name = 4;
+}
+
+message ConnectInfo {
+    repeated SessionInfo protobuf = 1;
+    repeated SessionInfo modbus = 2;
+}
+
+message SessionInfo {
+    uint64 session_id = 1;
+    string username = 2;
+    string ip_addr = 3;
+    int32 ip_port = 4;
+}
