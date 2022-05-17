@@ -1,6 +1,7 @@
 package com.keqi.protobuf.protocol;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.util.JsonFormat;
 
 import java.util.Arrays;
 
@@ -19,7 +20,7 @@ public class Main {
         PersonModel.Person.Builder builder = PersonModel.Person.newBuilder();
         builder.setId(1);
         builder.setName("jihite");
-        builder.setEmail("jihite@jihite.com");
+        //builder.setEmail("jihite@jihite.com");
 
         PersonModel.Person person = builder.build();
         System.out.println("before:" + person);
@@ -59,5 +60,8 @@ public class Main {
 
         Configuration.Configurations configurations = builder2.addConfig(config).build();
         System.out.println(Arrays.toString(configurations.toByteArray()));
+
+        String json = JsonFormat.printer().print(p2);
+        System.out.println(json);
     }
 }
