@@ -246,7 +246,7 @@ public abstract class AbstractModbusMasterTCP {
     }
 
     protected void handleException(Throwable e) {
-        log.error(errorMsg, e);
+        log.error("occur modbusIOException : {}, exception message : {}", errorMsg, e.getMessage());
         throw new ModbusTCPException(errorMsg, e);
     }
 }
