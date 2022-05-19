@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto;
+
+option java_package = "com.sr.config";
+
+option java_outer_classname = "Configuration";
+
+
+message Configurations {
+    repeated Config config = 1;
+}
+message Config {
+    string key = 1;
+    string value = 2;
+    string name = 3;
+    string value_unit = 4;
+    string value_type = 5;
+    string default_value = 6;
+    string value_range = 7;
+    string description = 8;
+    uint32 permission = 9;
+}

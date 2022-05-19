@@ -3,14 +3,13 @@ package com.keqi.jlibmodbus.init;
 import com.keqi.jlibmodbus.modbustcp.Zlan6844Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-@Component
+//@Component
 public class DemoCommandLineRunner3 implements CommandLineRunner {
 
     @Override
