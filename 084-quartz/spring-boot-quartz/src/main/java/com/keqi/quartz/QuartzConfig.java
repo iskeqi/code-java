@@ -30,7 +30,7 @@ public class QuartzConfig {
                 // 绑定工作任务
                 .forJob(jobDetail())
                 // 每隔 5 秒执行一次 job
-                .withSchedule(CronScheduleBuilder.)
+                .withSchedule(SimpleScheduleBuilder.repeatSecondlyForever(5))
                 .build();
     }
 }
