@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/flyway?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&rewriteBatchedStatements=true&useSSL=false&serverTimezone=GMT%2B8
+    # JDBC URL 中的 createDatabaseIfNotExist 属性会判断 DB 是否存在，不存在则创建
+    url: jdbc:mysql://127.0.0.1:3306/flyway?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&rewriteBatchedStatements=true&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
   flyway:
@@ -14,5 +15,5 @@ spring:
     baseline-version: 0
     # 迁移脚本的位置
     locations: classpath:/flyway/
-    init-sqls:
-      - create database if not exists `flyway` default charset utf8mb4 collate utf8mb4_0900_ai_ci;
+#    init-sqls:
+#      - create database if not exists `flyway` default charset utf8mb4 collate utf8mb4_0900_ai_ci;
