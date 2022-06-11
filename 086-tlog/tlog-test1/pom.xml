@@ -22,11 +22,11 @@
             <artifactId>tlog-web-spring-boot-starter</artifactId>
             <version>1.4.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.dtflys.forest</groupId>
-            <artifactId>forest-spring-boot-starter</artifactId>
-            <version>1.5.13</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.dtflys.forest</groupId>-->
+<!--            <artifactId>forest-spring-boot-starter</artifactId>-->
+<!--            <version>1.5.13</version>-->
+<!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>com.yomahub</groupId>-->
 <!--            <artifactId>tlog-all-spring-boot-starter</artifactId>-->
