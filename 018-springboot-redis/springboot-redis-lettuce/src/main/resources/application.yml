@@ -1,6 +1,7 @@
 spring:
   redis:
-    url: redis://user:123456@47.102.124.165:6379
+#    url: redis://user:123456@47.102.124.165:6379 # Redis 设置了密码的示例
+    url: redis://user:@127.0.0.1:6379 # Redis 未设置密码的示例
     lettuce: # 如果不加上这个配置，就相当于没有给Redis指定连接池
       pool:
         max-active: 8

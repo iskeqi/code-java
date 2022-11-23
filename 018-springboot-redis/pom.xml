@@ -12,6 +12,7 @@
     <modules>
         <module>springboot-redis-pubsub</module>
         <module>springboot-redis-lettuce</module>
+        <module>springboot-redis-redisson</module>
         <module>springboot-redis-sorted-sets</module>
     </modules>
 

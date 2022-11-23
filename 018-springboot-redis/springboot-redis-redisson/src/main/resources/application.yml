@@ -1,0 +1,28 @@
+spring:
+  redis:
+    url: redis://user:@127.0.0.1:6379
+    redisson:
+      config:
+        threads: 16
+        nettyThreads: 32
+        # 配置 key value 的全局编解码对象
+        codec: org.redisson.client.codec.StringCodec
+        transportMode: "NIO"
+
+    # 默认配置足够了，如果需要手动改可再自行配置
+#    redisson:
+#      config:
+#        # 配置 redission 线程池
+#        threads: 16
+#        nettyThreads: 32
+#    database:
+#    host:
+#    port:
+#    password:
+#    ssl:
+#    timeout:
+#    cluster:
+#      nodes:
+#    sentinel:
+#      master:
+#      nodes:

@@ -16,7 +16,8 @@ class SpringbootRedisLettuceApplicationTests {
 
     @Test
     void expire() {
-        redisClient.expire("runoobkey", -1, TimeUnit.DAYS);
+        //redisClient.expire("runoobkey", 1, TimeUnit.DAYS);
+        redisClient.del("RDS");
     }
 
     @Test
