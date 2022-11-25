@@ -2,6 +2,8 @@ spring:
   redis:
     url: redis://user:@127.0.0.1:6379
     redisson:
+      # 重点关注 org.redisson.config.Config 类,结合官方文档，即可明确相关配置项的含义
+      # https://github.com/redisson/redisson/wiki/Table-of-Content
       config:
         threads: 16
         nettyThreads: 32
