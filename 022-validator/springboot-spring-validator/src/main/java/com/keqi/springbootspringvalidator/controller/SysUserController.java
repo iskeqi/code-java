@@ -85,13 +85,14 @@ public class SysUserController {
     }
 
     /**
-     * 请求体为JSON时提交参数（这种校验方式能够生效）（这个接口同时也演示了有嵌套子对象时，应该如何进行校验）(这种场景不得不使用@Valid注解)
+     * 请求体为JSON时提交参数（这种校验方式能够生效）（这个接口同时也演示了有嵌套子对象时，应该如何进行校验）(
+     * 这种场景必须在嵌套属性上使用@Valid注解)
      *
      * @param sysUserCreateBatchRequestParam sysUserCreateBatchRequestParam
      * @return r
      */
     @PostMapping("/sysUserCreateJSONList2")
-    public AjaxEntity sysUserCreateJSONList2(@Valid @RequestBody SysUserCreateBatchRequestParam sysUserCreateBatchRequestParam) {
+    public AjaxEntity sysUserCreateJSONList2(@Validated @RequestBody SysUserCreateBatchRequestParam sysUserCreateBatchRequestParam) {
         System.out.println("======================");
         return AjaxEntityBuilder.success(sysUserCreateBatchRequestParam);
     }
@@ -147,4 +148,12 @@ public class SysUserController {
 
         return AjaxEntityBuilder.success();
     }
+
+    /*
+        常用场景：
+
+        １、@RequestBody 修饰的实体类，需要校验时，在方法中使用 @Validated 注解接口
+        ２、对于嵌套校验的实体类，需要在嵌套字段上使用　@Valid
+        ３、GET方法内的单个参数校验时，需要把@Validated放在类上
+     */
 }
