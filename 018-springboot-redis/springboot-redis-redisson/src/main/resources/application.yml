@@ -1,6 +1,6 @@
-spring:
-  redis:
-    url: redis://user:@127.0.0.1:6379
+#spring:
+#  redis:
+#    url: redis://user:@127.0.0.1:6379
 #    redisson:
       # 重点关注 org.redisson.config.Config 类,结合官方文档，即可明确相关配置项的含义
       # https://github.com/redisson/redisson/wiki/Table-of-Content
@@ -27,3 +27,33 @@ spring:
 #    sentinel:
 #      master:
 #      nodes:
+
+# 2023.2.26 最新使用案例
+spring:
+  redis:
+    redisson:
+      file: classpath:redisson.yaml
+#spring:
+#  redis:
+#    redisson:
+#      config: |
+#        singleServerConfig:
+#          idleConnectionTimeout: 10000
+#          connectTimeout: 10000
+#          timeout: 3000
+#          retryAttempts: 3
+#          retryInterval: 1500
+#          password: null
+#          subscriptionsPerConnection: 5
+#          clientName: null
+#          address: "redis://127.0.0.1:6379"
+#          subscriptionConnectionMinimumIdleSize: 1
+#          subscriptionConnectionPoolSize: 50
+#          connectionMinimumIdleSize: 24
+#          connectionPoolSize: 64
+#          database: 0
+#          dnsMonitoringInterval: 5000
+#        threads: 16
+#        nettyThreads: 32
+#        codec: !<org.redisson.client.codec.StringCodec> {}
+#        transportMode: "NIO"
